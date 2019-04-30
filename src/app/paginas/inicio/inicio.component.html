@@ -1,0 +1,21 @@
+<table *ngIf="profesor">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Identificador</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th> {{profesor.Nombre}} </th>
+      <td> {{profesor.Apellido}} </td>
+      <td> {{profesor.id}} </td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)= "Prueba()">prueba</button>
+
+<button (click)= "goBack()">volver</button>
+
