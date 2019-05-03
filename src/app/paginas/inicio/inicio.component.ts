@@ -14,19 +14,16 @@ import {ProfesorService} from '../../servicios/index';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  profesor: any;
+  profesor: any = [];
 
 
   constructor(private servicioProfesor: ProfesorService,
               private location: Location) { }
 
   ngOnInit() {
-    this.servicioProfesor.profesorActual
-    .subscribe( (res) => this.profesor = res[0]);
-  }
 
-  Prueba() {
-    console.log(this.profesor);
+    // LE PIDO AL SERVICIO QUE ME DE LOS DATOS DEL PROFESOR QUE ME HAN ENVIADO
+    this.profesor = this.servicioProfesor.DameProfesor();
   }
 
   goBack() {

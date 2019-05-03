@@ -3,7 +3,7 @@ import {Observable, Subject , of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // Clases
-import { Profesor } from '../clases/index';
+import { Profesor, Grupo, Alumno, Matricula } from '../clases/index';
 import { TouchSequence } from 'selenium-webdriver';
 
 @Injectable({
@@ -13,19 +13,46 @@ export class ProfesorService {
 
   private APIUrl = 'http://localhost:3000/api/Profesores';
   public profesor: Profesor;
-  profesorActual = new Subject();
+  profesorActual: any = [];
 
   constructor( private http: HttpClient ) { }
 
+
+  // FUNCIÓN TEMPORAL DE AUTENTIFICAR (PARA SIMPLIFICAR AHORA)
   Autentificar(nombre: string, apellido: string): Observable<Profesor> {
     console.log('Entro a mostrar a ' + nombre + ' ' + apellido);
     return this.http.get<Profesor>(this.APIUrl + '?filter[where][Nombre]=' + nombre + '&filter[where][Apellido]=' + apellido);
   }
 
-  PasarProfesor(profesor: Profesor) {
-    this.profesorActual.next(profesor);
+    // PERMITE CREAR UN GRUPO AL PROFESOR. DEVOLVEMOS UN OBSERVABLE GRUPO PARA SABER EL IDENTIFICADOR DEL GRUPO QUE ACABAMOS
+  // DE CREAR POR SI DECIDIMOS TIRAR UN PASO HACIA ATRÁS EN EL MOMENTO DE CREAR Y MODIFICAR EL NOMBRE O LA DESCRIPCIÓN
+  CrearGrupo(grupo: Grupo, profesorId: string): Observable<Grupo> {
+    return this.http.post<Grupo>(this.APIUrl + '/' + profesorId + '/grupos', grupo);
   }
 
+  // CUANDO EDITAMOS UN GRUPO LE PASAMOS EL NUEVO MODELO DEL GRUPO, EL IDENTIFICADOR DEL PROFESOR Y EL GRUPO EN CONCRETO
+  // QUE QUEREMOS EDITAR
+  EditarGrupo(grupo: Grupo, profesorId: string, grupoId: number): Observable<Grupo> {
+    return this.http.put<Grupo>(this.APIUrl + '/' + profesorId + '/grupos/' + grupoId, grupo);
+  }
+
+  // ASIGNAR ALUMNOS A UN PROFESOR
+  AgregarAlumnosProfesor(alumno: Alumno, profesorId: string): Observable<Alumno> {
+    return this.http.post<Alumno>(this.APIUrl + '/' + profesorId + '/alumnos', alumno);
+  }
+
+
+  // Enviar y recibir profesores entre componentes
+
+  // ESTA ES LA FUNCION QUE HAY QUE LLAMAR PARA ENVIAR AL PROFESOR QUE HA INICIADO SESIÓN
+  TomaProfesor(profesor: any) {
+    this.profesorActual = profesor;
+  }
+
+  // ESTA ES LA QUE HAY QUE LLAMAR PARA RECOGER EL PROFESOR EN OTRO COMPONENTE
+  DameProfesor(): any {
+    return this.profesorActual;
+  }
 }
 
 

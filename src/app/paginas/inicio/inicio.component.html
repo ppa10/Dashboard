@@ -1,21 +1,34 @@
-<table *ngIf="profesor">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Identificador</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th> {{profesor.Nombre}} </th>
-      <td> {{profesor.Apellido}} </td>
-      <td> {{profesor.id}} </td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="profesor">
+  <h2>
+    Sesión iniciada por profesor: {{profesor.Nombre}} {{profesor.Apellido}}
+  </h2>
+</div>
 
-<button (click)= "Prueba()">prueba</button>
+<form>
+
+    <button mat-button [matMenuTriggerFor]="Inicio">Inicio</button>
+    <mat-menu #Inicio="matMenu">
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="Grupos">Grupos</button>
+  <mat-menu #Grupos="matMenu">
+    <button mat-menu-item>Mis Grupos</button>
+    <button mat-menu-item routerLink= "crearGrupo" >Crear Grupo</button>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="Cuestionarios">Cuestionarios</button>
+  <mat-menu #Cuestionarios="matMenu">
+    <button mat-menu-item > Mis Cuestionarios</button>
+    <button mat-menu-item>Crear Cuestionario</button>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="PuntosInsignias">Puntos e Insígnias</button>
+  <mat-menu #PuntosInsignias="matMenu">
+    <button mat-menu-item>Mis Puntos e Insígnias</button>
+    <button mat-menu-item>Crear Puntos e Insígnias</button>
+  </mat-menu>
+
+</form>
 
 <button (click)= "goBack()">volver</button>
 

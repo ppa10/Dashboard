@@ -1,0 +1,77 @@
+<h3>Crear Grupo</h3>
+
+<form [formGroup]="formGroup">
+  <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray" [linear]="true">
+    <!-- PRIMER PASO -->
+    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+      <ng-template matStepLabel>Nombre y descripción</ng-template>
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombreGrupo" required>
+        <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Descripción</mat-label>
+            <input matInput formControlName="descripcionGrupo" required>
+          <mat-error>Este campo es obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button *ngIf="equipoYaCreado === false" mat-button matStepperNext (click)= CrearGrupo()>Siguiente</button>
+        <button *ngIf="equipoYaCreado === true" mat-button matStepperNext (click)= EditarGrupo() >Siguiente</button>
+      </div>
+    </mat-step>
+
+    <!-- SEGUNDO PASO -->
+    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" optional>
+      <ng-template matStepLabel>
+        <div>Añadir alumnos</div>
+      </ng-template>
+      <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombreAlumno" required>
+          <mat-error>Este campo es obligatorio</mat-error>
+      </mat-form-field>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Primer Apellido</mat-label>
+            <input matInput formControlName="primerApellido" required>
+          <mat-error>Este campo es obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Segundo Apellido</mat-label>
+            <input matInput formControlName="segundoApellido" required>
+          <mat-error>Este campo es obligatorio</mat-error>
+        </mat-form-field>
+      </div>
+        <div>
+          <button (click) = "AgregarAlumno()">Añadir alumno</button>
+        </div>
+
+      <div>
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Finalizar</ng-template>
+      Grupo creado correctamente
+      <div>
+        <button mat-button>Finalizar</button>
+        <button type="button" mat-button (click)="linearHorizontalStepper.reset()">Reiniciar</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</form>
+
+
+<button (click)= "prueba()">prueba</button>
+<button (click)= "goBack()">volver</button>
