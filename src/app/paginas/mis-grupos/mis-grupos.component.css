@@ -4,4 +4,6 @@ table {
 
 .mat-row:hover {
   background-color: rgb(204, 197, 197);
+  cursor: pointer;
 }
+
