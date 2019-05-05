@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
@@ -8,6 +8,7 @@ import {AlumnoService, ProfesorService, MatriculaService} from '../../servicios/
 
 // Clases
 import { Grupo, Alumno, Matricula } from '../../clases/index';
+import { isNullOrUndefined, isUndefined } from 'util';
 
 @Component({
   selector: 'app-crear-grupo',
@@ -77,6 +78,7 @@ export class CrearGrupoComponent implements OnInit {
 
   }
 
+  // CREAMOS UN GRUPO DANDOLE UN NOMBRE Y UNA DESCRIPCIÓN
   CrearGrupo() {
 
     let nombreGrupo: string;
@@ -99,8 +101,7 @@ export class CrearGrupoComponent implements OnInit {
     });
   }
 
-
-
+  // NOS PERMITE MODIFICAR EL NOMBRE Y LA DESCRIPCIÓN DEL GRUPO QUE ESTAMOS CREANDO
   EditarGrupo() {
 
     console.log('entro a editar');
@@ -121,6 +122,22 @@ export class CrearGrupoComponent implements OnInit {
     });
   }
 
+  // MATRICULA A UN ALUMNO CONCRETO EN UN GRUPO CONCRETO MEDIANTE SUS IDENTIFICADORES
+  MatricularAlumno() {
+
+    console.log('voy a entrar a matricular al alumno con id y grupo ' + this.alumno.id + ' ' + this.grupo.id);
+    this.matriculaService.CrearMatricula(new Matricula (this.alumno.id, this.grupo.id))
+    .subscribe((resMatricula) => {
+      if (resMatricula != null) {
+        console.log('Matricula: ' + resMatricula);
+      } else {
+        console.log('fallo en la matriculación');
+      }
+    });
+  }
+
+  // PARA AGREGAR UN ALUMNO NUEVO A LA BASE DE DATOS DEBEMOS HACERLO DESDE LAS VENTANAS DE CREAR GRUPO O EDITAR GRUPO.
+  // CREARÁ AL ALUMNO Y LO MATRICULARÁ EN EL GRUPO QUE ESTAMOS CREANDO/EDITANDO
   AgregarAlumno() {
 
     let nombreAlumno: string;
@@ -144,26 +161,34 @@ export class CrearGrupoComponent implements OnInit {
       });
   }
 
-  MatricularAlumno() {
 
-    console.log('voy a entrar a matricular al alumno con id y grupo ' + this.alumno.id + this.grupo.id);
-    this.matriculaService.CrearMatricula(new Matricula (this.alumno.id, this.grupo.id))
-    .subscribe((res) => {
-      if (res != null) {
-        console.log('Matricula: ' + res);
-      } else {
-        console.log('fallo en la matriculación');
-      }
-    });
+  // A LA HORA DE AÑADIR UN ALUMNO AL GRUPO, PRIMERO COMPRUEBA SI ESE ALUMNO YA ESTA REGISTRADO EN LA BASE DE DATOS.
+  // EN CASO DE ESTAR REGISTRADO, SOLO HACE LA MATRICULA. SINO, LO AGREGA Y HACE LA MATRICULA
+  BuscarAlumno() {
+    console.log('voy a entrar a buscar alumno');
+
+    let nombreAlumno: string;
+    let primerApellido: string;
+    let segundoApellido: string;
+
+    nombreAlumno = this.formArray.value[1].nombreAlumno;
+    primerApellido = this.formArray.value[1].primerApellido;
+    segundoApellido = this.formArray.value[1].segundoApellido;
+
+    this.profesorService.BuscadorAlumno(
+      new Alumno (nombreAlumno, primerApellido, segundoApellido), this.identificadorProfesor)
+      .subscribe((respuesta) => {
+        if (respuesta[0] !== undefined) {
+        console.log('El alumno existe. Solo voy a matricularlo en este grupo');
+        this.alumno = respuesta[0];
+        console.log(this.alumno);
+        this.MatricularAlumno();
+        } else {
+        console.log('El alumno no existe. Voy a agregarlo y matricularlo');
+        this.AgregarAlumno();
+        }
+      });
   }
-
-
-
-  prueba() {
-    console.log(this.formArray.value[0].nombreGrupo);
-
-  }
-
 
   goBack() {
     this.location.back();

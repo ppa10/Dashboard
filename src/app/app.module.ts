@@ -13,6 +13,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatListModule } from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
 
 
 // IMPORTs COMPONENTES
@@ -21,9 +25,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './paginas/login/login.component';
 import { InicioComponent } from './paginas/inicio/inicio.component';
 import { CrearGrupoComponent } from './paginas/crear-grupo/crear-grupo.component';
+import { MisGruposComponent } from './paginas/mis-grupos/mis-grupos.component';
+import { GrupoComponent } from './paginas/grupo/grupo.component';
+
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
+
+
 
 
 @NgModule({
@@ -31,7 +40,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginComponent,
     InicioComponent,
-    CrearGrupoComponent
+    CrearGrupoComponent,
+    MisGruposComponent,
+    GrupoComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +60,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatTabsModule,
     MatExpansionModule,
+    MatTooltipModule,
+    MatTableModule,
+    MatListModule,
+    MatIconModule,
 
     HttpClientModule
 

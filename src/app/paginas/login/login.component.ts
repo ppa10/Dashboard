@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     this.servicioProfesor.Autentificar(this.nombre, this.apellido).subscribe(
       (res) => {
-        if (res != null) { // Utilizamos res porque la operacion es sincrona. Me suscribo y veo si tiene algo.
+        if (res[0] !== undefined) { // Utilizamos res porque la operacion es sincrona. Me suscribo y veo si tiene algo.
           console.log('profe existe');
           this.profesor = res[0]; // Si es diferente de null, el profesor existe y lo meto dentro de profesor
 
@@ -44,6 +44,5 @@ export class LoginComponent implements OnInit {
         }
       }
     );
-
   }
 }

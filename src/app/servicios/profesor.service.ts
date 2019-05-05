@@ -36,11 +36,20 @@ export class ProfesorService {
     return this.http.put<Grupo>(this.APIUrl + '/' + profesorId + '/grupos/' + grupoId, grupo);
   }
 
+  BuscadorAlumno(alumno: Alumno, profesorId: string): Observable<Alumno> {
+    console.log('Entro a buscar a ' + alumno.Nombre + ' ' + alumno.PrimerApellido);
+    return this.http.get<Alumno>(this.APIUrl + '/' + profesorId + '/alumnos?filter[where][Nombre]=' + alumno.Nombre +
+    '&filter[where][PrimerApellido]=' + alumno.PrimerApellido + '&filter[where][SegundoApellido]=' + alumno.SegundoApellido);
+  }
+
   // ASIGNAR ALUMNOS A UN PROFESOR
   AgregarAlumnosProfesor(alumno: Alumno, profesorId: string): Observable<Alumno> {
     return this.http.post<Alumno>(this.APIUrl + '/' + profesorId + '/alumnos', alumno);
   }
 
+  GruposDelProfesor(profesorId: string): Observable<Grupo[]> {
+    return this.http.get<Grupo[]>(this.APIUrl + '/' + profesorId + '/grupos');
+  }
 
   // Enviar y recibir profesores entre componentes
 
@@ -53,6 +62,6 @@ export class ProfesorService {
   DameProfesor(): any {
     return this.profesorActual;
   }
+
+
 }
-
-

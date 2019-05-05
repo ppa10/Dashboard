@@ -52,7 +52,7 @@
         </mat-form-field>
       </div>
         <div>
-          <button (click) = "AgregarAlumno()">Añadir alumno</button>
+          <button mat-button color="warn" (click) = "BuscarAlumno()">Añadir alumno</button>
         </div>
 
       <div>
@@ -65,13 +65,14 @@
       <ng-template matStepLabel>Finalizar</ng-template>
       Grupo creado correctamente
       <div>
-        <button mat-button>Finalizar</button>
-        <button type="button" mat-button (click)="linearHorizontalStepper.reset()">Reiniciar</button>
+        <button mat-button matStepperPrevious>Atrás</button>
+        <button mat-button routerLink= "inicio" routerLinkActive="active">Finalizar</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
+  <div>
+      <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
+  </div>
 </form>
 
 
-<button (click)= "prueba()">prueba</button>
-<button (click)= "goBack()">volver</button>

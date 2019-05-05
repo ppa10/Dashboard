@@ -19,4 +19,8 @@ export class GrupoService {
     return this.http.get<Alumno[]>(this.APIUrl + '/' + grupoId + '/alumnos');
   }
 
+  // NumeroAlumnosGrupo(grupoId: string): Observable<number> {
+  //   return this.http.get<number>(this.APIUrl + '/' + grupoId + '/alumnos/count');
+  // }
+
 }
