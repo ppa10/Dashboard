@@ -30,7 +30,7 @@ export class GrupoComponent implements OnInit {
     // LE PIDO AL SERVICIO QUE ME DE LOS DATOS DEL PROFESOR QUE ME HAN ENVIADO
     this.grupoSeleccionado = this.grupoService.DameGrupo();
     this.profesorId = this.profesorService.DameProfesorId();
-    console.log(this.profesorId);
+    console.log('entro en editar');
 
     // PEDIMOS LA LISTA DE ALUMNOS CUANDO INICIAMOS EL COMPONENTE
     this.AlumnosDelGrupo();

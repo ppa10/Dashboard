@@ -20,7 +20,7 @@ import {MatDialog} from '@angular/material';
 })
 export class CrearGrupoComponent implements OnInit {
 
-  profesorId: string;
+  profesorId: number;
 
   formGroup: FormGroup;
 
@@ -50,7 +50,7 @@ export class CrearGrupoComponent implements OnInit {
   ngOnInit() {
 
     // RECUPERAMOS EL ID DEL PROFESOR DE LA URL
-    this.profesorId = this.route.snapshot.paramMap.get('id');
+    this.profesorId = Number (this.route.snapshot.paramMap.get('id'));
 
     // tslint:disable-next-line:no-string-literal
     this.URLVueltaInicio = this.route.snapshot.queryParams['URLVueltaInicio'] || '/inicio';

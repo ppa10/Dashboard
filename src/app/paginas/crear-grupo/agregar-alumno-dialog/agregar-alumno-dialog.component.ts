@@ -18,7 +18,6 @@ export class AgregarAlumnoDialogComponent implements OnInit {
   // tslint:disable-next-line:no-inferrable-types
   prueba: string = 'Alumnos añadidos correctamente'; // Se utilizará para saber que se ha creado correctamente
 
-
   alumno: Alumno;
 
   grupoId: number;
@@ -47,6 +46,8 @@ export class AgregarAlumnoDialogComponent implements OnInit {
       segundoApellido: ['', Validators.required],
     });
   }
+
+
 
    // MATRICULA A UN ALUMNO CONCRETO EN UN GRUPO CONCRETO MEDIANTE SUS IDENTIFICADORES
    MatricularAlumno() {
