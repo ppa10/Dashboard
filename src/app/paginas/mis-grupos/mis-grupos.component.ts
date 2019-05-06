@@ -19,19 +19,18 @@ import { Grupo } from '../../clases/index';
 })
 
 export class MisGruposComponent implements OnInit {
+
+  // PONEMOS LAS COLUMNAS DE LA TABLA Y LA LISTA QUE TENDRÁ LA INFORMACIÓN QUE QUEREMOS MOSTRAR
   displayedColumns: string[] = ['nombre', 'descripcion'];
-  dataSource: Grupo [];
-
-  // dataSource: Grupo[];
-  returnUrl: string;
-
-  identificadorProfesor: string;
   listaGrupos: Grupo[];
 
+  // LO USAREMOS PARA EL ROUTE AL SIGUIENTE COMPONENTE
+  returnUrl: string;
+
+  // IDENTIFICADOR ÚNICO DEL PROFESOR QUE LO RECUPERAREMOS DE LA URL
+  identificadorProfesor: number;
 
 
-  // displayedColumns: string[] = ['nombre', 'descripcion'];
-  // dataSource = this.listaGrupos;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -45,42 +44,39 @@ export class MisGruposComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/grupo';
 
     // RECUPERAMOS EL ID DEL PROFESOR DE LA URL
-    this.identificadorProfesor = this.route.snapshot.paramMap.get('id');
+    this.identificadorProfesor = Number (this.route.snapshot.paramMap.get('id'));
+
+
+    // CUANDO INICIEMOS EL COMPONENTE NOS LISTARÁ LOS GRUPOS DEL PROFESOR QUE RECUPERAMOS EL ID DE LA URL
     this.GruposDelProfesor();
 
   }
 
+  // LE PASAMOS EL IDENTIFICADOR DEL PROFESOR Y NOS DEVUELVE UNA LISTA CON LOS GRUPOS QUE TIENE
   GruposDelProfesor() {
     console.log('Voy a listar los grupos');
     this.profesorService.GruposDelProfesor(this.identificadorProfesor)
     .subscribe(res => {
       console.log('Voy a dar la lista');
       this.listaGrupos = res;
-      this.dataSource = this.listaGrupos;
       console.log(this.listaGrupos);
     });
   }
 
+  // CUANDO CLICKEMOS ENCIMA DE UNA FILA, ENTRAREMOS EN ESTA FUNCIÓN QUE IDENTIFICA SOBRE EL GRUPO QUE HEMOS CLICKADO
+  entrarGrupo(grupo) {
+    console.log('Has seleccionado el grupo ' + grupo.Nombre);
 
-  cellClicked(grupo) {
-    console.log(grupo.id + ' cell clicked');
-  }
+    // AHORA SE LO ENVIO AL SERVICIO
+    this.grupoService.TomaGrupo(grupo);
+    this.profesorService.TomaProfesorId(this.identificadorProfesor);
 
-  prueba() {
-   console.log(this.dataSource);
-  }
-
-  // selectRow(row) {
-  //   console.log(row);
-  // }
-
-
-  goBack() {
-    this.location.back();
-  }
-
-  entrarGrupo(grupo: Grupo) {
+    // HAGO LA RUTA AL COMPONENTE GRUPO
     this.router.navigate([this.returnUrl, grupo.id]);
   }
 
+  // NOS DEVOLVERÁ AL INICIO
+  goBack() {
+    this.location.back();
+  }
 }

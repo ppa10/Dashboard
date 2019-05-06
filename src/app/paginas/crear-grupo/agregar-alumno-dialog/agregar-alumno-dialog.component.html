@@ -37,8 +37,8 @@
 </mat-dialog-content>
 
  <mat-dialog-actions>
-  <button mat-button>Cancelar</button>
+  <button mat-button [mat-dialog-close]>Cancelar</button>
 
-  <button mat-raised-button (click)="Aceptar()" [mat-dialog-close]="prueba" cdkFocusInitial>Aceptar</button>
+  <button mat-raised-button [mat-dialog-close]>Aceptar</button>
  </mat-dialog-actions>
 

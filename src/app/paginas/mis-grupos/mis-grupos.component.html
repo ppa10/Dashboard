@@ -2,47 +2,30 @@
 
 <form>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="listaGrupos" class="example-container mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Position Column -->
+    <!-- Nombre Column -->
     <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let grupo" (click)="cellClicked(grupo)"> {{grupo.Nombre}} </td>
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let grupo" (click)="entrarGrupo(grupo)"> {{grupo.Nombre}} </td>
     </ng-container>
 
-    <!-- Name Column -->
+    <!-- Descripcion Column -->
     <ng-container matColumnDef="descripcion">
       <th mat-header-cell *matHeaderCellDef> Descripcion </th>
-      <td mat-cell *matCellDef="let grupo" (click)="cellClicked(grupo)"> {{grupo.Descripcion}} </td>
+      <td mat-cell *matCellDef="let grupo" (click)="entrarGrupo(grupo)"> {{grupo.Descripcion}} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
 
-  <!-- <mat-nav-list *ngIf="listaGrupos">
-    <h3 mat-subheader>Grupos</h3>
-    <mat-list-item *ngFor="let grupo of listaGrupos" (click) = "entrarGrupo(grupo)">
-      <mat-icon mat-list-icon>folder</mat-icon>
-      <h4 mat-line>{{grupo.Nombre}}</h4>
-      <p mat-line>{{grupo.Descripcion}}</p>
-    </mat-list-item>
-  </mat-nav-list> -->
-
-
-
-
-
   <div>
     <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
-    <button (click) = "prueba()">prueba</button>
   </div>
+
 </form>
-
-
-<!-- <button>prueba</button> -->
-

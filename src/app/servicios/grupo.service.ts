@@ -10,7 +10,8 @@ export class GrupoService {
 
   private APIUrl = 'http://localhost:3000/api/Grupos';
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
-  // public grupo: Grupo;
+
+  grupoSeleccionado: any = [];
 
   constructor( private http: HttpClient ) { }
 
@@ -27,12 +28,27 @@ export class GrupoService {
     return this.http.put<Grupo>(this.APIUrlProfesor + '/' + profesorId + '/grupos/' + grupoId, grupo);
   }
 
-  MostrarAlumnosGrupo(grupoId: string): Observable<Alumno[]> {
+  MostrarAlumnosGrupo(grupoId: number): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(this.APIUrl + '/' + grupoId + '/alumnos');
+  }
+
+  EliminarGrupo(profesorId: number, grupoId: number): Observable<any> {
+    return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/grupos/' + grupoId);
   }
 
   // NumeroAlumnosGrupo(grupoId: string): Observable<number> {
   //   return this.http.get<number>(this.APIUrl + '/' + grupoId + '/alumnos/count');
   // }
+  // Enviar y recibir profesores entre componentes
+
+  // ESTA ES LA FUNCION QUE HAY QUE LLAMAR PARA ENVIAR AL PROFESOR QUE HA INICIADO SESIÓN
+  TomaGrupo(grupo: any) {
+    this.grupoSeleccionado = grupo;
+  }
+
+  // ESTA ES LA QUE HAY QUE LLAMAR PARA RECOGER EL PROFESOR EN OTRO COMPONENTE
+  DameGrupo(): any {
+    return this.grupoSeleccionado;
+  }
 
 }

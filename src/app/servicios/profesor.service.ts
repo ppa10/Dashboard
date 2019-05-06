@@ -14,6 +14,7 @@ export class ProfesorService {
   private APIUrl = 'http://localhost:3000/api/Profesores';
   public profesor: Profesor;
   profesorActual: any = [];
+  profesorId: number;
 
   constructor( private http: HttpClient ) { }
 
@@ -37,7 +38,7 @@ export class ProfesorService {
     return this.http.post<Alumno>(this.APIUrl + '/' + profesorId + '/alumnos', alumno);
   }
 
-  GruposDelProfesor(profesorId: string): Observable<Grupo[]> {
+  GruposDelProfesor(profesorId: number): Observable<Grupo[]> {
     return this.http.get<Grupo[]>(this.APIUrl + '/' + profesorId + '/grupos');
   }
 
@@ -52,6 +53,14 @@ export class ProfesorService {
   // ESTA ES LA QUE HAY QUE LLAMAR PARA RECOGER EL PROFESOR EN OTRO COMPONENTE
   DameProfesor(): any {
     return this.profesorActual;
+  }
+
+  TomaProfesorId( profesorId: number) {
+    this.profesorId = profesorId;
+  }
+
+  DameProfesorId(): number {
+    return this.profesorId;
   }
 
 

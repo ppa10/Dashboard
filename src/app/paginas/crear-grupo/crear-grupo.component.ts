@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AgregarAlumnoDialogComponent } from './agregar-alumno-dialog/agregar-alumno-dialog.component';
 
 // Servicios
-import {GrupoService, ProfesorService } from '../../servicios/index';
+import {GrupoService } from '../../servicios/index';
 
 // Clases
 import { Grupo } from '../../clases/index';
@@ -29,6 +29,8 @@ export class CrearGrupoComponent implements OnInit {
 
   grupo: Grupo;
 
+  URLVueltaInicio: string;
+
   // AL PRINCIPIO EL EQUIPO NO ESTA CREADO
   // tslint:disable-next-line:ban-types
   equipoYaCreado: Boolean = false;
@@ -37,7 +39,7 @@ export class CrearGrupoComponent implements OnInit {
     get formArray(): AbstractControl | null { return this.formGroup.get('formArray'); }
 
   constructor(private route: ActivatedRoute,
-              private profesorService: ProfesorService,
+              private router: Router,
               private grupoService: GrupoService,
               private location: Location,
               public dialog: MatDialog,
@@ -45,13 +47,13 @@ export class CrearGrupoComponent implements OnInit {
               private _formBuilder: FormBuilder) { }
 
 
-
-
-
   ngOnInit() {
 
     // RECUPERAMOS EL ID DEL PROFESOR DE LA URL
     this.profesorId = this.route.snapshot.paramMap.get('id');
+
+    // tslint:disable-next-line:no-string-literal
+    this.URLVueltaInicio = this.route.snapshot.queryParams['URLVueltaInicio'] || '/inicio';
 
     this.formGroup = this._formBuilder.group({
       formArray: this._formBuilder.array([
@@ -130,10 +132,11 @@ export class CrearGrupoComponent implements OnInit {
         profesorId: this.profesorId
       }
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialogo cerrado. ' + result);
-    });
+  VueltaInicio() {
+    this.router.navigate([this.URLVueltaInicio, this.profesorId]);
+    console.log(this.URLVueltaInicio);
   }
 
   goBack() {

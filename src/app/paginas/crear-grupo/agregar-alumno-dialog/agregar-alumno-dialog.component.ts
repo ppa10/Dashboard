@@ -56,10 +56,15 @@ export class AgregarAlumnoDialogComponent implements OnInit {
     .subscribe((resMatricula) => {
       if (resMatricula != null) {
         console.log('Matricula: ' + resMatricula);
+
+        // Una vez matriculado el alumno, limpiamos el form para poder añadir un alumno nuevo
+        this.myForm.reset();
+
       } else {
         console.log('fallo en la matriculación');
       }
     });
+
   }
 
   // PARA AGREGAR UN ALUMNO NUEVO A LA BASE DE DATOS DEBEMOS HACERLO DESDE LAS VENTANAS DE CREAR GRUPO O EDITAR GRUPO.
