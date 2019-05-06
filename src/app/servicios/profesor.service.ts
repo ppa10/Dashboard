@@ -24,32 +24,23 @@ export class ProfesorService {
     return this.http.get<Profesor>(this.APIUrl + '?filter[where][Nombre]=' + nombre + '&filter[where][Apellido]=' + apellido);
   }
 
-    // PERMITE CREAR UN GRUPO AL PROFESOR. DEVOLVEMOS UN OBSERVABLE GRUPO PARA SABER EL IDENTIFICADOR DEL GRUPO QUE ACABAMOS
-  // DE CREAR POR SI DECIDIMOS TIRAR UN PASO HACIA ATRÁS EN EL MOMENTO DE CREAR Y MODIFICAR EL NOMBRE O LA DESCRIPCIÓN
-  CrearGrupo(grupo: Grupo, profesorId: string): Observable<Grupo> {
-    return this.http.post<Grupo>(this.APIUrl + '/' + profesorId + '/grupos', grupo);
-  }
 
-  // CUANDO EDITAMOS UN GRUPO LE PASAMOS EL NUEVO MODELO DEL GRUPO, EL IDENTIFICADOR DEL PROFESOR Y EL GRUPO EN CONCRETO
-  // QUE QUEREMOS EDITAR
-  EditarGrupo(grupo: Grupo, profesorId: string, grupoId: number): Observable<Grupo> {
-    return this.http.put<Grupo>(this.APIUrl + '/' + profesorId + '/grupos/' + grupoId, grupo);
-  }
-
-  BuscadorAlumno(alumno: Alumno, profesorId: string): Observable<Alumno> {
-    console.log('Entro a buscar a ' + alumno.Nombre + ' ' + alumno.PrimerApellido);
+  // BUSCA SI HAY ALGUN ALUMNO EN LA BASE DE DATOS CON ESE NOMBRE Y APELLIDOS
+  BuscadorAlumno(alumno: Alumno, profesorId: number): Observable<Alumno> {
+    console.log('Entro a buscar a ' + alumno.Nombre + ' ' + alumno.PrimerApellido + ' ' + alumno.SegundoApellido );
     return this.http.get<Alumno>(this.APIUrl + '/' + profesorId + '/alumnos?filter[where][Nombre]=' + alumno.Nombre +
     '&filter[where][PrimerApellido]=' + alumno.PrimerApellido + '&filter[where][SegundoApellido]=' + alumno.SegundoApellido);
   }
 
   // ASIGNAR ALUMNOS A UN PROFESOR
-  AgregarAlumnosProfesor(alumno: Alumno, profesorId: string): Observable<Alumno> {
+  AgregarAlumnosProfesor(alumno: Alumno, profesorId: number): Observable<Alumno> {
     return this.http.post<Alumno>(this.APIUrl + '/' + profesorId + '/alumnos', alumno);
   }
 
   GruposDelProfesor(profesorId: string): Observable<Grupo[]> {
     return this.http.get<Grupo[]>(this.APIUrl + '/' + profesorId + '/grupos');
   }
+
 
   // Enviar y recibir profesores entre componentes
 

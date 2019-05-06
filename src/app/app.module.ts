@@ -16,7 +16,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 // IMPORTs COMPONENTES
@@ -31,6 +32,7 @@ import { GrupoComponent } from './paginas/grupo/grupo.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
+import { AgregarAlumnoDialogComponent } from './paginas/crear-grupo/agregar-alumno-dialog/agregar-alumno-dialog.component';
 
 
 
@@ -42,7 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     InicioComponent,
     CrearGrupoComponent,
     MisGruposComponent,
-    GrupoComponent
+    GrupoComponent,
+    AgregarAlumnoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -64,11 +67,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatListModule,
     MatIconModule,
+    MatDialogModule,
 
     HttpClientModule
 
 
   ],
+  entryComponents: [AgregarAlumnoDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

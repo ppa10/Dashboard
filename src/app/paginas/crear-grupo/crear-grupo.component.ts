@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { AgregarAlumnoDialogComponent } from './agregar-alumno-dialog/agregar-alumno-dialog.component';
 
 // Servicios
-import {AlumnoService, ProfesorService, MatriculaService} from '../../servicios/index';
+import {GrupoService, ProfesorService } from '../../servicios/index';
 
 // Clases
-import { Grupo, Alumno, Matricula } from '../../clases/index';
-import { isNullOrUndefined, isUndefined } from 'util';
+import { Grupo } from '../../clases/index';
+import {MatDialog} from '@angular/material';
+
+
 
 @Component({
   selector: 'app-crear-grupo',
@@ -17,7 +20,7 @@ import { isNullOrUndefined, isUndefined } from 'util';
 })
 export class CrearGrupoComponent implements OnInit {
 
-  identificadorProfesor: string;
+  profesorId: string;
 
   formGroup: FormGroup;
 
@@ -25,7 +28,6 @@ export class CrearGrupoComponent implements OnInit {
   segundoPaso: FormGroup;
 
   grupo: Grupo;
-  alumno: Alumno;
 
   // AL PRINCIPIO EL EQUIPO NO ESTA CREADO
   // tslint:disable-next-line:ban-types
@@ -36,9 +38,9 @@ export class CrearGrupoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private profesorService: ProfesorService,
-              private matriculaService: MatriculaService,
-              private alumnoService: AlumnoService,
+              private grupoService: GrupoService,
               private location: Location,
+              public dialog: MatDialog,
               // tslint:disable-next-line:variable-name
               private _formBuilder: FormBuilder) { }
 
@@ -49,7 +51,7 @@ export class CrearGrupoComponent implements OnInit {
   ngOnInit() {
 
     // RECUPERAMOS EL ID DEL PROFESOR DE LA URL
-    this.identificadorProfesor = this.route.snapshot.paramMap.get('id');
+    this.profesorId = this.route.snapshot.paramMap.get('id');
 
     this.formGroup = this._formBuilder.group({
       formArray: this._formBuilder.array([
@@ -58,9 +60,7 @@ export class CrearGrupoComponent implements OnInit {
           descripcionGrupo: ['', Validators.required],
         }),
         this._formBuilder.group({
-          nombreAlumno: ['', Validators.required],
-          primerApellido: ['', Validators.required],
-          segundoApellido: ['', Validators.required],
+          controlador: ['', Validators.required],
         }),
       ])
     });
@@ -71,9 +71,7 @@ export class CrearGrupoComponent implements OnInit {
     });
 
     this.segundoPaso = this._formBuilder.group({
-      nombreAlumno: ['', Validators.required],
-      primerApellido: ['', Validators.required],
-      segundoApellido: ['', Validators.required],
+      nombreAlumno: ['', Validators.required]
     });
 
   }
@@ -89,7 +87,7 @@ export class CrearGrupoComponent implements OnInit {
 
     console.log('entro a crear');
 
-    this.profesorService.CrearGrupo(new Grupo(nombreGrupo, descripcionGrupo), this.identificadorProfesor)
+    this.grupoService.CrearGrupo(new Grupo(nombreGrupo, descripcionGrupo), this.profesorId)
     .subscribe((res) => {
       if (res != null) {
         console.log(res);
@@ -111,7 +109,7 @@ export class CrearGrupoComponent implements OnInit {
     nombreGrupo = this.formArray.value[0].nombreGrupo;
     descripcionGrupo = this.formArray.value[0].descripcionGrupo;
 
-    this.profesorService.EditarGrupo(new Grupo(nombreGrupo, descripcionGrupo), this.identificadorProfesor, this.grupo.id)
+    this.grupoService.EditarGrupo(new Grupo(nombreGrupo, descripcionGrupo), this.profesorId, this.grupo.id)
     .subscribe((res) => {
       if (res != null) {
         console.log('Voy a editar el equipo con id ' + this.grupo.id);
@@ -122,72 +120,20 @@ export class CrearGrupoComponent implements OnInit {
     });
   }
 
-  // MATRICULA A UN ALUMNO CONCRETO EN UN GRUPO CONCRETO MEDIANTE SUS IDENTIFICADORES
-  MatricularAlumno() {
-
-    console.log('voy a entrar a matricular al alumno con id y grupo ' + this.alumno.id + ' ' + this.grupo.id);
-    this.matriculaService.CrearMatricula(new Matricula (this.alumno.id, this.grupo.id))
-    .subscribe((resMatricula) => {
-      if (resMatricula != null) {
-        console.log('Matricula: ' + resMatricula);
-      } else {
-        console.log('fallo en la matriculación');
+  // SI QUEREMOS AÑADIR ALUMNOS MANUALMENTE LO HAREMOS EN UN DIALOGO
+  AbrirDialogoAgregarAlumnos(): void {
+    const dialogRef = this.dialog.open(AgregarAlumnoDialogComponent, {
+      width: '250px',
+      // Le pasamos solo los id del grupo y profesor ya que es lo único que hace falta para vincular los alumnos
+      data: {
+        grupoId: this.grupo.id,
+        profesorId: this.profesorId
       }
     });
-  }
 
-  // PARA AGREGAR UN ALUMNO NUEVO A LA BASE DE DATOS DEBEMOS HACERLO DESDE LAS VENTANAS DE CREAR GRUPO O EDITAR GRUPO.
-  // CREARÁ AL ALUMNO Y LO MATRICULARÁ EN EL GRUPO QUE ESTAMOS CREANDO/EDITANDO
-  AgregarAlumno() {
-
-    let nombreAlumno: string;
-    let primerApellido: string;
-    let segundoApellido: string;
-
-    nombreAlumno = this.formArray.value[1].nombreAlumno;
-    primerApellido = this.formArray.value[1].primerApellido;
-    segundoApellido = this.formArray.value[1].segundoApellido;
-
-    this.profesorService.AgregarAlumnosProfesor(
-      new Alumno (nombreAlumno, primerApellido, segundoApellido), this.identificadorProfesor)
-      .subscribe(res => {
-        if (res != null) {
-          console.log('Voy a añadir a ' + res);
-          this.alumno = res;
-          this.MatricularAlumno();
-        } else {
-          console.log('fallo añadiendo');
-        }
-      });
-  }
-
-
-  // A LA HORA DE AÑADIR UN ALUMNO AL GRUPO, PRIMERO COMPRUEBA SI ESE ALUMNO YA ESTA REGISTRADO EN LA BASE DE DATOS.
-  // EN CASO DE ESTAR REGISTRADO, SOLO HACE LA MATRICULA. SINO, LO AGREGA Y HACE LA MATRICULA
-  BuscarAlumno() {
-    console.log('voy a entrar a buscar alumno');
-
-    let nombreAlumno: string;
-    let primerApellido: string;
-    let segundoApellido: string;
-
-    nombreAlumno = this.formArray.value[1].nombreAlumno;
-    primerApellido = this.formArray.value[1].primerApellido;
-    segundoApellido = this.formArray.value[1].segundoApellido;
-
-    this.profesorService.BuscadorAlumno(
-      new Alumno (nombreAlumno, primerApellido, segundoApellido), this.identificadorProfesor)
-      .subscribe((respuesta) => {
-        if (respuesta[0] !== undefined) {
-        console.log('El alumno existe. Solo voy a matricularlo en este grupo');
-        this.alumno = respuesta[0];
-        console.log(this.alumno);
-        this.MatricularAlumno();
-        } else {
-        console.log('El alumno no existe. Voy a agregarlo y matricularlo');
-        this.AgregarAlumno();
-        }
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialogo cerrado. ' + result);
+    });
   }
 
   goBack() {
