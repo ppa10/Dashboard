@@ -53,6 +53,15 @@ export class GrupoComponent implements OnInit {
     });
   }
 
+  entrarEditarGrupo(grupo) {
+    console.log('Has seleccionado el grupo ' + grupo.Nombre);
+
+    // AHORA SE LO ENVIO AL SERVICIO
+    this.grupoService.TomaGrupo(grupo);
+    this.profesorService.TomaProfesorId(this.profesorId);
+
+  }
+
   // ESTA FUNCIÓN BORRARÁ EL GRUPO DE ID QUE PASEMOS DEL PROFESOR CON ID QUE PASEMOS Y VOLVERÁ A LA PÁGINA DE LISTAR
   // ACTUALIZANDO LA TABLA
   EliminarGrupo() {

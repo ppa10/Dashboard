@@ -34,6 +34,7 @@ import { GrupoComponent } from './paginas/grupo/grupo.component';
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
 import { AgregarAlumnoDialogComponent } from './paginas/crear-grupo/agregar-alumno-dialog/agregar-alumno-dialog.component';
+import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.component';
 
 
 
@@ -46,7 +47,8 @@ import { AgregarAlumnoDialogComponent } from './paginas/crear-grupo/agregar-alum
     CrearGrupoComponent,
     MisGruposComponent,
     GrupoComponent,
-    AgregarAlumnoDialogComponent
+    AgregarAlumnoDialogComponent,
+    EditarGrupoComponent
   ],
   imports: [
     BrowserModule,

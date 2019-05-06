@@ -7,6 +7,7 @@ import { InicioComponent } from './paginas/inicio/inicio.component';
 import { CrearGrupoComponent } from './paginas/crear-grupo/crear-grupo.component';
 import { MisGruposComponent } from './paginas/mis-grupos/mis-grupos.component';
 import { GrupoComponent } from './paginas/grupo/grupo.component';
+import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.component';
 
 const routes: Routes = [
 
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'inicio/:id', component: InicioComponent },
   { path: 'inicio/:id/crearGrupo', component: CrearGrupoComponent },
   { path: 'inicio/:id/misGrupos', component: MisGruposComponent },
-  { path: 'grupo/:id', component: GrupoComponent }
+  { path: 'grupo/:id', component: GrupoComponent },
+  { path: 'grupo/:id/editarGrupo', component: EditarGrupoComponent }
 
 
 
