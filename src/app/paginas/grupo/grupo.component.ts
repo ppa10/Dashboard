@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 import { Grupo, Alumno } from '../../clases/index';
 
 // Servicios
-import { GrupoService, ProfesorService } from '../../servicios/index';
+import { GrupoService, ProfesorService, AlumnoService } from '../../servicios/index';
 
 @Component({
   selector: 'app-grupo',
@@ -23,14 +23,14 @@ export class GrupoComponent implements OnInit {
 
   constructor( private grupoService: GrupoService,
                private profesorService: ProfesorService,
+               private alumnoService: AlumnoService,
                private location: Location) { }
 
   ngOnInit() {
 
     // LE PIDO AL SERVICIO QUE ME DE LOS DATOS DEL PROFESOR QUE ME HAN ENVIADO
     this.grupoSeleccionado = this.grupoService.DameGrupo();
-    this.profesorId = this.profesorService.DameProfesorId();
-    console.log('entro en editar');
+    this.profesorId = this.grupoSeleccionado.profesorId;
 
     // PEDIMOS LA LISTA DE ALUMNOS CUANDO INICIAMOS EL COMPONENTE
     this.AlumnosDelGrupo();
@@ -39,26 +39,23 @@ export class GrupoComponent implements OnInit {
 
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
   AlumnosDelGrupo() {
-    console.log('Voy a listar los alumnos');
+
     this.grupoService.MostrarAlumnosGrupo(this.grupoSeleccionado.id)
     .subscribe(res => {
-      console.log('Voy a dar la lista');
+
       if (res[0] !== undefined) {
         this.alumnosGrupoSeleccionado = res;
-        console.log(this.alumnosGrupoSeleccionado);
-
       } else {
         console.log('No hay alumnos en este grupo');
       }
     });
   }
 
-  entrarEditarGrupo(grupo) {
-    console.log('Has seleccionado el grupo ' + grupo.Nombre);
+  entrarEditarGrupo() {
 
-    // AHORA SE LO ENVIO AL SERVICIO
-    this.grupoService.TomaGrupo(grupo);
-    this.profesorService.TomaProfesorId(this.profesorId);
+    // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
+    this.grupoService.TomaGrupo(this.grupoSeleccionado);
+    this.alumnoService.TomaAlumnos(this.alumnosGrupoSeleccionado);
 
   }
 

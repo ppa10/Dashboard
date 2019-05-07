@@ -65,11 +65,9 @@ export class MisGruposComponent implements OnInit {
 
   // CUANDO CLICKEMOS ENCIMA DE UNA FILA, ENTRAREMOS EN ESTA FUNCIÓN QUE IDENTIFICA SOBRE EL GRUPO QUE HEMOS CLICKADO
   entrarGrupo(grupo) {
-    console.log('Has seleccionado el grupo ' + grupo.Nombre);
 
     // AHORA SE LO ENVIO AL SERVICIO
     this.grupoService.TomaGrupo(grupo);
-    this.profesorService.TomaProfesorId(this.identificadorProfesor);
 
     // HAGO LA RUTA AL COMPONENTE GRUPO
     this.router.navigate([this.returnUrl, grupo.id]);

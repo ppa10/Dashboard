@@ -12,6 +12,66 @@
   </p>
 </div>
 <div>
+  <button type="button" class="btn btn-info" (click) = "AbrirDialogoAgregarAlumnos()">Agregar alumno</button>
+  <button type="button" class="btn btn-danger">Eliminar alumnos</button>
+</div>
+<div>
+  <form>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        (change)="OnChange($event)"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Nombre Alumno Column -->
+      <ng-container matColumnDef="nombreAlumno">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.Nombre}} </td>
+      </ng-container>
+
+      <!-- Primer Apellido Column -->
+      <ng-container matColumnDef="primerApellido">
+        <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.PrimerApellido}} </td>
+      </ng-container>
+
+      <!-- Segundo Apellido Column -->
+      <ng-container matColumnDef="segundoApellido">
+        <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.SegundoApellido}} </td>
+      </ng-container>
+
+      <!-- alumnoId Column -->
+      <ng-container matColumnDef="alumnoId">
+        <th mat-header-cell *matHeaderCellDef> Identificador Alumno </th>
+        <td mat-cell *matCellDef="let alumno"> {{alumno.id}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selection.toggle(row)">
+      </tr>
+    </table>
+  </form>
+</div>
+<div>
   <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
   <button type="button" class="btn btn-success" (click)= "EditarGrupo()">Aceptar</button>
 </div>
