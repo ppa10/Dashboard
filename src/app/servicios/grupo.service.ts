@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Grupo, Alumno } from '../clases/index';
+import { Grupo, Alumno, AsignacionEquipo } from '../clases/index';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable } from 'rxjs';
 
@@ -13,6 +13,10 @@ export class GrupoService {
 
   grupoSeleccionado: any = [];
   grupoId: number;
+  listaAlumnos: any = [];
+
+
+  // asginacionEquipo: any = [];
 
   constructor( private http: HttpClient ) { }
 
@@ -37,6 +41,7 @@ export class GrupoService {
     return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/grupos/' + grupoId);
   }
 
+
   // NumeroAlumnosGrupo(grupoId: string): Observable<number> {
   //   return this.http.get<number>(this.APIUrl + '/' + grupoId + '/alumnos/count');
   // }
@@ -60,5 +65,12 @@ export class GrupoService {
     return this.grupoId;
   }
 
+  TomaAlumnosGrupo(alumnos: any) {
+    this.listaAlumnos = alumnos;
+  }
+
+  DameAlumnosGrupo(): any {
+    return this.listaAlumnos;
+  }
 
 }

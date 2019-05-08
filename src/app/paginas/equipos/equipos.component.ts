@@ -31,6 +31,7 @@ export class EquiposComponent implements OnInit {
   ngOnInit() {
     this.grupoId = this.grupoService.DameGrupoId();
     this.EquiposDelGrupo();
+    console.log('inicio componente equipo');
   }
 
 
@@ -50,15 +51,18 @@ export class EquiposComponent implements OnInit {
   }
 
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
-  AlumnosDelEquipo(grupoId: number) {
+  AlumnosDelEquipo(equipoId: number) {
+    console.log('voy a mostrar los alumnos del equipo ' + equipoId);
 
-    this.equipoService.MostrarAlumnosEquipo(grupoId)
+    this.equipoService.MostrarAlumnosEquipo(equipoId)
     .subscribe(res => {
-
+      this.alumnosEquipo = res;
       if (res[0] !== undefined) {
         this.alumnosEquipo = res;
+        console.log(res);
       } else {
         console.log('No hay alumnos en este grupo');
+        this.alumnosEquipo = undefined;
       }
     });
   }

@@ -3,7 +3,7 @@ import {Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // Clases
-import { Equipo, Alumno } from '../clases/index';
+import { Equipo, Alumno, AsignacionEquipo } from '../clases/index';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,23 @@ export class EquipoService {
 
   MostrarAlumnosEquipo(equipoId: number): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(this.APIUrl + '/' + equipoId + '/alumnos');
+  }
+
+  // Recuperamos las asignaciones (como la inscripción del alumno al equipo) de un grupo determinado
+  AsignacionEquipoGrupo(grupoId: number): Observable<AsignacionEquipo[]> {
+    return this.http.get<AsignacionEquipo[]>(this.APIUrlGrupos + '/' + grupoId + '/asignacionEquipos');
+  }
+
+  // ASIGNAR ALUMNOS A UN EQUIPO
+  AgregarAlumnosEquipo(asignacionEquipos: AsignacionEquipo, grupoId: number): Observable<AsignacionEquipo> {
+    return this.http.post<AsignacionEquipo>(this.APIUrlGrupos + '/' + grupoId + '/asignacionEquipos', asignacionEquipos);
+  }
+
+  // BUSCA Y ELIMINA A UN ALUMNO DE UN EQUIPO (BORRA ASIGNACIONEQUIPO)
+  BorrarAlumnoEquipo(alumno: Alumno, equipoId: number, grupoId: number): Observable<AsignacionEquipo> {
+    console.log('Entro a borrar' );
+    return this.http.delete<AsignacionEquipo>(this.APIUrlGrupos + '/' + grupoId + '/asignacionEquipos?filter[where][equipoId]=' + equipoId +
+    '&filter[where][alumnoId]=' + alumno.id);
   }
 
   TomaEquipo(equipo: any) {

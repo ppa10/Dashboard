@@ -34,10 +34,11 @@ import { AgregarAlumnoDialogComponent } from './paginas/crear-grupo/agregar-alum
 import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.component';
 import { EquiposComponent } from './paginas/equipos/equipos.component';
 import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-equipo.component';
-
+import { AgregarAlumnoEquipoComponent } from './paginas/equipos/editar-equipo/agregar-alumno-equipo/agregar-alumno-equipo.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -54,7 +55,8 @@ import { HttpClientModule } from '@angular/common/http';
     AgregarAlumnoDialogComponent,
     EditarGrupoComponent,
     EquiposComponent,
-    EditarEquipoComponent
+    EditarEquipoComponent,
+    AgregarAlumnoEquipoComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +86,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
   ],
-  entryComponents: [AgregarAlumnoDialogComponent],
+  entryComponents: [AgregarAlumnoDialogComponent, AgregarAlumnoEquipoComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })

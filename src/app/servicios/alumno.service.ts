@@ -11,7 +11,8 @@ import { Alumno } from '../clases/index';
 })
 export class AlumnoService {
 
-  private APIUrl = 'http://localhost:3000/api/';
+  private APIUrl = 'http://localhost:3000/api/Alumnos';
+
 
   listaAlumnos: any = [];
 
@@ -27,6 +28,10 @@ export class AlumnoService {
     return this.listaAlumnos;
     console.log('voy a enviar alumnos');
     console.log(this.listaAlumnos);
+  }
+
+  GetAlumno(alumnoId: number): Observable<Alumno> {
+    return this.http.get<Alumno>(this.APIUrl + '/' + alumnoId);
   }
 
 

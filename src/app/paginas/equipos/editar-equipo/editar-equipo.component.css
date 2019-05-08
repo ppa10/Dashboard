@@ -1,0 +1,29 @@
+.example-container {
+  overflow: auto;
+}
+
+table {
+  width: 60%;
+}
+
+.material-icons.red { color: rgb(228, 8, 8); }
+
+.material-icons.md-36 { font-size: 36px; }
+
+th {
+  background-color: #2a7af3d0;
+  /* text-align: center; */
+  color: #fff;
+  /* font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 5px; */
+
+}
+
+td {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  /* padding-bottom: 5px;
+  padding-top: 5px;
+  text-align: center; */
+}

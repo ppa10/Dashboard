@@ -4,4 +4,4 @@ export * from './Grupo';
 export * from './Alumno';
 export * from './Matricula';
 export * from './Equipo';
-
+export * from './AsignacionEquipo';
