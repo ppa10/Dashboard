@@ -1,0 +1,16 @@
+<h2>Editar equipo</h2>
+<mat-divider></mat-divider>
+
+<div>
+  <p>
+    <span style="font-weight: bold;">Nombre: </span>
+    <input type="text" name="nombre" placeholder="Escribe la nombre" requiered [(ngModel)]="equipo.Nombre">
+  </p>
+  <p>
+      <span style="font-weight: bold;">Miembros del equipo</span>
+  </p>
+</div>
+
+<div>
+    <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
+</div>

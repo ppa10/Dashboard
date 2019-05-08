@@ -3,7 +3,7 @@ import {Observable, Subject , of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // Clases
-import { Profesor, Grupo, Alumno, Matricula } from '../clases/index';
+import { Profesor, Grupo, Alumno } from '../clases/index';
 import { TouchSequence } from 'selenium-webdriver';
 
 @Injectable({
@@ -62,6 +62,5 @@ export class ProfesorService {
   DameProfesorId(): number {
     return this.profesorId;
   }
-
 
 }

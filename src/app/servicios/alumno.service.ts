@@ -20,7 +20,6 @@ export class AlumnoService {
 
   TomaAlumnos(alumnos: any) {
     this.listaAlumnos = alumnos;
-    console.log('he recibido los alumnos');
     console.log(this.listaAlumnos);
   }
 
@@ -29,5 +28,7 @@ export class AlumnoService {
     console.log('voy a enviar alumnos');
     console.log(this.listaAlumnos);
   }
+
+
 
 }

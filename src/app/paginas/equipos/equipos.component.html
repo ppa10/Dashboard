@@ -1,0 +1,36 @@
+<h2>Equipos</h2>
+<mat-divider></mat-divider>
+
+<mat-tab-group [color]="primary" [backgroundColor]="primary">
+  <mat-tab label="Lista de equipos">
+    <form>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let equipo of listaEquipos" (click) = "AlumnosDelEquipo(equipo.id)">
+          <mat-expansion-panel-header>
+
+            <mat-panel-title>
+              {{equipo.Nombre}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Información sobre {{equipo.Nombre}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+            <p>
+                <span style="font-weight: bold;">Miembros del equipo</span>
+                <mat-list role="list" *ngFor="let alumno of alumnosEquipo">
+                  <mat-list-item role="listitem">{{alumno.Nombre}} {{alumno.PrimerApellido}} {{alumno.SegundoApellido}}</mat-list-item>
+                </mat-list>
+                <button type="button" class="btn btn-info" routerLink= "editarEquipo" (click) = "EnviarEquipoEditar(equipo, alumnosEquipo)">Editar equipo</button>
+                <button type="button" class="btn btn-danger">Eliminar equipo</button>
+            </p>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-tab>
+  <mat-tab label="Crear equipo"> Content 2 </mat-tab>
+</mat-tab-group>
+
+<div>
+  <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
+</div>

@@ -30,12 +30,15 @@ import { InicioComponent } from './paginas/inicio/inicio.component';
 import { CrearGrupoComponent } from './paginas/crear-grupo/crear-grupo.component';
 import { MisGruposComponent } from './paginas/mis-grupos/mis-grupos.component';
 import { GrupoComponent } from './paginas/grupo/grupo.component';
+import { AgregarAlumnoDialogComponent } from './paginas/crear-grupo/agregar-alumno-dialog/agregar-alumno-dialog.component';
+import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.component';
+import { EquiposComponent } from './paginas/equipos/equipos.component';
+import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-equipo.component';
 
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
-import { AgregarAlumnoDialogComponent } from './paginas/crear-grupo/agregar-alumno-dialog/agregar-alumno-dialog.component';
-import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.component';
+
 
 
 
@@ -49,7 +52,9 @@ import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.compon
     MisGruposComponent,
     GrupoComponent,
     AgregarAlumnoDialogComponent,
-    EditarGrupoComponent
+    EditarGrupoComponent,
+    EquiposComponent,
+    EditarEquipoComponent
   ],
   imports: [
     BrowserModule,

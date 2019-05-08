@@ -8,6 +8,8 @@ import { CrearGrupoComponent } from './paginas/crear-grupo/crear-grupo.component
 import { MisGruposComponent } from './paginas/mis-grupos/mis-grupos.component';
 import { GrupoComponent } from './paginas/grupo/grupo.component';
 import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.component';
+import { EquiposComponent } from './paginas/equipos/equipos.component';
+import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-equipo.component';
 
 const routes: Routes = [
 
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: 'inicio/:id/crearGrupo', component: CrearGrupoComponent },
   { path: 'inicio/:id/misGrupos', component: MisGruposComponent },
   { path: 'grupo/:id', component: GrupoComponent },
-  { path: 'grupo/:id/editarGrupo', component: EditarGrupoComponent }
+  { path: 'grupo/:id/editarGrupo', component: EditarGrupoComponent },
+  { path: 'grupo/:id/equiposGrupo', component: EquiposComponent },
+  { path: 'grupo/:id/equiposGrupo/editarEquipo', component: EditarEquipoComponent }
 
 
 

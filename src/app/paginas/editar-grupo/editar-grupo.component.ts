@@ -146,12 +146,6 @@ export class EditarGrupoComponent implements OnInit {
     });
   }
 
-
-
-
-
-
-
   OnChange($event) {
     console.log($event);
     // MatCheckboxChange {checked,MatCheckbox}

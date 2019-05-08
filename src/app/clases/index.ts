@@ -3,4 +3,5 @@ export * from './Profesor';
 export * from './Grupo';
 export * from './Alumno';
 export * from './Matricula';
+export * from './Equipo';
 

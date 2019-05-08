@@ -12,6 +12,7 @@ export class GrupoService {
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
 
   grupoSeleccionado: any = [];
+  grupoId: number;
 
   constructor( private http: HttpClient ) { }
 
@@ -49,6 +50,14 @@ export class GrupoService {
   // ESTA ES LA QUE HAY QUE LLAMAR PARA RECOGER EL PROFESOR EN OTRO COMPONENTE
   DameGrupo(): any {
     return this.grupoSeleccionado;
+  }
+
+  TomaGrupoId( grupoId: number) {
+    this.grupoId = grupoId;
+  }
+
+  DameGrupoId(): number {
+    return this.grupoId;
   }
 
 

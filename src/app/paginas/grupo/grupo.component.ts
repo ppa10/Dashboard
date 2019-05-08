@@ -51,12 +51,17 @@ export class GrupoComponent implements OnInit {
     });
   }
 
-  entrarEditarGrupo() {
+  EntrarEditarGrupo() {
 
     // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
     this.grupoService.TomaGrupo(this.grupoSeleccionado);
     this.alumnoService.TomaAlumnos(this.alumnosGrupoSeleccionado);
 
+  }
+
+  EntrarEquipos() {
+    // Enviamos solo el identificador del grupo
+    this.grupoService.TomaGrupoId(this.grupoSeleccionado.id);
   }
 
   // ESTA FUNCIÓN BORRARÁ EL GRUPO DE ID QUE PASEMOS DEL PROFESOR CON ID QUE PASEMOS Y VOLVERÁ A LA PÁGINA DE LISTAR
