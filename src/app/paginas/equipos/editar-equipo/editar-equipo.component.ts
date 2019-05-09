@@ -21,16 +21,18 @@ export class EditarEquipoComponent implements OnInit {
 
   equipo: Equipo;
   alumnosEquipo: Alumno[];
-  asginacionEquipo: AsignacionEquipo[];
 
-  // Alumnos que ya estan asignados a un equipo. Debemos iniciarlo vacio para que vaya el push
-  alumnosAsignados: Alumno[] = [];
+  // NOS DEVUELVE LA RELACIÓN ENTRE UN ALUMNO Y UN EQUIPO
+  asginacionEquipo: AsignacionEquipo[];
 
   // Recuperamos los alumnos del grupo
   alumnosGrupo: Alumno[];
 
+  // Alumnos que ya estan asignados a un equipo. Debemos iniciarlo vacio para que vaya el push
+  alumnosConEquipo: Alumno[] = [];
+
   // Lista con los alumnos del grupo que todavida no tienen equipo. Debemos iniciarlo vacio para que vaya el push
-  alumnosAsignables: Alumno[] = [];
+  alumnosSinEquipo: Alumno[] = [];
 
   constructor( private equipoService: EquipoService,
                private alumnoService: AlumnoService,
@@ -41,49 +43,39 @@ export class EditarEquipoComponent implements OnInit {
   ngOnInit() {
     this.equipo = this.equipoService.DameEquipo();
     this.alumnosEquipo = this.alumnoService.DameAlumnos();
-    console.log('incio componente editar equipo');
-    console.log(this.alumnosEquipo);
+    this.alumnosGrupo = this.grupoService.DameAlumnosGrupo();
 
-    this.AsignacionEquipo();
-    this.AlumnosDelGrupo();
+    // Una vez recibidos los parámetros, clasificamos los alumnos en función de si tienen en equipo o no
+    this.ClasificacionAlumnos();
 
   }
 
-  // NOS DEVUELVE LAS RELACIONES ENTRE ALUMNO/EQUIPO. PODEMOS VER SI EL ALUMNO TIENE GRUPO O NO
-  AsignacionEquipo() {
 
+  // ESTA FUNCIÓN SE ACTIVA CUANDO INICIAMOS EL COMPONENTE. NOS CLASIFICA A LOS ALUMNOS SEGÚN SI TIENEN O NO EQUIPO
+  ClasificacionAlumnos() {
+
+    // Recogemos las asignaciones
     this.equipoService.AsignacionEquipoGrupo(this.equipo.grupoId)
-    .subscribe(res => {
-      if (res[0] !== undefined) {
+    .subscribe(asignaciones => {
+
+      // Si hay algun alumno en algun equipo, devolveremos las asignaciones y activaremos la funcion AlumnosAsignables
+      if (asignaciones [0] !== undefined) {
         console.log('Voy a dar asignaciones');
-        this.asginacionEquipo = res;
-        console.log(this.asginacionEquipo);
+        // cuando recibimos las asignaciones las metemos en su lista
+        this.asginacionEquipo = asignaciones;
+        this.AlumnosAsignables();
+
+        // En el caso de que no haya ningún alumno en ningun grupo, igualmente activamos la función AlumnosAsignables
       } else {
         console.log('no hay asignaciones');
-      }
-
-    });
-  }
-
-  // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
-  AlumnosDelGrupo() {
-
-    this.grupoService.MostrarAlumnosGrupo(this.equipo.grupoId)
-    .subscribe(res => {
-      console.log('entro a por los alumnos del grupo');
-
-      if (res[0] !== undefined) {
-        this.alumnosGrupo = res;
-        console.log(this.alumnosGrupo);
-      } else {
-        console.log('No hay alumnos en este grupo');
+        this.AlumnosAsignables();
       }
     });
   }
 
   // ESTA FUNCIÓN RECORRE TODA LA LISTA DE LOS ALUMNOS QUE TIENE EL GRUPO Y BUSCA SI YA TIENE ASIGNADO UN EQUIPO O NO.
   // ESTO NOS PERMITIRÁ CREAR DOS LISTAS: UNO CON LOS ALUMNOS QUE YA TIENEN EQUIPO Y OTROS QUE TODAVÍA NO TIENEN.
-  ListaAlumnosAsignables() {
+  AlumnosAsignables() {
 
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.alumnosGrupo.length; i++) {
@@ -94,16 +86,17 @@ export class EditarEquipoComponent implements OnInit {
 
         // EN CASO DE TENER ASIGNADO UN EQUIPO (TRUE) LO INCLUIMOS EN LA LISTA DE ALUMNOS ASIGNADOS
         if (this.BuscarAlumnoAsignacionEquipo(this.alumnosGrupo[i].id) === true) {
-          this.alumnosAsignados.push(this.alumnosGrupo[i]);
+          this.alumnosConEquipo.push(this.alumnosGrupo[i]);
 
           // SI NO ESTA ASIGNADO TODAVIDA A NINGÚN GRUPO, LO PONEMOS EN LA LISTA DE ALUMNOS ASIGNABLES
         } else  {
-          this.alumnosAsignables.push(this.alumnosGrupo[i]);
+          this.alumnosSinEquipo.push(this.alumnosGrupo[i]);
         }
-      } else {
-        this.alumnosAsignables.push(this.alumnosGrupo[i]);
-      }
 
+      // SI NO HAY NINGUNA ASIGNACIÓN HECHA SIGNIFICA QUE TODOS LOS ALUMNOS DEL GRUPO ESTAN SIN EQUIPO
+      } else {
+        this.alumnosSinEquipo.push(this.alumnosGrupo[i]);
+      }
     }
   }
 
@@ -128,38 +121,57 @@ export class EditarEquipoComponent implements OnInit {
     return alumnoEncontrado;
   }
 
-    // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
+  // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE. LA UTILIZAMOS PARA ACTUALIZAR LA TABLA
   AlumnosDelEquipo(equipoId: number) {
 
     this.equipoService.MostrarAlumnosEquipo(equipoId)
     .subscribe(res => {
     if (res[0] !== undefined) {
       this.alumnosEquipo = res;
-      console.log(this.alumnosEquipo);
     } else {
       console.log('No hay alumnos en este grupo');
       }
     });
   }
 
-  // BorrarAlumnoEquipo(alumno: Alumno) {
-  //   console.log('voy a borrar a ' + alumno.Nombre);
-  //   this.equipoService.BorrarAlumnoEquipo(alumno, this.equipo.id, this.equipo.grupoId)
-  //   .subscribe(res => {
-  //     if (res !== null) {
-  //       this.AlumnosDelEquipo(this.equipo.id);
-  //       console.log('eliminado correctamente');
-  //       console.log(this.alumnosEquipo);
-  //     } else {
-  //       console.log('No se ha podido eliminar');
-  //       }
-  //     });
+  // SI UN ALUMNO SE BORRA DE UN EQUIPO, PUEDE SER ELEGIDO DE NUEVO. TENEMOS QUE ELIMINARLO DE LA LISTA DE ALUMNOS CON EQUIPO
+  // ESTA FUNCIÓN FILTRA LOS ALUMNOS QUE TIENEN UN ALUMNO ID DIFERENTE AL QUE LE PASAMOS Y NOS DEVUELVE LA LISTA SIN ESE ALUMNO
+  // NOS DEVUELVE LA LISTA DE ALUMNOS CON EQUIPO SIN EL ALUMNO QUE SE BORRO, QUE YA NO TIENE EQUIPO, Y PASARÁ A LA OTRA LISTA
+  AlumnoBorrado(alumno: Alumno): Alumno[] {
+    this.alumnosConEquipo = this.alumnosConEquipo.filter(res => res.id !== alumno.id);
+    this.alumnosSinEquipo.push(alumno);
+    return this.alumnosConEquipo;
+  }
 
-  // }
+  BorrarAlumnoEquipo(alumno: Alumno) {
+    console.log('voy a borrar a ' + alumno.id);
+    // PRIMERO BUSCO LA ASIGNACIÓN QUE VINCULA EL ALUMNO CON ID QUE PASO COMO PARÁMETRO Y EL EQUIPO EN EL QUE ESTOY
+    this.equipoService.GetAsignacionAlumnoEquipo(alumno.id, this.equipo.id, this.equipo.grupoId)
+    .subscribe(asignacion => {
+      console.log(asignacion);
+
+      // UNA VEZ LO TENGO, BORRO ESA ASIGNACIÓN Y, POR TANTO, EL VÍNCULO ENTRE ALUMNO Y EQUIPO
+      if (asignacion[0] !== undefined) {
+        this.equipoService.BorrarAlumnoEquipo(asignacion[0]).subscribe(res => {
+          console.log(res);
+          // SI SE BORRA CORRECTAMENTE NOS DEVUELVE NULL
+          if (res === null) {
+            console.log('eliminado correctamente');
+            this.AlumnosDelEquipo(this.equipo.id); // ACTUALIZAMOS LA TABLA
+            this.AlumnoBorrado(alumno); // ACTUALIZAMOS LA LISTA DE ALUMNOS CON/SIN EQUIPO
+          } else {
+            console.log('No se ha podido eliminar');
+          }
+        });
+      } else {
+        console.log('no se ha encontrado la asignación');
+        }
+      });
+  }
 
     // SE ABRE EL DIÁLOGO PARA AÑADIR ALUMNOS AL EQUIPO
   AbrirDialogoAgregarAlumnosEquipo(): void {
-    this.ListaAlumnosAsignables();
+
     const dialogRef = this.dialog.open(AgregarAlumnoEquipoComponent, {
       width: '80%',
       height: 'auto',
@@ -168,20 +180,41 @@ export class EditarEquipoComponent implements OnInit {
       // ÚTIL PARA SABER SU ID Y EL ID DEL GRUPO AL QUE PERTENCE
       data: {
         alumnosEquipo: this.alumnosEquipo,
-        alumnosAsignables: this.alumnosAsignables,
+        alumnosSinEquipo: this.alumnosSinEquipo,
         equipo: this.equipo
       }
     });
 
     // RECUPERAREMOS LA NUEVA LISTA DE LOS ALUMNOS ASIGNABLES Y VOLVEREMOS A BUSCAR LOS ALUMNOS QUE TIENE EL EQUIPO
-    dialogRef.beforeClosed().subscribe(result => {
-      this.AlumnosDelEquipo(this.equipo.id);
-      this.alumnosAsignables = result;
+    dialogRef.afterClosed().subscribe(alumnosEquipo => {
+
+      // Si el usuario clica a aceptar para cerrar el dialogo, se enviarán los alumnos del equipo
+      if (alumnosEquipo !== undefined) {
+        this.alumnosEquipo = alumnosEquipo;
+
+        // Si clica fuera del diálogo para cerrarlo, recuperaremos la lista de la base de datos
+      } else {
+        this.AlumnosDelEquipo(this.equipo.id);
+      }
+
+      // Limpiamos las listas que teniamos antes
+      this.alumnosConEquipo = [];
+      this.alumnosSinEquipo = [];
+
+      // Volvemos a hacer la clasificación
+      this.ClasificacionAlumnos();
 
     });
  }
 
-  // NOS DEVOLVERÁ AL INICIO
+ prueba() {
+   console.log(this.alumnosSinEquipo);
+   console.log(this.alumnosConEquipo);
+   console.log(this.alumnosGrupo);
+   console.log(this.alumnosEquipo);
+ }
+
+  // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
   goBack() {
     this.location.back();
   }

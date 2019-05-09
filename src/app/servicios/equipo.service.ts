@@ -36,10 +36,16 @@ export class EquipoService {
   }
 
   // BUSCA Y ELIMINA A UN ALUMNO DE UN EQUIPO (BORRA ASIGNACIONEQUIPO)
-  BorrarAlumnoEquipo(alumno: Alumno, equipoId: number, grupoId: number): Observable<AsignacionEquipo> {
-    console.log('Entro a borrar' );
-    return this.http.delete<AsignacionEquipo>(this.APIUrlGrupos + '/' + grupoId + '/asignacionEquipos?filter[where][equipoId]=' + equipoId +
-    '&filter[where][alumnoId]=' + alumno.id);
+  BorrarAlumnoEquipo(asignacionEquipo: AsignacionEquipo): Observable<AsignacionEquipo> {
+    console.log('voy a borrar asignacion ' + asignacionEquipo.id);
+    return this.http.delete<AsignacionEquipo>(this.APIUrlGrupos + '/' + asignacionEquipo.grupoId + '/asignacionEquipos/'
+    + asignacionEquipo.id);
+  }
+
+  GetAsignacionAlumnoEquipo(alumnoId: number, equipoId: number, grupoId: number): Observable<AsignacionEquipo> {
+    console.log('Entro a buscar' );
+    return this.http.get<AsignacionEquipo>(this.APIUrlGrupos + '/' + grupoId + '/asignacionEquipos?filter[where][equipoId]=' + equipoId +
+    '&filter[where][alumnoId]=' + alumnoId);
   }
 
   TomaEquipo(equipo: any) {

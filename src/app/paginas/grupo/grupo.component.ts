@@ -60,8 +60,9 @@ export class GrupoComponent implements OnInit {
   }
 
   EntrarEquipos() {
-    // Enviamos solo el identificador del grupo
+    // ENVIAMOS EL IDENTIFICADOR Y LOS ALUMNOS DEL GRUPO SELECCIONADO
     this.grupoService.TomaGrupoId(this.grupoSeleccionado.id);
+    this.grupoService.TomaAlumnosGrupo(this.alumnosGrupoSeleccionado);
   }
 
   // ESTA FUNCIÓN BORRARÁ EL GRUPO DE ID QUE PASEMOS DEL PROFESOR CON ID QUE PASEMOS Y VOLVERÁ A LA PÁGINA DE LISTAR

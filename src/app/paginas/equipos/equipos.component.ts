@@ -61,20 +61,28 @@ export class EquiposComponent implements OnInit {
         this.alumnosEquipo = res;
         console.log(res);
       } else {
-        console.log('No hay alumnos en este grupo');
+        console.log('No hay alumnos en este equipo');
         this.alumnosEquipo = undefined;
       }
     });
   }
 
+  // ENVÍA EL EQUIPO Y LOS ALUMNOS DE UN EQUIPO ESPECIFICO AL COMPONENTE EDITAR-EQUIPO
   EnviarEquipoEditar(equipo: Equipo, alumnosEquipo: Alumno[]) {
     console.log('voy a enviar');
     this.equipoService.TomaEquipo(equipo);
-    this.alumnoService.TomaAlumnos(alumnosEquipo);
+    console.log(alumnosEquipo);
+    if (alumnosEquipo !== undefined) {
+      console.log('entro aqui');
+      this.alumnoService.TomaAlumnos(alumnosEquipo);
+    } else {
+      this.alumnoService.TomaAlumnos(alumnosEquipo);
+      console.log('no hay alumnos en este equipo');
+    }
   }
 
 
-  // NOS DEVOLVERÁ AL INICIO
+  // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
   goBack() {
     this.location.back();
   }

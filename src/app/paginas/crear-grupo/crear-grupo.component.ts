@@ -140,6 +140,7 @@ export class CrearGrupoComponent implements OnInit {
     console.log(this.URLVueltaInicio);
   }
 
+  // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
   goBack() {
     this.location.back();
   }
