@@ -26,6 +26,7 @@ export class InicioComponent implements OnInit {
     this.profesor = this.servicioProfesor.DameProfesor();
   }
 
+  // NOS REGRESA A LA PÁGINA DE LA QUE VENIMOS (LOGIN)
   goBack() {
     this.location.back();
   }

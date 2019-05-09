@@ -6,7 +6,7 @@ import {MatDialog} from '@angular/material';
 import { AgregarAlumnoDialogComponent } from './agregar-alumno-dialog/agregar-alumno-dialog.component';
 
 // Servicios
-import {GrupoService } from '../../servicios/index';
+import { GrupoService } from '../../servicios/index';
 
 // Clases
 import { Grupo } from '../../clases/index';

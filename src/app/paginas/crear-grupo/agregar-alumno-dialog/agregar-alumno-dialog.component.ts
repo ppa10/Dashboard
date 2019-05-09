@@ -70,7 +70,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
 
   // PARA AGREGAR UN ALUMNO NUEVO A LA BASE DE DATOS DEBEMOS HACERLO DESDE LAS VENTANAS DE CREAR GRUPO O EDITAR GRUPO.
   // CREARÁ AL ALUMNO Y LO MATRICULARÁ EN EL GRUPO QUE ESTAMOS CREANDO/EDITANDO
-  AgregarAlumno() {
+  AgregarAlumnoNuevo() {
 
     let nombreAlumno: string;
     let primerApellido: string;
@@ -117,7 +117,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
         this.MatricularAlumno();
         } else {
         console.log('El alumno no existe. Voy a agregarlo y matricularlo');
-        this.AgregarAlumno();
+        this.AgregarAlumnoNuevo();
         }
       });
   }

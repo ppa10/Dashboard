@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+
   Autentificar() {
     console.log('voy a entrar en autentificacion');
 
