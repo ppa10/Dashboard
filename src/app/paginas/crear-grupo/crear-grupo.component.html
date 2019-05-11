@@ -1,9 +1,9 @@
 <h3>Crear Grupo</h3>
 
-<form [formGroup]="formGroup">
-  <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray" [linear]="true">
+<form [formGroup]="myForm">
+  <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true">
     <!-- PRIMER PASO -->
-    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+    <mat-step [stepControl]="myForm">
       <ng-template matStepLabel>Nombre y descripción</ng-template>
       <mat-form-field>
         <mat-label>Nombre</mat-label>
@@ -26,17 +26,10 @@
     </mat-step>
 
     <!-- SEGUNDO PASO -->
-    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" optional>
+    <mat-step optional>
       <ng-template matStepLabel>
         <div>Añadir alumnos</div>
       </ng-template>
-
-      <mat-form-field *ngIf="equipoYaCreado === false">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="controlador" required>
-          <mat-error>Este campo es obligatorio</mat-error>
-      </mat-form-field>
-
         <button (click)= "AbrirDialogoAgregarAlumnos()">Agregar alumnos</button>
 
       <div>

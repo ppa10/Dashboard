@@ -17,4 +17,13 @@ export class MatriculaService {
   CrearMatricula(matricula: Matricula): Observable<Matricula> {
     return this.http.post<Matricula>(this.APIUrl, matricula);
   }
+
+  MatriculasDelGrupo(grupoId: number): Observable<Matricula[]> {
+    return this.http.get<Matricula[]>(this.APIUrl + '?filter[where][grupoId]=' + grupoId);
+  }
+
+  EliminarMatricula(matriculaId: number): Observable<any> {
+    return this.http.delete<any>(this.APIUrl + '/' + matriculaId);
+  }
+
 }

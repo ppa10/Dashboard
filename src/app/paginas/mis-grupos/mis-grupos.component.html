@@ -2,7 +2,7 @@
 
 <form>
 
-  <table mat-table [dataSource]="listaGrupos" class="example-container mat-elevation-z8">
+  <table *ngIf="listaGrupos;else Aviso_no_grupos" mat-table [dataSource]="listaGrupos" class="example-container mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -23,6 +23,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
+
+  <div>
+      <ng-template #Aviso_no_grupos>Todavía no hay grupos creados</ng-template>
+  </div>
 
   <div>
     <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>

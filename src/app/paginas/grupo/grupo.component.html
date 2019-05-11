@@ -3,10 +3,12 @@
 
 <div>
   <p>
-    <span>Nombre: {{grupoSeleccionado.Nombre}}</span>
+    <span style="font-weight: bold;">Nombre:</span>
+    {{grupoSeleccionado.Nombre}}
   </p>
   <p>
-      <span>Descripción: {{grupoSeleccionado.Descripcion}}</span>
+      <span style="font-weight: bold;">Descripción:</span>
+      {{grupoSeleccionado.Descripcion}}
   </p>
 </div>
 <div>
@@ -14,14 +16,14 @@
     <button type="button" class="btn btn-success">Pasar Lista</button>
     <button type="button" class="btn btn-warning" (click) = EntrarEquipos(); routerLink= "equiposGrupo">Equipos</button>
     <button type="button" class="btn btn-info">Juegos</button>
-    <button type="button" class="btn btn-danger" (click)="EliminarGrupo()">Eliminar grupo</button>
+    <button type="button" class="btn btn-danger" (click)="AbrirDialogoConfirmacionBorrar()">Eliminar grupo</button>
 
 </div>
 
 
 <form>
 
-    <table *ngIf="alumnosGrupoSeleccionado" mat-table [dataSource]="alumnosGrupoSeleccionado" class="example-container mat-elevation-z8">
+    <table align = "center" *ngIf="alumnosGrupoSeleccionado;else Aviso_no_alumnos" mat-table [dataSource]="alumnosGrupoSeleccionado" class="example-container mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -54,6 +56,10 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
+
+    <div>
+        <ng-template #Aviso_no_alumnos>Todavía no hay alumnos en este grupo</ng-template>
+    </div>
 
     <div>
       <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>

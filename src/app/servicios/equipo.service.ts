@@ -21,6 +21,10 @@ export class EquipoService {
     return this.http.get<Equipo[]>(this.APIUrlGrupos + '/' + grupoId + '/equipos');
   }
 
+  BorrarEquipoDelGrupo(equipo: Equipo): Observable<any> {
+    return this.http.delete<any>(this.APIUrlGrupos + '/' + equipo.grupoId + '/equipos/' + equipo.id);
+  }
+
   MostrarAlumnosEquipo(equipoId: number): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(this.APIUrl + '/' + equipoId + '/alumnos');
   }
@@ -36,9 +40,9 @@ export class EquipoService {
   }
 
   // BUSCA Y ELIMINA A UN ALUMNO DE UN EQUIPO (BORRA ASIGNACIONEQUIPO)
-  BorrarAlumnoEquipo(asignacionEquipo: AsignacionEquipo): Observable<AsignacionEquipo> {
+  BorrarAlumnoEquipo(asignacionEquipo: AsignacionEquipo): Observable<any> {
     console.log('voy a borrar asignacion ' + asignacionEquipo.id);
-    return this.http.delete<AsignacionEquipo>(this.APIUrlGrupos + '/' + asignacionEquipo.grupoId + '/asignacionEquipos/'
+    return this.http.delete<any>(this.APIUrlGrupos + '/' + asignacionEquipo.grupoId + '/asignacionEquipos/'
     + asignacionEquipo.id);
   }
 
@@ -46,6 +50,12 @@ export class EquipoService {
     console.log('Entro a buscar' );
     return this.http.get<AsignacionEquipo>(this.APIUrlGrupos + '/' + grupoId + '/asignacionEquipos?filter[where][equipoId]=' + equipoId +
     '&filter[where][alumnoId]=' + alumnoId);
+  }
+
+  GetAsignacionesDelEquipo(equipo: Equipo): Observable<AsignacionEquipo[]> {
+    console.log('Entro a buscar' );
+    return this.http.get<AsignacionEquipo[]>(this.APIUrlGrupos + '/' + equipo.grupoId + '/asignacionEquipos?filter[where][equipoId]='
+     + equipo.id);
   }
 
   TomaEquipo(equipo: any) {

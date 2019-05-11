@@ -54,12 +54,17 @@ export class MisGruposComponent implements OnInit {
 
   // LE PASAMOS EL IDENTIFICADOR DEL PROFESOR Y NOS DEVUELVE UNA LISTA CON LOS GRUPOS QUE TIENE
   GruposDelProfesor() {
-    console.log('Voy a listar los grupos');
+
     this.profesorService.GruposDelProfesor(this.identificadorProfesor)
     .subscribe(res => {
-      console.log('Voy a dar la lista');
-      this.listaGrupos = res;
-      console.log(this.listaGrupos);
+      if (res[0] !== undefined) {
+        console.log('Voy a dar la lista');
+        this.listaGrupos = res;
+        console.log(this.listaGrupos);
+      } else {
+        this.listaGrupos = undefined;
+      }
+
     });
   }
 

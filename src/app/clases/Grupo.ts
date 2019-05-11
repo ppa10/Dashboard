@@ -9,4 +9,5 @@ export class Grupo {
     this.Nombre = nombre;
     this.Descripcion = Descripcion;
   }
+
 }

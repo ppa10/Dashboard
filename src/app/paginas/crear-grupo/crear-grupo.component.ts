@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { AgregarAlumnoDialogComponent } from './agregar-alumno-dialog/agregar-alumno-dialog.component';
 
 // Servicios
@@ -35,9 +35,8 @@ export class CrearGrupoComponent implements OnInit {
   // AL PRINCIPIO EL EQUIPO NO ESTA CREADO
   // tslint:disable-next-line:ban-types
   equipoYaCreado: Boolean = false;
+  myForm: FormGroup;
 
-    /** Returns a FormArray with the name 'formArray'. */
-    get formArray(): AbstractControl | null { return this.formGroup.get('formArray'); }
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -56,25 +55,15 @@ export class CrearGrupoComponent implements OnInit {
     // tslint:disable-next-line:no-string-literal
     this.URLVueltaInicio = this.route.snapshot.queryParams['URLVueltaInicio'] || '/inicio';
 
-    this.formGroup = this._formBuilder.group({
-      formArray: this._formBuilder.array([
-        this._formBuilder.group({
-          nombreGrupo: ['', Validators.required],
-          descripcionGrupo: ['', Validators.required],
-        }),
-        this._formBuilder.group({
-          controlador: ['', Validators.required],
-        }),
-      ])
+    this.myForm = this._formBuilder.group({
+      nombreGrupo: ['', Validators.required],
+      descripcionGrupo: ['', Validators.required]
     });
+
 
     this.primerPaso = this._formBuilder.group({
       nombreGrupo: ['', Validators.required],
       descripcionGrupo: ['', Validators.required],
-    });
-
-    this.segundoPaso = this._formBuilder.group({
-      nombreAlumno: ['', Validators.required]
     });
 
   }
@@ -85,8 +74,8 @@ export class CrearGrupoComponent implements OnInit {
     let nombreGrupo: string;
     let descripcionGrupo: string;
 
-    nombreGrupo = this.formArray.value[0].nombreGrupo;
-    descripcionGrupo = this.formArray.value[0].descripcionGrupo;
+    nombreGrupo = this.myForm.value.nombreGrupo;
+    descripcionGrupo = this.myForm.value.descripcionGrupo;
 
     console.log('entro a crear');
 
@@ -109,8 +98,8 @@ export class CrearGrupoComponent implements OnInit {
     let nombreGrupo: string;
     let descripcionGrupo: string;
 
-    nombreGrupo = this.formArray.value[0].nombreGrupo;
-    descripcionGrupo = this.formArray.value[0].descripcionGrupo;
+    nombreGrupo = this.myForm.value.nombreGrupo;
+    descripcionGrupo = this.myForm.value.descripcionGrupo;
 
     this.grupoService.EditarGrupo(new Grupo(nombreGrupo, descripcionGrupo), this.profesorId, this.grupo.id)
     .subscribe((res) => {

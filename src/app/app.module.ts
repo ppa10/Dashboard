@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // IMPORTs DE ANGULAR MATERIAL
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 // IMPORTs COMPONENTES
@@ -39,9 +41,8 @@ import { AgregarAlumnoEquipoComponent } from './paginas/equipos/editar-equipo/ag
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
 
-
-
-
+// COMPONENTES EN COMPARTIDO
+import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 
 
 @NgModule({
@@ -56,11 +57,13 @@ import { HttpClientModule } from '@angular/common/http';
     EditarGrupoComponent,
     EquiposComponent,
     EditarEquipoComponent,
-    AgregarAlumnoEquipoComponent
+    AgregarAlumnoEquipoComponent,
+    DialogoConfirmacionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
 
     FormsModule,
     ReactiveFormsModule,
@@ -81,12 +84,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     MatDividerModule,
     MatCheckboxModule,
+    MatSnackBarModule,
 
     HttpClientModule
 
 
   ],
-  entryComponents: [AgregarAlumnoDialogComponent, AgregarAlumnoEquipoComponent ],
+  entryComponents: [AgregarAlumnoDialogComponent, AgregarAlumnoEquipoComponent, DialogoConfirmacionComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })

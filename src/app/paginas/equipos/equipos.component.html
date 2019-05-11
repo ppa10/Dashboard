@@ -4,7 +4,7 @@
 <mat-tab-group [color]="primary" [backgroundColor]="primary">
   <mat-tab label="Lista de equipos">
     <form>
-      <mat-accordion>
+      <mat-accordion *ngIf="listaEquipos;else Aviso_no_equipos">
         <mat-expansion-panel *ngFor="let equipo of listaEquipos" (click) = "AlumnosDelEquipo(equipo.id)">
           <mat-expansion-panel-header>
 
@@ -21,11 +21,14 @@
                   <mat-list-item role="listitem">{{alumno.Nombre}} {{alumno.PrimerApellido}} {{alumno.SegundoApellido}}</mat-list-item>
                 </mat-list>
                 <button type="button" class="btn btn-info" routerLink= "editarEquipo" (click) = "EnviarEquipoEditar(equipo, alumnosEquipo)">Editar equipo</button>
-                <button type="button" class="btn btn-danger">Eliminar equipo</button>
+                <button type="button" class="btn btn-danger" (click) = "AbrirDialogoConfirmacionBorrar(equipo)">Eliminar equipo</button>
             </p>
 
         </mat-expansion-panel>
       </mat-accordion>
+
+      <ng-template #Aviso_no_equipos>Todavía no hay equipos en este grupo</ng-template>
+
     </form>
   </mat-tab>
   <mat-tab label="Crear equipo"> Content 2 </mat-tab>
