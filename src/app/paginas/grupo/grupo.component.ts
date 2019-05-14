@@ -40,7 +40,7 @@ export class GrupoComponent implements OnInit {
   ngOnInit() {
 
     // LE PIDO AL SERVICIO QUE ME DE LOS DATOS DEL PROFESOR QUE ME HAN ENVIADO
-    this.grupoSeleccionado = this.grupoService.DameGrupo();
+    this.grupoSeleccionado = this.grupoService.RecibirGrupoDelServicio();
     this.profesorId = this.grupoSeleccionado.profesorId;
 
     // PEDIMOS LA LISTA DE ALUMNOS CUANDO INICIAMOS EL COMPONENTE
@@ -51,7 +51,7 @@ export class GrupoComponent implements OnInit {
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
   AlumnosDelGrupo() {
 
-    this.grupoService.MostrarAlumnosGrupo(this.grupoSeleccionado.id)
+    this.alumnoService.GET_AlumnosDelGrupo(this.grupoSeleccionado.id)
     .subscribe(res => {
 
       if (res[0] !== undefined) {
@@ -62,24 +62,28 @@ export class GrupoComponent implements OnInit {
     });
   }
 
+
+
+  // FUNCIONES DE LAS DIFERENTES OPCIONES QUE TENEMOS CON EL GRUPO
+
   EntrarEditarGrupo() {
 
     // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
-    this.grupoService.TomaGrupo(this.grupoSeleccionado);
-    this.alumnoService.TomaAlumnos(this.alumnosGrupoSeleccionado);
+    this.grupoService.EnviarGrupoAlServicio(this.grupoSeleccionado);
+    this.alumnoService.EnviarListaAlumnosAlServicio(this.alumnosGrupoSeleccionado);
   }
 
   EntrarEquipos() {
     // ENVIAMOS EL IDENTIFICADOR Y LOS ALUMNOS DEL GRUPO SELECCIONADO
-    this.grupoService.TomaGrupoId(this.grupoSeleccionado.id);
-    this.grupoService.TomaAlumnosGrupo(this.alumnosGrupoSeleccionado);
+    this.grupoService.EnviarGrupoIdAlServicio(this.grupoSeleccionado.id);
+    this.grupoService.EnviarAlumnosGrupoAlServicio(this.alumnosGrupoSeleccionado);
   }
 
   // ESTA FUNCIÓN BORRARÁ EL GRUPO DE ID QUE PASEMOS DEL PROFESOR CON ID QUE PASEMOS Y VOLVERÁ A LA PÁGINA DE LISTAR
   // ACTUALIZANDO LA TABLA
   EliminarGrupo() {
     console.log('Voy a eliminar el grupo');
-    this.grupoService.EliminarGrupo(this.profesorId, this.grupoSeleccionado.id)
+    this.grupoService.DELETE_Grupo(this.profesorId, this.grupoSeleccionado.id)
     .subscribe(() => {
       console.log('Borrado correctamente');
       this.EliminarMatriculas();
@@ -93,7 +97,7 @@ export class GrupoComponent implements OnInit {
   EliminarMatriculas() {
 
     // Pido las matrículas correspondientes al grupo que voy a borrar
-    this.matriculaService.MatriculasDelGrupo(this.grupoSeleccionado.id)
+    this.matriculaService.GET_MatriculasDelGrupo(this.grupoSeleccionado.id)
     .subscribe( matriculas => {
       if (matriculas[0] !== undefined) {
         console.log('he recibido las matriculas');
@@ -101,7 +105,7 @@ export class GrupoComponent implements OnInit {
         // Una vez recibo las matriculas del grupo, las voy borrando una a una
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < matriculas.length; i++) {
-          this.matriculaService.EliminarMatricula(matriculas[i].id)
+          this.matriculaService.DELETE_Matricula(matriculas[i].id)
           .subscribe(() => {
               console.log('matricula borrada correctamente');
           });
@@ -131,9 +135,9 @@ export class GrupoComponent implements OnInit {
         this.snackBar.open(this.grupoSeleccionado.Nombre + ' eliminado correctamente', 'Cerrar', {
           duration: 2000,
         });
-
       }
     });
+
   }
 
   // NOS DEVOLVERÁ AL INICIO

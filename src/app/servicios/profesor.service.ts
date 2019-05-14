@@ -20,46 +20,29 @@ export class ProfesorService {
 
 
   // FUNCIÓN TEMPORAL DE AUTENTIFICAR (PARA SIMPLIFICAR AHORA)
-  Autentificar(nombre: string, apellido: string): Observable<Profesor> {
+  AutentificarProfesor(nombre: string, apellido: string): Observable<Profesor> {
     console.log('Entro a mostrar a ' + nombre + ' ' + apellido);
     return this.http.get<Profesor>(this.APIUrl + '?filter[where][Nombre]=' + nombre + '&filter[where][Apellido]=' + apellido);
-  }
-
-
-  // BUSCA SI HAY ALGUN ALUMNO EN LA BASE DE DATOS CON ESE NOMBRE Y APELLIDOS
-  BuscadorAlumno(alumno: Alumno, profesorId: number): Observable<Alumno> {
-    console.log('Entro a buscar a ' + alumno.Nombre + ' ' + alumno.PrimerApellido + ' ' + alumno.SegundoApellido );
-    return this.http.get<Alumno>(this.APIUrl + '/' + profesorId + '/alumnos?filter[where][Nombre]=' + alumno.Nombre +
-    '&filter[where][PrimerApellido]=' + alumno.PrimerApellido + '&filter[where][SegundoApellido]=' + alumno.SegundoApellido);
-  }
-
-  // ASIGNAR ALUMNOS A UN PROFESOR
-  AgregarAlumnosProfesor(alumno: Alumno, profesorId: number): Observable<Alumno> {
-    return this.http.post<Alumno>(this.APIUrl + '/' + profesorId + '/alumnos', alumno);
-  }
-
-  GruposDelProfesor(profesorId: number): Observable<Grupo[]> {
-    return this.http.get<Grupo[]>(this.APIUrl + '/' + profesorId + '/grupos');
   }
 
 
   // Enviar y recibir profesores entre componentes
 
   // ESTA ES LA FUNCION QUE HAY QUE LLAMAR PARA ENVIAR AL PROFESOR QUE HA INICIADO SESIÓN
-  TomaProfesor(profesor: any) {
+  EnviarProfesorAlServicio(profesor: any) {
     this.profesorActual = profesor;
   }
 
   // ESTA ES LA QUE HAY QUE LLAMAR PARA RECOGER EL PROFESOR EN OTRO COMPONENTE
-  DameProfesor(): any {
+  RecibirProfesorDelServicio(): any {
     return this.profesorActual;
   }
 
-  TomaProfesorId( profesorId: number) {
+  EnviarProfesorIdAlServicio( profesorId: number) {
     this.profesorId = profesorId;
   }
 
-  DameProfesorId(): number {
+  RecibirProfesorIdDelServicio(): number {
     return this.profesorId;
   }
 

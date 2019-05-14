@@ -2,10 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 // Servicios
-import {EquipoService, MatriculaService} from '../../../../servicios/index';
+import {EquipoService, MatriculaService} from '../../../servicios/index';
 
 // Clases
-import { Alumno, AsignacionEquipo, Equipo } from '../../../../clases/index';
+import { Alumno, AsignacionEquipo, Equipo } from '../../../clases/index';
 
 @Component({
   selector: 'app-agregar-alumno-equipo',
@@ -25,7 +25,10 @@ export class AgregarAlumnoEquipoComponent implements OnInit {
 
   constructor( public dialogRef: MatDialogRef<AgregarAlumnoEquipoComponent>,
                @Inject(MAT_DIALOG_DATA) public data: any,
-               private equipoService: EquipoService) { }
+               private equipoService: EquipoService) {
+
+               dialogRef.disableClose = true;
+               }
 
   ngOnInit() {
 
@@ -35,7 +38,7 @@ export class AgregarAlumnoEquipoComponent implements OnInit {
 
   AgregarAlumnosEquipo(alumnoId: number) {
 
-    this.equipoService.AgregarAlumnosEquipo(new AsignacionEquipo(alumnoId, this.equipo.id), this.equipo.grupoId)
+    this.equipoService.POST_AlumnoEquipo(new AsignacionEquipo(alumnoId, this.equipo.id), this.equipo.grupoId)
     .subscribe((res) => {
       if (res != null) {
         this.AlumnosDelEquipo(this.equipo.id); // Para actualizar la tabla
@@ -52,7 +55,7 @@ export class AgregarAlumnoEquipoComponent implements OnInit {
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
   AlumnosDelEquipo(equipoId: number) {
 
-    this.equipoService.MostrarAlumnosEquipo(equipoId)
+    this.equipoService.GET_AlumnosEquipo(equipoId)
     .subscribe(res => {
       if (res[0] !== undefined) {
         this.data.alumnosEquipo = res;
@@ -78,13 +81,13 @@ export class AgregarAlumnoEquipoComponent implements OnInit {
   BorrarAlumnoEquipo(alumno: Alumno) {
     console.log('voy a borrar a ' + alumno.id);
     // PRIMERO BUSCO LA ASIGNACIÓN QUE VINCULA EL ALUMNO CON ID QUE PASO COMO PARÁMETRO Y EL EQUIPO EN EL QUE ESTOY
-    this.equipoService.GetAsignacionAlumnoEquipo(alumno.id, this.equipo.id, this.equipo.grupoId)
+    this.equipoService.GET_AsignacionEquipoAlumno(alumno.id, this.equipo.id, this.equipo.grupoId)
     .subscribe(asignacion => {
       console.log(asignacion);
 
       // UNA VEZ LO TENGO, BORRO ESA ASIGNACIÓN Y, POR TANTO, EL VÍNCULO ENTRE ALUMNO Y EQUIPO
       if (asignacion[0] !== undefined) {
-        this.equipoService.BorrarAlumnoEquipo(asignacion[0]).subscribe(res => {
+        this.equipoService.DELETE_AlumnoEquipo(asignacion[0]).subscribe(res => {
           console.log(res);
           // SI SE BORRA CORRECTAMENTE NOS DEVUELVE NULL
           if (res === null) {

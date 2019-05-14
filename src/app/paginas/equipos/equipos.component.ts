@@ -18,8 +18,6 @@ import { GrupoService, EquipoService, AlumnoService } from '../../servicios/inde
 })
 export class EquiposComponent implements OnInit {
 
-  // PONEMOS LAS COLUMNAS DE LA TABLA Y LA LISTA QUE TENDRÁ LA INFORMACIÓN QUE QUEREMOS MOSTRAR
-  displayedColumns: string[] = ['nombre', 'descripcion'];
   listaEquipos: Equipo[];
 
   grupoId: number;
@@ -38,7 +36,7 @@ export class EquiposComponent implements OnInit {
                private location: Location ) { }
 
   ngOnInit() {
-    this.grupoId = this.grupoService.DameGrupoId();
+    this.grupoId = this.grupoService.RecibirGrupoIdDelServicio();
     this.EquiposDelGrupo();
     console.log('inicio componente equipo');
   }
@@ -47,7 +45,7 @@ export class EquiposComponent implements OnInit {
     // LE PASAMOS EL IDENTIFICADOR DEL PROFESOR Y NOS DEVUELVE UNA LISTA CON LOS GRUPOS QUE TIENE
   EquiposDelGrupo() {
     console.log('Voy a listar los equipos');
-    this.equipoService.EquiposDelGrupo(this.grupoId)
+    this.equipoService.GET_EquiposDelGrupo(this.grupoId)
     .subscribe(res => {
       if (res[0] !== undefined) {
         console.log('Voy a dar la lista de equipos');
@@ -63,7 +61,7 @@ export class EquiposComponent implements OnInit {
   AlumnosDelEquipo(equipoId: number) {
     console.log('voy a mostrar los alumnos del equipo ' + equipoId);
 
-    this.equipoService.MostrarAlumnosEquipo(equipoId)
+    this.equipoService.GET_AlumnosEquipo(equipoId)
     .subscribe(res => {
       this.alumnosEquipo = res;
       if (res[0] !== undefined) {
@@ -79,13 +77,13 @@ export class EquiposComponent implements OnInit {
   // ENVÍA EL EQUIPO Y LOS ALUMNOS DE UN EQUIPO ESPECIFICO AL COMPONENTE EDITAR-EQUIPO
   EnviarEquipoEditar(equipo: Equipo, alumnosEquipo: Alumno[]) {
     console.log('voy a enviar');
-    this.equipoService.TomaEquipo(equipo);
+    this.equipoService.EnviarEquipoAlServicio(equipo);
     console.log(alumnosEquipo);
     if (alumnosEquipo !== undefined) {
       console.log('entro aqui');
-      this.alumnoService.TomaAlumnos(alumnosEquipo);
+      this.alumnoService.EnviarListaAlumnosAlServicio(alumnosEquipo);
     } else {
-      this.alumnoService.TomaAlumnos(alumnosEquipo);
+      this.alumnoService.EnviarListaAlumnosAlServicio(alumnosEquipo);
       console.log('no hay alumnos en este equipo');
     }
   }
@@ -93,7 +91,7 @@ export class EquiposComponent implements OnInit {
   // ESTA FUNCIÓN BORRARÁ EL EQUIPO QUE PASEMOS Y ACTUALIZARÁ LA LISTA
   EliminarEquipo(equipo: Equipo) {
     console.log('Voy a eliminar el equipo');
-    this.equipoService.BorrarEquipoDelGrupo(equipo)
+    this.equipoService.DELETE_EquipoDelGrupo(equipo)
     .subscribe(() => {
       console.log('Borrado correctamente');
       console.log('Voy a por las asignaciones');
@@ -109,7 +107,7 @@ export class EquiposComponent implements OnInit {
   // ESTA FUNCIÓN RECUPERA TODAS LAS ASIGNACIONES DEL EQUIPO QUE VAMOS A BORRAR Y DESPUÉS LAS BORRA.
   // ESTO LO HACEMOS PARA NO DEJAR ASIGNACIONES A EQUIPOS QUE NO NOS SIRVEN EN LA BASE DE DATOS
   EliminarAsignacionesEquipo(equipo: Equipo) {
-    this.equipoService.GetAsignacionesDelEquipo(equipo)
+    this.equipoService.GET_AsignacionesDelEquipo(equipo)
     .subscribe(asignaciones => {
       console.log(asignaciones);
 
@@ -118,7 +116,7 @@ export class EquiposComponent implements OnInit {
 
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < asignaciones.length; i++) {
-          this.equipoService.BorrarAlumnoEquipo(asignaciones[i])
+          this.equipoService.DELETE_AlumnoEquipo(asignaciones[i])
           .subscribe(() => {
             console.log('asginacion borrada');
           });

@@ -7,18 +7,20 @@ Al iniciar el crear-grupo recuperaremos el profesorId de la URL, el cual será u
 
 También iniciamos la URLVueltaInicio, la cual nos enviará a la pantalla de inicio una vez acabado de crear el equipo.
 
-Los formGruop los usamos para el stepper del html. Tendremos un stepper con tres pasos. Solo recogeremos información de los dos primeros, así que haremos un array con dos formGroup (primerPaso y segundoPaso). El primer paso tendrá dos inputs (nombre y descripción), mientras que el segundo tendrá un botón que abrirá un diálogo.  
+Los formGruop los usamos para el stepper del html. Tendremos un stepper con tres pasos. Solo recogeremos información del primero, así que crearemos un formGroup (myForm) el cual tendrá dos inputs (nombre y descripción). El segundo paso tendrá un botón que abrirá un diálogo.  
 
-El mat-form-field requiere de controladores. El primer paso deberá tener dos controladores, uno para el nombre (nombreGrupo) y otro para la descripción (descripcionGrupo). En el segundo paso nos da igual el controlador, ya que utilizaremos un botón, así que lo llamamos controlador.
+El mat-form-field requiere de controladores. El primer paso deberá tener dos controladores, uno para el nombre (nombreGrupo) y otro para la descripción (descripcionGrupo). 
+
+En el segundo paso nos da igual el controlador, ya que utilizaremos un botón. Por eso el segundo paso no será un mat-form-field.
 
 
 # CrearEquipo()
 
-Para crear un equipo tendremos dos inputs donde introduciremos el nombre y la descripción. Como se ha explicado anteriormente, estos inputs son los controladores. Así pues serán los valores de los controladores del primer formGroup del array (el formArray.value[0]. Después utilizamos la función CrearGrupo del GrupoService que hace un POST en la base de datos.
+Para crear un equipo tendremos dos inputs donde introduciremos el nombre y la descripción. Como se ha explicado anteriormente, estos inputs son los controladores. Así pues serán los valores de los controladores del formGroup "myForm" (myForm.value). Después utilizamos la función POST_Grupo del GrupoService que hace un POST en la base de datos.
 
 El POST nos devuelve un Observable de la clase Grupo (res) que metemos en el parámetro grupo del componente crear-grupo. Además tenemos un Boolean llamado equipoYaCreado iniciado en false. Cuando creemos el equipo por primera vez, lo pondremos true. 
 
-Esto lo utilizaremos porque escribimos el nombre y la descripción en el primer paso del stepper. Al clicar al botón de siguiente para pasar al segundo paso, llamaremos a la función de CrearEquipo() y haremos el POST. En la pantalla del segundo paso tenemos la opción de volver hacia atrás, lo que nos devolvería al paso de crear equipo. Si volvemos hacia atrás os encontraremos en los inputs los parámetros del grupo que acabamos de crear. Si quisiéramos cambiar uno de los parámetros porque nos hemos equivocado, deberíamos hacer un PUT del grupo que acabamos de crear, es decir, editarlo. Entonces, cuando cliquemos en siguiente, ya no llamaríamos a la función CrearEquipo(), sino a la de EditarEquipo(). 
+Esto lo utilizaremos porque escribimos el nombre y la descripción en el primer paso del stepper. Al clicar al botón de siguiente para pasar al segundo paso, llamaremos a la función de CrearEquipo() y haremos el POST en la base de datos. En la pantalla del segundo paso tenemos la opción de volver hacia atrás, lo que nos devolvería al paso de crear equipo. Si volvemos hacia atrás nos encontraremos en los inputs los parámetros del grupo que acabamos de crear. Si quisiéramos cambiar uno de los parámetros porque nos hemos equivocado, deberíamos hacer un PUT del grupo que acabamos de crear, es decir, editarlo. Entonces, cuando cliquemos en siguiente, ya no llamaríamos a la función CrearEquipo(), sino a la de EditarEquipo(). 
 
 Para saber si tengo que hacer un PUT o un POST deberé saber si el grupo ya se ha creado (PUT) o no (POST). Por eso utilizamos ese Boolean.
 
@@ -26,14 +28,14 @@ Para saber si tengo que hacer un PUT o un POST deberé saber si el grupo ya se h
 
 Como editamos el grupo que acabamos de crear y hemos recuperado ese grupo con la suscripción al Observable y lo hemos metido en el parámetro grupo, utilizaremos el id del grupo para hacer un PUT de ese grupo determinado. 
 
-Es todo igual a cuando creamos un equipo solo que indicamos el grupo particular donde haremos el PUT y utilizaremos la función EditarGrupo del GrupoService .
+Es todo igual a cuando creamos un equipo solo que indicamos el grupo particular donde haremos el PUT y utilizaremos la función PUT_Grupo del GrupoService .
 
 # AbrirDialogoAgregarAlumnos()
 
 Esta función se utilizará en el segundo paso, el cual es opcional. El profesor puede decidir crear el grupo vacío y ya lo podrá ver en Mis Grupos y posteriormente añadir los alumnos. 
 
-En estos momentos en el segundo paso aparecerá un botón de añadir alumnos que abrera un dialogo donde podremos introducir manualmente los alumnos. Este dialogo es otro componente nuevo (AgregarAlumnoDialogComponent), el cual se encuentra dentro de la carpeta crear-grupo. Le pasaremos a ese componente el grupoId y el profesorId a través del data. 
+En estos momentos en el segundo paso aparecerá un botón de añadir alumnos que abrera un dialogo donde podremos introducir manualmente los alumnos. Este diálogo es otro componente nuevo (AgregarAlumnoDialogComponent), el cual se encuentra dentro de la carpeta crear-grupo. Le pasaremos a ese componente el grupoId y el profesorId a través del data. 
 
 # VueltaInicio()
 
-Esta función se activará si clicamos en el botón Finalizar del último paso de la creación del grupo y nos devolverá a la pantalla de inicio del profesor.
+Esta función se activará si clicamos en el botón "Finalizar" del último paso de la creación del grupo y nos devolverá a la pantalla de inicio del profesor.

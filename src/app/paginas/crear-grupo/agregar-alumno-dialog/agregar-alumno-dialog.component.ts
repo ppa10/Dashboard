@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 // Servicios
-import {ProfesorService, MatriculaService} from '../../../servicios/index';
+import {ProfesorService, MatriculaService, AlumnoService} from '../../../servicios/index';
 
 // Clases
 import { Grupo, Alumno, Matricula } from '../../../clases/index';
@@ -15,8 +15,6 @@ import { Grupo, Alumno, Matricula } from '../../../clases/index';
 })
 export class AgregarAlumnoDialogComponent implements OnInit {
 
-  // tslint:disable-next-line:no-inferrable-types
-  prueba: string = 'Alumnos añadidos correctamente'; // Se utilizará para saber que se ha creado correctamente
 
   alumno: Alumno;
 
@@ -27,8 +25,8 @@ export class AgregarAlumnoDialogComponent implements OnInit {
   myForm: FormGroup;
 
 
-  constructor(private profesorService: ProfesorService,
-              private matriculaService: MatriculaService,
+  constructor(private matriculaService: MatriculaService,
+              private alumnoService: AlumnoService,
               private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<AgregarAlumnoDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -53,7 +51,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
    MatricularAlumno() {
 
     console.log('voy a entrar a matricular al alumno con id y grupo ' + this.alumno.id + ' ' + this.grupoId);
-    this.matriculaService.CrearMatricula(new Matricula (this.alumno.id, this.grupoId))
+    this.matriculaService.POST_Matricula(new Matricula (this.alumno.id, this.grupoId))
     .subscribe((resMatricula) => {
       if (resMatricula != null) {
         console.log('Matricula: ' + resMatricula);
@@ -70,7 +68,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
 
   // PARA AGREGAR UN ALUMNO NUEVO A LA BASE DE DATOS DEBEMOS HACERLO DESDE LAS VENTANAS DE CREAR GRUPO O EDITAR GRUPO.
   // CREARÁ AL ALUMNO Y LO MATRICULARÁ EN EL GRUPO QUE ESTAMOS CREANDO/EDITANDO
-  AgregarAlumnoNuevo() {
+  AgregarAlumnoNuevoGrupo() {
 
     let nombreAlumno: string;
     let primerApellido: string;
@@ -80,7 +78,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
     primerApellido = this.myForm.value.primerApellido;
     segundoApellido = this.myForm.value.segundoApellido;
 
-    this.profesorService.AgregarAlumnosProfesor(
+    this.alumnoService.POST_AlumnosAlProfesor(
       new Alumno (nombreAlumno, primerApellido, segundoApellido), this.profesorId)
       .subscribe(res => {
         if (res != null) {
@@ -96,7 +94,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
 
   // A LA HORA DE AÑADIR UN ALUMNO AL GRUPO, PRIMERO COMPRUEBA SI ESE ALUMNO YA ESTA REGISTRADO EN LA BASE DE DATOS.
   // EN CASO DE ESTAR REGISTRADO, SOLO HACE LA MATRICULA. SINO, LO AGREGA Y HACE LA MATRICULA
-  BuscarAlumno() {
+  BuscarAlumnoBaseDeDatos() {
     console.log('voy a entrar a buscar alumno');
 
     let nombreAlumno: string;
@@ -107,7 +105,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
     primerApellido = this.myForm.value.primerApellido;
     segundoApellido = this.myForm.value.segundoApellido;
 
-    this.profesorService.BuscadorAlumno(
+    this.alumnoService.GET_AlumnoConcreto(
       new Alumno (nombreAlumno, primerApellido, segundoApellido), this.profesorId)
       .subscribe((respuesta) => {
         if (respuesta[0] !== undefined) {
@@ -117,7 +115,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
         this.MatricularAlumno();
         } else {
         console.log('El alumno no existe. Voy a agregarlo y matricularlo');
-        this.AgregarAlumnoNuevo();
+        this.AgregarAlumnoNuevoGrupo();
         }
       });
   }

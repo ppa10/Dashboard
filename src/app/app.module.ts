@@ -36,7 +36,7 @@ import { AgregarAlumnoDialogComponent } from './paginas/crear-grupo/agregar-alum
 import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.component';
 import { EquiposComponent } from './paginas/equipos/equipos.component';
 import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-equipo.component';
-import { AgregarAlumnoEquipoComponent } from './paginas/equipos/editar-equipo/agregar-alumno-equipo/agregar-alumno-equipo.component';
+import { AgregarAlumnoEquipoComponent } from './paginas/equipos/agregar-alumno-equipo/agregar-alumno-equipo.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';

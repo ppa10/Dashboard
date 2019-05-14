@@ -55,7 +55,7 @@ export class MisGruposComponent implements OnInit {
   // LE PASAMOS EL IDENTIFICADOR DEL PROFESOR Y NOS DEVUELVE UNA LISTA CON LOS GRUPOS QUE TIENE
   GruposDelProfesor() {
 
-    this.profesorService.GruposDelProfesor(this.identificadorProfesor)
+    this.grupoService.GET_GruposDelProfesor(this.identificadorProfesor)
     .subscribe(res => {
       if (res[0] !== undefined) {
         console.log('Voy a dar la lista');
@@ -69,10 +69,10 @@ export class MisGruposComponent implements OnInit {
   }
 
   // CUANDO CLICKEMOS ENCIMA DE UNA FILA, ENTRAREMOS EN ESTA FUNCIÓN QUE IDENTIFICA SOBRE EL GRUPO QUE HEMOS CLICKADO
-  entrarGrupo(grupo) {
+  EntrarGrupo(grupo) {
 
     // AHORA SE LO ENVIO AL SERVICIO
-    this.grupoService.TomaGrupo(grupo);
+    this.grupoService.EnviarGrupoAlServicio(grupo);
 
     // HAGO LA RUTA AL COMPONENTE GRUPO
     this.router.navigate([this.returnUrl, grupo.id]);

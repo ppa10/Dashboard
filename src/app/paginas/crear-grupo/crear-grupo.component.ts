@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { AgregarAlumnoDialogComponent } from './agregar-alumno-dialog/agregar-alumno-dialog.component';
 
@@ -10,8 +10,6 @@ import { GrupoService } from '../../servicios/index';
 
 // Clases
 import { Grupo } from '../../clases/index';
-
-
 
 
 @Component({
@@ -23,19 +21,16 @@ export class CrearGrupoComponent implements OnInit {
 
   profesorId: number;
 
-  formGroup: FormGroup;
-
-  primerPaso: FormGroup;
-  segundoPaso: FormGroup;
-
   grupo: Grupo;
+
+  myForm: FormGroup;
 
   URLVueltaInicio: string;
 
   // AL PRINCIPIO EL EQUIPO NO ESTA CREADO
   // tslint:disable-next-line:ban-types
   equipoYaCreado: Boolean = false;
-  myForm: FormGroup;
+
 
 
   constructor(private route: ActivatedRoute,
@@ -61,14 +56,9 @@ export class CrearGrupoComponent implements OnInit {
     });
 
 
-    this.primerPaso = this._formBuilder.group({
-      nombreGrupo: ['', Validators.required],
-      descripcionGrupo: ['', Validators.required],
-    });
-
   }
 
-  // CREAMOS UN GRUPO DANDOLE UN NOMBRE Y UNA DESCRIPCIÓN
+  // CREAMOS UN GRUPO DÁNDOLE UN NOMBRE Y UNA DESCRIPCIÓN
   CrearGrupo() {
 
     let nombreGrupo: string;
@@ -77,16 +67,16 @@ export class CrearGrupoComponent implements OnInit {
     nombreGrupo = this.myForm.value.nombreGrupo;
     descripcionGrupo = this.myForm.value.descripcionGrupo;
 
-    console.log('entro a crear');
+    console.log('Entro a crear el grupo ' + nombreGrupo);
 
-    this.grupoService.CrearGrupo(new Grupo(nombreGrupo, descripcionGrupo), this.profesorId)
+    this.grupoService.POST_Grupo(new Grupo(nombreGrupo, descripcionGrupo), this.profesorId)
     .subscribe((res) => {
       if (res != null) {
         console.log(res);
-        this.equipoYaCreado = true; // Si tiro atrás y edito algo, se hará un PUT
+        this.equipoYaCreado = true; // Si tiro atrás y cambio algo se hará un PUT y no otro POST
         this.grupo = res;
       } else {
-        console.log('fallo en la creación');
+        console.log('Fallo en la creación');
       }
     });
   }
@@ -94,14 +84,14 @@ export class CrearGrupoComponent implements OnInit {
   // NOS PERMITE MODIFICAR EL NOMBRE Y LA DESCRIPCIÓN DEL GRUPO QUE ESTAMOS CREANDO
   EditarGrupo() {
 
-    console.log('entro a editar');
+    console.log('Entro a editar');
     let nombreGrupo: string;
     let descripcionGrupo: string;
 
     nombreGrupo = this.myForm.value.nombreGrupo;
     descripcionGrupo = this.myForm.value.descripcionGrupo;
 
-    this.grupoService.EditarGrupo(new Grupo(nombreGrupo, descripcionGrupo), this.profesorId, this.grupo.id)
+    this.grupoService.PUT_Grupo(new Grupo(nombreGrupo, descripcionGrupo), this.profesorId, this.grupo.id)
     .subscribe((res) => {
       if (res != null) {
         console.log('Voy a editar el equipo con id ' + this.grupo.id);

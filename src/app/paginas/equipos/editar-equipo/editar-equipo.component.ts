@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import {MatDialog} from '@angular/material';
-import { AgregarAlumnoEquipoComponent } from './agregar-alumno-equipo/agregar-alumno-equipo.component';
+import { AgregarAlumnoEquipoComponent } from '../agregar-alumno-equipo/agregar-alumno-equipo.component';
 
 // Clases
 import { Equipo, Alumno, AsignacionEquipo } from '../../../clases/index';
@@ -41,9 +41,9 @@ export class EditarEquipoComponent implements OnInit {
                private location: Location ) { }
 
   ngOnInit() {
-    this.equipo = this.equipoService.DameEquipo();
-    this.alumnosEquipo = this.alumnoService.DameAlumnos();
-    this.alumnosGrupo = this.grupoService.DameAlumnosGrupo();
+    this.equipo = this.equipoService.RecibirEquipoDelServicio();
+    this.alumnosEquipo = this.alumnoService.RecibirListaAlumnosDelServicio();
+    this.alumnosGrupo = this.grupoService.RecibirAlumnosGrupoDelServicio();
 
     // Una vez recibidos los parámetros, clasificamos los alumnos en función de si tienen en equipo o no
     this.ClasificacionAlumnos();
@@ -55,7 +55,7 @@ export class EditarEquipoComponent implements OnInit {
   ClasificacionAlumnos() {
 
     // Recogemos las asignaciones
-    this.equipoService.AsignacionEquipoGrupo(this.equipo.grupoId)
+    this.equipoService.GET_AsignacionesEquipoDelGrupo(this.equipo.grupoId)
     .subscribe(asignaciones => {
 
       // Si hay algun alumno en algun equipo, devolveremos las asignaciones y activaremos la funcion AlumnosAsignables
@@ -124,7 +124,7 @@ export class EditarEquipoComponent implements OnInit {
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE. LA UTILIZAMOS PARA ACTUALIZAR LA TABLA
   AlumnosDelEquipo(equipoId: number) {
 
-    this.equipoService.MostrarAlumnosEquipo(equipoId)
+    this.equipoService.GET_AlumnosEquipo(equipoId)
     .subscribe(res => {
     if (res[0] !== undefined) {
       this.alumnosEquipo = res;
@@ -146,13 +146,13 @@ export class EditarEquipoComponent implements OnInit {
   BorrarAlumnoEquipo(alumno: Alumno) {
     console.log('voy a borrar a ' + alumno.id);
     // PRIMERO BUSCO LA ASIGNACIÓN QUE VINCULA EL ALUMNO CON ID QUE PASO COMO PARÁMETRO Y EL EQUIPO EN EL QUE ESTOY
-    this.equipoService.GetAsignacionAlumnoEquipo(alumno.id, this.equipo.id, this.equipo.grupoId)
+    this.equipoService.GET_AsignacionEquipoAlumno(alumno.id, this.equipo.id, this.equipo.grupoId)
     .subscribe(asignacion => {
       console.log(asignacion);
 
       // UNA VEZ LO TENGO, BORRO ESA ASIGNACIÓN Y, POR TANTO, EL VÍNCULO ENTRE ALUMNO Y EQUIPO
       if (asignacion[0] !== undefined) {
-        this.equipoService.BorrarAlumnoEquipo(asignacion[0]).subscribe(res => {
+        this.equipoService.DELETE_AlumnoEquipo(asignacion[0]).subscribe(res => {
           console.log(res);
           // SI SE BORRA CORRECTAMENTE NOS DEVUELVE NULL
           if (res === null) {

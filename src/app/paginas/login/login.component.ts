@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   nombre: string;
   apellido: string;
 
-  constructor(private servicioProfesor: ProfesorService,
+  constructor(private profesorService: ProfesorService,
               private route: Router) { }
 
   ngOnInit() {
@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit {
   Autentificar() {
     console.log('voy a entrar en autentificacion');
 
-    this.servicioProfesor.Autentificar(this.nombre, this.apellido).subscribe(
+    this.profesorService.AutentificarProfesor(this.nombre, this.apellido).subscribe(
       (res) => {
         if (res[0] !== undefined) { // Utilizamos res porque la operacion es sincrona. Me suscribo y veo si tiene algo.
           console.log('profe existe');
           this.profesor = res[0]; // Si es diferente de null, el profesor existe y lo meto dentro de profesor
 
           // AHORA SE LO ENVIO AL SERVICIO
-          this.servicioProfesor.TomaProfesor(this.profesor);
+          this.profesorService.EnviarProfesorAlServicio(this.profesor);
 
           this.route.navigateByUrl ('/inicio/' + this.profesor.id); // DEBEMOS USAR ESTE ROUTE PARA QUE FUNCIONE
         } else {

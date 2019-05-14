@@ -23,7 +23,7 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
 
     // LE PIDO AL SERVICIO QUE ME DE LOS DATOS DEL PROFESOR QUE ME HAN ENVIADO
-    this.profesor = this.servicioProfesor.DameProfesor();
+    this.profesor = this.servicioProfesor.RecibirProfesorDelServicio();
   }
 
   // NOS REGRESA A LA PÁGINA DE LA QUE VENIMOS (LOGIN)

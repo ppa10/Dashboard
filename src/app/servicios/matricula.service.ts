@@ -14,15 +14,15 @@ export class MatriculaService {
 
   constructor( private http: HttpClient ) { }
 
-  CrearMatricula(matricula: Matricula): Observable<Matricula> {
+  POST_Matricula(matricula: Matricula): Observable<Matricula> {
     return this.http.post<Matricula>(this.APIUrl, matricula);
   }
 
-  MatriculasDelGrupo(grupoId: number): Observable<Matricula[]> {
+  GET_MatriculasDelGrupo(grupoId: number): Observable<Matricula[]> {
     return this.http.get<Matricula[]>(this.APIUrl + '?filter[where][grupoId]=' + grupoId);
   }
 
-  EliminarMatricula(matriculaId: number): Observable<any> {
+  DELETE_Matricula(matriculaId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrl + '/' + matriculaId);
   }
 

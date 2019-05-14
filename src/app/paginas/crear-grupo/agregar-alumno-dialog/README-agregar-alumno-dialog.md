@@ -12,21 +12,23 @@ Hay que tener en cuenta que a este diálogo se le podrá llamar tanto des de el 
 
 #MatricularAlumno()
 
-Esta función hace un POST en la base de datos uniendo a un alumno registrado en la base de datos con un grupo ya existente. Le pasaremos la nueva matrícula solo indicando el alumnoId y el grupoId a la función CrearMatricula() del MatriculaService. Una vez hayamos recibido que la matrícula se ha hecho correctamente, haré un reset de los inputs del form.
+Esta función hace un POST en la base de datos uniendo a un alumno registrado en la base de datos con un grupo ya existente. Le pasaremos la nueva matrícula solo indicando el alumnoId y el grupoId a la función POST_Matricula del MatriculaService. Una vez hayamos recibido que la matrícula se ha hecho correctamente, haré un reset de los inputs del form.
 
 
-#AgregarAlumnoNuevo()
+#AgregarAlumnoNuevoGrupo()
 
-Esta función se utilizará cuando queramos añadir un alumno nuevo, es decir, que no se encuentra en la base de datos, ya que lo registra y después lo matricula en el grupo al que lo queremos añadir
+Esta función se utilizará cuando queramos añadir un alumno nuevo al grupo, es decir, que no se encuentre en la base de datos del profesor. Lo registrará y después lo matriculará en el grupo al que lo queremos añadir
 
-Recoge los valores que introducimos como inputs y hace un POST del alumno en la base de datos mediante la función AgregarAlumnosProfesor del ProfesorService. Recogemos el Observable y lo ponemos en el parámetro alumno y matriculamos dicho alumno nuevo en el grupo al que lo estamos añadiendo. 
+Recoge los valores que introducimos como inputs y hace un POST del alumno en la base de datos mediante la función POST_AlumnosAlProfesor del AlumnoService. Recogemos el Observable y lo ponemos en el parámetro alumno y matriculamos dicho alumno nuevo en el grupo al que lo estamos añadiendo. 
 
 
-#BuscarAlumnos()
+# BuscarAlumnoBaseDeDatos()
 
-Esta función recoge los parámetros que introducimos y busca si hay algún alumno en la base de datos con esos mismos datos (nombre, primer y segundo apellido). Esto se hace mediante un GET utilizando filtros con la función BuscarAlumno del ProfesorService. En caso de que la suscripción (respuesta) devuelva algo diferente de undefined, significa que ha encontrado al alumno y solo lo matricularemos en el grupo al que lo queremos añadir. 
+Antes de meter a un alumno en un grupo debemos comprobar si éste ya se encuentra registrado en la base de datos o no. Esto se hace porque so ya esta registrado utilizaremos al mismo alumno, sinó haríamos diferentes POSTs para un mismo alumno. 
+ 
+La función recoge los parámetros que introducimos y busca si hay algún alumno en la base de datos con esos mismos datos (nombre, primer y segundo apellido). Esto se hace mediante un GET utilizando filtros con la función GET_AlumnoConcreto del AlumnoService. En caso de que la suscripción (respuesta) devuelva algo diferente de undefined, significa que ha encontrado al alumno y solo lo matricularemos en el grupo al que lo queremos añadir. 
 
-En caso de no encontrar al alumno, lo agregaremos y lo matricularemos (la matricula se hace en la misma función de AgregarAlumnoNuevo()).
+En caso de no encontrar al alumno, lo agregaremos y lo matricularemos (la matricula se hace en la misma función de AgregarAlumnoNuevoAlGrupo()).
 
 
 

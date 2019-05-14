@@ -23,53 +23,58 @@ export class GrupoService {
 
   // PERMITE CREAR UN GRUPO AL PROFESOR. DEVOLVEMOS UN OBSERVABLE GRUPO PARA SABER EL IDENTIFICADOR DEL GRUPO QUE ACABAMOS
   // DE CREAR POR SI DECIDIMOS TIRAR UN PASO HACIA ATRÁS EN EL MOMENTO DE CREAR Y MODIFICAR EL NOMBRE O LA DESCRIPCIÓN
-  CrearGrupo(grupo: Grupo, profesorId: number): Observable<Grupo> {
+  POST_Grupo(grupo: Grupo, profesorId: number): Observable<Grupo> {
     return this.http.post<Grupo>(this.APIUrlProfesor + '/' + profesorId + '/grupos', grupo);
   }
 
   // CUANDO EDITAMOS UN GRUPO LE PASAMOS EL NUEVO MODELO DEL GRUPO, EL IDENTIFICADOR DEL PROFESOR Y EL GRUPO EN CONCRETO
   // QUE QUEREMOS EDITAR
-  EditarGrupo(grupo: Grupo, profesorId: number, grupoId: number): Observable<Grupo> {
+  PUT_Grupo(grupo: Grupo, profesorId: number, grupoId: number): Observable<Grupo> {
     return this.http.put<Grupo>(this.APIUrlProfesor + '/' + profesorId + '/grupos/' + grupoId, grupo);
   }
 
-  MostrarAlumnosGrupo(grupoId: number): Observable<Alumno[]> {
-    return this.http.get<Alumno[]>(this.APIUrl + '/' + grupoId + '/alumnos');
-  }
-
-  EliminarGrupo(profesorId: number, grupoId: number): Observable<any> {
+  // EN LOS PARÁMETROS DE ENTRADA INDICAMOS EL GRUPO DETERMINADO (grupoId) QUE QUEREMOS ELIMINAR DE UN PROFESOR DETERMINADO
+  // (profesorId)
+  DELETE_Grupo(profesorId: number, grupoId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/grupos/' + grupoId);
   }
 
+  GET_GruposDelProfesor(profesorId: number): Observable<Grupo[]> {
+    return this.http.get<Grupo[]>(this.APIUrlProfesor + '/' + profesorId + '/grupos');
+  }
 
   // NumeroAlumnosGrupo(grupoId: string): Observable<number> {
   //   return this.http.get<number>(this.APIUrl + '/' + grupoId + '/alumnos/count');
   // }
-  // Enviar y recibir profesores entre componentes
+
+
+
+
+  // FUNCIONES PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES
 
   // ESTA ES LA FUNCION QUE HAY QUE LLAMAR PARA ENVIAR AL PROFESOR QUE HA INICIADO SESIÓN
-  TomaGrupo(grupo: any) {
+  EnviarGrupoAlServicio(grupo: any) {
     this.grupoSeleccionado = grupo;
   }
 
   // ESTA ES LA QUE HAY QUE LLAMAR PARA RECOGER EL PROFESOR EN OTRO COMPONENTE
-  DameGrupo(): any {
+  RecibirGrupoDelServicio(): any {
     return this.grupoSeleccionado;
   }
 
-  TomaGrupoId( grupoId: number) {
+  EnviarGrupoIdAlServicio( grupoId: number) {
     this.grupoId = grupoId;
   }
 
-  DameGrupoId(): number {
+  RecibirGrupoIdDelServicio(): number {
     return this.grupoId;
   }
 
-  TomaAlumnosGrupo(alumnos: any) {
+  EnviarAlumnosGrupoAlServicio(alumnos: any) {
     this.listaAlumnos = alumnos;
   }
 
-  DameAlumnosGrupo(): any {
+  RecibirAlumnosGrupoDelServicio(): any {
     return this.listaAlumnos;
   }
 

@@ -53,9 +53,9 @@ export class EditarGrupoComponent implements OnInit {
                private location: Location) { }
 
   ngOnInit() {
-    this.grupoSeleccionado = this.grupoService.DameGrupo();
+    this.grupoSeleccionado = this.grupoService.RecibirGrupoDelServicio();
     this.profesorId = this.grupoSeleccionado.profesorId;
-    this.alumnosGrupoSeleccionado = this.alumnoService.DameAlumnos();
+    this.alumnosGrupoSeleccionado = this.alumnoService.RecibirListaAlumnosDelServicio();
 
     this.dataSource = new MatTableDataSource<Alumno>(this.alumnosGrupoSeleccionado);
 
@@ -66,46 +66,63 @@ export class EditarGrupoComponent implements OnInit {
     this.descripcionGrupo = this.grupoSeleccionado.Descripcion;
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
+  // /** Whether the number of selected elements matches the total number of rows. */
+  // isAllSelected() {
+  //   const numSelected = this.selection.selected.length;
+  //   const numRows = this.dataSource.data.length;
+  //   return numSelected === numRows;
+  // }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+  // /** Selects all rows if they are not all selected; otherwise clear selection. */
+  // masterToggle() {
+  //   this.isAllSelected() ?
+  //       this.selection.clear() :
+  //       this.dataSource.data.forEach(row => this.selection.select(row));
 
-  }
+  // }
 
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Alumno): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
+  // /** The label for the checkbox on the passed row */
+  // checkboxLabel(row?: Alumno): string {
+  //   if (!row) {
+  //     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  //   }
+  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
 
-  }
+  // }
 
   // NOS PERMITE MODIFICAR EL NOMBRE Y LA DESCRIPCIÓN DEL GRUPO QUE ESTAMOS CREANDO
   EditarGrupo() {
 
     console.log('entro a editar');
 
-    this.grupoService.EditarGrupo(new Grupo(this.nombreGrupo, this.descripcionGrupo), this.profesorId, this.grupoSeleccionado.id)
+    this.grupoService.PUT_Grupo(new Grupo(this.nombreGrupo, this.descripcionGrupo), this.profesorId, this.grupoSeleccionado.id)
     .subscribe((res) => {
       if (res != null) {
         console.log('Voy a editar el equipo con id ' + this.grupoSeleccionado.id);
         this.grupoSeleccionado = res;
 
         // Vuelvo a enviar el grupo al componente grupo para tener la versión acutalizada y vuelvo hacia atrás
-        this.grupoService.TomaGrupo(this.grupoSeleccionado);
+        this.grupoService.EnviarGrupoAlServicio(this.grupoSeleccionado);
         this.goBack();
       } else {
         console.log('fallo editando');
+      }
+    });
+  }
+
+  // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
+  AlumnosDelGrupo() {
+
+    this.alumnoService.GET_AlumnosDelGrupo(this.grupoSeleccionado.id)
+    .subscribe(res => {
+
+      if (res[0] !== undefined) {
+        this.alumnosGrupoSeleccionado = res;
+        // Vuelvo a iniciar el datasource
+        this.dataSource = new MatTableDataSource<Alumno>(this.alumnosGrupoSeleccionado);
+
+      } else {
+        console.log('No hay alumnos en este grupo');
       }
     });
   }
@@ -129,27 +146,12 @@ export class EditarGrupoComponent implements OnInit {
     });
   }
 
-  // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
-  AlumnosDelGrupo() {
 
-    this.grupoService.MostrarAlumnosGrupo(this.grupoSeleccionado.id)
-    .subscribe(res => {
 
-      if (res[0] !== undefined) {
-        this.alumnosGrupoSeleccionado = res;
-        // Vuelvo a iniciar el datasource
-        this.dataSource = new MatTableDataSource<Alumno>(this.alumnosGrupoSeleccionado);
-
-      } else {
-        console.log('No hay alumnos en este grupo');
-      }
-    });
-  }
-
-  OnChange($event) {
-    console.log($event);
-    // MatCheckboxChange {checked,MatCheckbox}
-  }
+  // OnChange($event) {
+  //   console.log($event);
+  //   // MatCheckboxChange {checked,MatCheckbox}
+  // }
 
   // prueba(row?: Alumno) {
   //   if (this.selection.isSelected(row) === true ) {
