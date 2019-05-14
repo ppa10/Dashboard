@@ -1,7 +1,7 @@
 # OBJETIVO: editar de una manera fácil el equipo, focalizandonos en agregar/mover/eliminar alumno del equipo
 
 
-<!-- grupo.component.ts -->
+<!-- editar-equipo.component.ts -->
 
 En este componente es importante diferenciar entre 4 grupos de alumnos distinos:
 
@@ -53,14 +53,16 @@ Al cerrar el dialogo, recuperaremos los alumnos del equipo que pasamos del compo
 
 Limpiaremos los array de los alumnos con y sin equipo y volveremos a hacer la clasificación después de cerrar el componente de agregar alumno.
 
-<!-- grupo.component.html -->
+<!-- editar-equipo.component.html -->
 
-Utilizaremos un mat-tab-group. El contenido del primer mat-tab será la lista de grupos, mientras que en el segundo podremos crear un nuevo equipo.
+Aparecerá el titulo de editar equipo y un separador (mat-divider). Después dos párrafos con Nombre: (en negrita) y el nombre del equipo, el cual aparecerá por defecto el que tiene actualmente el equipo.
 
-Si nos encontramos en lista de equipo, si hay equipos mostrará la lista, sino irá al template Aviso_no_equipos. 
+Si clicamos en agregar alumnos se nos abrirá el diálogo agregar-alumno-equipo.
 
-Hacemos una lista de accordion, es decir, una lista con desplegables. Si hay equipos mostrará en la lista el nombre del equipo y al clicar encima sabrá en el equipo que he clicado y, por consiguiente, su identificador. Esto ejecutará la función AlumnosDelEquipo del equipo que pasemos como parámetro, y nos devolverá la lista de alumnos. 
+Después aparecerá una tabla con los alumnos que pertencen el equipo de la misma manera que cuando listábamos alumnos en el grupo.component.html con un pequeño cambio. Aparece una columna nueva con el icono de una papelera roja. Si clicamos en ella borraremos al alumno del equipo.
 
-También nos aparecerán los botones editar(que nos llevará a su componente) y eliminar equipo (abrirá el dialogo de confirmación).
+Si nos situamos encima de la papelera nos dará información de lo que haremos si clicamos.
+
+
 
 
