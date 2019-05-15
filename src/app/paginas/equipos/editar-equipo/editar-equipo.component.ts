@@ -130,6 +130,7 @@ export class EditarEquipoComponent implements OnInit {
       this.alumnosEquipo = res;
     } else {
       console.log('No hay alumnos en este grupo');
+      this.alumnosEquipo = undefined;
       }
     });
   }

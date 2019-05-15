@@ -17,7 +17,7 @@
           <button type="button" class="btn btn-primary">Mover alumno</button>
       </div>
 
-    <table *ngIf="alumnosEquipo" mat-table [dataSource]="alumnosEquipo" class="example-container mat-elevation-z8">
+    <table *ngIf="alumnosEquipo;else Aviso_no_alumnos" mat-table [dataSource]="alumnosEquipo" class="example-container mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -60,6 +60,9 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
+
+    <ng-template #Aviso_no_alumnos>Este equipo no tiene alumnos</ng-template>
+
   </form>
 </div>
 <div>
