@@ -18,7 +18,7 @@ En el segundo paso nos da igual el controlador, ya que utilizaremos un botón. P
 
 Para crear un equipo tendremos dos inputs donde introduciremos el nombre y la descripción. Como se ha explicado anteriormente, estos inputs son los controladores. Así pues serán los valores de los controladores del formGroup "myForm" (myForm.value). Después utilizamos la función POST_Grupo del GrupoService que hace un POST en la base de datos.
 
-El POST nos devuelve un Observable de la clase Grupo (res) que metemos en el parámetro grupo del componente crear-grupo. Además tenemos un Boolean llamado equipoYaCreado iniciado en false. Cuando creemos el equipo por primera vez, lo pondremos true. 
+El POST nos devuelve un Observable de la clase Grupo (res) que metemos en el parámetro grupo del componente crear-grupo. Además tenemos un Boolean llamado grupoYaCreado iniciado en false. Cuando creemos el equipo por primera vez, lo pondremos true. 
 
 Esto lo utilizaremos porque escribimos el nombre y la descripción en el primer paso del stepper. Al clicar al botón de siguiente para pasar al segundo paso, llamaremos a la función de CrearEquipo() y haremos el POST en la base de datos. En la pantalla del segundo paso tenemos la opción de volver hacia atrás, lo que nos devolvería al paso de crear equipo. Si volvemos hacia atrás nos encontraremos en los inputs los parámetros del grupo que acabamos de crear. Si quisiéramos cambiar uno de los parámetros porque nos hemos equivocado, deberíamos hacer un PUT del grupo que acabamos de crear, es decir, editarlo. Entonces, cuando cliquemos en siguiente, ya no llamaríamos a la función CrearEquipo(), sino a la de EditarEquipo(). 
 

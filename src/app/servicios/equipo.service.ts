@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
 // Clases
 import { Equipo, Alumno, AsignacionEquipo } from '../clases/index';
 
@@ -12,13 +13,30 @@ export class EquipoService {
 
   private APIUrl = 'http://localhost:3000/api/Equipos';
   private APIUrlGrupos = 'http://localhost:3000/api/Grupos';
+  private APIURLLogosEquipos = 'http://localhost:3000/api/imagenes/LogosEquipos';
   equipo: Equipo;
 
 
   constructor( private http: HttpClient ) { }
 
+  POST_Equipo(equipo: Equipo, grupoId: number): Observable<Equipo> {
+    return this.http.post<Equipo>(this.APIUrlGrupos + '/' + grupoId + '/equipos', equipo);
+  }
+
+  POST_LogoEquipo(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.APIURLLogosEquipos + '/upload', formData);
+  }
+
+  PUT_Equipo(equipo: Equipo, grupoId: number, equipoId: number): Observable<Equipo> {
+    return this.http.put<Equipo>(this.APIUrlGrupos + '/' + grupoId + '/equipos/' + equipoId, equipo);
+  }
+
   GET_EquiposDelGrupo(grupoId: number): Observable<Equipo[]> {
     return this.http.get<Equipo[]>(this.APIUrlGrupos + '/' + grupoId + '/equipos');
+  }
+
+  GET_LogoEquipo(logoEquipo: string): Observable<any> {
+    return this.http.get<any>(this.APIURLLogosEquipos + '/download/' + logoEquipo);
   }
 
   DELETE_EquipoDelGrupo(equipo: Equipo): Observable<any> {
@@ -57,6 +75,7 @@ export class EquipoService {
     return this.http.get<AsignacionEquipo[]>(this.APIUrlGrupos + '/' + equipo.grupoId + '/asignacionEquipos?filter[where][equipoId]='
      + equipo.id);
   }
+
 
 
 

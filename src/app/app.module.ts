@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { HttpModule } from '@angular/http';
 
 // IMPORTs DE ANGULAR MATERIAL
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -64,6 +65,7 @@ import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confi
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    HttpModule,
 
     FormsModule,
     ReactiveFormsModule,

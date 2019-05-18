@@ -27,9 +27,9 @@ export class CrearGrupoComponent implements OnInit {
 
   URLVueltaInicio: string;
 
-  // AL PRINCIPIO EL EQUIPO NO ESTA CREADO
+  // AL PRINCIPIO EL GRUPO NO ESTA CREADO
   // tslint:disable-next-line:ban-types
-  equipoYaCreado: Boolean = false;
+  grupoYaCreado: Boolean = false;
 
 
 
@@ -73,7 +73,7 @@ export class CrearGrupoComponent implements OnInit {
     .subscribe((res) => {
       if (res != null) {
         console.log(res);
-        this.equipoYaCreado = true; // Si tiro atrás y cambio algo se hará un PUT y no otro POST
+        this.grupoYaCreado = true; // Si tiro atrás y cambio algo se hará un PUT y no otro POST
         this.grupo = res;
       } else {
         console.log('Fallo en la creación');

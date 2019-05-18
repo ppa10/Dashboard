@@ -18,6 +18,7 @@ import {MatDialog} from '@angular/material';
 @Component({
   selector: 'app-editar-grupo',
   templateUrl: './editar-grupo.component.html',
+
   styleUrls: ['./editar-grupo.component.css']
 })
 export class EditarGrupoComponent implements OnInit {
@@ -34,15 +35,12 @@ export class EditarGrupoComponent implements OnInit {
   nombreGrupo: string;
   descripcionGrupo: string;
 
-  SelectedIDs: any[];
 
-    // PRUEBA
-    // displayedColumns: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
-    // dataSource: MatTableDataSource<Alumno>;
-    // selection = new SelectionModel<Alumno>(true, []);
-    displayedColumns: string[] = ['select', 'nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
-    dataSource: MatTableDataSource<Alumno>;
-    selection = new SelectionModel<Alumno>(true, []);
+  displayedColumns: string[] = ['select', 'nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
+  dataSource: MatTableDataSource<Alumno>;
+  selection = new SelectionModel<Alumno>(true, []);
+
+  seleccionados: boolean[];
 
 
 
@@ -64,6 +62,8 @@ export class EditarGrupoComponent implements OnInit {
     // Inicio los parámetros de los inputs con los valores actuales
     this.nombreGrupo = this.grupoSeleccionado.Nombre;
     this.descripcionGrupo = this.grupoSeleccionado.Descripcion;
+
+    this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -77,7 +77,16 @@ export class EditarGrupoComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
         this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+        this.dataSource.data.forEach(row => {
+          this.selection.select(row);
+        });
+  }
+
+  toggleCheckbox(row) {
+    this.selection.toggle(row);
+    row.selected = !row.selected;
+    console.log(row);
+    console.log(this.selection.toggle(row));
 
   }
 
@@ -87,7 +96,6 @@ export class EditarGrupoComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
-
   }
 
   // NOS PERMITE MODIFICAR EL NOMBRE Y LA DESCRIPCIÓN DEL GRUPO QUE ESTAMOS CREANDO
@@ -148,18 +156,21 @@ export class EditarGrupoComponent implements OnInit {
 
 
 
-  // OnChange($event) {
-  //   console.log($event);
-  //   // MatCheckboxChange {checked,MatCheckbox}
-  // }
+  prueba(i: number) {
+    console.log(i);
+    console.log(this.selection.isSelected(this.alumnosGrupoSeleccionado[i]));
+    if (this.selection.isSelected(this.alumnosGrupoSeleccionado[i]) === false) {
+      this.seleccionados[i] = true;
+    } else {
+      this.seleccionados[i] = false;
+    }
+    console.log(this.seleccionados);
+  }
 
-  // prueba(row?: Alumno) {
-  //   if (this.selection.isSelected(row) === true ) {
-  //     this.alumnosSeleccionados.push(row);
-  //   }
-
-  // }
-
+  prueba2() {
+    console.log('prueba 2');
+    console.log(this.isAllSelected());
+  }
 
   // NOS DEVOLVERÁ AL INICIO
   goBack() {

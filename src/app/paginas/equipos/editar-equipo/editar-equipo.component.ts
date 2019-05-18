@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import {MatDialog} from '@angular/material';
 import { AgregarAlumnoEquipoComponent } from '../agregar-alumno-equipo/agregar-alumno-equipo.component';
+import { ResponseContentType, Http, Response } from '@angular/http';
 
 // Clases
 import { Equipo, Alumno, AsignacionEquipo } from '../../../clases/index';
@@ -34,19 +35,58 @@ export class EditarEquipoComponent implements OnInit {
   // Lista con los alumnos del grupo que todavida no tienen equipo. Debemos iniciarlo vacio para que vaya el push
   alumnosSinEquipo: Alumno[] = [];
 
+  // imagen
+  imagenLogo: string;
+
+  file: File;
+
+  nombreLogo: string;
+
+  nombreEquipo: string;
+
+  // tslint:disable-next-line:ban-types
+  logoCambiado: Boolean = false;
+
   constructor( private equipoService: EquipoService,
                private alumnoService: AlumnoService,
                private grupoService: GrupoService,
                public dialog: MatDialog,
-               private location: Location ) { }
+               private location: Location,
+               private http: Http ) { }
 
   ngOnInit() {
     this.equipo = this.equipoService.RecibirEquipoDelServicio();
+    this.nombreEquipo = this.equipo.Nombre;
     this.alumnosEquipo = this.alumnoService.RecibirListaAlumnosDelServicio();
     this.alumnosGrupo = this.grupoService.RecibirAlumnosGrupoDelServicio();
 
+    // Cargo el logo
+    this.GET_Logo();
+
     // Una vez recibidos los parámetros, clasificamos los alumnos en función de si tienen en equipo o no
     this.ClasificacionAlumnos();
+  }
+
+  // Busca el logo que tiene el nombre del equipo.FotoEquipo y lo carga en imagenLogo
+  GET_Logo() {
+
+    if (this.equipo.FotoEquipo !== undefined ) {
+      this.http.get('http://localhost:3000/api/imagenes/LogosEquipos/download/' + this.equipo.FotoEquipo,
+      { responseType: ResponseContentType.Blob })
+      .subscribe(response => {
+
+        const blob = new Blob([response.blob()], { type: 'image/jpg'});
+
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+          this.imagenLogo = reader.result.toString();
+        }, false);
+
+        if (blob) {
+          reader.readAsDataURL(blob);
+        }
+      });
+    }
 
   }
 
@@ -170,7 +210,7 @@ export class EditarEquipoComponent implements OnInit {
       });
   }
 
-    // SE ABRE EL DIÁLOGO PARA AÑADIR ALUMNOS AL EQUIPO
+  // SE ABRE EL DIÁLOGO PARA AÑADIR ALUMNOS AL EQUIPO
   AbrirDialogoAgregarAlumnosEquipo(): void {
 
     const dialogRef = this.dialog.open(AgregarAlumnoEquipoComponent, {
@@ -208,12 +248,56 @@ export class EditarEquipoComponent implements OnInit {
     });
  }
 
- prueba() {
-   console.log(this.alumnosSinEquipo);
-   console.log(this.alumnosConEquipo);
-   console.log(this.alumnosGrupo);
-   console.log(this.alumnosEquipo);
- }
+
+  // NOS PERMITE MODIFICAR EL NOMBRE Y EL LOGO DEL EQUIPO
+  EditarEquipo() {
+
+    console.log('Entro a editar');
+
+    this.equipoService.PUT_Equipo(new Equipo(this.nombreEquipo, this.nombreLogo), this.equipo.grupoId, this.equipo.id)
+    .subscribe((res) => {
+      if (res != null) {
+        console.log('Voy a editar el equipo con id ' + this.equipo.id);
+        this.equipo = res;
+
+        if (this.logoCambiado === true) {
+          // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
+          const formData: FormData = new FormData();
+          formData.append(this.nombreLogo, this.file);
+          this.equipoService.POST_LogoEquipo(formData)
+          .subscribe(() => console.log('Logo cargado'));
+        }
+
+
+      } else {
+        console.log('fallo editando');
+      }
+    });
+    this.goBack();
+  }
+
+  // AL CLICAR EN AGREGAR LOGO NOS ACTIVARÁ LA FUNCIÓN MOSTRAR DE ABAJO
+  ActivarInput() {
+    console.log('Activar input');
+    document.getElementById('input').click();
+  }
+
+
+   // Seleccionamos una foto y guarda el nombre de la foto en la variable logo
+  Mostrar($event) {
+    this.file = $event.target.files[0];
+
+    console.log('fichero ' + this.file.name);
+    this.nombreLogo = this.file.name;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onload = () => {
+      console.log('ya');
+      this.logoCambiado = true;
+      this.imagenLogo = reader.result.toString();
+    };
+  }
 
   // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
   goBack() {

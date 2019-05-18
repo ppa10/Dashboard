@@ -2,9 +2,18 @@
 <mat-divider></mat-divider>
 
 <div>
+    <img *ngIf="imagenLogo" hight = "180" width = "180" mat-card-image [src]="imagenLogo" >
+  <div>
+      <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
+      <button (click) = "ActivarInput()" type="button" class="btn btn-info">
+        <i class="material-icons">add_photo_alternate</i>
+        Agregar logo
+      </button>
+  </div>
+
   <p>
     <span style="font-weight: bold;">Nombre: </span>
-    <input type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="equipo.Nombre">
+    <input type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="nombreEquipo">
   </p>
   <p>
       <span style="font-weight: bold;">Miembros del equipo</span>
@@ -12,10 +21,14 @@
 </div>
 <div>
   <form>
-      <div>
-          <button type="button" class="btn btn-info" (click) = AbrirDialogoAgregarAlumnosEquipo()>Agregar alumno</button>
-          <button type="button" class="btn btn-primary">Mover alumno</button>
-      </div>
+
+    <div>
+        <button type="button" class="btn btn-info" (click) = AbrirDialogoAgregarAlumnosEquipo()>
+          <i class="material-icons">group_add</i>
+            Agregar alumno
+          </button>
+        <button type="button" class="btn btn-primary">Mover alumno</button>
+    </div>
 
     <table *ngIf="alumnosEquipo;else Aviso_no_alumnos" mat-table [dataSource]="alumnosEquipo" class="example-container mat-elevation-z8">
 
@@ -61,11 +74,12 @@
 
     </table>
 
+
+
     <ng-template #Aviso_no_alumnos>Este equipo no tiene alumnos</ng-template>
 
   </form>
 </div>
 <div>
-    <button type="button" class="btn btn-success" (click)= "goBack()">Aceptar</button>
-    <button (click) = "prueba()">prueba</button>
+    <button type="button" class="btn btn-success" (click)= "EditarEquipo()">Aceptar</button>
 </div>
