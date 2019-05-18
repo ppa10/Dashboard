@@ -137,7 +137,6 @@ export class GrupoComponent implements OnInit {
         });
       }
     });
-
   }
 
   // NOS DEVOLVERÁ AL INICIO

@@ -8,10 +8,12 @@ import { AgregarAlumnoDialogComponent } from '../crear-grupo/agregar-alumno-dial
 import { Grupo, Alumno } from '../../clases/index';
 
 // Servicios
-import { GrupoService, ProfesorService, AlumnoService } from '../../servicios/index';
+import { GrupoService, MatriculaService, AlumnoService } from '../../servicios/index';
 
-import {MatDialog} from '@angular/material';
 
+// Imports para abrir diálogo agregar alumno/confirmar eliminar grupo
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 
 
 
@@ -37,17 +39,18 @@ export class EditarGrupoComponent implements OnInit {
 
 
   displayedColumns: string[] = ['select', 'nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
-  dataSource: MatTableDataSource<Alumno>;
   selection = new SelectionModel<Alumno>(true, []);
 
   seleccionados: boolean[];
 
-
+  // tslint:disable-next-line:no-inferrable-types
+  mensaje: string = 'Estás seguro/a de que quieres eliminar a los alumnos del grupo llamado: ';
 
   constructor( private grupoService: GrupoService,
-               private profesorService: ProfesorService,
+               private matriculaService: MatriculaService,
                private alumnoService: AlumnoService,
                public dialog: MatDialog,
+               public snackBar: MatSnackBar,
                private location: Location) { }
 
   ngOnInit() {
@@ -55,21 +58,23 @@ export class EditarGrupoComponent implements OnInit {
     this.profesorId = this.grupoSeleccionado.profesorId;
     this.alumnosGrupoSeleccionado = this.alumnoService.RecibirListaAlumnosDelServicio();
 
-    this.dataSource = new MatTableDataSource<Alumno>(this.alumnosGrupoSeleccionado);
 
-    console.log(this.dataSource);
 
     // Inicio los parámetros de los inputs con los valores actuales
     this.nombreGrupo = this.grupoSeleccionado.Nombre;
     this.descripcionGrupo = this.grupoSeleccionado.Descripcion;
 
-    this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
+    if (this.alumnosGrupoSeleccionado !== undefined) {
+      // Al principio no hay alumnos seleccionados para eliminar
+      this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
+    }
+
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.alumnosGrupoSeleccionado.length;
     return numSelected === numRows;
   }
 
@@ -77,7 +82,7 @@ export class EditarGrupoComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
         this.selection.clear() :
-        this.dataSource.data.forEach(row => {
+        this.alumnosGrupoSeleccionado.forEach(row => {
           this.selection.select(row);
         });
   }
@@ -116,6 +121,7 @@ export class EditarGrupoComponent implements OnInit {
         console.log('fallo editando');
       }
     });
+    this.goBack();
   }
 
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
@@ -125,12 +131,15 @@ export class EditarGrupoComponent implements OnInit {
     .subscribe(res => {
 
       if (res[0] !== undefined) {
+        console.log('entro a actualizar la tabla');
         this.alumnosGrupoSeleccionado = res;
-        // Vuelvo a iniciar el datasource
-        this.dataSource = new MatTableDataSource<Alumno>(this.alumnosGrupoSeleccionado);
+        this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
+        console.log(res);
 
       } else {
         console.log('No hay alumnos en este grupo');
+        this.alumnosGrupoSeleccionado = undefined;
+        this.seleccionados = [];
       }
     });
   }
@@ -155,11 +164,10 @@ export class EditarGrupoComponent implements OnInit {
   }
 
 
+  // Pone a true o false la posición del vector seleccionados que le pasamos (i) en función de su estado
+  Seleccionar(i: number) {
 
-  prueba(i: number) {
-    console.log(i);
-    console.log(this.selection.isSelected(this.alumnosGrupoSeleccionado[i]));
-    if (this.selection.isSelected(this.alumnosGrupoSeleccionado[i]) === false) {
+    if (!this.selection.isSelected(this.alumnosGrupoSeleccionado[i]) === true) {
       this.seleccionados[i] = true;
     } else {
       this.seleccionados[i] = false;
@@ -167,10 +175,77 @@ export class EditarGrupoComponent implements OnInit {
     console.log(this.seleccionados);
   }
 
-  prueba2() {
-    console.log('prueba 2');
-    console.log(this.isAllSelected());
+  // Pone a true or false todo el vector seleccionado
+  SeleccionarTodos() {
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.alumnosGrupoSeleccionado.length; i++) {
+
+      if (!this.isAllSelected() === true) {
+        this.seleccionados[i] = true;
+      } else {
+        this.seleccionados[i] = false;
+      }
+
+    }
+    console.log(this.seleccionados);
   }
+
+    // SI QUEREMOS BORRA UN GRUPO, ANTES NOS SALDRÁ UN AVISO PARA CONFIRMAR LA ACCIÓN COMO MEDIDA DE SEGURIDAD. ESTO SE HARÁ
+  // MEDIANTE UN DIÁLOGO
+  AbrirDialogoConfirmacionBorrar(): void {
+
+    const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
+      height: '150px',
+      data: {
+        mensaje: this.mensaje,
+        nombre: this.grupoSeleccionado.Nombre,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.BorrarAlumnos();
+        this.snackBar.open('Alumnos eliminados correctamente', 'Cerrar', {
+          duration: 2000,
+        });
+      }
+    });
+  }
+
+  BorrarAlumnos() {
+
+    for (let i = 0; i < this.seleccionados.length; i++) {
+
+      if (this.seleccionados [i]) {
+        let alumno: Alumno;
+        alumno = this.alumnosGrupoSeleccionado[i];
+        console.log(alumno.Nombre + ' seleccionado');
+
+        // Recupero la matrícula del alumno en este grupo
+        this.matriculaService.GET_MatriculaAlumno(alumno.id, this.grupoSeleccionado.id)
+        .subscribe(matricula => {
+
+          console.log('Doy la matricula de ' + alumno.Nombre);
+          console.log(matricula[0]);
+
+          // Una vez recupero la matrícula, la borro
+          this.matriculaService.DELETE_Matricula(matricula[0].id)
+          .subscribe(res => {
+            console.log(alumno.Nombre + ' borrado correctamente');
+            this.AlumnosDelGrupo();
+
+          });
+        });
+      }
+    }
+    this.selection.clear();
+  }
+
+  prueba() {
+    console.log(this.alumnosGrupoSeleccionado);
+    console.log(this.seleccionados);
+  }
+
 
   // NOS DEVOLVERÁ AL INICIO
   goBack() {

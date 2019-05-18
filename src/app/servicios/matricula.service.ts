@@ -22,6 +22,10 @@ export class MatriculaService {
     return this.http.get<Matricula[]>(this.APIUrl + '?filter[where][grupoId]=' + grupoId);
   }
 
+  GET_MatriculaAlumno(alumnoId: number, grupoId: number): Observable<Matricula> {
+    return this.http.get<Matricula>(this.APIUrl + '?filter[where][grupoId]=' + grupoId + '&filter[where][alumnoId]=' + alumnoId);
+  }
+
   DELETE_Matricula(matriculaId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrl + '/' + matriculaId);
   }
