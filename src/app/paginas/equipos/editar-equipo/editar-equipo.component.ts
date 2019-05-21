@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {MatDialog} from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { AgregarAlumnoEquipoComponent } from '../agregar-alumno-equipo/agregar-alumno-equipo.component';
+import { MoverAlumnoComponent } from './mover-alumno/mover-alumno.component';
 import { ResponseContentType, Http, Response } from '@angular/http';
 
 // Clases
@@ -161,7 +162,7 @@ export class EditarEquipoComponent implements OnInit {
     return alumnoEncontrado;
   }
 
-  // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE. LA UTILIZAMOS PARA ACTUALIZAR LA TABLA
+  // LE PASAMOS EL IDENTIFICADOR DEL EQUIPO Y BUSCAMOS LOS ALUMNOS QUE TIENE. LA UTILIZAMOS PARA ACTUALIZAR LA TABLA
   AlumnosDelEquipo(equipoId: number) {
 
     this.equipoService.GET_AlumnosEquipo(equipoId)
@@ -298,6 +299,45 @@ export class EditarEquipoComponent implements OnInit {
       this.imagenLogo = reader.result.toString();
     };
   }
+
+
+  // MOVER ALUMNO
+    // SE ABRE EL DIÁLOGO PARA AÑADIR ALUMNOS AL EQUIPO
+    AbrirDialogoMoverAlumno(): void {
+
+      const dialogRef = this.dialog.open(MoverAlumnoComponent, {
+        width: '80%',
+        height: 'auto',
+
+        // LE ENVIAMOS LOS ALUMNOS QUE TIENE ACTUALMENTE EL EQUIPO Y LOS QUE PODEMOS AÑADIR, ADEMÁS DEL EQUIPO QUE NOS SERÁ
+        // ÚTIL PARA SABER SU ID Y EL ID DEL GRUPO AL QUE PERTENCE
+        data: {
+          alumnosEquipo: this.alumnosEquipo,
+          equipo: this.equipo
+        }
+      });
+
+      // RECUPERAREMOS LA NUEVA LISTA DE LOS ALUMNOS ASIGNABLES Y VOLVEREMOS A BUSCAR LOS ALUMNOS QUE TIENE EL EQUIPO
+      dialogRef.afterClosed().subscribe(alumnosEquipo => {
+
+        // Si el usuario clica a aceptar para cerrar el dialogo, se enviarán los alumnos del equipo
+        if (alumnosEquipo !== undefined) {
+          this.alumnosEquipo = alumnosEquipo;
+
+          // Si clica fuera del diálogo para cerrarlo, recuperaremos la lista de la base de datos
+        } else {
+          this.AlumnosDelEquipo(this.equipo.id);
+        }
+
+        // Limpiamos las listas que teniamos antes
+        this.alumnosConEquipo = [];
+        this.alumnosSinEquipo = [];
+
+        // Volvemos a hacer la clasificación
+        this.ClasificacionAlumnos();
+
+      });
+   }
 
   // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
   goBack() {

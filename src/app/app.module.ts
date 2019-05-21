@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 // IMPORTs COMPONENTES
@@ -38,12 +39,16 @@ import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.compon
 import { EquiposComponent } from './paginas/equipos/equipos.component';
 import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-equipo.component';
 import { AgregarAlumnoEquipoComponent } from './paginas/equipos/agregar-alumno-equipo/agregar-alumno-equipo.component';
+import { MoverAlumnoComponent } from './paginas/equipos/editar-equipo/mover-alumno/mover-alumno.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
 
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
+import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
+import { HeaderComponent } from './navigation/header/header.component';
+
 
 
 @NgModule({
@@ -59,7 +64,10 @@ import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confi
     EquiposComponent,
     EditarEquipoComponent,
     AgregarAlumnoEquipoComponent,
-    DialogoConfirmacionComponent
+    DialogoConfirmacionComponent,
+    MoverAlumnoComponent,
+    NavbarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -87,12 +95,13 @@ import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confi
     MatDividerModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatToolbarModule,
 
     HttpClientModule
 
 
   ],
-  entryComponents: [AgregarAlumnoDialogComponent, AgregarAlumnoEquipoComponent, DialogoConfirmacionComponent ],
+  entryComponents: [AgregarAlumnoDialogComponent, AgregarAlumnoEquipoComponent, DialogoConfirmacionComponent, MoverAlumnoComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })

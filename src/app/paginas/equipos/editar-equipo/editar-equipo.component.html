@@ -27,7 +27,10 @@
           <i class="material-icons">group_add</i>
             Agregar alumno
           </button>
-        <button type="button" class="btn btn-primary">Mover alumno</button>
+        <button type="button" class="btn btn-primary" (click) = "AbrirDialogoMoverAlumno()"><i class="material-icons">
+            compare_arrows
+            </i>
+            Mover alumno</button>
     </div>
 
     <table *ngIf="alumnosEquipo;else Aviso_no_alumnos" mat-table [dataSource]="alumnosEquipo" class="example-container mat-elevation-z8">
@@ -73,8 +76,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
-
-
 
     <ng-template #Aviso_no_alumnos>Este equipo no tiene alumnos</ng-template>
 

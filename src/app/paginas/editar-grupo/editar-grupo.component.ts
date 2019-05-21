@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {MatTableDataSource} from '@angular/material';
-import {SelectionModel} from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { AgregarAlumnoDialogComponent } from '../crear-grupo/agregar-alumno-dialog/agregar-alumno-dialog.component';
 
 // Clases
@@ -144,7 +143,7 @@ export class EditarGrupoComponent implements OnInit {
     });
   }
 
-    // SI QUEREMOS AÑADIR ALUMNOS MANUALMENTE LO HAREMOS EN UN DIALOGO
+  // SI QUEREMOS AÑADIR ALUMNOS MANUALMENTE LO HAREMOS EN UN DIALOGO
   AbrirDialogoAgregarAlumnos(): void {
     const dialogRef = this.dialog.open(AgregarAlumnoDialogComponent, {
       width: '250px',

@@ -70,6 +70,12 @@ export class EquipoService {
     '&filter[where][alumnoId]=' + alumnoId);
   }
 
+  PUT_AsignacionEquipoAlumno(asignacionEquipo: AsignacionEquipo, grupoId: number, asignacionEquipoId: number):
+  Observable<AsignacionEquipo> {
+    return this.http.put<AsignacionEquipo>(this.APIUrlGrupos + '/' + grupoId + '/asignacionEquipos/' +
+    asignacionEquipoId, asignacionEquipo);
+  }
+
   GET_AsignacionesDelEquipo(equipo: Equipo): Observable<AsignacionEquipo[]> {
     console.log('Entro a buscar' );
     return this.http.get<AsignacionEquipo[]>(this.APIUrlGrupos + '/' + equipo.grupoId + '/asignacionEquipos?filter[where][equipoId]='
