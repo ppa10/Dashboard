@@ -115,12 +115,15 @@ export class EditarGrupoComponent implements OnInit {
 
         // Vuelvo a enviar el grupo al componente grupo para tener la versión acutalizada y vuelvo hacia atrás
         this.grupoService.EnviarGrupoAlServicio(this.grupoSeleccionado);
+        this.snackBar.open('Grupo editado correctamente', 'Cerrar', {
+          duration: 2000,
+        });
         this.goBack();
       } else {
         console.log('fallo editando');
       }
     });
-    this.goBack();
+
   }
 
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE

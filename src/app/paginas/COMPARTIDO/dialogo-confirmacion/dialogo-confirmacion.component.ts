@@ -10,7 +10,7 @@ export class DialogoConfirmacionComponent implements OnInit {
 
   // tslint:disable-next-line:no-inferrable-types
   mensaje: string = 'Estás seguro/a que quieres borrar?';
-  TextoBotonBorrar = 'Borrar';
+  TextoBotonBorrar = 'Aceptar';
   TextoBotonCancelar = 'Cancelar';
 
   constructor( public dialogRef: MatDialogRef<string>,

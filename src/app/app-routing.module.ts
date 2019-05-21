@@ -11,6 +11,8 @@ import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.compon
 import { EquiposComponent } from './paginas/equipos/equipos.component';
 import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-equipo.component';
 import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.component';
+import { MisPuntosComponent } from './paginas/mis-puntos/mis-puntos.component';
+import { CrearPuntoComponent } from './paginas/crear-punto/crear-punto.component';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
@@ -24,7 +26,9 @@ const routes: Routes = [
   { path: 'grupo/:id/editarGrupo', component: EditarGrupoComponent },
   { path: 'grupo/:id/equiposGrupo', component: EquiposComponent },
   { path: 'grupo/:id/equiposGrupo/editarEquipo', component: EditarEquipoComponent },
-  { path: 'aboutClasspip', component: AboutClasspipComponent }
+  { path: 'aboutClasspip', component: AboutClasspipComponent },
+  { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },
+  { path: 'inicio/:id/misPuntos', component: MisPuntosComponent }
 
 
 

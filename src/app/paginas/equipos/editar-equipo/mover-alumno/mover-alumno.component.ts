@@ -30,7 +30,7 @@ export class MoverAlumnoComponent implements OnInit {
 
   // PARA DIÁLOGO DE CONFIRMACIÓN
   // tslint:disable-next-line:no-inferrable-types
-  mensaje: string = 'Estás seguro/a de que quieres mover el/los alumno/s del equipo llamado: ';
+  mensaje: string = 'Estás seguro/a de que quieres mover el/los alumno/s al equipo llamado: ';
 
 
   constructor( public dialogRef: MatDialogRef<MoverAlumnoComponent>,
@@ -60,11 +60,9 @@ export class MoverAlumnoComponent implements OnInit {
   }
 
   // REVISAR
-  BuscarNombreEquipoSeleccionado(): string {
+  BuscarNombreEquipoSeleccionado(equipoId: number): string {
 
-    console.log('entro');
-    this.equipoSeleccionadoNombre = this.listaEquipos.filter(equipo => equipo.id === this.equipoSeleccionadoId)[0].Nombre;
-    console.log(this.equipoSeleccionadoNombre);
+    this.equipoSeleccionadoNombre = this.listaEquipos.filter(equipo => equipo.id === Number(equipoId))[0].Nombre;
     return this.equipoSeleccionadoNombre;
   }
 
@@ -101,12 +99,12 @@ export class MoverAlumnoComponent implements OnInit {
 
   AbrirDialogoConfirmacionMoverAlumno(): void {
 
-    // this.BuscarNombreEquipoSeleccionado();
+    this.BuscarNombreEquipoSeleccionado(this.equipoSeleccionadoId);
     const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
       height: '150px',
       data: {
         mensaje: this.mensaje,
-        nombre: this.equipoSeleccionadoNombre,
+        nombre: this.equipoSeleccionadoNombre
       }
     });
 
@@ -115,7 +113,7 @@ export class MoverAlumnoComponent implements OnInit {
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
         this.MoverAlumno();
-        this.snackBar.open('Alumnos movidos correctamente al equipo ', 'Cerrar', {
+        this.snackBar.open('Alumnos movidos correctamente al equipo llamado: ' + this.equipoSeleccionadoNombre, 'Cerrar', {
           duration: 2000,
         });
 
@@ -154,7 +152,7 @@ export class MoverAlumnoComponent implements OnInit {
 
 
   prueba() {
-    this.BuscarNombreEquipoSeleccionado();
+
     console.log(this.equipoSeleccionadoNombre);
 
   }

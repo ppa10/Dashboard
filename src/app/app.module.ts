@@ -40,6 +40,9 @@ import { EquiposComponent } from './paginas/equipos/equipos.component';
 import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-equipo.component';
 import { AgregarAlumnoEquipoComponent } from './paginas/equipos/agregar-alumno-equipo/agregar-alumno-equipo.component';
 import { MoverAlumnoComponent } from './paginas/equipos/editar-equipo/mover-alumno/mover-alumno.component';
+import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.component';
+import { MisPuntosComponent } from './paginas/mis-puntos/mis-puntos.component';
+import { CrearPuntoComponent } from './paginas/crear-punto/crear-punto.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
@@ -47,7 +50,8 @@ import { HttpClientModule } from '@angular/common/http';
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
-import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.component';
+
+
 
 
 
@@ -67,7 +71,9 @@ import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.
     DialogoConfirmacionComponent,
     MoverAlumnoComponent,
     NavbarComponent,
-    AboutClasspipComponent
+    AboutClasspipComponent,
+    MisPuntosComponent,
+    CrearPuntoComponent
   ],
   imports: [
     BrowserModule,

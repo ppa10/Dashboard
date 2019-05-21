@@ -22,8 +22,8 @@
 
   <button mat-button [matMenuTriggerFor]="PuntosInsignias">Puntos e Insígnias</button>
   <mat-menu #PuntosInsignias="matMenu">
-    <button mat-menu-item>Mis Puntos e Insígnias</button>
-    <button mat-menu-item>Crear Puntos e Insígnias</button>
+      <button mat-menu-item routerLink= "{{URLMisPuntos}}">Mis Puntos e Insígnias</button>
+      <button mat-menu-item routerLink= "{{URLCrearPuntos}}">Crear Puntos e Insígnias</button>
   </mat-menu>
 
 </form>
