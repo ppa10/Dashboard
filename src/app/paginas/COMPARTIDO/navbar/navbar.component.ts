@@ -19,6 +19,13 @@ export class NavbarComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
 
   profesor: Profesor;
+  id: number;
+
+  URLInicio: string;
+
+  // Rutas del navbar
+  URLMisGrupos: string;
+  URLCrearGrupo: string;
 
   constructor( private profesorService: ProfesorService,
                private router: Router,
@@ -26,14 +33,24 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     console.log('inicio componente navbar');
-    this.profesor = this.profesorService.RecibirProfesorDelServicio()[0];
-    console.log(this.router.url);
-    console.log(this.route);
-    console.log(this.profesor);
+    this.URLInicio = this.router.url;
+    this.URLMisGrupos = this.URLInicio + '/misGrupos';
+    this.URLCrearGrupo = this.URLInicio + '/crearGrupo';
+
   }
 
-  onToggleSidenav() {
-    this.sidenavToggle.emit();
-  }
+
+
+  // prueba() {
+  //   console.log('inicio componente navbar');
+  //   // this.profesor = this.profesorService.RecibirProfesorDelServicio()[0];
+
+  //   this.router.navigateByUrl ('/inicio/1');
+  //   console.log(this.route);
+  //   this.pruebas = 'inicio/1/misGrupos';
+  //   this.mensaje = 'Estás seguro/a de que quieres eliminar a los alumnos del grupo llamado: ';
+  //   console.log(this.pruebas);
+  //   console.log(this.mensaje);
+  // }
 
 }

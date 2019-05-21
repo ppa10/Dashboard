@@ -10,6 +10,8 @@ import { GrupoComponent } from './paginas/grupo/grupo.component';
 import { EditarGrupoComponent } from './paginas/editar-grupo/editar-grupo.component';
 import { EquiposComponent } from './paginas/equipos/equipos.component';
 import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-equipo.component';
+import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
 
@@ -21,7 +23,8 @@ const routes: Routes = [
   { path: 'grupo/:id', component: GrupoComponent },
   { path: 'grupo/:id/editarGrupo', component: EditarGrupoComponent },
   { path: 'grupo/:id/equiposGrupo', component: EquiposComponent },
-  { path: 'grupo/:id/equiposGrupo/editarEquipo', component: EditarEquipoComponent }
+  { path: 'grupo/:id/equiposGrupo/editarEquipo', component: EditarEquipoComponent },
+  { path: 'aboutClasspip', component: AboutClasspipComponent }
 
 
 

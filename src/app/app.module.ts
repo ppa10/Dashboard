@@ -47,7 +47,7 @@ import { HttpClientModule } from '@angular/common/http';
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
-import { HeaderComponent } from './navigation/header/header.component';
+import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.component';
 
 
 
@@ -67,7 +67,7 @@ import { HeaderComponent } from './navigation/header/header.component';
     DialogoConfirmacionComponent,
     MoverAlumnoComponent,
     NavbarComponent,
-    HeaderComponent
+    AboutClasspipComponent
   ],
   imports: [
     BrowserModule,

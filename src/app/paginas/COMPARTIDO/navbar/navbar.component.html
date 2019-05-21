@@ -1,20 +1,29 @@
-<mat-toolbar color="primary">
-    <div fxHide.gt-xs>
-        <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
-    </div>
-    <div>
-        <a routerLink="/misGrupos">Owner-Account</a>
-    </div>
-    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-        <ul fxLayout fxLayoutGap="15px" class="navigation-items">
-            <li>
-                <a routerLink="/misGrupos">Owner Actions</a>
-            </li>
-            <li>
-                <a routerLink="/crearGrupo">Account Actions</a>
-            </li>
-        </ul>
-    </div>
-</mat-toolbar>
+<form>
+
+    <button routerLink = aboutClasspip mat-button [matMenuTriggerFor]="Classpip">Classpip</button>
+    <mat-menu  #Classpip="matMenu">
+    </mat-menu>
+
+    <button routerLink = {{URLInicio}} mat-button [matMenuTriggerFor]="Inicio">Inicio</button>
+    <mat-menu  #Inicio="matMenu">
+    </mat-menu>
+
+    <button mat-button [matMenuTriggerFor]="Grupos">Grupos</button>
+  <mat-menu #Grupos="matMenu">
+    <button mat-menu-item routerLink= {{URLMisGrupos}}>Mis Grupos</button>
+    <button mat-menu-item routerLink= {{URLCrearGrupo}} >Crear Grupo</button>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="Cuestionarios">Cuestionarios</button>
+  <mat-menu #Cuestionarios="matMenu">
+    <button mat-menu-item > Mis Cuestionarios</button>
+    <button mat-menu-item>Crear Cuestionario</button>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="PuntosInsignias">Puntos e Insígnias</button>
+  <mat-menu #PuntosInsignias="matMenu">
+    <button mat-menu-item>Mis Puntos e Insígnias</button>
+    <button mat-menu-item>Crear Puntos e Insígnias</button>
+  </mat-menu>
+
+</form>

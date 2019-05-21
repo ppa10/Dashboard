@@ -1,18 +1,36 @@
-The content below is only a placeholder and can be replaced.
 <div style="text-align:center">
+  <!-- CABECERA -->
   <h1>
     Bienvenido al Dashboard del profesor!
   </h1>
 
+  <!-- LOGIN -->
+  <div>
+      <form *ngIf="profesor === undefined" (ngSubmit)="Autentificar();">
+
+          <div>
+            <input type="text" name="nombre" placeholder="Escribe la nombre" requiered [(ngModel)]="nombre">
+            <input type="text" name="apellido" placeholder="Escribe el apellido" requiered [(ngModel)]="apellido">
+          </div>
+
+          <button>Login</button>
+
+        </form>
+  </div>
+
 </div>
 
+<!-- SI EL PROFESOR ENTRA CORRECTAMENTE, PODRÁ VER EL NAVBAR -->
 <div>
-    <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
+    <form *ngIf="profesor !== undefined">
+        <app-navbar></app-navbar>
+    </form>
 </div>
 
-<div fxFlex="1">
+<!-- CONTENIDO PRINCIPAL -->
+<div>
     <router-outlet></router-outlet>
 </div>
 
-
+<!-- FALTA EL FOOTER -->
 
