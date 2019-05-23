@@ -543,8 +543,6 @@ export class EquiposComponent implements OnInit {
 
 
 
-
-
   prueba() {
     console.log(this.alumnosGrupo);
     console.log(this.alumnosEquipoCreado);
