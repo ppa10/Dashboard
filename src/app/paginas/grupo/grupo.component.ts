@@ -87,7 +87,7 @@ export class GrupoComponent implements OnInit {
     .subscribe(() => {
       console.log('Borrado correctamente');
       this.EliminarMatriculas();
-      //  TENGO QUE BORRAR TMB LAS MATRICULAS DE ESTE GRUPO!!!!
+
       this.goBack();
     });
   }

@@ -5,3 +5,4 @@ export * from './Alumno';
 export * from './Matricula';
 export * from './Equipo';
 export * from './AsignacionEquipo';
+export * from './Punto';

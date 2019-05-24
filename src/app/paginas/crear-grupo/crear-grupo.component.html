@@ -1,28 +1,30 @@
-<h3>Crear Grupo</h3>
+<h2>Crear Grupo</h2>
+<mat-divider></mat-divider>
 
 <form [formGroup]="myForm">
   <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true">
+
     <!-- PRIMER PASO -->
     <mat-step [stepControl]="myForm">
       <ng-template matStepLabel>Nombre y descripción</ng-template>
       <mat-form-field>
         <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombreGrupo" required>
-        <mat-error>Este campo es obligatorio</mat-error>
+        <input (keyup)="disabled()" matInput formControlName="nombreGrupo" required>
       </mat-form-field>
 
       <div>
         <mat-form-field>
           <mat-label>Descripción</mat-label>
-            <input matInput formControlName="descripcionGrupo" required>
-          <mat-error>Este campo es obligatorio</mat-error>
+            <input (keyup)="disabled()" matInput formControlName="descripcionGrupo" required>
         </mat-form-field>
       </div>
 
       <div>
-        <button *ngIf="grupoYaCreado === false" mat-button matStepperNext (click)= CrearGrupo()>Siguiente</button>
-        <button *ngIf="grupoYaCreado === true" mat-button matStepperNext (click)= EditarGrupo() >Siguiente</button>
+        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo()>Siguiente</button>
+        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() >Siguiente</button>
       </div>
+
+
     </mat-step>
 
     <!-- SEGUNDO PASO -->
@@ -50,6 +52,7 @@
   <div>
       <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
   </div>
+
 </form>
 
 

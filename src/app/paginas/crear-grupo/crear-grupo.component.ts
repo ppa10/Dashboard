@@ -27,6 +27,10 @@ export class CrearGrupoComponent implements OnInit {
 
   URLVueltaInicio: string;
 
+
+  // tslint:disable-next-line:ban-types
+  isDisabled: Boolean = true;
+
   // AL PRINCIPIO EL GRUPO NO ESTA CREADO
   // tslint:disable-next-line:ban-types
   grupoYaCreado: Boolean = false;
@@ -122,6 +126,17 @@ export class CrearGrupoComponent implements OnInit {
   // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
   goBack() {
     this.location.back();
+  }
+
+  disabled() { // without type info
+    console.log('entro en la funcion');
+    if (this.myForm.value.nombreGrupo === '' || this.myForm.value.descripcionGrupo === '') {
+      console.log('entro');
+      this.isDisabled = true;
+    } else {
+      console.log('no entro');
+      this.isDisabled = false;
+    }
   }
 
 }

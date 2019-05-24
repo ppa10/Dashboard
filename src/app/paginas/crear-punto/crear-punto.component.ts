@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+
+// Servicios
+import { PuntosService } from '../../servicios/index';
+
+// Clases
+import { Punto } from '../../clases/index';
 
 @Component({
   selector: 'app-crear-punto',
@@ -7,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrearPuntoComponent implements OnInit {
 
-  constructor() { }
+  constructor( private puntosService: PuntosService) { }
 
   ngOnInit() {
   }
