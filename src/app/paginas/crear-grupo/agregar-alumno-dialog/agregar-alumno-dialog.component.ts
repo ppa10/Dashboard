@@ -15,9 +15,11 @@ import { Grupo, Alumno, Matricula } from '../../../clases/index';
 })
 export class AgregarAlumnoDialogComponent implements OnInit {
 
+  // PONEMOS LAS COLUMNAS DE LA TABLA Y LA LISTA QUE TENDRÁ LA INFORMACIÓN QUE QUEREMOS MOSTRAR (alumnosEquipo) y (alumnosAsignables)
+  displayedColumns: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
 
   alumno: Alumno;
-
+  alumnosAgregados: Alumno[] = []; // Inicializamos vacio
   grupoId: number;
   profesorId: number;
 
@@ -43,6 +45,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
       primerApellido: ['', Validators.required],
       segundoApellido: ['', Validators.required],
     });
+
   }
 
 
@@ -56,9 +59,10 @@ export class AgregarAlumnoDialogComponent implements OnInit {
       if (resMatricula != null) {
         console.log('Matricula: ' + resMatricula);
 
+        this.AgregarAlumnoListaAgregados(this.alumno);
+
         // Una vez matriculado el alumno, limpiamos el form para poder añadir un alumno nuevo
         this.myForm.reset();
-
       } else {
         console.log('fallo en la matriculación');
       }
@@ -85,12 +89,50 @@ export class AgregarAlumnoDialogComponent implements OnInit {
           console.log('Voy a añadir a ' + res);
           this.alumno = res;
           this.MatricularAlumno();
+
         } else {
           console.log('fallo añadiendo');
         }
       });
   }
 
+  AgregarAlumnoListaAgregados(alumno: Alumno): Alumno[] {
+    this.alumnosAgregados.push(alumno);
+
+    // this.alumnosAgregados = this.alumnosAgregados.filter(res => res.Nombre = '');
+    console.log('Añado alumno a Lista Agregados');
+    console.log(this.alumnosAgregados);
+    return this.alumnosAgregados;
+  }
+
+  // BorrarAlumnos() {
+
+  //   for (let i = 0; i < this.seleccionados.length; i++) {
+
+  //     if (this.seleccionados [i]) {
+  //       let alumno: Alumno;
+  //       alumno = this.alumnosGrupoSeleccionado[i];
+  //       console.log(alumno.Nombre + ' seleccionado');
+
+  //       // Recupero la matrícula del alumno en este grupo
+  //       this.matriculaService.GET_MatriculaAlumno(alumno.id, this.grupoSeleccionado.id)
+  //       .subscribe(matricula => {
+
+  //         console.log('Doy la matricula de ' + alumno.Nombre);
+  //         console.log(matricula[0]);
+
+  //         // Una vez recupero la matrícula, la borro
+  //         this.matriculaService.DELETE_Matricula(matricula[0].id)
+  //         .subscribe(res => {
+  //           console.log(alumno.Nombre + ' borrado correctamente');
+  //           this.AlumnosDelGrupo();
+
+  //         });
+  //       });
+  //     }
+  //   }
+  //   this.selection.clear();
+  // }
 
   // A LA HORA DE AÑADIR UN ALUMNO AL GRUPO, PRIMERO COMPRUEBA SI ESE ALUMNO YA ESTA REGISTRADO EN LA BASE DE DATOS.
   // EN CASO DE ESTAR REGISTRADO, SOLO HACE LA MATRICULA. SINO, LO AGREGA Y HACE LA MATRICULA
@@ -113,12 +155,13 @@ export class AgregarAlumnoDialogComponent implements OnInit {
         this.alumno = respuesta[0];
         console.log(this.alumno);
         this.MatricularAlumno();
-        } else {
+       } else {
         console.log('El alumno no existe. Voy a agregarlo y matricularlo');
         this.AgregarAlumnoNuevoGrupo();
         }
       });
   }
+
 
   Aceptar() {
     console.log('Alumnos añadidos. Cierro el dialogo');
@@ -126,6 +169,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
 
   prue() {
     console.log(this.grupoId);
+    console.log(this.alumnosAgregados);
   }
 
 }
