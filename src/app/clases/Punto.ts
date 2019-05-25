@@ -4,10 +4,10 @@ export class Punto {
   id: number;
   profesorId: number;
 
-  constructor(nombre?: string, Descripcion?: string) {
+  constructor(nombre?: string, descripcion?: string) {
 
     this.Nombre = nombre;
-    this.Descripcion = Descripcion;
+    this.Descripcion = descripcion;
   }
 
 }

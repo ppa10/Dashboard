@@ -5,3 +5,17 @@
   width: 600px;
 
   }
+
+table {
+  width: 60%;
+}
+
+.BotonAceptar{
+  background-color: rgb(200, 104, 212)
+}
+
+/* Colores de iconos */
+.material-icons.red { color: rgb(228, 8, 8); }
+
+/* Tamaños de los botones */
+.material-icons.md-36 { font-size: 36px; }

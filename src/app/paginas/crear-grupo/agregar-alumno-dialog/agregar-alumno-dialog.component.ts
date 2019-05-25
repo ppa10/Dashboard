@@ -99,7 +99,7 @@ export class AgregarAlumnoDialogComponent implements OnInit {
   AgregarAlumnoListaAgregados(alumno: Alumno): Alumno[] {
     this.alumnosAgregados.push(alumno);
 
-    // this.alumnosAgregados = this.alumnosAgregados.filter(res => res.Nombre = '');
+    this.alumnosAgregados = this.alumnosAgregados.filter(res => res.Nombre !== '');
     console.log('Añado alumno a Lista Agregados');
     console.log(this.alumnosAgregados);
     return this.alumnosAgregados;

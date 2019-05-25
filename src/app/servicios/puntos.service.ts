@@ -21,4 +21,8 @@ export class PuntosService {
   PUT_Punto(punto: Punto, profesorId: number, puntoId: number): Observable<Punto> {
     return this.http.put<Punto>(this.APIUrlProfesor + '/' + profesorId + '/puntos/' + puntoId, punto);
   }
+
+  DELETE_Punto(puntoId: number, profesorId: number): Observable<any> {
+    return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/puntos/' + puntoId);
+  }
 }
