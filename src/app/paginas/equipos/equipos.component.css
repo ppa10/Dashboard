@@ -29,3 +29,8 @@ table {
 .material-icons.red { color: rgb(228, 8, 8); }
 
 .material-icons.md-36 { font-size: 36px; }
+
+.logo {
+  max-width: 100px;
+  max-height: 100px;
+}

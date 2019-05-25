@@ -6,3 +6,5 @@ export * from './Matricula';
 export * from './Equipo';
 export * from './AsignacionEquipo';
 export * from './Punto';
+export * from './Insignia';
+

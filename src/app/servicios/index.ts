@@ -4,4 +4,4 @@ export * from './grupo.service';
 export * from './alumno.service';
 export * from './matricula.service';
 export * from './equipo.service';
-export * from './puntos.service';
+export * from './puntos-insignias.service';

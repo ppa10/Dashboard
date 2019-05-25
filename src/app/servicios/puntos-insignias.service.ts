@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable } from 'rxjs';
 
 // clase
-import { Punto } from '../clases/index';
+import { Punto, Insignia } from '../clases/index';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PuntosService {
+export class PuntosInsigniasService {
 
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
 
@@ -24,5 +24,13 @@ export class PuntosService {
 
   DELETE_Punto(puntoId: number, profesorId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/puntos/' + puntoId);
+  }
+
+  POST_Insignia(insignia: Insignia, profesorId: number): Observable<Insignia> {
+    return this.http.post<Insignia>(this.APIUrlProfesor + '/' + profesorId + '/insignias', insignia);
+  }
+
+  DELETE_Insignia(insigniaId: number, profesorId: number): Observable<any> {
+    return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/insignias/' + insigniaId);
   }
 }

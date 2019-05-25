@@ -19,7 +19,7 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
             <p>
-                <img *ngIf="imagenLogo" hight = "100" width = "100" mat-card-image [src]="imagenLogo" >
+                <img class ="logo" *ngIf="imagenLogo" hight = "100" width = "100" mat-card-image [src]="imagenLogo" >
                 <span style="font-weight: bold;">Miembros del equipo</span>
                 <mat-list role="list" *ngFor="let alumno of alumnosEquipo">
                   <mat-list-item role="listitem">{{alumno.Nombre}} {{alumno.PrimerApellido}} {{alumno.SegundoApellido}}</mat-list-item>
