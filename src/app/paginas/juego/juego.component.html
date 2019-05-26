@@ -1,0 +1,56 @@
+<h2>Juegos</h2>
+<mat-divider></mat-divider>
+
+
+<mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs>
+
+  <!-- LISTA DE JUEGOS -->
+  <mat-tab index = "0" label="Lista de juegos">
+    <form>
+
+          <mat-label>Mostrar lista de: </mat-label>
+          <select matNativeControl [(ngModel)]="opcionSeleccionada" name="opcion" (change) = "ListaJuegoSeleccionado()">
+            <option (click) = "prueba()" *ngFor="let opcion of opcionesMostrar" [value]="opcion.id">
+              {{opcion.nombre}}
+            </option>
+          </select>
+
+          <div>
+
+              <mat-list>
+                  <h3 class = "CabeceraActivos" mat-subheader>Juegos Activos</h3>
+                  <mat-list-item *ngFor="let juego of ListaJuegosSeleccionadoActivo" (click) = JuegoSeleccionado(juego) routerLink = "juegoSeleccionado">
+                    <mat-icon mat-list-icon><i class="material-icons green">check_circle_outline</i></mat-icon>
+                    <h4 mat-line>{{juego.Tipo}}</h4>
+                    <p mat-line> {{juego.Modo}} </p>
+                  </mat-list-item>
+                </mat-list>
+
+                <mat-list>
+                  <h3 class = "CabeceraInactivos" mat-subheader>Juegos Inactivos</h3>
+                  <mat-list-item *ngFor="let juego of ListaJuegosSeleccionadoInactivo">
+                    <mat-icon mat-list-icon><i class="material-icons red">history</i></mat-icon>
+                    <h4 class= "ItemsInactivos" mat-line>{{juego.Tipo}}</h4>
+                    <p class= "ItemsInactivos" mat-line> {{juego.Modo}} </p>
+                  </mat-list-item>
+                </mat-list>
+          </div>
+    </form>
+  </mat-tab>
+
+
+
+  <!-- CREAR JUEGO -->
+  <mat-tab label="Crear juego">
+
+
+
+
+
+  </mat-tab>
+</mat-tab-group>
+
+<div>
+  <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
+  <button mat-raised-button color="primary" (click)= "prueba()">Prueba</button>
+</div>

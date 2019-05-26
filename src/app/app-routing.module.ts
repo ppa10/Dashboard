@@ -13,6 +13,10 @@ import { EditarEquipoComponent } from './paginas/equipos/editar-equipo/editar-eq
 import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.component';
 import { MisPuntosComponent } from './paginas/mis-puntos/mis-puntos.component';
 import { CrearPuntoComponent } from './paginas/crear-punto/crear-punto.component';
+import { JuegoComponent } from './paginas/juego/juego.component';
+import { JuegoSeleccionadoActivoComponent } from './paginas/juego/juego-seleccionado-activo/juego-seleccionado-activo.component';
+
+
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
@@ -26,6 +30,10 @@ const routes: Routes = [
   { path: 'grupo/:id/editarGrupo', component: EditarGrupoComponent },
   { path: 'grupo/:id/equiposGrupo', component: EquiposComponent },
   { path: 'grupo/:id/equiposGrupo/editarEquipo', component: EditarEquipoComponent },
+  { path: 'grupo/:id/juegos', component: JuegoComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionado', component: JuegoSeleccionadoActivoComponent },
+
+
   { path: 'aboutClasspip', component: AboutClasspipComponent },
   { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },
   { path: 'inicio/:id/misPuntos', component: MisPuntosComponent }

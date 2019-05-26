@@ -44,6 +44,9 @@ import { MoverAlumnoComponent } from './paginas/equipos/editar-equipo/mover-alum
 import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.component';
 import { MisPuntosComponent } from './paginas/mis-puntos/mis-puntos.component';
 import { CrearPuntoComponent } from './paginas/crear-punto/crear-punto.component';
+import { JuegoComponent } from './paginas/juego/juego.component';
+import { JuegoSeleccionadoActivoComponent } from './paginas/juego/juego-seleccionado-activo/juego-seleccionado-activo.component';
+
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
@@ -51,6 +54,8 @@ import { HttpClientModule } from '@angular/common/http';
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
+
+
 
 
 
@@ -74,7 +79,9 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     NavbarComponent,
     AboutClasspipComponent,
     MisPuntosComponent,
-    CrearPuntoComponent
+    CrearPuntoComponent,
+    JuegoComponent,
+    JuegoSeleccionadoActivoComponent
   ],
   imports: [
     BrowserModule,

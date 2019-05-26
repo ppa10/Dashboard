@@ -1,0 +1,28 @@
+/* Colores de iconos */
+.material-icons.red { color: rgb(228, 8, 8); }
+.material-icons.green { color: rgb(49, 151, 2); }
+
+.CabeceraActivos {
+  background-color: green;
+  color: white;
+  font-style: bold;
+  width: 60%;
+}
+
+.CabeceraInactivos {
+  background-color: rgba(212, 0, 0, 0.801);
+  color: white;
+  font-style: bold;
+  width: 60%;
+}
+
+.ItemsInactivos {
+  font-style: oblique;
+  color: grey;
+}
+
+.mat-list-item:hover {
+  background-color: rgb(204, 197, 197);
+  cursor: pointer;
+  width: 60%;
+}
