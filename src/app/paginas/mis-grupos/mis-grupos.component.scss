@@ -2,12 +2,41 @@
   overflow: auto;
 }
 
+.titulo{
+  width: auto;
+  height: 50px;
+  padding: 10px;
+  background-color: rgba(97, 10, 203, 0.884);
+
+}
 table {
-  width: 100%;
+  width: 50%;
+  text-align: center;
 }
 
 .mat-row:hover {
   background-color: rgb(204, 197, 197);
   cursor: pointer;
 }
+.mat-header-row{
+  background-color:rgb(156, 39, 176);
+  }
+.contenedor{
+  width: auto;
+  height: auto;
+  padding: 10px;
+  border: 10px solid transparent;
+  background-color: transparent;
 
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+
+  justify-content: center;
+  align-items: center;
+  /* align-content:   */
+  /*flex-direction: row;
+  flex-wrap: wrap;
+  flex-flow: row wrap;*/
+
+  }
