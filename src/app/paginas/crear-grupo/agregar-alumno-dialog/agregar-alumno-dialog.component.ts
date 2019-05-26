@@ -16,7 +16,7 @@ import { Grupo, Alumno, Matricula } from '../../../clases/index';
 export class AgregarAlumnoDialogComponent implements OnInit {
 
   // PONEMOS LAS COLUMNAS DE LA TABLA Y LA LISTA QUE TENDRÁ LA INFORMACIÓN QUE QUEREMOS MOSTRAR (alumnosEquipo) y (alumnosAsignables)
-  displayedColumns: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
+  displayedColumns: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId', ' '];
 
   alumno: Alumno;
   alumnosAgregados: Alumno[] = []; // Inicializamos vacio
@@ -105,34 +105,30 @@ export class AgregarAlumnoDialogComponent implements OnInit {
     return this.alumnosAgregados;
   }
 
-  // BorrarAlumnos() {
+  BorrarAlumnoDeListaAgregados(alumnoId: number): Alumno[] {
+    this.alumnosAgregados = this.alumnosAgregados.filter(alumno => alumno.id !== alumnoId);
+    return this.alumnosAgregados;
+  }
 
-  //   for (let i = 0; i < this.seleccionados.length; i++) {
+  BorrarAlumnosAgregados(alumno: Alumno) {
+    console.log('voy a borrar a ' + alumno.id);
+    console.log(alumno.Nombre + ' seleccionado');
 
-  //     if (this.seleccionados [i]) {
-  //       let alumno: Alumno;
-  //       alumno = this.alumnosGrupoSeleccionado[i];
-  //       console.log(alumno.Nombre + ' seleccionado');
+        // Recupero la matrícula del alumno en este grupo
+    this.matriculaService.GET_MatriculaAlumno(alumno.id, this.grupoId)
+    .subscribe(matricula => {
+          console.log('Doy la matricula de ' + alumno.Nombre);
+          console.log(matricula[0]);
 
-  //       // Recupero la matrícula del alumno en este grupo
-  //       this.matriculaService.GET_MatriculaAlumno(alumno.id, this.grupoSeleccionado.id)
-  //       .subscribe(matricula => {
+          // Una vez recupero la matrícula, la borro
+          this.matriculaService.DELETE_Matricula(matricula[0].id)
+          .subscribe(res => {
+            console.log(alumno.Nombre + ' borrado correctamente');
+            this.BorrarAlumnoDeListaAgregados(alumno.id);
 
-  //         console.log('Doy la matricula de ' + alumno.Nombre);
-  //         console.log(matricula[0]);
-
-  //         // Una vez recupero la matrícula, la borro
-  //         this.matriculaService.DELETE_Matricula(matricula[0].id)
-  //         .subscribe(res => {
-  //           console.log(alumno.Nombre + ' borrado correctamente');
-  //           this.AlumnosDelGrupo();
-
-  //         });
-  //       });
-  //     }
-  //   }
-  //   this.selection.clear();
-  // }
+          });
+        });
+  }
 
   // A LA HORA DE AÑADIR UN ALUMNO AL GRUPO, PRIMERO COMPRUEBA SI ESE ALUMNO YA ESTA REGISTRADO EN LA BASE DE DATOS.
   // EN CASO DE ESTAR REGISTRADO, SOLO HACE LA MATRICULA. SINO, LO AGREGA Y HACE LA MATRICULA
