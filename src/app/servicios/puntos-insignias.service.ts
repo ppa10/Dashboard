@@ -12,6 +12,8 @@ export class PuntosInsigniasService {
 
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
 
+  private APIURLImagenInsignia = 'http://localhost:3000/api/imagenes/ImagenInsignia';
+
   constructor( private http: HttpClient ) { }
 
   POST_Punto(punto: Punto, profesorId: number): Observable<Punto> {
@@ -27,10 +29,14 @@ export class PuntosInsigniasService {
   }
 
   POST_Insignia(insignia: Insignia, profesorId: number): Observable<Insignia> {
-    return this.http.post<Insignia>(this.APIUrlProfesor + '/' + profesorId + '/insignias', insignia);
+    return this.http.post<Insignia>(this.APIUrlProfesor + '/' + profesorId + '/insignia', insignia);
   }
 
   DELETE_Insignia(insigniaId: number, profesorId: number): Observable<any> {
-    return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/insignias/' + insigniaId);
+    return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/insignia/' + insigniaId);
+  }
+
+  POST_ImagenInsignia(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.APIURLImagenInsignia + '/upload', formData);
   }
 }

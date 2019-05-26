@@ -98,7 +98,7 @@ export class EquiposComponent implements OnInit {
   }
 
 
-                                    // FUNCIONES PARA MAT-TAB LISTAR EQUIPOS
+  /////////////////////////////////// FUNCIONES PARA MAT-TAB LISTAR EQUIPOS /////////////////////////////////////////////
 
   // Coge el identificador del grupo que le pasamos del otro componente a través del servicio y busca los equipos que tiene
   EquiposDelGrupo() {
@@ -117,6 +117,8 @@ export class EquiposComponent implements OnInit {
   // Le pasamos el equipo y buscamos el logo que tiene y sus alumnos
   AlumnosYLogoDelEquipo(equipo: Equipo) {
 
+    console.log('entro a buscar alumnos y foto');
+    console.log(equipo.FotoEquipo);
     // Si el equipo tiene una foto (recordemos que la foto no es obligatoria)
     if (equipo.FotoEquipo !== undefined) {
 
@@ -242,13 +244,13 @@ export class EquiposComponent implements OnInit {
 
 
 
-                                        // FUNCIONES PARA CREAR EQUIPO
+  ////////////////////////////////////////// FUNCIONES PARA CREAR EQUIPO /////////////////////////////////////////////
 
 
   // Para crear un equipo utilizaremos algunos nuevos parámetros para no mezclar con los utilizados para las listas
 
 
-  // PRIMER PASO STEPPER
+  ///////////// PRIMER PASO STEPPER
 
 
   // Coge lo que introducimos en el input (el controlador del myForm) y el nombreLogo que le pasamos y hace el POST en
@@ -308,6 +310,7 @@ export class EquiposComponent implements OnInit {
     reader.readAsDataURL(this.file);
     reader.onload = () => {
       console.log('ya');
+      this.logoCargado = true;
       this.logo = reader.result.toString();
     };
   }
@@ -345,7 +348,7 @@ export class EquiposComponent implements OnInit {
   }
 
 
-  // SEGUNDO PASO STEPPER
+  ///////////// SEGUNDO PASO STEPPER
 
 
   // Esta función la activamos cuando creamos el equipo. Nos separará a los alumnos que podemos asignar al nuevo equipo
@@ -514,7 +517,7 @@ export class EquiposComponent implements OnInit {
   }
 
 
-  // TERCER PASO STEPPER
+  ///////////// TERCER PASO STEPPER
 
   // Función que se activará al clicar en finalizar el último paso del stepper
   Finalizar() {
@@ -540,16 +543,6 @@ export class EquiposComponent implements OnInit {
 
   }
 
-
-
-
-  prueba() {
-    console.log(this.alumnosGrupo);
-    console.log(this.alumnosEquipoCreado);
-    console.log(this.alumnosConEquipo);
-    console.log(this.alumnosSinEquipo);
-
-  }
   // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
   goBack() {
     this.location.back();

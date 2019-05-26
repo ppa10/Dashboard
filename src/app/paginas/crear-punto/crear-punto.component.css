@@ -1,18 +1,50 @@
 .panel{
 
-  background-color: rgb(87, 104, 199);
+  background-color: rgb(97, 10, 203);
   margin: 40px;
   width: 600px;
 
+}
+
+.panelInsignia {
+  background-color: rgb(232, 12, 122);
+  margin: 40px;
+  width: 600px;
 }
 
 table {
   width: 60%;
 }
 
-.BotonAceptar{
-  background-color: rgb(200, 104, 212)
+.btn-primary {
+  background-color: rgb(232, 12, 122);
+  border-color: rgb(232, 12, 122);
 }
+
+mat-card-title {
+  color: white
+}
+
+mat-card-subtitle{
+  color: white;
+}
+
+label{
+  color: white;
+}
+
+.btn-prueba {
+  background-color: rgb(97, 10, 203);
+  border-color: rgb(97, 10, 203);
+  color: white;
+}
+
+
+.foto {
+  max-width: 100px;
+  max-height: 100px;
+}
+
 
 /* Colores de iconos */
 .material-icons.red { color: rgb(228, 8, 8); }
