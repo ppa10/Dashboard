@@ -14,7 +14,7 @@ import { Grupo } from '../../clases/index';
 @Component({
   selector: 'app-mis-grupos',
   templateUrl: './mis-grupos.component.html',
-  styleUrls: ['./mis-grupos.component.css']
+  styleUrls: ['./mis-grupos.component.scss']
 
 })
 

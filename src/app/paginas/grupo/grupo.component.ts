@@ -15,7 +15,7 @@ import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion
 @Component({
   selector: 'app-grupo',
   templateUrl: './grupo.component.html',
-  styleUrls: ['./grupo.component.css']
+  styleUrls: ['./grupo.component.scss']
 })
 export class GrupoComponent implements OnInit {
 

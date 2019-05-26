@@ -20,7 +20,7 @@ import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion
   selector: 'app-editar-grupo',
   templateUrl: './editar-grupo.component.html',
 
-  styleUrls: ['./editar-grupo.component.css']
+  styleUrls: ['./editar-grupo.component.scss']
 })
 export class EditarGrupoComponent implements OnInit {
 

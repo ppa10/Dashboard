@@ -19,7 +19,7 @@ import { GrupoService, EquipoService, AlumnoService } from '../../servicios/inde
 @Component({
   selector: 'app-equipos',
   templateUrl: './equipos.component.html',
-  styleUrls: ['./equipos.component.css']
+  styleUrls: ['./equipos.component.scss']
 })
 export class EquiposComponent implements OnInit {
 

@@ -10,7 +10,7 @@ import { Alumno, AsignacionEquipo, Equipo } from '../../../clases/index';
 @Component({
   selector: 'app-agregar-alumno-equipo',
   templateUrl: './agregar-alumno-equipo.component.html',
-  styleUrls: ['./agregar-alumno-equipo.component.css']
+  styleUrls: ['./agregar-alumno-equipo.component.scss']
 })
 export class AgregarAlumnoEquipoComponent implements OnInit {
 
