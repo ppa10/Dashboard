@@ -24,9 +24,7 @@
                     <h4 mat-line>{{juego.Tipo}}</h4>
                     <p mat-line> {{juego.Modo}} </p>
                   </mat-list-item>
-                </mat-list>
 
-                <mat-list>
                   <h3 class = "CabeceraInactivos" mat-subheader>Juegos Inactivos</h3>
                   <mat-list-item *ngFor="let juego of ListaJuegosSeleccionadoInactivo">
                     <mat-icon mat-list-icon><i class="material-icons red">history</i></mat-icon>
@@ -34,6 +32,7 @@
                     <p class= "ItemsInactivos" mat-line> {{juego.Modo}} </p>
                   </mat-list-item>
                 </mat-list>
+
           </div>
     </form>
   </mat-tab>
