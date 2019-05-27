@@ -1,12 +1,12 @@
 <h2>Crear Grupo</h2>
 <mat-divider></mat-divider>
 
-<form [formGroup]="myForm">
-  <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true">
+<form [formGroup]="myForm" class="contenedor">
+  <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true" style="width: 700px">
 
     <!-- PRIMER PASO -->
     <mat-step [stepControl]="myForm">
-      <ng-template matStepLabel>Nombre y descripción</ng-template>
+      <ng-template matStepLabel>Descripción</ng-template>
       <mat-form-field>
         <mat-label>Nombre</mat-label>
         <input (keyup)="disabled()" matInput formControlName="nombreGrupo" required>
@@ -20,8 +20,8 @@
       </div>
 
       <div>
-        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo()>Siguiente</button>
-        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() >Siguiente</button>
+        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo() matStepperNext>Siguiente</button>
+        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() matStepperNext>Siguiente</button>
       </div>
 
 
@@ -32,26 +32,30 @@
       <ng-template matStepLabel>
         <div>Añadir alumnos</div>
       </ng-template>
-        <button (click)= "AbrirDialogoAgregarAlumnos()">Agregar alumnos</button>
-
+      <div class="contenedor contenedor2">
       <div>
-        <button mat-button matStepperPrevious>Atrás</button>
-        <button mat-button matStepperNext>Siguiente</button>
+        <button class="btn" (click)= "AbrirDialogoAgregarAlumnos()">Agregar alumnos</button>
+
       </div>
+      <div>
+        <button  mat-raised-button style="margin: 5px;" color="white" matStepperPrevious>Atrás</button>
+        <button  mat-raised-button style="margin: 5px;"  color="primary" matStepperNext>Siguiente</button>
+      </div>
+    </div>
     </mat-step>
 
     <mat-step>
       <ng-template matStepLabel>Finalizar</ng-template>
-      Grupo creado correctamente
-      <div>
-        <button mat-button matStepperPrevious>Atrás</button>
-        <button mat-button (click) = "VueltaInicio();">Finalizar</button>
+      <div align="right" style="margin: 5px;">Grupo creado correctamente.</div>
+      <div align="right">
+        <button mat-raised-button style="margin: 5px;" color="white" matStepperPrevious>Atrás</button>
+        <button class="btn" (click) = "VueltaInicio();">Finalizar</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-  <div>
+  <!-- <div>
       <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
-  </div>
+  </div> -->
 
 </form>
 
