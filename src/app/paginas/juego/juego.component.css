@@ -1,6 +1,7 @@
 /* Colores de iconos */
 .material-icons.red { color: rgb(228, 8, 8); }
 .material-icons.green { color: rgb(49, 151, 2); }
+.material-icons.margin { margin-top: 10 px; margin-left: 10 px;}
 
 .CabeceraActivos {
   background-color: green;
@@ -30,4 +31,19 @@
 .mat-list {
   margin-left: 300px;
   margin-top: 40px;
+}
+
+.AvisoNoJuegosActivo {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-style: oblique;
+}
+
+.mat-chip {
+  max-width: 200px;
+}
+
+.LabelStepper {
+  font-style: oblique;
+  color: rgb(73, 73, 73);
 }

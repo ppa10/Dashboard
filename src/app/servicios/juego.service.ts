@@ -28,6 +28,18 @@ export class JuegoService {
     return this.http.get<Juego[]>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeCompeticions');
   }
 
+  POST_JuegoDePuntos(juego: Juego, grupoId: number): Observable<Juego> {
+    return this.http.post<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDePuntos', juego);
+  }
+
+  POST_JuegoDeColeccion(juego: Juego, grupoId: number): Observable<Juego> {
+    return this.http.post<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeColeccions', juego);
+  }
+
+  POST_JuegoDeCompeticion(juego: Juego, grupoId: number): Observable<Juego> {
+    return this.http.post<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeCompeticions', juego);
+  }
+
 
   // Enviar y recibir juegos entre componentes
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
+import { ThemePalette } from '@angular/material/core';
+
 // Clases
 import { Alumno, Equipo, Juego} from '../../clases/index';
 
@@ -12,13 +14,19 @@ export interface OpcionSeleccionada {
   id: string;
 }
 
+export interface ChipColor {
+  nombre: string;
+  color: ThemePalette;
+}
+
+
+
 @Component({
   selector: 'app-juego',
   templateUrl: './juego.component.html',
   styleUrls: ['./juego.component.css']
 })
 export class JuegoComponent implements OnInit {
-
 
   opcionesMostrar: OpcionSeleccionada[] = [
     {nombre: 'Todos los juegos', id: 'todosLosJuegos'},
@@ -27,6 +35,19 @@ export class JuegoComponent implements OnInit {
     {nombre: 'Juegos de competición', id: 'juegosDeCompeticion'},
 
   ];
+
+  seleccionTipoJuego: ChipColor[] = [
+    {nombre: 'Juego De Puntos', color: 'primary'},
+    {nombre: 'Juego De Colección', color: 'accent'},
+    {nombre: 'Juego De Competición', color: 'warn'}
+  ];
+
+  seleccionModoJuego: ChipColor[] = [
+    {nombre: 'Individual', color: 'primary'},
+    {nombre: 'Equipos', color: 'accent'}
+  ];
+
+
 
   juegosDePuntos: Juego[];
   juegosDeColeccion: Juego[];
@@ -54,6 +75,11 @@ export class JuegoComponent implements OnInit {
 
   ListaJuegosSeleccionadoInactivo: Juego[];
 
+  tipoDeJuegoSeleccionado: string;
+  modoDeJuegoSeleccionado: string;
+
+  // tslint:disable-next-line:ban-types
+  isDisabled: Boolean = true;
 
 
 
@@ -70,6 +96,8 @@ export class JuegoComponent implements OnInit {
 
     this.ListaJuegosDePuntos();
   }
+
+
 
   ListaJuegosDePuntos() {
     this.juegoService.GET_JuegoDePuntos(this.grupoId)
@@ -159,7 +187,8 @@ export class JuegoComponent implements OnInit {
       console.log('juego de coleccion');
     }
 
-    if (this.opcionSeleccionada === 'juegoDeCompeticion') {
+    if (this.opcionSeleccionada === 'juegosDeCompeticion') {
+
       this.ListaJuegosSeleccionadoActivo = this.juegosDeCompeticionActivos;
       this.ListaJuegosSeleccionadoInactivo = this.juegosDeCompeticionInactivos;
       console.log('juego de competicion');
@@ -169,25 +198,51 @@ export class JuegoComponent implements OnInit {
   }
 
   prueba() {
-    console.log('Juegos de puntos activos e inactivos');
-    console.log(this.juegosDePuntosActivos);
-    console.log(this.juegosDePuntosInactivos);
+    console.log();
 
-    console.log('Juegos de coleccion activos e inactivos');
-    console.log(this.juegosDeColeccionActivos);
-    console.log(this.juegosDeColeccionInactivos);
+  }
 
-    console.log('Todos los juegod activos e inactivos');
-    console.log(this.todosLosJuegosActivos);
-    console.log(this.todosLosJuegosInactivos);
+  TipoDeJuegoSeleccionado(tipo: ChipColor) {
+    this.tipoDeJuegoSeleccionado = tipo.nombre;
+    console.log(this.tipoDeJuegoSeleccionado);
+    this.isDisabled = false;
+  }
+
+  ModoDeJuegoSeleccionado(modo: ChipColor) {
+    this.modoDeJuegoSeleccionado = modo.nombre;
+    console.log(this.modoDeJuegoSeleccionado);
   }
 
   JuegoSeleccionado(juego: Juego) {
     this.juegoService.EnviarJuegoAlServicio(juego);
   }
 
-  // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
-  goBack() {
-    this.location.back();
+  CrearJuegoDePuntos() {
+    this.juegoService.POST_JuegoDePuntos(new Juego (this.tipoDeJuegoSeleccionado, this.modoDeJuegoSeleccionado), this.grupoId)
+    .subscribe(juegoCreado => {
+      console.log(juegoCreado);
+      console.log('Juego creado correctamente');
+    });
   }
+
+  // CrearJuegoDeColeccion() {
+  //   this.juegoService.POST_JuegoDeColeccion(new Juego (this.tipoDeJuegoSeleccionado, this.modoDeJuegoSeleccionado,
+  // this.coleccionSeleccionada), this.grupoId)
+  //   .subscribe(juegoCreado => {
+  //     console.log(juegoCreado);
+  //     console.log('Juego creado correctamente');
+  //   });
+  // }
+
+  CrearJuegoCorrespondiente() {
+    if (this.tipoDeJuegoSeleccionado === 'Juego De Puntos') {
+      console.log('Voy a crear juego de puntos');
+      this.CrearJuegoDePuntos();
+    }
+
+    if (this.tipoDeJuegoSeleccionado === 'Juego De Colección') {
+      this.CrearJuegoDePuntos();
+    }
+  }
+
 }

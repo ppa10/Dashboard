@@ -9,7 +9,7 @@ export class Juego {
 
   TipoDeCompeticion: string;
 
-  constructor(Tipo?: string, Modo?: string, JuegoActivo?: boolean, coleccionId?: number, TipoDeCompeticion?: string) {
+  constructor(Tipo?: string, Modo?: string, coleccionId?: number, JuegoActivo?: boolean, TipoDeCompeticion?: string) {
 
     this.Tipo = Tipo;
     this.Modo = Modo;
