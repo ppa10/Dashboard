@@ -1,7 +1,6 @@
 .panel{
 
   background-color: rgb(97, 10, 203);
-  margin: 40px;
   width: 600px;
 
 }
@@ -28,3 +27,10 @@ mat-card-subtitle{
 label{
   color: white;
 }
+
+table{
+  width: 90%;
+}
+
+.material-icons.red { color: rgb(228, 8, 8); }
+.material-icons.md-36 { font-size: 36px; }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Juego, AlumnoJuegoDePuntos } from '../clases/index';
+import { Juego, AlumnoJuegoDePuntos, AsignacionPuntosJuego, Nivel } from '../clases/index';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +12,12 @@ export class JuegoService {
   constructor( private http: HttpClient ) { }
 
   private APIUrlGrupos = 'http://localhost:3000/api/Grupos';
-  private APIUrlAlumnoGrupo = 'http://localhost:3000/api/AlumnosJuegosDePuntos';
+  private APIURLPuntosJuego = 'http://localhost:3000/api/AsignacionPuntosJuego';
+  private APIUrlAlumnoJuego = 'http://localhost:3000/api/AlumnoJuegosDePuntos';
+  private APIRURLJuegoDePuntos = 'http://localhost:3000/api/JuegosDePuntos';
+  private APIURLImagenNivel = 'http://localhost:3000/api/imagenes/imagenNivel';
 
   juegoSeleccionado: Juego;
-
-
 
 
   GET_JuegoDeColeccion(grupoId: number): Observable<Juego[]> {
@@ -36,7 +37,8 @@ export class JuegoService {
     return this.http.post<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeCompeticions', juego);
   }
 
-  // PARA JUEGO DE PUNTOS
+
+  ///////////////////////////////////// PARA JUEGO DE PUNTOS ////////////////////////////////////////
 
   GET_JuegoDePuntos(grupoId: number): Observable<Juego[]> {
     return this.http.get<Juego[]>(this.APIUrlGrupos + '/' + grupoId + '/juegoDePuntos');
@@ -46,14 +48,21 @@ export class JuegoService {
     return this.http.post<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDePuntos', juego);
   }
 
-  // POST_Nivel() {
-
-  // }
-
-  POST_AlumnoJuegoDePuntos(alumnoJuegoDePuntos: AlumnoJuegoDePuntos) {
-    return this.http.post<AlumnoJuegoDePuntos>(this.APIUrlAlumnoGrupo, alumnoJuegoDePuntos);
+  POST_AsignacionPuntoJuego(asignacionPuntoJuego: AsignacionPuntosJuego) {
+    return this.http.post<AsignacionPuntosJuego>(this.APIURLPuntosJuego, asignacionPuntoJuego);
   }
 
+  POST_AlumnoJuegoDePuntos(alumnoJuegoDePuntos: AlumnoJuegoDePuntos) {
+    return this.http.post<AlumnoJuegoDePuntos>(this.APIUrlAlumnoJuego, alumnoJuegoDePuntos);
+  }
+
+  POST_Nivel(nivel: Nivel, juegoDePuntosId: number) {
+    return this.http.post<Nivel>(this.APIRURLJuegoDePuntos + '/' + juegoDePuntosId + '/nivels', nivel);
+  }
+
+  POST_ImagenNivel(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.APIURLImagenNivel + '/upload', formData);
+  }
 
   // Enviar y recibir juegos entre componentes
 

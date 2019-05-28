@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 // Clases
-import { Alumno, Equipo, Juego, Punto} from '../../clases/index';
+import { Alumno, Equipo, Juego, Punto, AlumnoJuegoDePuntos} from '../../clases/index';
 
 // Services
 import { JuegoService, GrupoService, PuntosInsigniasService } from '../../servicios/index';
@@ -33,6 +34,8 @@ export class JuegoComponent implements OnInit {
   alumnosGrupo: Alumno[];
   // tslint:disable-next-line:ban-types
   juegoCreado: Boolean = false;
+
+  juego: Juego;
 
 
 
@@ -118,8 +121,10 @@ export class JuegoComponent implements OnInit {
   isDisabledModo: Boolean = true;
 
 
+
   constructor( private juegoService: JuegoService,
                private grupoService: GrupoService,
+               public snackBar: MatSnackBar,
                private puntosInsigniasService: PuntosInsigniasService) { }
 
   ngOnInit() {
@@ -293,9 +298,11 @@ export class JuegoComponent implements OnInit {
   CrearJuegoDePuntos() {
     this.juegoService.POST_JuegoDePuntos(new Juego (this.tipoDeJuegoSeleccionado, this.modoDeJuegoSeleccionado), this.grupoId)
     .subscribe(juegoCreado => {
+      this.juego = juegoCreado;
       console.log(juegoCreado);
       console.log('Juego creado correctamente');
       this.juegoService.EnviarJuegoAlServicio(juegoCreado);
+      this.juegoCreado = true;
     });
   }
 
@@ -311,13 +318,15 @@ export class JuegoComponent implements OnInit {
   // Si decidimos crear un juego de puntos, lo crearemos ya en la base de datos y posteriormente le añadiremos puntos y niveles
   // Si decidimos crear un juego de colección no haremos el POST en este paso, sino en el siguente cuando indiquemos la colección
   // Si decidimos crear un juego de competición tampoco haremos el POST en este paso, sino cuando indiquemos el tipo de competición
+
   CrearJuegoCorrespondiente() {
     if (this.tipoDeJuegoSeleccionado === 'Juego De Puntos') {
       console.log('Voy a crear juego de puntos');
       this.CrearJuegoDePuntos();
-      this.juegoCreado = true;
-
     }
+    this.snackBar.open(this.tipoDeJuegoSeleccionado + ' creado correctamente', 'Cerrar', {
+      duration: 2000,
+    });
   }
 
   TipoDeJuegoCompeticionSeleccionado(tipoCompeticion: ChipColor) {
@@ -326,6 +335,16 @@ export class JuegoComponent implements OnInit {
   }
 
 
+  InscribirAlumnosJuego() {
+    console.log('Voy a inscribir a los alumnos del grupo');
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.alumnosGrupo.length; i++) {
+      console.log(this.alumnosGrupo[i]);
+      this.juegoService.POST_AlumnoJuegoDePuntos(new AlumnoJuegoDePuntos(this.alumnosGrupo[i].id, this.juego.id))
+      .subscribe(alumnoJuego => console.log('alumnos inscritos correctamente'));
+    }
+  }
 
 
 

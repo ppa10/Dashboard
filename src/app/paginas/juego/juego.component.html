@@ -132,9 +132,6 @@
 
               <app-asignacion-punto-juego></app-asignacion-punto-juego>
 
-              <div>
-                <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
-              </div>
             </mat-step>
 
 
@@ -144,12 +141,12 @@
 
                 <label class = "LabelStepper">Añade todos los niveles que desee al juego</label>
 
-                  <app-crear-nivel></app-crear-nivel>
+                  <app-crear-nivel ></app-crear-nivel>
 
-                <div>
-                  <button mat-button matStepperPrevious>Atrás</button>
-                  <button mat-button matStepperNext>Siguiente</button>
-                </div>
+                  <div>
+                      <button *ngIf="juego.Modo === 'Individual'" (click)="InscribirAlumnosJuego()" mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                      <button *ngIf="juego.Modo === 'Equipos'" (click)="InscribirEquiposJuego()" mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                  </div>
 
             </mat-step>
           </div>

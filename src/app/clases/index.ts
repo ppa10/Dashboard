@@ -10,4 +10,6 @@ export * from './Insignia';
 export * from './Juego';
 export * from './AlumnoJuegoDePuntos';
 export * from './Nivel';
+export * from './AsignacionPuntosJuego';
+
 

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatSnackBar } from '@angular/material';
 
 // Clases
-import { Alumno, Equipo, Juego, Punto} from '../../../clases/index';
+import { Alumno, Equipo, Juego, Punto, AsignacionPuntosJuego} from '../../../clases/index';
 
 // Services
 import { JuegoService, GrupoService, PuntosInsigniasService, ProfesorService } from '../../../servicios/index';
@@ -25,19 +26,24 @@ export class AsignacionPuntoJuegoComponent implements OnInit {
   displayedColumns: string[] = ['select', 'nombrePunto', 'descripcionPunto'];
   selection = new SelectionModel<Punto>(true, []);
 
+  juego: Juego;
 
-  puntosSeleccionados: Punto[];
+
+  puntosSeleccionados: Punto[] = [];
 
 
   constructor( private juegoService: JuegoService,
                private profesorService: ProfesorService,
                private grupoService: GrupoService,
+               public snackBar: MatSnackBar,
                private puntosInsigniasService: PuntosInsigniasService) { }
 
   ngOnInit() {
 
     console.log('Inicio el componente');
     this.grupoId = this.grupoService.RecibirGrupoIdDelServicio();
+    this.juego = this.juegoService.RecibirJuegoDelServicio();
+    console.log(this.juego);
     this.RecogerPuntos();
   }
 
@@ -60,62 +66,83 @@ export class AsignacionPuntoJuegoComponent implements OnInit {
     });
   }
 
- /** Whether the number of selected elements matches the total number of rows. */
- isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.puntosSeleccionables.length;
-  return numSelected === numRows;
-}
-
-/** Selects all rows if they are not all selected; otherwise clear selection. */
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.puntosSeleccionables.forEach(row => {
-        this.selection.select(row);
-      });
-}
-
-toggleCheckbox(row) {
-  this.selection.toggle(row);
-  row.selected = !row.selected;
-  console.log(row);
-  console.log(this.selection.toggle(row));
-
-}
-
-/** The label for the checkbox on the passed row */
-checkboxLabel(row?: Punto): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.puntosSeleccionables.length;
+    return numSelected === numRows;
   }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
-}
 
-// Pone a true o false la posición del vector seleccionados que le pasamos (i) en función de su estado
-Seleccionar(i: number) {
-
-  if (!this.selection.isSelected(this.puntosSeleccionables[i]) === true) {
-    this.seleccionados[i] = true;
-  } else {
-    this.seleccionados[i] = false;
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.puntosSeleccionables.forEach(row => {
+          this.selection.select(row);
+        });
   }
-  console.log(this.seleccionados);
-}
 
-// Pone a true or false todo el vector seleccionado
-SeleccionarTodos() {
-  // tslint:disable-next-line:prefer-for-of
-  for (let i = 0; i < this.puntosSeleccionables.length; i++) {
+  toggleCheckbox(row) {
+    this.selection.toggle(row);
+    row.selected = !row.selected;
+    console.log(row);
+    console.log(this.selection.toggle(row));
 
-    if (!this.isAllSelected() === true) {
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Punto): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
+  }
+
+  // Pone a true o false la posición del vector seleccionados que le pasamos (i) en función de su estado
+  Seleccionar(i: number) {
+
+    if (!this.selection.isSelected(this.puntosSeleccionables[i]) === true) {
       this.seleccionados[i] = true;
     } else {
       this.seleccionados[i] = false;
     }
+    console.log(this.seleccionados);
+  }
+
+  // Pone a true or false todo el vector seleccionado
+  SeleccionarTodos() {
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.puntosSeleccionables.length; i++) {
+
+      if (!this.isAllSelected() === true) {
+        this.seleccionados[i] = true;
+      } else {
+        this.seleccionados[i] = false;
+      }
+
+    }
+    console.log(this.seleccionados);
+  }
+
+  AgregarPuntosAlJuego() {
+
+    for (let i = 0; i < this.seleccionados.length; i++) {
+
+      if (this.seleccionados [i]) {
+        let punto: Punto;
+        punto = this.puntosSeleccionables[i];
+        console.log(punto.Nombre + ' seleccionado');
+
+        this.juegoService.POST_AsignacionPuntoJuego(new AsignacionPuntosJuego(punto.id, this.juego.id))
+        .subscribe(asignacion => console.log(asignacion));
+      }
+    }
+    this.selection.clear();
+
+    this.snackBar.open('Puntos añadidos correctamente', 'Cerrar', {
+      duration: 2000,
+    });
 
   }
-  console.log(this.seleccionados);
-}
 
 }
