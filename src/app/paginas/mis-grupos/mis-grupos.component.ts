@@ -61,6 +61,7 @@ export class MisGruposComponent implements OnInit {
         console.log('Voy a dar la lista');
         this.listaGrupos = res;
         console.log(this.listaGrupos);
+        this.profesorService.EnviarProfesorIdAlServicio(this.identificadorProfesor);
       } else {
         this.listaGrupos = undefined;
       }

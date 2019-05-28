@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 // Clases
-import { Alumno, Equipo, Juego} from '../../../clases/index';
+import { Alumno, Equipo, Juego} from '../../clases/index';
 
 // Services
-import { JuegoService, GrupoService } from '../../../servicios/index';
+import { JuegoService, GrupoService } from '../../servicios/index';
 
 @Component({
   selector: 'app-juego-seleccionado-activo',

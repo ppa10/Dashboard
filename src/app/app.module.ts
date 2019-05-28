@@ -45,8 +45,9 @@ import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.
 import { MisPuntosComponent } from './paginas/mis-puntos/mis-puntos.component';
 import { CrearPuntoComponent } from './paginas/crear-punto/crear-punto.component';
 import { JuegoComponent } from './paginas/juego/juego.component';
-import { JuegoSeleccionadoActivoComponent } from './paginas/juego/juego-seleccionado-activo/juego-seleccionado-activo.component';
-
+import { JuegoSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-seleccionado-activo.component';
+import { AsignacionPuntoJuegoComponent } from './paginas/juego/asignacion-punto-juego/asignacion-punto-juego.component';
+import { CrearNivelComponent } from './paginas/juego/crear-nivel/crear-nivel.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
@@ -54,6 +55,8 @@ import { HttpClientModule } from '@angular/common/http';
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
+
+
 
 
 
@@ -81,7 +84,9 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     MisPuntosComponent,
     CrearPuntoComponent,
     JuegoComponent,
-    JuegoSeleccionadoActivoComponent
+    JuegoSeleccionadoActivoComponent,
+    AsignacionPuntoJuegoComponent,
+    CrearNivelComponent
   ],
   imports: [
     BrowserModule,

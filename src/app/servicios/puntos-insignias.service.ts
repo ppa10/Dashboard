@@ -39,4 +39,9 @@ export class PuntosInsigniasService {
   POST_ImagenInsignia(formData: FormData): Observable<any> {
     return this.http.post<any>(this.APIURLImagenInsignia + '/upload', formData);
   }
+
+  GET_Puntos(profesorId: number): Observable<Punto[]> {
+    return this.http.get<Punto[]>(this.APIUrlProfesor + '/' + profesorId + '/puntos');
+  }
+
 }

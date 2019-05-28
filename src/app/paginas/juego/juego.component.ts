@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { SelectionModel } from '@angular/cdk/collections';
 
 // Clases
-import { Alumno, Equipo, Juego} from '../../clases/index';
+import { Alumno, Equipo, Juego, Punto} from '../../clases/index';
 
 // Services
-import { JuegoService, GrupoService } from '../../servicios/index';
+import { JuegoService, GrupoService, PuntosInsigniasService } from '../../servicios/index';
 
 export interface OpcionSeleccionada {
   nombre: string;
@@ -30,6 +31,9 @@ export class JuegoComponent implements OnInit {
 
   grupoId: number;
   alumnosGrupo: Alumno[];
+  // tslint:disable-next-line:ban-types
+  juegoCreado: Boolean = false;
+
 
 
 
@@ -92,9 +96,18 @@ export class JuegoComponent implements OnInit {
     {nombre: 'Equipos', color: 'accent'}
   ];
 
+    // En el segundo paso mostraremos dos Chips con los dos modos de juego que podemos crear y su color
+    seleccionTipoJuegoCompeticion: ChipColor[] = [
+      {nombre: 'Liga', color: 'primary'},
+      {nombre: 'Torneo', color: 'accent'}
+    ];
+
   // Recogemos la opción que seleccionemos en el primer (tipoDeJuegoSeleccionado) y en el segundo paso (modoDeJuegoSeleccionado)
   tipoDeJuegoSeleccionado: string;
   modoDeJuegoSeleccionado: string;
+
+  //
+  tipoJuegoCompeticionSeleccionado: string;
 
   // No nos permite avanzar en el primer paso si no se ha seleccionado una opción
   // tslint:disable-next-line:ban-types
@@ -106,7 +119,8 @@ export class JuegoComponent implements OnInit {
 
 
   constructor( private juegoService: JuegoService,
-               private grupoService: GrupoService ) { }
+               private grupoService: GrupoService,
+               private puntosInsigniasService: PuntosInsigniasService) { }
 
   ngOnInit() {
     this.grupoId = this.grupoService.RecibirGrupoIdDelServicio();
@@ -248,7 +262,7 @@ export class JuegoComponent implements OnInit {
   }
 
   prueba() {
-    console.log();
+    console.log(this.alumnosGrupo);
 
   }
 
@@ -281,6 +295,7 @@ export class JuegoComponent implements OnInit {
     .subscribe(juegoCreado => {
       console.log(juegoCreado);
       console.log('Juego creado correctamente');
+      this.juegoService.EnviarJuegoAlServicio(juegoCreado);
     });
   }
 
@@ -293,17 +308,25 @@ export class JuegoComponent implements OnInit {
   //   });
   // }
 
-  // En función del juego que hayamos decidido crear, activaremos una función u otra para crear ese tipo de juego en la
-  // base de datos
+  // Si decidimos crear un juego de puntos, lo crearemos ya en la base de datos y posteriormente le añadiremos puntos y niveles
+  // Si decidimos crear un juego de colección no haremos el POST en este paso, sino en el siguente cuando indiquemos la colección
+  // Si decidimos crear un juego de competición tampoco haremos el POST en este paso, sino cuando indiquemos el tipo de competición
   CrearJuegoCorrespondiente() {
     if (this.tipoDeJuegoSeleccionado === 'Juego De Puntos') {
       console.log('Voy a crear juego de puntos');
       this.CrearJuegoDePuntos();
-    }
+      this.juegoCreado = true;
 
-    if (this.tipoDeJuegoSeleccionado === 'Juego De Colección') {
-      this.CrearJuegoDePuntos();
     }
   }
+
+  TipoDeJuegoCompeticionSeleccionado(tipoCompeticion: ChipColor) {
+    this.tipoJuegoCompeticionSeleccionado = tipoCompeticion.nombre;
+    console.log('Voy a crear juego de competicón');
+  }
+
+
+
+
 
 }

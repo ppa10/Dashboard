@@ -14,7 +14,7 @@ import { AboutClasspipComponent } from './paginas/about-classpip/about-classpip.
 import { MisPuntosComponent } from './paginas/mis-puntos/mis-puntos.component';
 import { CrearPuntoComponent } from './paginas/crear-punto/crear-punto.component';
 import { JuegoComponent } from './paginas/juego/juego.component';
-import { JuegoSeleccionadoActivoComponent } from './paginas/juego/juego-seleccionado-activo/juego-seleccionado-activo.component';
+import { JuegoSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-seleccionado-activo.component';
 
 
 import { AppComponent } from './app.component';

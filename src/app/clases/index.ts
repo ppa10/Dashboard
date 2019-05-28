@@ -8,4 +8,6 @@ export * from './AsignacionEquipo';
 export * from './Punto';
 export * from './Insignia';
 export * from './Juego';
+export * from './AlumnoJuegoDePuntos';
+export * from './Nivel';
 

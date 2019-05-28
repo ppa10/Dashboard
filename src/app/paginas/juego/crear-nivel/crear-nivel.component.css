@@ -1,0 +1,30 @@
+.panel{
+
+  background-color: rgb(97, 10, 203);
+  margin: 40px;
+  width: 600px;
+
+}
+
+.foto {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.btn-aceptar {
+  background-color: rgb(232, 12, 122);
+  border-color: rgb(232, 12, 122);
+  color: white;
+}
+
+mat-card-title {
+  color: white
+}
+
+mat-card-subtitle{
+  color: white;
+}
+
+label{
+  color: white;
+}

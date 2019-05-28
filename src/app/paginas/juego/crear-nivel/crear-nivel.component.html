@@ -1,0 +1,40 @@
+<mat-card class="panel">
+
+    <mat-card-header>
+      <mat-card-title>Crear nuevo nivel</mat-card-title>
+      <mat-card-subtitle>Introduce los parámetros</mat-card-subtitle>
+    </mat-card-header>
+
+    <div>
+        <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
+        <img class = "foto" *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo" >
+        <button (click) = "ActivarInput()" type="button" class="btn btn-info">
+          <i class="material-icons">add_photo_alternate</i>
+          Agregar foto
+        </button>
+    </div>
+
+    <mat-card-content>
+      <div class="form-group">
+          <label for="inputNombreNivel">Nombre</label>
+          <input (keyup)="Disabled()" type="text" id="inputNombreNivel" class="form-control" requiered [(ngModel)]="nombreNivel" placeholder="Escribe el nombre del nivel">
+      </div>
+
+      <div class="form-group">
+          <label for="inputPuntosAlcanzar">Puntos a alcanzar</label>
+          <input (keyup)= "Disabled()" type="number" id="inputPuntosAlcanzar" class="form-control" requiered [(ngModel)]="puntosAlcanzar" placeholder="Escribe los puntos para alcanzar el nivel">
+      </div>
+
+      <div class="form-group">
+        <label for="textareaPrivilegio">Descripción</label>
+        <textarea (keyup)="Disabled()" class="form-control" id="textareaPrivilegio" requiered [(ngModel)]="privilegiosDelNivel" placeholder="Escribe los privilegios del nivel" rows="4"></textarea>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button  [disabled]="isDisabledNivel" type="button" class="btn btn-aceptar">Crear Nivel</button>
+      <button  (click) = "LimpiarCampos()" type="button" class="btn btn-light">Limpiar Campos</button>
+      <button  (click) = "prueba();" type="button" class="btn btn-aceptar">Crear Nivel</button>
+    </mat-card-actions>
+
+  </mat-card>
