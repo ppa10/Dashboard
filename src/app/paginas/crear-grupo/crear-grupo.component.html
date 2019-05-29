@@ -20,8 +20,16 @@
       </div>
 
       <div>
-        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo() matStepperNext>Siguiente</button>
-        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() matStepperNext>Siguiente</button>
+        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo() matStepperNext>
+          <i class="material-icons">
+            arrow_forward
+          </i>
+          </button>
+        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() matStepperNext>
+            <i class="material-icons">
+            arrow_forward
+            </i>
+          </button>
       </div>
 
 
@@ -34,12 +42,21 @@
       </ng-template>
       <div class="contenedor contenedor2">
       <div>
-        <button class="btn" (click)= "AbrirDialogoAgregarAlumnos()">Agregar alumnos</button>
+        <button mat-raised-button style="margin: 5px;"  color="green" (click)= "AbrirDialogoAgregarAlumnos()"><i class="material-icons">
+            person_add
+            </i></button>
 
       </div>
       <div>
-        <button  mat-raised-button style="margin: 5px;" color="white" matStepperPrevious>Atrás</button>
-        <button  mat-raised-button style="margin: 5px;"  color="primary" matStepperNext>Siguiente</button>
+        <button  mat-raised-button style="margin: 5px;" color="white" matStepperPrevious>
+          <i class="material-icons">
+            arrow_back
+          </i></button>
+        <button  mat-raised-button style="margin: 5px;"  color="primary" matStepperNext>
+          <i class="material-icons">
+            arrow_forward
+          </i>
+        </button>
       </div>
     </div>
     </mat-step>
@@ -48,8 +65,12 @@
       <ng-template matStepLabel>Finalizar</ng-template>
       <div align="right" style="margin: 5px;">Grupo creado correctamente.</div>
       <div align="right">
-        <button mat-raised-button style="margin: 5px;" color="white" matStepperPrevious>Atrás</button>
-        <button class="btn" (click) = "VueltaInicio();">Finalizar</button>
+        <button mat-raised-button style="margin: 5px;" color="white" matStepperPrevious> <i class="material-icons">
+            arrow_back
+          </i></button>
+        <button mat-raised-button style="margin: 5px;"  color="primary" (click) = "VueltaInicio();"><i class="material-icons">
+            check
+            </i></button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
