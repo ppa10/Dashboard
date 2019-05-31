@@ -11,5 +11,8 @@ export * from './Juego';
 export * from './AlumnoJuegoDePuntos';
 export * from './Nivel';
 export * from './AsignacionPuntosJuego';
+export * from './EquipoJuegoDePuntos';
+export * from './clasesParaTablas/TablaJuegoDePuntos';
+
 
 

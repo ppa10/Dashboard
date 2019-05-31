@@ -48,6 +48,10 @@ import { JuegoComponent } from './paginas/juego/juego.component';
 import { JuegoSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-seleccionado-activo.component';
 import { AsignacionPuntoJuegoComponent } from './paginas/juego/asignacion-punto-juego/asignacion-punto-juego.component';
 import { CrearNivelComponent } from './paginas/juego/crear-nivel/crear-nivel.component';
+// tslint:disable-next-line:max-line-length
+import { JuegoDePuntosSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/juego-de-puntos-seleccionado-activo.component';
+// tslint:disable-next-line:max-line-length
+import { AsignarPuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/asignar-puntos/asignar-puntos.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
@@ -55,6 +59,8 @@ import { HttpClientModule } from '@angular/common/http';
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
+
+
 
 
 
@@ -86,7 +92,9 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     JuegoComponent,
     JuegoSeleccionadoActivoComponent,
     AsignacionPuntoJuegoComponent,
-    CrearNivelComponent
+    CrearNivelComponent,
+    AsignarPuntosComponent,
+    JuegoDePuntosSeleccionadoActivoComponent
   ],
   imports: [
     BrowserModule,

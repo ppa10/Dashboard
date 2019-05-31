@@ -1,0 +1,73 @@
+<form *ngIf="tablaJuegos[0] !== undefined">
+  <div>
+    <button type="button" class="btn btn-info" (click) = Informacion();>Información</button>
+    <button type="button" class="btn btn-success" (click) = AsignarPuntos(); routerLink = "asignarPuntos">Asignar Puntos</button>
+    <button type="button" class="btn btn-danger">Acabar Juego</button>
+
+  </div>
+
+
+
+  <table *ngIf="tablaJuegos;else Aviso_no_alumnos" mat-table [dataSource]="tablaJuegos" class="example-container mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Posición Column -->
+    <ng-container matColumnDef="posicion">
+      <th mat-header-cell *matHeaderCellDef> Posicion </th>
+      <td mat-cell *matCellDef="let alumno"> {{alumno.posicion}} </td>
+    </ng-container>
+
+    <!-- Nombre Alumno Column -->
+    <ng-container matColumnDef="nombreAlumno">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let alumno"> {{alumno.nombre}} </td>
+    </ng-container>
+
+    <!-- Primer Apellido Column -->
+    <ng-container matColumnDef="primerApellido">
+      <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+      <td mat-cell *matCellDef="let alumno"> {{alumno.primerApellido}} </td>
+    </ng-container>
+
+    <!-- Segundo Apellido Column -->
+    <ng-container matColumnDef="segundoApellido">
+      <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+      <td mat-cell *matCellDef="let alumno"> {{alumno.segundoApellido}} </td>
+    </ng-container>
+
+    <!-- Puntos Column -->
+    <ng-container matColumnDef="puntos">
+      <th mat-header-cell *matHeaderCellDef> Puntos </th>
+      <td mat-cell *matCellDef="let alumno"> {{alumno.puntos}} </td>
+    </ng-container>
+
+
+    <!-- Nivel Column -->
+    <ng-container matColumnDef="nivel">
+      <th mat-header-cell *matHeaderCellDef> Nivel </th>
+      <td mat-cell *matCellDef="let alumno"> {{alumno.nivel}} </td>
+    </ng-container>
+
+        <!-- Delete Column -->
+    <ng-container matColumnDef=" ">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let alumno">
+          <!-- <button (click) = "BorrarAlumnoEquipo(alumno)" mat-icon-button matTooltip="Borrar a {{alumno.Nombre}} del equipo">
+            <i class="material-icons red md-36">delete</i>
+          </button> -->
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsAlumnos; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsAlumnos;"></tr>
+
+  </table>
+
+  <ng-template #Aviso_no_alumnos>Este equipo no tiene alumnos</ng-template>
+
+</form>
+
+<button (click) = "TablaClasificacion()">tabla</button>
+<button (click) = "prueba()">prueba</button>

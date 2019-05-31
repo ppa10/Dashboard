@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
 // Clases
-import { Alumno, Equipo, Juego, Punto, AlumnoJuegoDePuntos} from '../../clases/index';
+import { Alumno, Equipo, Juego, Punto, AlumnoJuegoDePuntos, EquipoJuegoDePuntos} from '../../clases/index';
 
 // Services
-import { JuegoService, GrupoService, PuntosInsigniasService } from '../../servicios/index';
+import { JuegoService, GrupoService, PuntosInsigniasService, EquipoService } from '../../servicios/index';
 
 export interface OpcionSeleccionada {
   nombre: string;
@@ -28,10 +28,14 @@ export interface ChipColor {
 })
 export class JuegoComponent implements OnInit {
 
+
   ///////////////////////////////////// PARÁMETROS GENERALES PARA EL COMPONENTE ///////////////////////////////////
 
   grupoId: number;
   alumnosGrupo: Alumno[];
+  equiposGrupo: Equipo[];
+  @ViewChild('stepper') stepper;
+
   // tslint:disable-next-line:ban-types
   juegoCreado: Boolean = false;
 
@@ -124,12 +128,14 @@ export class JuegoComponent implements OnInit {
 
   constructor( private juegoService: JuegoService,
                private grupoService: GrupoService,
+               private equipoService: EquipoService,
                public snackBar: MatSnackBar,
                private puntosInsigniasService: PuntosInsigniasService) { }
 
   ngOnInit() {
     this.grupoId = this.grupoService.RecibirGrupoIdDelServicio();
     this.alumnosGrupo = this.grupoService.RecibirAlumnosGrupoDelServicio();
+    this.EquiposDelGrupo();
 
     // Recupera la lista de juegos que tiene el grupo (primero el de puntos, después de colección y después los totales)
     // y los va clasificando en activo e inactivo
@@ -268,6 +274,9 @@ export class JuegoComponent implements OnInit {
 
   prueba() {
     console.log(this.alumnosGrupo);
+    console.log(this.equiposGrupo);
+    console.log(this.equiposGrupo[0]);
+    console.log(this.grupoId);
 
   }
 
@@ -275,6 +284,20 @@ export class JuegoComponent implements OnInit {
 
   ///////////////////////////////////////// FUNCIONES PARA CREAR JUEGO ///////////////////////////////////////////////
 
+  // RECUPERA LOS EQUIPOS DEL GRUPO
+  EquiposDelGrupo() {
+    this.equipoService.GET_EquiposDelGrupo(this.grupoId)
+    .subscribe(equipos => {
+      if (equipos !== undefined) {
+        console.log('Hay equipos');
+        this.equiposGrupo = equipos;
+        console.log(this.equiposGrupo);
+      } else {
+        console.log('Este grupo aun no tiene equipos');
+      }
+
+    });
+  }
 
   // Recoge el tipo de juego seleccionado y lo mete en la variable (tipoDeJuegoSeleccionado), la cual se usará después
   // para el POST del juego
@@ -289,8 +312,25 @@ export class JuegoComponent implements OnInit {
   // para el POST del juego
   ModoDeJuegoSeleccionado(modo: ChipColor) {
     this.modoDeJuegoSeleccionado = modo.nombre;
-    console.log(this.modoDeJuegoSeleccionado);
-    this.isDisabledModo = false;
+    if (this.modoDeJuegoSeleccionado === 'Individual') {
+      if (this.alumnosGrupo === undefined) {
+        this.isDisabledModo = true;
+        console.log('No Hay alumnos, no puedo crear el juego');
+      } else {
+        console.log('Hay alumnos, puedo crear');
+        this.isDisabledModo = false;
+      }
+
+    } else {
+      if (this.equiposGrupo[0] === undefined) {
+        this.isDisabledModo = true;
+        console.log('No se puede crear juego pq no hay alumnos');
+      } else {
+        this.isDisabledModo = false;
+        console.log('Hay equipos, puedo crear');
+      }
+
+    }
   }
 
 
@@ -345,6 +385,23 @@ export class JuegoComponent implements OnInit {
       .subscribe(alumnoJuego => console.log('alumnos inscritos correctamente'));
     }
   }
+
+
+
+  // INSCRIBE A TODOS LOS EQUIPOS DEL GRUPO DONDE SE CREA EL JUEGO Y PONE SUS PUNTOS A 0
+  InscribirEquiposJuego() {
+    console.log('Voy a inscribir los equipos al grupo');
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.equiposGrupo.length; i++) {
+      console.log(this.equiposGrupo[i]);
+      this.juegoService.POST_EquipoJuegoDePuntos(new EquipoJuegoDePuntos(this.equiposGrupo[i].id, this.juego.id))
+      .subscribe(equiposJuego => console.log(equiposJuego));
+    }
+
+  }
+
+
 
 
 

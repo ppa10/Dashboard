@@ -18,6 +18,9 @@ export class AsignacionPuntoJuegoComponent implements OnInit {
   grupoId: number;
   profesorId: number;
 
+  // tslint:disable-next-line:ban-types
+  isDisabled: Boolean = true;
+
   //////////// PARA JUEGO DE PUNTOS
 
   puntosSeleccionables: Punto[];

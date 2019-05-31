@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 // Clases
-import { Alumno, Equipo, Juego} from '../../clases/index';
+import { Juego } from '../../clases/index';
 
 // Services
-import { JuegoService, GrupoService } from '../../servicios/index';
+import { JuegoService } from '../../servicios/index';
 
 @Component({
   selector: 'app-juego-seleccionado-activo',
@@ -21,5 +21,6 @@ export class JuegoSeleccionadoActivoComponent implements OnInit {
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
 
   }
+
 
 }

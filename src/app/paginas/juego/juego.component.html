@@ -106,7 +106,7 @@
                 <label class = "LabelStepper">Selecciona un modo de juego:</label>
                 <mat-chip-list class="mat-chip-list-stacked">
                   <mat-chip *ngFor="let tipo of seleccionModoJuego; let i = index" selected [color]="tipo.color"  selected="{{seleccionModoJuego[i].selected}}"
-                     (click)="ModoDeJuegoSeleccionado(seleccionModoJuego[i])" [value]="tipo.nombre" [selectable]="true">
+                     (click)="ModoDeJuegoSeleccionado(seleccionModoJuego[i])" [value]="tipo.nombre" [selectable]="true" >
                       {{tipo.nombre}}
                   </mat-chip>
                 </mat-chip-list>
