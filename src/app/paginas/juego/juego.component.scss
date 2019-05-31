@@ -1,0 +1,51 @@
+/* Colores de iconos */
+.material-icons.red { color: rgb(228, 8, 8); }
+.material-icons.green { color: rgb(49, 151, 2); }
+.material-icons.margin { margin-top: 10 px; margin-left: 10 px;}
+
+.CabeceraActivos {
+  background-color: green;
+  color: white;
+  font-style: bold;
+  width: 70%;
+}
+
+.CabeceraInactivos {
+  background-color: rgba(212, 0, 0, 0.801);
+  color: white;
+  font-style: bold;
+  width: 70%;
+}
+
+.ItemsInactivos {
+  font-style: oblique;
+  color: grey;
+}
+
+.mat-list-item:hover {
+  background-color: rgb(204, 197, 197);
+  cursor: pointer;
+  width: 70%;
+}
+
+.mat-list {
+  margin-left: 300px;
+  margin-top: 40px;
+}
+
+.AvisoNoJuegosActivo {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-style: oblique;
+}
+
+.mat-chip {
+  max-width: 200px;
+}
+
+.LabelStepper {
+  font-style: oblique;
+  color: rgb(73, 73, 73);
+}
+
+

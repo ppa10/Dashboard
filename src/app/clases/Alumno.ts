@@ -3,7 +3,7 @@ export class Alumno {
   PrimerApellido: string;
   SegundoApellido: string;
   ImagenPerfil: string;
-  ProfesorId: string;
+  profesorId: string;
   id: number;
 
   constructor(nombre?: string, primerApellido?: string, segundoApellido?: string, imagenPerfil?: string) {

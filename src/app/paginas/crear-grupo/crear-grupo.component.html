@@ -20,18 +20,9 @@
       </div>
 
       <div>
-        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo() matStepperNext>
-          <i class="material-icons">
-            arrow_forward
-          </i>
-          </button>
-        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() matStepperNext>
-            <i class="material-icons">
-            arrow_forward
-            </i>
-          </button>
+        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo() matStepperNext>Siguiente</button>
+        <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() matStepperNext>Siguiente</button>
       </div>
-
 
     </mat-step>
 

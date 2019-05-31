@@ -79,6 +79,13 @@ export class GrupoComponent implements OnInit {
     this.grupoService.EnviarAlumnosGrupoAlServicio(this.alumnosGrupoSeleccionado);
   }
 
+  EntrarJuegos() {
+
+    // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
+    this.grupoService.EnviarGrupoIdAlServicio(this.grupoSeleccionado.id);
+    this.grupoService.EnviarAlumnosGrupoAlServicio(this.alumnosGrupoSeleccionado);
+  }
+
   // ESTA FUNCIÓN BORRARÁ EL GRUPO DE ID QUE PASEMOS DEL PROFESOR CON ID QUE PASEMOS Y VOLVERÁ A LA PÁGINA DE LISTAR
   // ACTUALIZANDO LA TABLA
   EliminarGrupo() {
