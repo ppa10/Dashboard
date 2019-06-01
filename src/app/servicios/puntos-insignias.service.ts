@@ -44,4 +44,7 @@ export class PuntosInsigniasService {
     return this.http.get<Punto[]>(this.APIUrlProfesor + '/' + profesorId + '/puntos');
   }
 
+  GET_Insignias(profesorId: number): Observable<Insignia[]> {
+    return this.http.get<Insignia[]>(this.APIUrlProfesor + '/' + profesorId + '/insignia');
+  }
 }
