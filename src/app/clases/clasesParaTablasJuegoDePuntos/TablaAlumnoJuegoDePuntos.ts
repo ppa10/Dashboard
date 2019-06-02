@@ -1,4 +1,4 @@
-export class TablaJuegoDePuntos {
+export class TablaAlumnoJuegoDePuntos {
 
   posicion: number;
   nombre: string;

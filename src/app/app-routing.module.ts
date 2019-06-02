@@ -17,6 +17,8 @@ import { JuegoComponent } from './paginas/juego/juego.component';
 import { JuegoSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-seleccionado-activo.component';
 // tslint:disable-next-line:max-line-length
 import { AsignarPuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/asignar-puntos/asignar-puntos.component';
+// tslint:disable-next-line:max-line-length
+import { AlumnoSeleccionadoJuegoDePuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/alumno-seleccionado-juego-de-puntos/alumno-seleccionado-juego-de-puntos.component';
 
 import { AppComponent } from './app.component';
 
@@ -34,6 +36,7 @@ const routes: Routes = [
   { path: 'grupo/:id/juegos', component: JuegoComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado', component: JuegoSeleccionadoActivoComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/asignarPuntos', component: AsignarPuntosComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionado/informacionAlumnoJuego', component: AlumnoSeleccionadoJuegoDePuntosComponent },
 
 
   { path: 'aboutClasspip', component: AboutClasspipComponent },

@@ -18,6 +18,7 @@ export class AlumnoService {
 
 
   listaAlumnos: any = [];
+  alumno: any;
 
   constructor(private http: HttpClient) { }
 
@@ -50,6 +51,14 @@ export class AlumnoService {
 
   RecibirListaAlumnosDelServicio(): any {
     return this.listaAlumnos;
+  }
+
+  EnviarAlumnoAlServicio(alumno: any) {
+    this.alumno = alumno;
+  }
+
+  RecibirAlumnoDelServicio() {
+    return this.alumno;
   }
 
 

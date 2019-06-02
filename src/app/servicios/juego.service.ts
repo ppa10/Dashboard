@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Juego, AlumnoJuegoDePuntos, AsignacionPuntosJuego, Nivel, EquipoJuegoDePuntos, Alumno, Equipo, Punto,
-          } from '../clases/index';
+         TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno } from '../clases/index';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,16 @@ export class JuegoService {
   private APIRURLJuegoDePuntos = 'http://localhost:3000/api/JuegosDePuntos';
   private APIURLImagenNivel = 'http://localhost:3000/api/imagenes/imagenNivel';
   private APIURLAlumnoJuegoDePuntos = 'http://localhost:3000/api/AlumnoJuegosDePuntos';
+  private APIURLHistorialPuntosAlumno = 'http://localhost:3000/api/HistorialesPuntosAlumno';
 
   juegoSeleccionado: Juego;
+  rankingJuegoDePunto: TablaAlumnoJuegoDePuntos[];
+  listaAlumnosOrdenadaPorPuntos: AlumnoJuegoDePuntos[];
+
+  alumnosDelJuego: Alumno[];
+  equiposDelJuego: Equipo[];
+  puntos: Punto[];
+  niveles: Nivel[];
 
 
   GET_JuegoDeColeccion(grupoId: number): Observable<Juego[]> {
@@ -97,6 +105,14 @@ export class JuegoService {
     return this.http.get<AlumnoJuegoDePuntos[]>(this.APIURLAlumnoJuegoDePuntos + '?filter[where][juegoDePuntosId]=' + juegoDePuntosId);
   }
 
+  PUT_PuntosJuegoDePuntos( alumnoJuegoDePuntos: AlumnoJuegoDePuntos, alumnoJuegoDePuntosId: number): Observable<AlumnoJuegoDePuntos> {
+    // tslint:disable-next-line:max-line-length
+    return this.http.put<AlumnoJuegoDePuntos>(this.APIURLAlumnoJuegoDePuntos + '/' + alumnoJuegoDePuntosId, alumnoJuegoDePuntos);
+  }
+
+  POST_HistorialPuntosAlumno(historial: HistorialPuntosAlumno): Observable<HistorialPuntosAlumno> {
+    return this.http.post<HistorialPuntosAlumno>(this. APIURLHistorialPuntosAlumno, historial);
+  }
 
 
 
@@ -110,5 +126,53 @@ export class JuegoService {
   // ESTA ES LA QUE HAY QUE LLAMAR PARA RECOGER EL JUEGO EN OTRO COMPONENTE
   RecibirJuegoDelServicio(): any {
     return this.juegoSeleccionado;
+  }
+
+  EnviarAlumnoJuegoAlServicio(alumnos: any) {
+    this.alumnosDelJuego = alumnos;
+  }
+
+  RecibirAlumnoJuegoDelServicio() {
+    return this.alumnosDelJuego;
+  }
+
+  EnviarEquipoJuegoAlServicio(equipos: any) {
+    this.equiposDelJuego = equipos;
+  }
+
+  RecibirEquipoJuegoDelServicio() {
+    return this.equiposDelJuego;
+  }
+
+  EnviarListaOrdenadaJuegoPuntosAlServicio(lista: any) {
+    this.listaAlumnosOrdenadaPorPuntos = lista;
+  }
+
+  RecibirListaOrdenadaJuegoPuntosDelServicio(): any {
+    return this.listaAlumnosOrdenadaPorPuntos;
+  }
+
+  EnviarRankingJuegoPuntosAlServicio(ranking: any) {
+    this.rankingJuegoDePunto = ranking;
+  }
+
+  RecibirRankingJuegoPuntosDelServicio(): any {
+    return this.rankingJuegoDePunto;
+  }
+
+  EnviarPuntosAlServicio(puntos: any) {
+    this.puntos = puntos;
+  }
+
+  RecibirPuntosDelServicio(): any {
+    return this.puntos;
+  }
+
+  EnviarNivelesAlServicio(niveles: any) {
+    this.niveles = niveles;
+  }
+
+  RecibirNivelesDelServicio(): any {
+    return this.niveles;
   }
 }

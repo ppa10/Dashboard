@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 // Clases
-import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDePuntos, TablaJuegoDePuntos} from '../../../clases/index';
+import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDePuntos,
+  TablaAlumnoJuegoDePuntos } from '../../../clases/index';
+
 
 // Services
-import { JuegoService, GrupoService } from '../../../servicios/index';
+import { JuegoService, GrupoService, AlumnoService } from '../../../servicios/index';
 
 
 @Component({
@@ -14,20 +16,25 @@ import { JuegoService, GrupoService } from '../../../servicios/index';
 })
 export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
 
+  // Juego De Puntos seleccionado
   juegoSeleccionado: Juego;
 
+  // Recupera la informacion del juego, los alumnos o los equipos, los puntos y los niveles del juego
   alumnosDelJuego: Alumno[];
   equiposDelJuego: Equipo[];
   puntosDelJuego: Punto[];
   nivelesDelJuego: Nivel[];
 
-  listaOrdenadaPorPuntos: AlumnoJuegoDePuntos[];
+  // Recoge la inscripción de un alumno en el juego ordenada por puntos
+  listaAlumnosOrdenadaPorPuntos: AlumnoJuegoDePuntos[];
 
-  tablaJuegos: TablaJuegoDePuntos[] = [];
+  // Muestra la posición del alumno, el nombre y los apellidos del alumno, los puntos y el nivel
+  rankingJuegoDePuntos: TablaAlumnoJuegoDePuntos[] = [];
 
   displayedColumnsAlumnos: string[] = ['posicion', 'nombreAlumno', 'primerApellido', 'segundoApellido', 'puntos', 'nivel', ' '];
 
-  constructor( private juegoService: JuegoService ) { }
+  constructor( private juegoService: JuegoService,
+               private alumnoService: AlumnoService ) { }
 
   ngOnInit() {
 
@@ -62,7 +69,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   }
 
 
-  // Recupera los puntos que se pueden asignar al juego
+  // Recupera los puntos que se pueden asignar en el juego
   PuntosDelJuego() {
     this.juegoService.GET_PuntosJuegoDePuntos(this.juegoSeleccionado.id)
     .subscribe(puntos => {
@@ -85,54 +92,54 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   RecuperarInscripcionesAlumnoJuego() {
     this.juegoService.GET_InscripcionesAlumnoJuegoDePuntos(this.juegoSeleccionado.id)
     .subscribe(inscripciones => {
-      this.listaOrdenadaPorPuntos = inscripciones;
+      this.listaAlumnosOrdenadaPorPuntos = inscripciones;
       this.OrdenarPorPuntos();
       this.TablaClasificacion();
     });
 
   }
 
+  // Recoge la lista y la ordena por puntos de mayor a menor
   OrdenarPorPuntos() {
 
     // tslint:disable-next-line:only-arrow-functions
-    this.listaOrdenadaPorPuntos = this.listaOrdenadaPorPuntos.sort(function(obj1, obj2) {
+    this.listaAlumnosOrdenadaPorPuntos = this.listaAlumnosOrdenadaPorPuntos.sort(function(obj1, obj2) {
       return obj2.PuntosTotalesAlumno - obj1.PuntosTotalesAlumno;
     });
-    return this.listaOrdenadaPorPuntos;
+    return this.listaAlumnosOrdenadaPorPuntos;
   }
 
+  // En función del modo, recorremos la lisa de Alumnos o de Equipos y vamos rellenando el rankingJuegoDePuntos
   TablaClasificacion() {
 
     if (this.juegoSeleccionado.Modo === 'Individual') {
 
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.listaOrdenadaPorPuntos.length; i++) {
+      for (let i = 0; i < this.listaAlumnosOrdenadaPorPuntos.length; i++) {
         let alumno: Alumno;
         let nivel: Nivel;
 
-        alumno = this.BuscarAlumno(this.listaOrdenadaPorPuntos[i].alumnoId);
+        alumno = this.BuscarAlumno(this.listaAlumnosOrdenadaPorPuntos[i].alumnoId);
 
-        if (this.listaOrdenadaPorPuntos[i].nivelId !== undefined) {
-          console.log('Entro aqui');
-          console.log(this.listaOrdenadaPorPuntos[i].alumnoId);
-          nivel = this.BuscarNivel(this.listaOrdenadaPorPuntos[i].nivelId);
-          console.log(this.listaOrdenadaPorPuntos[i].nivelId);
+        if (this.listaAlumnosOrdenadaPorPuntos[i].nivelId !== undefined) {
+          console.log(this.listaAlumnosOrdenadaPorPuntos[i].alumnoId);
+          nivel = this.BuscarNivel(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
+          console.log(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
         }
 
         if (nivel !== undefined) {
-          this.tablaJuegos[i] = new TablaJuegoDePuntos (i + 1, alumno.Nombre, alumno.PrimerApellido, alumno.SegundoApellido,
-            this.listaOrdenadaPorPuntos[i].PuntosTotalesAlumno, nivel.Nombre);
+          this.rankingJuegoDePuntos[i] = new TablaAlumnoJuegoDePuntos (i + 1, alumno.Nombre, alumno.PrimerApellido, alumno.SegundoApellido,
+            this.listaAlumnosOrdenadaPorPuntos[i].PuntosTotalesAlumno, nivel.Nombre);
         } else {
-          this.tablaJuegos[i] = new TablaJuegoDePuntos (i + 1, alumno.Nombre, alumno.PrimerApellido, alumno.SegundoApellido,
-            this.listaOrdenadaPorPuntos[i].PuntosTotalesAlumno);
+          this.rankingJuegoDePuntos[i] = new TablaAlumnoJuegoDePuntos (i + 1, alumno.Nombre, alumno.PrimerApellido, alumno.SegundoApellido,
+            this.listaAlumnosOrdenadaPorPuntos[i].PuntosTotalesAlumno);
         }
-
       }
     }
 
-    this.tablaJuegos = this.tablaJuegos.filter(res => res.nombre !== '');
+    this.rankingJuegoDePuntos = this.rankingJuegoDePuntos.filter(res => res.nombre !== '');
 
-    return this.tablaJuegos;
+    return this.rankingJuegoDePuntos;
 
   }
 
@@ -159,12 +166,26 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   }
 
   AsignarPuntos() {
+    this.juegoService.EnviarAlumnoJuegoAlServicio(this.alumnosDelJuego);
+    this.juegoService.EnviarListaOrdenadaJuegoPuntosAlServicio(this.listaAlumnosOrdenadaPorPuntos);
+    this.juegoService.EnviarRankingJuegoPuntosAlServicio(this.rankingJuegoDePuntos);
+    this.juegoService.EnviarPuntosAlServicio(this.puntosDelJuego);
+    this.juegoService.EnviarNivelesAlServicio(this.nivelesDelJuego);
+  }
 
+  AccederAlumno(alumno: TablaAlumnoJuegoDePuntos) {
+
+
+    this.alumnoService.EnviarAlumnoAlServicio(this.alumnosDelJuego.filter(res => res.Nombre === alumno.nombre &&
+      res.PrimerApellido === alumno.primerApellido && res.SegundoApellido === alumno.segundoApellido));
+    this.juegoService.EnviarPuntosAlServicio(this.puntosDelJuego);
+    this.juegoService.EnviarNivelesAlServicio(this.nivelesDelJuego);
   }
 
 
   prueba() {
     console.log(this.nivelesDelJuego);
+    console.log(this.alumnosDelJuego);
   }
 
 }

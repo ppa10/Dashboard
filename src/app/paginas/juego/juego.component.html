@@ -10,13 +10,17 @@
 
   <mat-tab index = "0" label="Lista de juegos">
     <form>
+      <mat-form-field>
+        <mat-label>Mostrar lista de: </mat-label>
+          <select matNativeControl [(ngModel)]="opcionSeleccionada" name="opcion" (change) = "ListaJuegoSeleccionado()">
+            <option (click) = "prueba()" *ngFor="let opcion of opcionesMostrar" [value]="opcion.id">
+                {{opcion.nombre}}
+            </option>
+          </select>
+      </mat-form-field>
 
-      <mat-label>Mostrar lista de: </mat-label>
-        <select matNativeControl [(ngModel)]="opcionSeleccionada" name="opcion" (change) = "ListaJuegoSeleccionado()">
-          <option (click) = "prueba()" *ngFor="let opcion of opcionesMostrar" [value]="opcion.id">
-              {{opcion.nombre}}
-          </option>
-        </select>
+
+
 
         <div>
 
