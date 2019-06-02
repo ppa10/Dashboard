@@ -1,1 +1,16 @@
-<button (click) = "prueba()">prueba</button>>
+<h2>{{juegoSeleccionado.Tipo}}</h2>
+<h3>Información del jugador</h3>
+<mat-divider></mat-divider>
+
+<div>
+    <p>
+      <span style="font-weight: bold;">Nombre:</span>
+      {{alumnoSeleccionado[0].Nombre}} {{alumnoSeleccionado[0].PrimerApellido}} {{alumnoSeleccionado[0].SegundoApellido}}
+    </p>
+    <p>
+        <span style="font-weight: bold;">Puntos:</span>
+        {{alumnoJuegoDePuntos[0].PuntosTotalesAlumno}}
+    </p>
+</div>
+
+<button (click) = "prueba()">prueba</button>

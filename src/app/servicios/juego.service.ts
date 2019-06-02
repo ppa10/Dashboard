@@ -25,6 +25,8 @@ export class JuegoService {
   rankingJuegoDePunto: TablaAlumnoJuegoDePuntos[];
   listaAlumnosOrdenadaPorPuntos: AlumnoJuegoDePuntos[];
 
+  inscripcionAlumnoJuego: AlumnoJuegoDePuntos;
+
   alumnosDelJuego: Alumno[];
   equiposDelJuego: Equipo[];
   puntos: Punto[];
@@ -174,5 +176,13 @@ export class JuegoService {
 
   RecibirNivelesDelServicio(): any {
     return this.niveles;
+  }
+
+  EnviarInscripcionAlServicio(alumnoJuegoPuntos: any) {
+    this.inscripcionAlumnoJuego = alumnoJuegoPuntos;
+  }
+
+  RecibirInscripcionDelServicio(): any {
+    return this.inscripcionAlumnoJuego;
   }
 }

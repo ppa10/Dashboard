@@ -143,6 +143,7 @@ export class AsignarPuntosComponent implements OnInit {
         let nuevosPuntos: number;
         nuevosPuntos = this.listaAlumnosOrdenadaPorPuntos[i].PuntosTotalesAlumno + this.valorPunto;
 
+        // Comprobamos si subimos de nivel o no
         // tslint:disable-next-line:curly
         if (nuevosPuntos >= siguienteNivel.PuntosAlcanzar) {
           console.log('Voy a subir de nivel');

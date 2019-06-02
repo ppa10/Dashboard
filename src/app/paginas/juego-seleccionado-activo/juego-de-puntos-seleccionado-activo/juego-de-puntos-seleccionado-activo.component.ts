@@ -175,9 +175,14 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
 
   AccederAlumno(alumno: TablaAlumnoJuegoDePuntos) {
 
+    const alumnoSeleccionado = this.alumnosDelJuego.filter(res => res.Nombre === alumno.nombre &&
+      res.PrimerApellido === alumno.primerApellido && res.SegundoApellido === alumno.segundoApellido);
 
-    this.alumnoService.EnviarAlumnoAlServicio(this.alumnosDelJuego.filter(res => res.Nombre === alumno.nombre &&
-      res.PrimerApellido === alumno.primerApellido && res.SegundoApellido === alumno.segundoApellido));
+
+
+    this.alumnoService.EnviarAlumnoAlServicio(alumnoSeleccionado);
+    // tslint:disable-next-line:max-line-length
+    this.juegoService.EnviarInscripcionAlServicio(this.listaAlumnosOrdenadaPorPuntos.filter(res => res.alumnoId === alumnoSeleccionado[0].id));
     this.juegoService.EnviarPuntosAlServicio(this.puntosDelJuego);
     this.juegoService.EnviarNivelesAlServicio(this.nivelesDelJuego);
   }
