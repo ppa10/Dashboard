@@ -31,35 +31,38 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
                private alumnoService: AlumnoService ) { }
 
   ngOnInit() {
-    this.OrdenarNiveles();
+    this.nivelesDelJuego = this.juegoService.RecibirNivelesDelServicio();
     this.alumnoSeleccionado = this.alumnoService.RecibirAlumnoDelServicio();
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
     this.alumnoJuegoDePuntos = this.juegoService.RecibirInscripcionDelServicio();
 
     this.puntosDelJuego = this.juegoService.RecibirPuntosDelServicio();
-    this.nivelesDelJuego = this.juegoService.RecibirNivelesDelServicio();
+
     this.Nivel();
   }
 
   prueba() {
-    console.log(this.alumnoSeleccionado);
+    console.log(this.nivelesDelJuego);
     console.log(this.alumnoJuegoDePuntos);
     console.log(this.nivel);
-    console.log(this.siguienteNivel);
+    console.log(this.porcentaje());
   }
 
   Nivel() {
 
-    this.nivel = this.BuscarNivelActual(this.alumnoJuegoDePuntos.nivelId);
+    this.OrdenarNiveles();
+    this.nivel = this.BuscarNivelActual(this.alumnoJuegoDePuntos[0].nivelId);
+
 
     // Si el alumno ya ha alcanzado algun nivel, buscamos cual es el siguiente nivel del que ya tiene. Sino el siguiente
     // nivel será el primero
-    if (this.alumnoJuegoDePuntos.nivelId !== undefined) {
-      console.log(this.BuscarSiguienteNivel(this.alumnoJuegoDePuntos.nivelId));
-      this.siguienteNivel = this.BuscarSiguienteNivel(this.alumnoJuegoDePuntos.nivelId);
+    if (this.alumnoJuegoDePuntos[0].nivelId !== undefined) {
+      this.siguienteNivel = this.BuscarSiguienteNivel(this.alumnoJuegoDePuntos[0].nivelId);
+      this.porcentaje();
     } else {
       console.log(this.nivelesDelJuego[0]);
       this.siguienteNivel = this.nivelesDelJuego[0];
+      this.porcentaje();
     }
   }
 
@@ -74,6 +77,7 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
   BuscarSiguienteNivel(nivelId: number): Nivel {
 
+    console.log('Voy a buscar el siguiente nivel');
     // tslint:disable-next-line:no-inferrable-types
     let encontrado: boolean = false;
     let i = 0;
@@ -84,6 +88,7 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
       }
       i = i + 1;
     }
+
     return this.nivelesDelJuego[i];
   }
 
@@ -94,5 +99,20 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
     this.nivel = this.nivelesDelJuego.filter(res => res.id === nivelId)[0];
 
     return this.nivel;
+  }
+
+  porcentaje(): number {
+
+    let porcentaje: number;
+
+    if (this.nivel === undefined) {
+      porcentaje = (this.alumnoJuegoDePuntos[0].PuntosTotalesAlumno - 0) / (this.siguienteNivel.PuntosAlcanzar - 0);
+
+    } else {
+      porcentaje = (this.alumnoJuegoDePuntos[0].PuntosTotalesAlumno - this.nivel.PuntosAlcanzar) /
+      (this.siguienteNivel.PuntosAlcanzar - this.nivel.PuntosAlcanzar);
+    }
+
+    return porcentaje;
   }
 }
