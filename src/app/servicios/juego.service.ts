@@ -32,6 +32,8 @@ export class JuegoService {
   puntos: Punto[];
   niveles: Nivel[];
 
+  rankingSeleccionado: number;
+
 
   GET_JuegoDeColeccion(grupoId: number): Observable<Juego[]> {
     return this.http.get<Juego[]>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeColeccions');
@@ -116,6 +118,11 @@ export class JuegoService {
     return this.http.post<HistorialPuntosAlumno>(this. APIURLHistorialPuntosAlumno, historial);
   }
 
+  GET_HistorialDeUnPunto(alumnoJuegoDePuntosId: number, puntoId: number): Observable<HistorialPuntosAlumno[]> {
+    return this.http.get<HistorialPuntosAlumno[]>(this.APIURLHistorialPuntosAlumno + '?filter[where][alumnoJuegoDePuntosId]='
+     + alumnoJuegoDePuntosId + '&filter[where][puntoId]=' + puntoId);
+  }
+
 
 
   // Enviar y recibir juegos entre componentes
@@ -185,4 +192,6 @@ export class JuegoService {
   RecibirInscripcionDelServicio(): any {
     return this.inscripcionAlumnoJuego;
   }
+
+
 }

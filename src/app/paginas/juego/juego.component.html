@@ -13,7 +13,7 @@
       <mat-form-field>
         <mat-label>Mostrar lista de: </mat-label>
           <select matNativeControl [(ngModel)]="opcionSeleccionada" name="opcion" (change) = "ListaJuegoSeleccionado()">
-            <option (click) = "prueba()" *ngFor="let opcion of opcionesMostrar" [value]="opcion.id">
+            <option *ngFor="let opcion of opcionesMostrar" [value]="opcion.id">
                 {{opcion.nombre}}
             </option>
           </select>

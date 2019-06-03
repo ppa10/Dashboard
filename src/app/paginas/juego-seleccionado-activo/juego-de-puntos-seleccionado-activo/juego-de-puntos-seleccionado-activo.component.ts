@@ -7,6 +7,7 @@ import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDe
 
 // Services
 import { JuegoService, GrupoService, AlumnoService } from '../../../servicios/index';
+import { isNullOrUndefined, isUndefined } from 'util';
 
 
 @Component({
@@ -25,11 +26,16 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   puntosDelJuego: Punto[];
   nivelesDelJuego: Nivel[];
 
+  listaSeleccionable: Punto[] = [];
+
+
   // Recoge la inscripción de un alumno en el juego ordenada por puntos
   listaAlumnosOrdenadaPorPuntos: AlumnoJuegoDePuntos[];
 
   // Muestra la posición del alumno, el nombre y los apellidos del alumno, los puntos y el nivel
   rankingJuegoDePuntos: TablaAlumnoJuegoDePuntos[] = [];
+
+  puntoSeleccionadoId: number;
 
   displayedColumnsAlumnos: string[] = ['posicion', 'nombreAlumno', 'primerApellido', 'segundoApellido', 'puntos', 'nivel', ' '];
 
@@ -39,13 +45,13 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   ngOnInit() {
 
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
+    this.listaSeleccionable[0] =  new Punto('Ranking total');
 
     this.PuntosDelJuego();
     this.NivelesDelJuego();
 
     if (this.juegoSeleccionado.Modo === 'Individual') {
       this.AlumnosDelJuego();
-      this.RecuperarInscripcionesAlumnoJuego();
     } else {
       this.EquiposDelJuego();
     }
@@ -56,6 +62,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
     this.juegoService.GET_AlumnosJuegoDePuntos(this.juegoSeleccionado.id)
     .subscribe(alumnosJuego => {
       this.alumnosDelJuego = alumnosJuego;
+      this.RecuperarInscripcionesAlumnoJuego();
     });
   }
 
@@ -74,6 +81,11 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
     this.juegoService.GET_PuntosJuegoDePuntos(this.juegoSeleccionado.id)
     .subscribe(puntos => {
       this.puntosDelJuego = puntos;
+
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.puntosDelJuego.length; i ++) {
+        this.listaSeleccionable.push(this.puntosDelJuego[i]);
+      }
     });
   }
 
@@ -187,10 +199,94 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
     this.juegoService.EnviarNivelesAlServicio(this.nivelesDelJuego);
   }
 
+  MostrarRankingSeleccionado() {
+
+    // Si es indefinido muestro la tabla del total de puntos
+    if (this.puntosDelJuego.filter(res => res.id === Number(this.puntoSeleccionadoId))[0] === undefined) {
+      if (this.juegoSeleccionado.Modo === 'Individual') {
+        console.log('Tabla del principio');
+        this.TablaClasificacion();
+      } else {
+        // Recuperar inscripciones de los equipo
+      }
+    } else {
+      if (this.juegoSeleccionado.Modo === 'Individual') {
+        console.log('Voy a por la clasficiacion del punto');
+        this.ClasificacionPorTipoDePunto();
+      } else {
+        // Recuperar inscripciones de los equipo
+      }
+    }
+  }
+
+  ClasificacionPorTipoDePunto() {
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.listaAlumnosOrdenadaPorPuntos.length; i ++) {
+
+      let alumno: Alumno;
+      let nivel: Nivel;
+
+      alumno = this.BuscarAlumno(this.listaAlumnosOrdenadaPorPuntos[i].alumnoId);
+
+      if (this.listaAlumnosOrdenadaPorPuntos[i].nivelId !== undefined) {
+        console.log(this.listaAlumnosOrdenadaPorPuntos[i].alumnoId);
+        nivel = this.BuscarNivel(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
+        console.log(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
+      }
+
+      this.juegoService.GET_HistorialDeUnPunto(this.listaAlumnosOrdenadaPorPuntos[i].id, this.puntoSeleccionadoId)
+      .subscribe(historial => {
+        console.log('Doy historial');
+        console.log(historial);
+        let puntos = 0;
+        // tslint:disable-next-line:prefer-for-of
+        for (let j = 0; j < historial.length; j ++) {
+          puntos = puntos + historial[j].ValorPunto;
+        }
+        console.log(puntos);
+        console.log(alumno);
+
+        if (nivel !== undefined) {
+          this.rankingJuegoDePuntos[i] = new TablaAlumnoJuegoDePuntos (i + 1, alumno.Nombre, alumno.PrimerApellido, alumno.SegundoApellido,
+            puntos, nivel.Nombre);
+        } else {
+          this.rankingJuegoDePuntos[i] = new TablaAlumnoJuegoDePuntos (i + 1, alumno.Nombre, alumno.PrimerApellido, alumno.SegundoApellido,
+            puntos);
+        }
+
+        if (i === this.listaAlumnosOrdenadaPorPuntos.length - 1 ) {
+          this.OrdenarTablaPorPuntos();
+        }
+
+      });
+    }
+
+  }
+
+  OrdenarTablaPorPuntos() {
+    console.log('Voy a orddenar la tabla');
+    // tslint:disable-next-line:only-arrow-functions
+    this.rankingJuegoDePuntos = this.rankingJuegoDePuntos.sort(function(obj1, obj2) {
+      return obj2.puntos - obj1.puntos;
+    });
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.rankingJuegoDePuntos.length; i++) {
+      this.rankingJuegoDePuntos[i].posicion = i + 1;
+    }
+    this.rankingJuegoDePuntos = this.rankingJuegoDePuntos.filter(res => res.nombre !== '');
+    return this.rankingJuegoDePuntos;
+  }
 
   prueba() {
-    console.log(this.nivelesDelJuego);
-    console.log(this.alumnosDelJuego);
+    console.log(this.puntoSeleccionadoId);
+    console.log(this.rankingJuegoDePuntos);
+
+  }
+
+  prueba2() {
+    console.log(this.listaSeleccionable);
+    console.log(this.rankingJuegoDePuntos);
   }
 
 }

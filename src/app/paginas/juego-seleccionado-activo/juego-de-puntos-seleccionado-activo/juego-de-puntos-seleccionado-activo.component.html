@@ -6,6 +6,16 @@
 
   </div>
 
+  <h4>Selecciona el ranking que deseas mostrar:</h4>
+<mat-form-field>
+  <mat-label>Punto</mat-label>
+  <select matNativeControl [(ngModel)]="puntoSeleccionadoId" name="punto" (change) = "MostrarRankingSeleccionado()">
+    <option *ngFor="let punto of listaSeleccionable" [value]="punto.id">
+      {{punto.Nombre}}
+    </option>
+  </select>
+</mat-form-field>
+
 
 
   <table *ngIf="rankingJuegoDePuntos" mat-table [dataSource]="rankingJuegoDePuntos" class="example-container mat-elevation-z8">
