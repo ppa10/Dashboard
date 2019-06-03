@@ -28,6 +28,8 @@ export class NavbarComponent implements OnInit {
   URLCrearGrupo: string;
   URLMisPuntos: string;
   URLCrearPuntos: string;
+  URLMisColecciones: string;
+  URLCrearColeccion: string;
 
   constructor( private profesorService: ProfesorService,
                private router: Router,
@@ -40,6 +42,10 @@ export class NavbarComponent implements OnInit {
     this.URLCrearGrupo = this.URLInicio + '/crearGrupo';
     this.URLMisPuntos = this.URLInicio + '/misPuntos';
     this.URLCrearPuntos = this.URLInicio + '/crearPuntos';
+    this.URLMisColecciones = this.URLInicio + '/misColecciones';
+    this.URLCrearColeccion = this.URLInicio + '/crearColeccion';
+
+
 
   }
 

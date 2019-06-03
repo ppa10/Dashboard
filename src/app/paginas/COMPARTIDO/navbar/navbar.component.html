@@ -26,6 +26,12 @@
     <button mat-menu-item>Crear Cuestionario</button>
   </mat-menu>
 
+  <button mat-button [matMenuTriggerFor]="Coleccion" class="button1">Coleccion</button>
+  <mat-menu #Coleccion="matMenu" class="mat-menu">
+    <button mat-menu-item routerLink= {{URLMisColecciones}}> Mis Colecciones</button>
+    <button mat-menu-item routerLink = {{URLCrearColeccion}}>Crear Colecciones</button>
+  </mat-menu>
+
   <button mat-button [matMenuTriggerFor]="PuntosInsignias" class="button1">Puntos e Insignias</button>
   <mat-menu #PuntosInsignias="matMenu">
       <button mat-menu-item routerLink= "{{URLMisPuntos}}">Mis Puntos e Insignias</button>

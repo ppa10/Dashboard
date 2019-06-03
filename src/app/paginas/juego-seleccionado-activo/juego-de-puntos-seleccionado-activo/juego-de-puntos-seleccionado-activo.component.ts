@@ -13,7 +13,7 @@ import { isNullOrUndefined, isUndefined } from 'util';
 @Component({
   selector: 'app-juego-de-puntos-seleccionado-activo',
   templateUrl: './juego-de-puntos-seleccionado-activo.component.html',
-  styleUrls: ['./juego-de-puntos-seleccionado-activo.component.css']
+  styleUrls: ['./juego-de-puntos-seleccionado-activo.component.scss']
 })
 export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
 

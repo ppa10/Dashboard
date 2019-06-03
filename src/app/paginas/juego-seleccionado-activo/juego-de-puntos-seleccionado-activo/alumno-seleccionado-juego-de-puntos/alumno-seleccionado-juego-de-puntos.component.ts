@@ -9,7 +9,7 @@ import { JuegoService, GrupoService, AlumnoService } from '../../../../servicios
 @Component({
   selector: 'app-alumno-seleccionado-juego-de-puntos',
   templateUrl: './alumno-seleccionado-juego-de-puntos.component.html',
-  styleUrls: ['./alumno-seleccionado-juego-de-puntos.component.css']
+  styleUrls: ['./alumno-seleccionado-juego-de-puntos.component.scss']
 })
 export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 

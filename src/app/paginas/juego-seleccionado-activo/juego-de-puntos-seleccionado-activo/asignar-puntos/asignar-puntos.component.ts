@@ -10,7 +10,7 @@ import { JuegoService, GrupoService } from '../../../../servicios/index';
 @Component({
   selector: 'app-asignar-puntos',
   templateUrl: './asignar-puntos.component.html',
-  styleUrls: ['./asignar-puntos.component.css']
+  styleUrls: ['./asignar-puntos.component.scss']
 })
 export class AsignarPuntosComponent implements OnInit {
 
