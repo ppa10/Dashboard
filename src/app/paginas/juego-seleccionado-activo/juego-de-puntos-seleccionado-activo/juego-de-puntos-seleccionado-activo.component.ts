@@ -45,7 +45,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   ngOnInit() {
 
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
-    this.listaSeleccionable[0] =  new Punto('Ranking total');
+    this.listaSeleccionable[0] =  new Punto('Totales');
 
     this.PuntosDelJuego();
     this.NivelesDelJuego();
@@ -106,7 +106,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
     .subscribe(inscripciones => {
       this.listaAlumnosOrdenadaPorPuntos = inscripciones;
       this.OrdenarPorPuntos();
-      this.TablaClasificacion();
+      this.TablaClasificacionTotal();
     });
 
   }
@@ -122,7 +122,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   }
 
   // En función del modo, recorremos la lisa de Alumnos o de Equipos y vamos rellenando el rankingJuegoDePuntos
-  TablaClasificacion() {
+  TablaClasificacionTotal() {
 
     if (this.juegoSeleccionado.Modo === 'Individual') {
 
@@ -178,6 +178,9 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   }
 
   AsignarPuntos() {
+    // Para enviar la tabla de los puntos totales
+    this.TablaClasificacionTotal();
+
     this.juegoService.EnviarAlumnoJuegoAlServicio(this.alumnosDelJuego);
     this.juegoService.EnviarListaOrdenadaJuegoPuntosAlServicio(this.listaAlumnosOrdenadaPorPuntos);
     this.juegoService.EnviarRankingJuegoPuntosAlServicio(this.rankingJuegoDePuntos);
@@ -205,7 +208,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
     if (this.puntosDelJuego.filter(res => res.id === Number(this.puntoSeleccionadoId))[0] === undefined) {
       if (this.juegoSeleccionado.Modo === 'Individual') {
         console.log('Tabla del principio');
-        this.TablaClasificacion();
+        this.TablaClasificacionTotal();
       } else {
         // Recuperar inscripciones de los equipo
       }
