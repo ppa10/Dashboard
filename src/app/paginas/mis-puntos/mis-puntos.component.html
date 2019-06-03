@@ -1,78 +1,86 @@
-<!-- ////////////////////////////////////////////// PARA PUNTOS //////////////////////////////////////////////// -->
+<h2>Mis Puntos e Insignias</h2>
+<mat-divider></mat-divider>
 
-<form>
+<mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs>
 
-  <table *ngIf="puntosProfesor;else Aviso_no_puntos" mat-table [dataSource]="puntosProfesor" class="mat-elevation-z8">
+ <!-- ////////////////////////////////////////////// PARA PUNTOS //////////////////////////////////////////////// -->
+  <mat-tab index = "0" label="Mis puntos">
+      <form>
+        <table *ngIf="puntosProfesor;else Aviso_no_puntos" mat-table [dataSource]="puntosProfesor" class="mat-elevation-z8">
 
-    <!-- Nombre Punto Column -->
-    <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef> Nombre </th>
-      <td mat-cell *matCellDef="let punto; let i = index" (click) = "Seleccionar(i);"> {{punto.Nombre}} </td>
-    </ng-container>
+          <!-- Nombre Punto Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let punto; let i = index" (click) = "Seleccionar(i);"> {{punto.Nombre}} </td>
+          </ng-container>
 
-    <!-- Descripción Punto Column -->
-    <ng-container matColumnDef="descripcion">
-      <th mat-header-cell *matHeaderCellDef> Descripción </th>
-      <td mat-cell *matCellDef="let punto; let i = index" (click) = "Seleccionar(i);"> {{punto.Descripcion}} </td>
-    </ng-container>
+          <!-- Descripción Punto Column -->
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let punto; let i = index" (click) = "Seleccionar(i);"> {{punto.Descripcion}} </td>
+          </ng-container>
 
-    <!-- Delete Column -->
-    <ng-container matColumnDef=" ">
-      <th mat-header-cell *matHeaderCellDef style='text-align: center;'></th>
-      <td mat-cell *matCellDef="let punto">
-        <button (click) = "BorrarPunto(punto)" mat-icon-button matTooltip="Borrar el punto {{punto.Nombre}}">
-          <i class="material-icons red md-36">delete</i>
-        </button>
-      </td>
-    </ng-container>
+          <!-- Delete Column -->
+          <ng-container matColumnDef=" ">
+            <th mat-header-cell *matHeaderCellDef style='text-align: center;'></th>
+            <td mat-cell *matCellDef="let punto">
+              <button (click) = "BorrarPunto(punto)" mat-icon-button matTooltip="Borrar el punto {{punto.Nombre}}">
+                <i class="material-icons red md-36">delete</i>
+              </button>
+            </td>
+          </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-  </table>
+        </table>
 
-  <div>
-    <ng-template #Aviso_no_puntos>Todavía no tienes puntos creados</ng-template>
-  </div>
-</form>
+        <div>
+          <ng-template #Aviso_no_puntos>Todavía no tienes puntos creados</ng-template>
+        </div>
+      </form>
 
-<div>
-hols</div>
+  </mat-tab>
 
-<!-- ////////////////////////////////////////////// PARA INSIGNIAS //////////////////////////////////////////////// -->
-<form>
+      <!-- ////////////////////////////////////////////// PARA INSIGNIAS //////////////////////////////////////////////// -->
+  <mat-tab label="Mis Insignias">
 
-  <table *ngIf="insigniasProfesor;else Aviso_no_insignia" mat-table [dataSource]="insigniasProfesor" class="mat-elevation-z8">
+      <form>
 
-    <!-- Nombre Insignias Column -->
-    <ng-container matColumnDef="nombre">
-      <th mat-header-cell *matHeaderCellDef> Nombre </th>
-      <td mat-cell *matCellDef="let insignias; let i = index" (click) = "Seleccionar(i);"> {{insignias.Nombre}} </td>
-    </ng-container>
+        <table *ngIf="insigniasProfesor;else Aviso_no_insignia" mat-table [dataSource]="insigniasProfesor" class="mat-elevation-z8">
 
-    <!-- Descripción Insignias Column -->
-    <ng-container matColumnDef="descripcion">
-      <th mat-header-cell *matHeaderCellDef> Descripción </th>
-      <td mat-cell *matCellDef="let insignias; let i = index" (click) = "Seleccionar(i);"> {{insignias.Descripcion}} </td>
-    </ng-container>
+          <!-- Nombre Insignias Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let insignias; let i = index" (click) = "Seleccionar(i);"> {{insignias.Nombre}} </td>
+          </ng-container>
 
-    <!-- Delete Column -->
-    <ng-container matColumnDef=" ">
-      <th mat-header-cell *matHeaderCellDef style='text-align: center;'></th>
-      <td mat-cell *matCellDef="let insignia">
-        <button (click) = "BorrarInsignia(insignia)" mat-icon-button matTooltip="Borrar la insignia {{insignia.Nombre}}">
-          <i class="material-icons red md-36">delete</i>
-        </button>
-      </td>
-    </ng-container>
+          <!-- Descripción Insignias Column -->
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let insignias; let i = index" (click) = "Seleccionar(i);"> {{insignias.Descripcion}} </td>
+          </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <!-- Delete Column -->
+          <ng-container matColumnDef=" ">
+            <th mat-header-cell *matHeaderCellDef style='text-align: center;'></th>
+            <td mat-cell *matCellDef="let insignia">
+              <button (click) = "BorrarInsignia(insignia)" mat-icon-button matTooltip="Borrar la insignia {{insignia.Nombre}}">
+                <i class="material-icons red md-36">delete</i>
+              </button>
+            </td>
+          </ng-container>
 
-  </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-  <div>
-    <ng-template #Aviso_no_puntos>Todavía no tienes insignias creadas</ng-template>
-  </div>
-</form>
+        </table>
+
+        <div>
+          <ng-template #Aviso_no_puntos>Todavía no tienes insignias creadas</ng-template>
+        </div>
+      </form>
+
+  </mat-tab>
+</mat-tab-group>
 

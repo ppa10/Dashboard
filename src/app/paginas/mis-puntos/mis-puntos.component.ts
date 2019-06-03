@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Location } from '@angular/common';
+import { ResponseContentType, Http, Response } from '@angular/http';
 
 // Servicios
 import { PuntosInsigniasService, ProfesorService } from '../../servicios/index';
@@ -23,7 +24,7 @@ export class MisPuntosComponent implements OnInit {
   puntosProfesor: Punto[];
   insigniasProfesor: Insignia[];
 
-  imagenInsignia: string;
+  // imagenInsignia: string;
 
   displayedColumns: string[] = ['nombre', 'descripcion', ' '];
 
@@ -33,7 +34,8 @@ export class MisPuntosComponent implements OnInit {
     private profesorService: ProfesorService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private http: Http) { }
 
   ngOnInit() {
 
@@ -51,6 +53,34 @@ export class MisPuntosComponent implements OnInit {
 
   }
 
+  // ImagenInsignia(insignas: Insignia) {
+
+  //   console.log('entro a buscar insignia y foto');
+  //   console.log(insignas.Imagen);
+  //   // Si el equipo tiene una foto (recordemos que la foto no es obligatoria)
+  //   if (insignas.Imagen !== undefined) {
+
+  //     // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
+  //     this.http.get('http://localhost:3000/api/imagenes/ImagenInsignias/download/' + insignas.Imagen,
+  //     { responseType: ResponseContentType.Blob })
+  //     .subscribe(response => {
+  //       const blob = new Blob([response.blob()], { type: 'image/jpg'});
+
+  //       const reader = new FileReader();
+  //       reader.addEventListener('load', () => {
+  //         this.imagenInsignia = reader.result.toString();
+  //       }, false);
+
+  //       if (blob) {
+  //         reader.readAsDataURL(blob);
+  //       }
+  //     });
+
+  //     // Sino la imagenLogo será undefined para que no nos pinte la foto de otro equipo préviamente seleccionado
+  //   } else {
+  //     this.imagenInsignia = undefined;
+  //   }
+  // }
   ////////////////////////////////////////////// PARA PUNTOS ////////////////////////////////////////////////
   PuntosDelProfesor() {
 

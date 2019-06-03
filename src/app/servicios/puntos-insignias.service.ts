@@ -47,4 +47,7 @@ export class PuntosInsigniasService {
   GET_Insignias(profesorId: number): Observable<Insignia[]> {
     return this.http.get<Insignia[]>(this.APIUrlProfesor + '/' + profesorId + '/insignia');
   }
+  GET_ImagenInsignia(ImagenInsignia: string): Observable<any> {
+    return this.http.get<any>(this.APIURLImagenInsignia + '/download/' + ImagenInsignia);
+  }
 }
