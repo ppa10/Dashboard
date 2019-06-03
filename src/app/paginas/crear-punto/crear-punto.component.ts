@@ -12,7 +12,7 @@ import { Punto, Insignia } from '../../clases/index';
 @Component({
   selector: 'app-crear-punto',
   templateUrl: './crear-punto.component.html',
-  styleUrls: ['./crear-punto.component.css']
+  styleUrls: ['./crear-punto.component.scss']
 })
 export class CrearPuntoComponent implements OnInit {
 

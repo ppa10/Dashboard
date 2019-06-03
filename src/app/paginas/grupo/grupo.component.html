@@ -1,54 +1,60 @@
-<h2>Mis Grupos</h2>
+<div class="titulo"><h2>Mis Grupos</h2></div>
 <mat-divider></mat-divider>
 
-<div>
-  <p>
-    <span style="font-weight: bold;">Nombre:</span>
-    {{grupoSeleccionado.Nombre}}
-  </p>
-  <p>
-      <span style="font-weight: bold;">Descripción:</span>
-      {{grupoSeleccionado.Descripcion}}
-  </p>
+<div class="contenedor contenedor2">
+    <div class="texto">
+        <p>
+          <span style="font-weight: bold;">Nombre:</span>
+          {{grupoSeleccionado.Nombre}}
+        </p>
+    </div>
+    <div class="texto">
+        <p>
+            <span style="font-weight: bold;">Descripción:</span>
+            {{grupoSeleccionado.Descripcion}}
+        </p>
+    </div>
 </div>
-<div>
-    <button type="button" class="btn btn-primary" (click) = EntrarEditarGrupo(); routerLink= "editarGrupo">Editar Grupo</button>
-    <button type="button" class="btn btn-success">Pasar Lista</button>
-    <button type="button" class="btn btn-warning" (click) = EntrarEquipos(); routerLink= "equiposGrupo">Equipos</button>
-    <button type="button" class="btn btn-info" (click) = EntrarJuegos(); routerLink = "juegos">Juegos</button>
-    <button type="button" class="btn btn-danger" (click)="AbrirDialogoConfirmacionBorrar()">Eliminar grupo</button>
-
+<div class="contenedor">
+  <div class="elemento elemento1"><button type="button" class="btn " (click) = EntrarEditarGrupo(); routerLink= "editarGrupo">Editar Grupo</button></div>
+      <div class="elemento elemento2"><button type="button" class="btn ">Pasar Lista</button>
+      </div>
+          <div class="elemento elemento3"> <button type="button" class="btn" (click) = EntrarEquipos(); routerLink= "equiposGrupo">Equipos</button>
+          </div>
+          <div class="elemento elemento4"> <button type="button" class="btn "(click) = EntrarJuegos(); routerLink = "juegos">Juegos</button>
+          </div>
+          <div class="elemento elemento5"> <button type="button" class="btn" (click)="AbrirDialogoConfirmacionBorrar()">Eliminar Grupo</button>
+          </div>
 </div>
-
 
 <form>
 
-    <table align = "center" *ngIf="alumnosGrupoSeleccionado;else Aviso_no_alumnos" mat-table [dataSource]="alumnosGrupoSeleccionado" class="example-container mat-elevation-z8">
+    <table align = "center" text *ngIf="alumnosGrupoSeleccionado;else Aviso_no_alumnos" mat-table [dataSource]="alumnosGrupoSeleccionado" class="example-container mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
       <!-- Nombre Alumno Column -->
       <ng-container matColumnDef="nombreAlumno">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <th mat-header-cell *matHeaderCellDef style='color:black; text-align: center;'> Nombre </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.Nombre}} </td>
       </ng-container>
 
       <!-- Primer Apellido Column -->
       <ng-container matColumnDef="primerApellido">
-        <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+        <th mat-header-cell *matHeaderCellDef style='color:black; text-align: center;'> Primer Apellido </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.PrimerApellido}} </td>
       </ng-container>
 
       <!-- Segundo Apellido Column -->
       <ng-container matColumnDef="segundoApellido">
-        <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+        <th mat-header-cell *matHeaderCellDef style='color:black; text-align: center;'> Segundo Apellido </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.SegundoApellido}} </td>
       </ng-container>
 
       <!-- alumnoId Column -->
       <ng-container matColumnDef="alumnoId">
-        <th mat-header-cell *matHeaderCellDef> Identificador Alumno </th>
+        <th mat-header-cell *matHeaderCellDef style='color:black; text-align: center;'> Identificador Alumno </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.id}} </td>
       </ng-container>
 
@@ -57,12 +63,10 @@
 
     </table>
 
-    <div>
-        <ng-template #Aviso_no_alumnos>Todavía no hay alumnos en este grupo</ng-template>
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+    <div class="contenedor">
+      <ng-template  #Aviso_no_alumnos><div class="texto">Todavía no hay alumnos en este grupo.  </div></ng-template>
     </div>
 
-    <div>
-      <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
-    </div>
 
   </form>

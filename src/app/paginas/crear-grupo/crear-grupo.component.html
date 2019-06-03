@@ -1,12 +1,12 @@
 <h2>Crear Grupo</h2>
 <mat-divider></mat-divider>
 
-<form [formGroup]="myForm">
-  <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true">
+<form [formGroup]="myForm" class="contenedor">
+  <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true" style="width: 700px">
 
     <!-- PRIMER PASO -->
     <mat-step [stepControl]="myForm">
-      <ng-template matStepLabel>Nombre y descripción</ng-template>
+      <ng-template matStepLabel>Descripción</ng-template>
       <mat-form-field>
         <mat-label>Nombre</mat-label>
         <input (keyup)="disabled()" matInput formControlName="nombreGrupo" required>
@@ -31,26 +31,43 @@
       <ng-template matStepLabel>
         <div>Añadir alumnos</div>
       </ng-template>
-        <button (click)= "AbrirDialogoAgregarAlumnos()">Agregar alumnos</button>
-
+      <div class="contenedor contenedor2">
       <div>
-        <button mat-button matStepperPrevious>Atrás</button>
-        <button mat-button matStepperNext>Siguiente</button>
+        <button mat-raised-button style="margin: 5px;"  color="green" (click)= "AbrirDialogoAgregarAlumnos()"><i class="material-icons">
+            person_add
+            </i></button>
+
       </div>
+      <div>
+        <button  mat-raised-button style="margin: 5px;" color="white" matStepperPrevious>
+          <i class="material-icons">
+            arrow_back
+          </i></button>
+        <button  mat-raised-button style="margin: 5px;"  color="primary" matStepperNext>
+          <i class="material-icons">
+            arrow_forward
+          </i>
+        </button>
+      </div>
+    </div>
     </mat-step>
 
     <mat-step>
       <ng-template matStepLabel>Finalizar</ng-template>
-      Grupo creado correctamente
-      <div>
-        <button mat-button matStepperPrevious>Atrás</button>
-        <button mat-button (click) = "VueltaInicio();">Finalizar</button>
+      <div align="right" style="margin: 5px;">Grupo creado correctamente.</div>
+      <div align="right">
+        <button mat-raised-button style="margin: 5px;" color="white" matStepperPrevious> <i class="material-icons">
+            arrow_back
+          </i></button>
+        <button mat-raised-button style="margin: 5px;"  color="primary" (click) = "VueltaInicio();"><i class="material-icons">
+            check
+            </i></button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-  <div>
+  <!-- <div>
       <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
-  </div>
+  </div> -->
 
 </form>
 

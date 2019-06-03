@@ -12,7 +12,7 @@ import { GrupoService, EquipoService, AlumnoService } from '../../../../servicio
 @Component({
   selector: 'app-mover-alumno',
   templateUrl: './mover-alumno.component.html',
-  styleUrls: ['./mover-alumno.component.css']
+  styleUrls: ['./mover-alumno.component.scss']
 })
 export class MoverAlumnoComponent implements OnInit {
 

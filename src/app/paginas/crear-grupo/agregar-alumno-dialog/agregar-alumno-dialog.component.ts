@@ -11,7 +11,7 @@ import { Grupo, Alumno, Matricula } from '../../../clases/index';
 @Component({
   selector: 'app-agregar-alumno-dialog',
   templateUrl: './agregar-alumno-dialog.component.html',
-  styleUrls: ['./agregar-alumno-dialog.component.css']
+  styleUrls: ['./agregar-alumno-dialog.component.scss']
 })
 export class AgregarAlumnoDialogComponent implements OnInit {
 

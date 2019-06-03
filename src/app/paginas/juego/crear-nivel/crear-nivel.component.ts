@@ -11,7 +11,7 @@ import { Nivel, Insignia, Juego } from '../../../clases/index';
 @Component({
   selector: 'app-crear-nivel',
   templateUrl: './crear-nivel.component.html',
-  styleUrls: ['./crear-nivel.component.css']
+  styleUrls: ['./crear-nivel.component.scss']
 })
 export class CrearNivelComponent implements OnInit {
 

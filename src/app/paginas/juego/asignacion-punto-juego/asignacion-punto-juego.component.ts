@@ -11,7 +11,7 @@ import { JuegoService, GrupoService, PuntosInsigniasService, ProfesorService } f
 @Component({
   selector: 'app-asignacion-punto-juego',
   templateUrl: './asignacion-punto-juego.component.html',
-  styleUrls: ['./asignacion-punto-juego.component.css']
+  styleUrls: ['./asignacion-punto-juego.component.scss']
 })
 export class AsignacionPuntoJuegoComponent implements OnInit {
 

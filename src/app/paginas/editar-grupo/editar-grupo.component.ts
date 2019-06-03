@@ -20,7 +20,7 @@ import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion
   selector: 'app-editar-grupo',
   templateUrl: './editar-grupo.component.html',
 
-  styleUrls: ['./editar-grupo.component.css']
+  styleUrls: ['./editar-grupo.component.scss']
 })
 export class EditarGrupoComponent implements OnInit {
 
@@ -149,7 +149,7 @@ export class EditarGrupoComponent implements OnInit {
   // SI QUEREMOS AÑADIR ALUMNOS MANUALMENTE LO HAREMOS EN UN DIALOGO
   AbrirDialogoAgregarAlumnos(): void {
     const dialogRef = this.dialog.open(AgregarAlumnoDialogComponent, {
-      width: '750px',
+      width: '950px',
       // Le pasamos solo los id del grupo y profesor ya que es lo único que hace falta para vincular los alumnos
       data: {
         grupoId: this.grupoSeleccionado.id,

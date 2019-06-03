@@ -1,0 +1,45 @@
+
+.contenedor{
+  width: auto;
+  height: 50px;
+  padding: 10px;
+  border: 10px solid rgb(97, 10, 203);
+  background-color: rgb(97, 10, 203);
+
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+
+h1{
+  display: inline-block;
+}
+
+.h11{
+  margin-left: 0.5%;
+}
+
+.class{
+  color:#000;
+  font-size:170%;
+}
+
+.pip{
+  color:white;
+  font-size:170%;
+}
+
+
+
+.button1{
+  color:white;
+  background-color: rgb(97, 10, 203);
+  border: 5px solid transparent;
+  font-weight: bold;
+}
+

@@ -14,7 +14,7 @@ import { EquipoService, AlumnoService, GrupoService } from '../../../servicios/i
 @Component({
   selector: 'app-editar-equipo',
   templateUrl: './editar-equipo.component.html',
-  styleUrls: ['./editar-equipo.component.css']
+  styleUrls: ['./editar-equipo.component.scss']
 })
 export class EditarEquipoComponent implements OnInit {
 
