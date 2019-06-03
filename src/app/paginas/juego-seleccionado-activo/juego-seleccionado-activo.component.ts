@@ -9,7 +9,7 @@ import { JuegoService } from '../../servicios/index';
 @Component({
   selector: 'app-juego-seleccionado-activo',
   templateUrl: './juego-seleccionado-activo.component.html',
-  styleUrls: ['./juego-seleccionado-activo.component.css']
+  styleUrls: ['./juego-seleccionado-activo.component.scss']
 })
 export class JuegoSeleccionadoActivoComponent implements OnInit {
 
