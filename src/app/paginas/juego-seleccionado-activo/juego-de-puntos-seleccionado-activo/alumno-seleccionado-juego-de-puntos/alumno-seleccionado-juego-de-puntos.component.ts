@@ -35,6 +35,7 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
   puntoSeleccionadoId: number;
 
   historial: TablaHistorialPuntosAlumno[] = [];
+  historialTotal: TablaHistorialPuntosAlumno[] = [];
 
   displayedColumnsAlumnos: string[] = ['nombre', 'descripcion', 'valorPunto', ' '];
 
@@ -183,6 +184,8 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
     } else {
       if (this.juegoSeleccionado.Modo === 'Individual') {
         console.log('Tabla historial de un punto concreto');
+
+        this.HistorialPorPunto();
         // this.ClasificacionPorTipoDePunto();
       } else {
         // Recuperar inscripciones de los equipo
@@ -203,7 +206,7 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
           for (let i = 0; i < historial.length; i++) {
             this.historial[i] = new TablaHistorialPuntosAlumno (this.BuscarPunto(historial[i].puntoId).Nombre,
             this.BuscarPunto(historial[i].puntoId).Descripcion, historial[i].ValorPunto, historial[i].alumnoJuegoDePuntosId,
-             historial[i].id);
+             historial[i].id, historial[i].puntoId);
           }
         } else {
           this.historial = undefined;
@@ -216,6 +219,14 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
     }
 
     this.historial = this.historial.filter(res => res.nombre !== '');
+    this.historialTotal = this.historial;
+    return this.historial;
+  }
+
+  HistorialPorPunto() {
+
+    this.historial = this.historialTotal;
+    this.historial = this.historial.filter(historial => historial.puntoId === Number(this.puntoSeleccionadoId));
     return this.historial;
   }
 
