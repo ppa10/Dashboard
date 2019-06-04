@@ -123,6 +123,14 @@ export class JuegoService {
      + alumnoJuegoDePuntosId + '&filter[where][puntoId]=' + puntoId);
   }
 
+  GET_HistorialPuntosAlumno(alumnoJuegoDePuntosId: number): Observable<HistorialPuntosAlumno[]> {
+    return this.http.get<HistorialPuntosAlumno[]>(this.APIURLHistorialPuntosAlumno + '?filter[where][alumnoJuegoDePuntosId]='
+     + alumnoJuegoDePuntosId);
+  }
+
+  DELETE_PuntosAlumno(historialPuntosAlumnoId: number): Observable<HistorialPuntosAlumno[]> {
+    return this.http.delete<HistorialPuntosAlumno[]>(this.APIURLHistorialPuntosAlumno + '/' + historialPuntosAlumnoId);
+  }
 
 
   // Enviar y recibir juegos entre componentes

@@ -129,14 +129,21 @@ export class AsignarPuntosComponent implements OnInit {
 
         let nivel: Nivel;
         let siguienteNivel: Nivel;
+        nivel = this.BuscarNivelActual(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
 
         // Si el alumno ya ha alcanzado algun nivel, buscamos cual es el siguiente nivel del que ya tiene. Sino el siguiente
         // nivel será el primero
         if (this.listaAlumnosOrdenadaPorPuntos[i].nivelId !== undefined) {
-          console.log(this.BuscarSiguienteNivel(this.listaAlumnosOrdenadaPorPuntos[i].nivelId));
-          siguienteNivel = this.BuscarSiguienteNivel(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
+          console.log('Si hay un nivel, buscamos el siguiente nivel');
+
+          if (nivel.id !== this.nivelesDelJuego[this.nivelesDelJuego.length - 1].id) {
+            siguienteNivel = this.BuscarSiguienteNivel(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
+          } else {
+            console.log('Ya hemos alcanzado el nivel maximo, no buscamos el siguiente nivel');
+          }
+
         } else {
-          console.log(this.nivelesDelJuego[0]);
+          console.log('El siguiente nivel es el primer nivel');
           siguienteNivel = this.nivelesDelJuego[0];
         }
 
@@ -144,16 +151,27 @@ export class AsignarPuntosComponent implements OnInit {
         nuevosPuntos = this.listaAlumnosOrdenadaPorPuntos[i].PuntosTotalesAlumno + this.valorPunto;
 
         // Comprobamos si subimos de nivel o no
-        // tslint:disable-next-line:curly
-        if (nuevosPuntos >= siguienteNivel.PuntosAlcanzar) {
-          console.log('Voy a subir de nivel');
-          nivel = siguienteNivel;
-        } else {
-          console.log('mantengo el nivel');
-          if (this.listaAlumnosOrdenadaPorPuntos[i].nivelId !== undefined) {
-            nivel = this.BuscarNivelActual(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
+
+        if (nivel.id !== this.nivelesDelJuego[this.nivelesDelJuego.length - 1].id) {
+          console.log('No estoy en el ultimo nivel, busco el siguiente nivel y miro si subo nivel o no');
+
+          if (nuevosPuntos >= siguienteNivel.PuntosAlcanzar) {
+
+            console.log('Voy a subir de nivel');
+            nivel = siguienteNivel;
+          } else {
+
+            console.log('mantengo el nivel');
+            if (this.listaAlumnosOrdenadaPorPuntos[i].nivelId !== undefined) {
+              nivel = this.BuscarNivelActual(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
+            }
           }
+        } else {
+          console.log('estoy maximo nivel, que es el siguiente');
+          nivel = this.BuscarNivelActual(this.listaAlumnosOrdenadaPorPuntos[i].nivelId);
+          console.log(nivel);
         }
+        // tslint:disable-next-line:curly
 
         if (nivel !== undefined) {
           this.juegoService.PUT_PuntosJuegoDePuntos(new AlumnoJuegoDePuntos (this.listaAlumnosOrdenadaPorPuntos[i].alumnoId,
@@ -256,9 +274,8 @@ export class AsignarPuntosComponent implements OnInit {
   }
 
   prueba() {
-    console.log(this.listaAlumnosOrdenadaPorPuntos);
-    console.log(this.rankingJuegoDePuntos);
-    console.log(this.puntoSeleccionadoId);
+    console.log(this.nivelesDelJuego[this.nivelesDelJuego.length - 1].id);
+    console.log(this.listaAlumnosOrdenadaPorPuntos[0].nivelId);
   }
 
 }

@@ -61,6 +61,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   AlumnosDelJuego() {
     this.juegoService.GET_AlumnosJuegoDePuntos(this.juegoSeleccionado.id)
     .subscribe(alumnosJuego => {
+      console.log(alumnosJuego);
       this.alumnosDelJuego = alumnosJuego;
       this.RecuperarInscripcionesAlumnoJuego();
     });
@@ -282,14 +283,12 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   }
 
   prueba() {
-    console.log(this.puntoSeleccionadoId);
-    console.log(this.rankingJuegoDePuntos);
+    console.log(this.alumnosDelJuego);
 
   }
 
   prueba2() {
-    console.log(this.listaSeleccionable);
-    console.log(this.rankingJuegoDePuntos);
+    console.log(this.alumnosDelJuego);
   }
 
 }
