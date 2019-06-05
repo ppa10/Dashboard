@@ -12,10 +12,10 @@
 </mat-form-field>
 <span>Valor: </span>
 <input type="number" name="valorPunto" placeholder="Escribe el valor del punto" requiered [(ngModel)]="valorPunto">
-<div>
+
 
 <form>
-  <table *ngIf="rankingJuegoDePuntos" mat-table [dataSource]="rankingJuegoDePuntos" class="mat-elevation-z8">
+  <table *ngIf="rankingJuegoDePuntos[0]" mat-table [dataSource]="rankingJuegoDePuntos" class="mat-elevation-z8">
 
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
@@ -81,7 +81,10 @@
         (click)="selection.toggle(row)">
     </tr>
   </table>
-  <button (click) = "AsignarPuntos()">Asignar</button>
-  <button (click) = "prueba()">Pureba</button>
 </form>
-</div>
+
+<form>
+
+</form>
+<button (click) = "AsignarPuntos()">Asignar</button>
+<button (click) = "prueba()">Pureba</button>

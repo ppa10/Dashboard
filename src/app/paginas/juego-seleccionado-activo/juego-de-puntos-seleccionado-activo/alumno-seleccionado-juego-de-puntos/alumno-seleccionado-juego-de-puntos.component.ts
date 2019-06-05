@@ -93,6 +93,7 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
     this.OrdenarNiveles();
     this.nivel = this.BuscarNivelActual(this.alumnoJuegoDePuntos[0].nivelId);
+    console.log(this.nivel);
 
 
     // Si el alumno ya ha alcanzado algun nivel, buscamos cual es el siguiente nivel del que ya tiene. Sino el siguiente
@@ -155,16 +156,18 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
     if (this.nivel !== undefined) {
       // Si no estoy en el útlimo nivel, busco el porcentaje. Sino el porcentaje es 1.
       if (this.alumnoJuegoDePuntos[0].nivelId !== this.nivelesDelJuego[this.nivelesDelJuego.length - 1].id) {
+        porcentaje = (this.alumnoJuegoDePuntos[0].PuntosTotalesAlumno - this.nivel.PuntosAlcanzar) /
+        (this.siguienteNivel.PuntosAlcanzar - this.nivel.PuntosAlcanzar);
         console.log('no estoy en el ultimo nivel');
-        porcentaje = (this.alumnoJuegoDePuntos[0].PuntosTotalesAlumno - 0) / (this.siguienteNivel.PuntosAlcanzar - 0);
+
       } else {
         porcentaje = 1;
       }
 
     } else {
       console.log('El sigueinte nivel es el primero');
-      porcentaje = (this.alumnoJuegoDePuntos[0].PuntosTotalesAlumno - this.nivel.PuntosAlcanzar) /
-      (this.siguienteNivel.PuntosAlcanzar - this.nivel.PuntosAlcanzar);
+
+      porcentaje = (this.alumnoJuegoDePuntos[0].PuntosTotalesAlumno - 0) / (this.siguienteNivel.PuntosAlcanzar - 0);
     }
 
     return porcentaje;

@@ -2,7 +2,7 @@
 <mat-divider></mat-divider>
 
 <div>
-    <img *ngIf="imagenLogo" hight = "180" width = "180" mat-card-image [src]="imagenLogo" >
+    <img class ="logo" *ngIf="imagenLogo" hight = "180" width = "180" mat-card-image [src]="imagenLogo" >
   <div>
       <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
       <button (click) = "ActivarInput()" type="button" class="btn btn-info">

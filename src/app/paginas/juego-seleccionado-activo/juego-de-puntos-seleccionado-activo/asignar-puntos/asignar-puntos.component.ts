@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDePuntos,
-  TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno } from '../../../../clases/index';
+  TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno, TablaEquipoJuegoDePuntos, HistorialPuntosEquipo } from '../../../../clases/index';
 
 // Services
 import { JuegoService, GrupoService } from '../../../../servicios/index';
@@ -24,14 +24,19 @@ export class AsignarPuntosComponent implements OnInit {
 
   // Recoge la inscripción de un alumno en el juego ordenada por puntos
   listaAlumnosOrdenadaPorPuntos: AlumnoJuegoDePuntos[];
+  listaEquiposOrdenadaPorPuntos: EquipoJuegoDePuntos[];
 
   // Muestra la posición del alumno, el nombre y los apellidos del alumno, los puntos y el nivel
   rankingJuegoDePuntos: TablaAlumnoJuegoDePuntos[] = [];
+
+  rankingEquiposJuegoDePunto: TablaEquipoJuegoDePuntos[] = [];
 
   displayedColumnsAlumno: string[] = ['select', 'posicion', 'nombreAlumno', 'primerApellido', 'segundoApellido', 'puntos', 'nivel'];
   selection = new SelectionModel<TablaAlumnoJuegoDePuntos>(true, []);
 
   seleccionados: boolean[];
+
+  seleccionadosEquipos: boolean[];
 
   puntoSeleccionadoId: number;
 
@@ -52,6 +57,9 @@ export class AsignarPuntosComponent implements OnInit {
 
     this.rankingJuegoDePuntos = this.juegoService.RecibirRankingJuegoPuntosDelServicio();
     this.seleccionados = Array(this.rankingJuegoDePuntos.length).fill(false);
+
+    this.seleccionadosEquipos = Array(this.rankingJuegoDePuntos.length).fill(false);
+
 
     // Ordena la lista de niveles por si el profesor no los creó de forma ascendente
     this.OrdenarNiveles();

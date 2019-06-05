@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Juego, AlumnoJuegoDePuntos, AsignacionPuntosJuego, Nivel, EquipoJuegoDePuntos, Alumno, Equipo, Punto,
-         TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno } from '../clases/index';
+         TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno, HistorialPuntosEquipo, TablaEquipoJuegoDePuntos } from '../clases/index';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,15 @@ export class JuegoService {
   private APIURLAlumnoJuegoDePuntos = 'http://localhost:3000/api/AlumnoJuegosDePuntos';
   private APIURLHistorialPuntosAlumno = 'http://localhost:3000/api/HistorialesPuntosAlumno';
 
+  private APIURLEquiposJuegoDePuntos = 'http://localhost:3000/api/EquiposJuegosDePuntos';
+  private APIURLHistorialPuntosEquipo = 'http://localhost:3000/api/HistorialesPuntosEquipo';
+
   juegoSeleccionado: Juego;
   rankingJuegoDePunto: TablaAlumnoJuegoDePuntos[];
   listaAlumnosOrdenadaPorPuntos: AlumnoJuegoDePuntos[];
+
+  rankingEquipoJuegoDePuntos: TablaEquipoJuegoDePuntos[];
+  listaEquiposOrdenadaPorPuntos: EquipoJuegoDePuntos[];
 
   inscripcionAlumnoJuego: AlumnoJuegoDePuntos;
 
@@ -109,18 +115,37 @@ export class JuegoService {
     return this.http.get<AlumnoJuegoDePuntos[]>(this.APIURLAlumnoJuegoDePuntos + '?filter[where][juegoDePuntosId]=' + juegoDePuntosId);
   }
 
+  GET_InscripcionesEquipoJuegoDePuntos(juegoDePuntosId: number): Observable<EquipoJuegoDePuntos[]> {
+    return this.http.get<EquipoJuegoDePuntos[]>(this.APIURLEquiposJuegoDePuntos + '?filter[where][juegoDePuntosId]=' + juegoDePuntosId);
+  }
+
   PUT_PuntosJuegoDePuntos( alumnoJuegoDePuntos: AlumnoJuegoDePuntos, alumnoJuegoDePuntosId: number): Observable<AlumnoJuegoDePuntos> {
     // tslint:disable-next-line:max-line-length
     return this.http.put<AlumnoJuegoDePuntos>(this.APIURLAlumnoJuegoDePuntos + '/' + alumnoJuegoDePuntosId, alumnoJuegoDePuntos);
+  }
+
+  // tslint:disable-next-line:max-line-length
+  PUT_PuntosEquiposJuegoDePuntos( equipoJuegoDePuntos: EquipoJuegoDePuntos, equipoJuegoDePuntosId: number): Observable<EquipoJuegoDePuntos> {
+    // tslint:disable-next-line:max-line-length
+    return this.http.put<EquipoJuegoDePuntos>(this.APIURLEquiposJuegoDePuntos + '/' + equipoJuegoDePuntosId, equipoJuegoDePuntos);
   }
 
   POST_HistorialPuntosAlumno(historial: HistorialPuntosAlumno): Observable<HistorialPuntosAlumno> {
     return this.http.post<HistorialPuntosAlumno>(this. APIURLHistorialPuntosAlumno, historial);
   }
 
+  POST_HistorialPuntosEquipo(historial: HistorialPuntosEquipo): Observable<HistorialPuntosEquipo> {
+    return this.http.post<HistorialPuntosEquipo>(this. APIURLHistorialPuntosEquipo, historial);
+  }
+
   GET_HistorialDeUnPunto(alumnoJuegoDePuntosId: number, puntoId: number): Observable<HistorialPuntosAlumno[]> {
     return this.http.get<HistorialPuntosAlumno[]>(this.APIURLHistorialPuntosAlumno + '?filter[where][alumnoJuegoDePuntosId]='
      + alumnoJuegoDePuntosId + '&filter[where][puntoId]=' + puntoId);
+  }
+
+  GET_HistorialDeUnPuntoEquipo(equipoJuegoDePuntosId: number, puntoId: number): Observable<HistorialPuntosEquipo[]> {
+    return this.http.get<HistorialPuntosEquipo[]>(this.APIURLHistorialPuntosEquipo + '?filter[where][equipoJuegoDePuntosId]='
+     + equipoJuegoDePuntosId + '&filter[where][puntoId]=' + puntoId);
   }
 
   GET_HistorialPuntosAlumno(alumnoJuegoDePuntosId: number): Observable<HistorialPuntosAlumno[]> {
@@ -131,6 +156,7 @@ export class JuegoService {
   DELETE_PuntosAlumno(historialPuntosAlumnoId: number): Observable<HistorialPuntosAlumno[]> {
     return this.http.delete<HistorialPuntosAlumno[]>(this.APIURLHistorialPuntosAlumno + '/' + historialPuntosAlumnoId);
   }
+
 
 
   // Enviar y recibir juegos entre componentes
@@ -175,6 +201,22 @@ export class JuegoService {
 
   RecibirRankingJuegoPuntosDelServicio(): any {
     return this.rankingJuegoDePunto;
+  }
+
+  EnviarListaEquiposOrdenadaJuegoPuntosAlServicio(lista: any) {
+    this.listaEquiposOrdenadaPorPuntos = lista;
+  }
+
+  RecibirListaEquiposOrdenadaJuegoPuntosDelServicio(): any {
+    return this.listaEquiposOrdenadaPorPuntos;
+  }
+
+  EnviarRankingEquipoJuegoPuntosAlServicio(ranking: any) {
+    this.rankingEquipoJuegoDePuntos = ranking;
+  }
+
+  RecibirRankingEquipoJuegoPuntosDelServicio(): any {
+    return this.rankingEquipoJuegoDePuntos;
   }
 
   EnviarPuntosAlServicio(puntos: any) {

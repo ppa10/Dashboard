@@ -56,6 +56,9 @@ import { AsignarPuntosComponent } from './paginas/juego-seleccionado-activo/jueg
 import { AlumnoSeleccionadoJuegoDePuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/alumno-seleccionado-juego-de-puntos/alumno-seleccionado-juego-de-puntos.component';
 import { CrearColeccionComponent } from './paginas/crear-coleccion/crear-coleccion.component';
 import { MisColeccionesComponent } from './paginas/mis-colecciones/mis-colecciones.component';
+// tslint:disable-next-line:max-line-length
+import { InformacionJuegoPuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/informacion-juego-puntos/informacion-juego-puntos.component';
+
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
@@ -103,7 +106,8 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     JuegoDePuntosSeleccionadoActivoComponent,
     AlumnoSeleccionadoJuegoDePuntosComponent,
     CrearColeccionComponent,
-    MisColeccionesComponent
+    MisColeccionesComponent,
+    InformacionJuegoPuntosComponent
   ],
   imports: [
     BrowserModule,
