@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 // Servicios
-import { JuegoService, ProfesorService } from '../../../servicios/index';
+import { JuegoService, JuegoDePuntosService } from '../../../servicios/index';
 
 // Clases
 import { Nivel, Insignia, Juego } from '../../../clases/index';
@@ -42,6 +42,7 @@ export class CrearNivelComponent implements OnInit {
 
 
   constructor( private juegoService: JuegoService,
+               private juegoDePuntosService: JuegoDePuntosService,
                public snackBar: MatSnackBar ) { }
 
   ngOnInit() {
@@ -99,7 +100,7 @@ export class CrearNivelComponent implements OnInit {
    CrearNivel() {
     this.juegoDePuntosId = this.juego.id;
 
-    this.juegoService.POST_Nivel(new Nivel (this.nombreNivel, this.puntosAlcanzar, this.privilegiosDelNivel,
+    this.juegoDePuntosService.POST_Nivel(new Nivel (this.nombreNivel, this.puntosAlcanzar, this.privilegiosDelNivel,
       this.nombreLogo), this.juegoDePuntosId).subscribe(nivel => {
         if (nivel !== undefined) {
           console.log('Nivel añadido correctamente');
@@ -114,7 +115,7 @@ export class CrearNivelComponent implements OnInit {
             // Hacemos el POST de la nueva imagen en la base de datos recogida de la función ExaminarImagen
             const formData: FormData = new FormData();
             formData.append(this.nombreLogo, this.file);
-            this.juegoService.POST_ImagenNivel(formData)
+            this.juegoDePuntosService.POST_ImagenNivel(formData)
             .subscribe(() => console.log('Logo cargado'));
           }
 

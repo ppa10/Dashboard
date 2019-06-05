@@ -25,6 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MdePopoverModule } from '@material-extended/mde';
 
 
 // IMPORTs COMPONENTES
@@ -137,6 +138,7 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     MatSnackBarModule,
     MatToolbarModule,
     MatGridListModule,
+    MdePopoverModule,
 
     HttpClientModule
 

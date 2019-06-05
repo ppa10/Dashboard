@@ -5,7 +5,7 @@ import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDe
   TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno, TablaHistorialPuntosAlumno } from '../../../../clases/index';
 
 // Services
-import { JuegoService, GrupoService, AlumnoService } from '../../../../servicios/index';
+import { JuegoService, JuegoDePuntosService, AlumnoService } from '../../../../servicios/index';
 
 @Component({
   selector: 'app-alumno-seleccionado-juego-de-puntos',
@@ -42,15 +42,16 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
   constructor( private juegoService: JuegoService,
                private alumnoService: AlumnoService,
+               private juegoDePuntosService: JuegoDePuntosService,
                private http: Http  ) { }
 
   ngOnInit() {
-    this.nivelesDelJuego = this.juegoService.RecibirNivelesDelServicio();
+    this.nivelesDelJuego = this.juegoDePuntosService.RecibirNivelesDelServicio();
     this.alumnoSeleccionado = this.alumnoService.RecibirAlumnoDelServicio();
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
-    this.alumnoJuegoDePuntos = this.juegoService.RecibirInscripcionDelServicio();
+    this.alumnoJuegoDePuntos = this.juegoDePuntosService.RecibirInscripcionDelServicio();
 
-    this.puntosDelJuego = this.juegoService.RecibirPuntosDelServicio();
+    this.puntosDelJuego = this.juegoDePuntosService.RecibirPuntosDelServicio();
 
     this.Nivel();
     this.GET_ImagenPerfil();
@@ -201,7 +202,7 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
     this.historial = [];
     if (this.juegoSeleccionado.Modo === 'Individual') {
       console.log('Es individual');
-      this.juegoService.GET_HistorialPuntosAlumno(this.alumnoJuegoDePuntos[0].id)
+      this.juegoDePuntosService.GET_HistorialPuntosAlumno(this.alumnoJuegoDePuntos[0].id)
       .subscribe(historial => {
         console.log(historial);
 
@@ -249,7 +250,7 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
     console.log(nuevosPuntos);
     this.alumnoJuegoDePuntos[0].PuntosTotalesAlumno = nuevosPuntos;
 
-    this.juegoService.DELETE_PuntosAlumno(punto.historialId).subscribe();
+    this.juegoDePuntosService.DELETE_PuntosAlumno(punto.historialId).subscribe();
 
 
 
@@ -272,14 +273,14 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
     console.log('Voy a editar la base de datos y actualizar la tabla');
     if (this.nivel !== undefined) {
-      this.juegoService.PUT_PuntosJuegoDePuntos( new AlumnoJuegoDePuntos(this.alumnoSeleccionado[0].id, this.juegoSeleccionado.id,
+      this.juegoDePuntosService.PUT_PuntosJuegoDePuntos( new AlumnoJuegoDePuntos(this.alumnoSeleccionado[0].id, this.juegoSeleccionado.id,
         nuevosPuntos, this.nivel.id), this.alumnoJuegoDePuntos[0].id).subscribe(res => {
           console.log(res);
           this.alumnoJuegoDePuntos[0] = res;
           this.MostrarHistorialSeleccionado();
         });
     } else {
-      this.juegoService.PUT_PuntosJuegoDePuntos( new AlumnoJuegoDePuntos(this.alumnoSeleccionado[0].id, this.juegoSeleccionado.id,
+      this.juegoDePuntosService.PUT_PuntosJuegoDePuntos( new AlumnoJuegoDePuntos(this.alumnoSeleccionado[0].id, this.juegoSeleccionado.id,
         nuevosPuntos), this.alumnoJuegoDePuntos[0].id).subscribe(res => {
           console.log(res);
           this.alumnoJuegoDePuntos[0] = res;

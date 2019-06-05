@@ -5,7 +5,7 @@ import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDe
   TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno, TablaEquipoJuegoDePuntos, HistorialPuntosEquipo } from '../../../../clases/index';
 
 // Services
-import { JuegoService, GrupoService } from '../../../../servicios/index';
+import { JuegoService, EquipoService, JuegoDePuntosService } from '../../../../servicios/index';
 
 @Component({
   selector: 'app-asignar-puntos',
@@ -44,23 +44,27 @@ export class AsignarPuntosComponent implements OnInit {
 
   valorPunto: number;
 
-  constructor( private juegoService: JuegoService) { }
+  alumnosEquipo: Alumno[];
+
+  constructor( private juegoService: JuegoService,
+               private equipoService: EquipoService,
+               private juegoDePuntosService: JuegoDePuntosService ) { }
 
   ngOnInit() {
 
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
     this.alumnosDelJuego = this.juegoService.RecibirAlumnoJuegoDelServicio();
 
-    this.puntosDelJuego = this.juegoService.RecibirPuntosDelServicio();
-    this.nivelesDelJuego = this.juegoService.RecibirNivelesDelServicio();
-    this.listaAlumnosOrdenadaPorPuntos = this.juegoService.RecibirListaOrdenadaJuegoPuntosDelServicio();
+    this.puntosDelJuego = this.juegoDePuntosService.RecibirPuntosDelServicio();
+    this.nivelesDelJuego = this.juegoDePuntosService.RecibirNivelesDelServicio();
+    this.listaAlumnosOrdenadaPorPuntos = this.juegoDePuntosService.RecibirListaOrdenadaJuegoPuntosDelServicio();
 
-    this.rankingJuegoDePuntos = this.juegoService.RecibirRankingJuegoPuntosDelServicio();
+    this.rankingJuegoDePuntos = this.juegoDePuntosService.RecibirRankingJuegoPuntosDelServicio();
     this.seleccionados = Array(this.rankingJuegoDePuntos.length).fill(false);
 
     this.equiposDelJuego = this.juegoService.RecibirEquipoJuegoDelServicio();
-    this.listaEquiposOrdenadaPorPuntos = this.juegoService.RecibirListaEquiposOrdenadaJuegoPuntosDelServicio();
-    this.rankingEquiposJuegoDePunto = this.juegoService.RecibirRankingEquipoJuegoPuntosDelServicio();
+    this.listaEquiposOrdenadaPorPuntos = this.juegoDePuntosService.RecibirListaEquiposOrdenadaJuegoPuntosDelServicio();
+    this.rankingEquiposJuegoDePunto = this.juegoDePuntosService.RecibirRankingEquipoJuegoPuntosDelServicio();
     console.log(this.equiposDelJuego);
     console.log(this.listaEquiposOrdenadaPorPuntos);
     console.log(this.rankingEquiposJuegoDePunto);
@@ -157,7 +161,7 @@ export class AsignarPuntosComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabelEquipo(row?: TablaAlumnoJuegoDePuntos): string {
+  checkboxLabelEquipo(row?: TablaEquipoJuegoDePuntos): string {
     if (!row) {
       return `${this.isAllSelectedEquipos() ? 'select' : 'deselect'} all`;
     }
@@ -281,7 +285,7 @@ export class AsignarPuntosComponent implements OnInit {
         // tslint:disable-next-line:curly
 
         if (nivel !== undefined) {
-          this.juegoService.PUT_PuntosJuegoDePuntos(new AlumnoJuegoDePuntos (this.listaAlumnosOrdenadaPorPuntos[i].alumnoId,
+          this.juegoDePuntosService.PUT_PuntosJuegoDePuntos(new AlumnoJuegoDePuntos (this.listaAlumnosOrdenadaPorPuntos[i].alumnoId,
           this.listaAlumnosOrdenadaPorPuntos[i].juegoDePuntosId, nuevosPuntos, nivel.id),
           this.listaAlumnosOrdenadaPorPuntos[i].id).subscribe( res => {
             console.log(res);
@@ -296,7 +300,7 @@ export class AsignarPuntosComponent implements OnInit {
           });
         } else {
 
-          this.juegoService.PUT_PuntosJuegoDePuntos(new AlumnoJuegoDePuntos (this.listaAlumnosOrdenadaPorPuntos[i].alumnoId,
+          this.juegoDePuntosService.PUT_PuntosJuegoDePuntos(new AlumnoJuegoDePuntos (this.listaAlumnosOrdenadaPorPuntos[i].alumnoId,
           this.listaAlumnosOrdenadaPorPuntos[i].juegoDePuntosId, nuevosPuntos),
           this.listaAlumnosOrdenadaPorPuntos[i].id).subscribe( res => {
             console.log(res);
@@ -390,7 +394,7 @@ export class AsignarPuntosComponent implements OnInit {
         // tslint:disable-next-line:curly
 
         if (nivel !== undefined) {
-          this.juegoService.PUT_PuntosEquiposJuegoDePuntos( new EquipoJuegoDePuntos(this.listaEquiposOrdenadaPorPuntos[i].equipoId,
+          this.juegoDePuntosService.PUT_PuntosEquiposJuegoDePuntos( new EquipoJuegoDePuntos(this.listaEquiposOrdenadaPorPuntos[i].equipoId,
             this.listaEquiposOrdenadaPorPuntos[i].juegoDePuntosId, nuevosPuntos, nivel.id), this.listaEquiposOrdenadaPorPuntos[i].id)
             .subscribe( res => {
               console.log(res);
@@ -405,7 +409,8 @@ export class AsignarPuntosComponent implements OnInit {
             });
           } else {
 
-            this.juegoService.PUT_PuntosEquiposJuegoDePuntos( new EquipoJuegoDePuntos(this.listaEquiposOrdenadaPorPuntos[i].equipoId,
+            // tslint:disable-next-line:max-line-length
+            this.juegoDePuntosService.PUT_PuntosEquiposJuegoDePuntos( new EquipoJuegoDePuntos(this.listaEquiposOrdenadaPorPuntos[i].equipoId,
               this.listaEquiposOrdenadaPorPuntos[i].juegoDePuntosId, nuevosPuntos), this.listaEquiposOrdenadaPorPuntos[i].id)
               .subscribe( res => {
                 console.log(res);
@@ -424,12 +429,12 @@ export class AsignarPuntosComponent implements OnInit {
   }
 
   POST_HistorialAlumno(valorPunto: number, puntoId: number, alumnoJuegoDePuntos: number ) {
-    this.juegoService.POST_HistorialPuntosAlumno(new HistorialPuntosAlumno (valorPunto, puntoId, alumnoJuegoDePuntos))
+    this.juegoDePuntosService.POST_HistorialPuntosAlumno(new HistorialPuntosAlumno (valorPunto, puntoId, alumnoJuegoDePuntos))
     .subscribe(res => console.log(res));
   }
 
   POST_HistorialEquipo(valorPunto: number, puntoId: number, equipoJuegoDePuntos: number ) {
-    this.juegoService.POST_HistorialPuntosEquipo(new HistorialPuntosEquipo (valorPunto, puntoId, equipoJuegoDePuntos))
+    this.juegoDePuntosService.POST_HistorialPuntosEquipo(new HistorialPuntosEquipo (valorPunto, puntoId, equipoJuegoDePuntos))
     .subscribe(res => console.log(res));
   }
 
@@ -515,6 +520,21 @@ export class AsignarPuntosComponent implements OnInit {
     nivel = this.nivelesDelJuego.filter(res => res.id === nivelId)[0];
 
     return nivel;
+  }
+
+  AlumnosDelEquipo(equipo: Equipo) {
+    console.log(equipo);
+
+    this.equipoService.GET_AlumnosEquipo(equipo.id)
+    .subscribe(res => {
+      if (res[0] !== undefined) {
+        this.alumnosEquipo = res;
+        console.log(res);
+      } else {
+        console.log('No hay alumnos en este equipo');
+        this.alumnosEquipo = undefined;
+      }
+    });
   }
 
   prueba() {
