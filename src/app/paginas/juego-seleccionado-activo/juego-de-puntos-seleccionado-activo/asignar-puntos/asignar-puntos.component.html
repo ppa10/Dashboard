@@ -13,7 +13,6 @@
 <span>Valor: </span>
 <input type="number" name="valorPunto" placeholder="Escribe el valor del punto" requiered [(ngModel)]="valorPunto">
 
-
 <form>
   <table *ngIf="rankingJuegoDePuntos[0]" mat-table [dataSource]="rankingJuegoDePuntos" class="mat-elevation-z8">
 
@@ -68,23 +67,80 @@
       <td mat-cell *matCellDef="let alumno; let i = index" (click) = "Seleccionar(i);"> {{alumno.puntos}} </td>
     </ng-container>
 
-
     <!-- Nivel Column -->
     <ng-container matColumnDef="nivel">
       <th mat-header-cell *matHeaderCellDef> Nivel </th>
       <td mat-cell *matCellDef="let alumno; let i = index" (click) = "Seleccionar(i);"> {{alumno.nivel}} </td>
     </ng-container>
 
-
     <tr mat-header-row *matHeaderRowDef="displayedColumnsAlumno"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumnsAlumno;"
         (click)="selection.toggle(row)">
     </tr>
   </table>
-</form>
 
+</form>
+  <table *ngIf="rankingEquiposJuegoDePunto[0]" mat-table [dataSource]="rankingEquiposJuegoDePunto" class="mat-elevation-z8">
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggleEquipos() : null"
+                      (click) = "SeleccionarTodosEquipos();"
+                      [checked]="selectionEquipos.hasValue() && isAllSelectedEquipos()"
+                      [indeterminate]="selectionEquipos.hasValue() && !isAllSelectedEquipos()"
+                      [aria-label]="checkboxLabelEquipo()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row; let i = index" (click) = "SeleccionarEquipo(i);">
+        <mat-checkbox (click)="$event.stopPropagation()"
+          (click) = "SeleccionarEquipo(i);"
+          (change)="$event ? selectionEquipos.toggle(row) : null"
+          [checked]="selectionEquipos.isSelected(row)"
+          [aria-label]="checkboxLabelEquipo(row)">
+        </mat-checkbox>
+
+      </td>
+    </ng-container>
+
+    <!-- Posición Column -->
+    <ng-container matColumnDef="posicion">
+      <th mat-header-cell *matHeaderCellDef> Posicion </th>
+      <td mat-cell *matCellDef="let equipo"> {{equipo.posicion}} </td>
+    </ng-container>
+
+    <!-- Nombre Alumno Column -->
+    <ng-container matColumnDef="nombreEquipo">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let equipo; let i = index" (click) = "SeleccionarEquipo(i);"> {{equipo.nombre}} </td>
+    </ng-container>
+
+    <!-- Primer Apellido Column -->
+    <ng-container matColumnDef="miembros">
+      <th mat-header-cell *matHeaderCellDef> Miembros </th>
+      <td mat-cell *matCellDef="let equipo; let i = index" (click) = "SeleccionarEquipo(i);">  </td>
+    </ng-container>
+
+    <!-- Puntos Column -->
+    <ng-container matColumnDef="puntos">
+      <th mat-header-cell *matHeaderCellDef> Puntos </th>
+      <td mat-cell *matCellDef="let equipo; let i = index" (click) = "SeleccionarEquipo(i);"> {{equipo.puntos}} </td>
+    </ng-container>
+
+    <!-- Nivel Column -->
+    <ng-container matColumnDef="nivel">
+      <th mat-header-cell *matHeaderCellDef> Nivel </th>
+      <td mat-cell *matCellDef="let equipo; let i = index" (click) = "SeleccionarEquipo(i);"> {{equipo.nivel}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsEquipos"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsEquipos;"
+        (click)="selectionEquipos.toggle(row)">
+    </tr>
+  </table>
 <form>
 
 </form>
 <button (click) = "AsignarPuntos()">Asignar</button>
 <button (click) = "prueba()">Pureba</button>
+
