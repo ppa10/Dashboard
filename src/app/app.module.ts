@@ -59,6 +59,8 @@ import { CrearColeccionComponent } from './paginas/crear-coleccion/crear-colecci
 import { MisColeccionesComponent } from './paginas/mis-colecciones/mis-colecciones.component';
 // tslint:disable-next-line:max-line-length
 import { InformacionJuegoPuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/informacion-juego-puntos/informacion-juego-puntos.component';
+// tslint:disable-next-line:max-line-length
+import { EquipoSeleccionadoJuegoDePuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/equipo-seleccionado-juego-de-puntos/equipo-seleccionado-juego-de-puntos.component';
 
 
 // IMPORTs CONSULTA BASE DE DATOS
@@ -108,7 +110,8 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     AlumnoSeleccionadoJuegoDePuntosComponent,
     CrearColeccionComponent,
     MisColeccionesComponent,
-    InformacionJuegoPuntosComponent
+    InformacionJuegoPuntosComponent,
+    EquipoSeleccionadoJuegoDePuntosComponent
   ],
   imports: [
     BrowserModule,
