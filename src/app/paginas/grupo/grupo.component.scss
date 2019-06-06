@@ -3,22 +3,35 @@
 }
 
 .titulo{
-  width: auto;
-  height: 50px;
+  width: 70%;
+  margin-left: 15%;
+  height: 60px;
   padding: 10px;
-  background-color: rgba(97, 10, 203, 0.705);
+  color: rgb(63, 81, 181);
 
 }
 
+.h2, h2 {
+  font-size: 2.5rem !important;
+}
+
+.letraCabecera{
+  color:white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 90%;
+}
 
 table {
-  width: 50%;
+  width: 60%;
   text-align: center;
 
 }
 
 .contenedor{
-  width: auto;
+
+  width: 70%;
+  margin-left: 15%;
   height: auto;
   padding: 10px;
   border: 10px solid transparent;
@@ -37,10 +50,19 @@ table {
 
 }
 .contenedor2{
-  height: 100px;
-  justify-content: left;
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+
+  justify-content: left ;
   flex-direction: column;
-  align-items: flex-start;
+  // align-items: flex-start;
+  border: solid transparent;
+
+}
+.contenedor3{
+  justify-content: space-between;
+  border: solid transparent;
 
 }
 .elemento{
@@ -50,11 +72,18 @@ width: auto;
 height: auto;
 background-color:transparent;
 text-align: center;
+align-items: center;
 
 }
+.material-icons{
+  width: 15px;
+  height: 15px;
+}
+
 .btn{
-  background-color: rgb(233, 30, 99);
+  align-items: center;
   color: white;
+  width: 170px;
 }
 .mat-header-row{
 
@@ -72,6 +101,7 @@ text-align: center;
   height: auto;
   background-color:transparent;
   text-align: center;
+  font-size: 110%;
 }
 .mat-form-field {
   font-size: 14px;

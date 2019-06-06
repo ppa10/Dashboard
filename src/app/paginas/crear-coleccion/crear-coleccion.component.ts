@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResponseContentType, Http, Response } from '@angular/http';
@@ -47,12 +48,18 @@ export class CrearColeccionComponent implements OnInit {
     private profesorService: ProfesorService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private location: Location,
+    private formBuilder: FormBuilder,
+    private http: Http) { }
 
   ngOnInit() {
 
     this.profesorId = Number (this.route.snapshot.paramMap.get('id'));
-
+    // Constructor myForm
+    this.myForm = this.formBuilder.group({
+     nombreColeccion: ['', Validators.required]
+    });
   }
 
   CrearColeccion() {
