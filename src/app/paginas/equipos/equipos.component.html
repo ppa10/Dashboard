@@ -2,7 +2,8 @@
 <mat-divider></mat-divider>
 
 
-<mat-tab-group #tabs [backgroundColor] = "primary">
+<div class="contenedor">
+    <mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs>
 
   <!-- LISTA DE EQUIPOS -->
   <mat-tab index = "0" label="Lista de equipos">
@@ -164,7 +165,7 @@
 
   </mat-tab>
 </mat-tab-group>
-
+</div>
 <div>
   <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
 </div>
