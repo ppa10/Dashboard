@@ -1,0 +1,75 @@
+<h2>Información Juego De Puntos</h2>
+<mat-divider></mat-divider>
+
+
+<mat-tab-group [backgroundColor] = "primary">
+
+  <!-- LISTA DE EQUIPOS -->
+  <mat-tab label="Niveles Del Juego">
+    <form>
+      <mat-accordion *ngIf="nivelesDelJuego;else Aviso_no_niveles">
+        <mat-expansion-panel *ngFor="let nivel of nivelesDelJuego" (click) = "ObtenerNivel(nivel)">
+          <mat-expansion-panel-header>
+
+            <mat-panel-title>
+              {{nivel.Nombre}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Información sobre nivel {{nivel.Nombre}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+            <div>
+              <img class ="logo" *ngIf="imagenNivel" hight = "100" width = "100" mat-card-image [src]="imagenNivel" >
+              <div>
+                Nivel
+                <h1 class="md-display-3">{{nivel.Nombre}}</h1>
+                <div>
+                  PX
+                  <h3 class="md-headline">{{nivel.PuntosAlcanzar}}</h3>
+                </div>
+                <span style="font-weight: bold;">Privilegio: </span> {{nivel.PrivilegiosDelNivel}}
+              </div>
+
+            </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <ng-template #Aviso_no_niveles>No se han creado niveles en este juego</ng-template>
+
+    </form>
+  </mat-tab>
+
+
+
+  <!-- MIS PUNTOS-->
+  <mat-tab label="Puntos Del Juego">
+
+    <form>
+      <table *ngIf="puntosDelJuego;else Aviso_no_puntos" mat-table [dataSource]="puntosDelJuego" class="mat-elevation-z8">
+
+        <!-- Nombre Punto Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let punto"> {{punto.Nombre}} </td>
+        </ng-container>
+
+        <!-- Descripción Punto Column -->
+        <ng-container matColumnDef="descripcion">
+          <th mat-header-cell *matHeaderCellDef> Descripción </th>
+          <td mat-cell *matCellDef="let punto"> {{punto.Descripcion}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <div>
+        <ng-template #Aviso_no_puntos>No se han encontrado puntos</ng-template>
+      </div>
+    </form>
+
+  </mat-tab>
+</mat-tab-group>

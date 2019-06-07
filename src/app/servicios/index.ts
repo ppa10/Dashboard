@@ -7,3 +7,4 @@ export * from './equipo.service';
 export * from './puntos-insignias.service';
 export * from './juego.service';
 export * from './coleccion.service';
+export * from './juego-de-puntos.service';

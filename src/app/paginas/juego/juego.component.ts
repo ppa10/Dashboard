@@ -7,7 +7,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { Alumno, Equipo, Juego, Punto, AlumnoJuegoDePuntos, EquipoJuegoDePuntos} from '../../clases/index';
 
 // Services
-import { JuegoService, GrupoService, PuntosInsigniasService, EquipoService } from '../../servicios/index';
+import { JuegoService, GrupoService, PuntosInsigniasService, EquipoService, JuegoDePuntosService } from '../../servicios/index';
 
 export interface OpcionSeleccionada {
   nombre: string;
@@ -129,6 +129,7 @@ export class JuegoComponent implements OnInit {
   constructor( private juegoService: JuegoService,
                private grupoService: GrupoService,
                private equipoService: EquipoService,
+               private juegoDePuntosService: JuegoDePuntosService,
                public snackBar: MatSnackBar,
                private puntosInsigniasService: PuntosInsigniasService) { }
 
@@ -148,7 +149,7 @@ export class JuegoComponent implements OnInit {
 
   // Busca la lista de juego de puntos y la clasifica entre activo e inactivo, y activa la función ListaJuegosDeColeccion
   ListaJuegosDePuntos() {
-    this.juegoService.GET_JuegoDePuntos(this.grupoId)
+    this.juegoDePuntosService.GET_JuegoDePuntos(this.grupoId)
     .subscribe(juegos => {
       console.log('He recibido los juegos de puntos');
 
@@ -336,7 +337,7 @@ export class JuegoComponent implements OnInit {
 
   // Función que usaremos para crear un juego de puntos. Hay que diferenciar entre los tres juegos porque la URL es diferente
   CrearJuegoDePuntos() {
-    this.juegoService.POST_JuegoDePuntos(new Juego (this.tipoDeJuegoSeleccionado, this.modoDeJuegoSeleccionado), this.grupoId)
+    this.juegoDePuntosService.POST_JuegoDePuntos(new Juego (this.tipoDeJuegoSeleccionado, this.modoDeJuegoSeleccionado), this.grupoId)
     .subscribe(juegoCreado => {
       this.juego = juegoCreado;
       console.log(juegoCreado);
@@ -381,7 +382,7 @@ export class JuegoComponent implements OnInit {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.alumnosGrupo.length; i++) {
       console.log(this.alumnosGrupo[i]);
-      this.juegoService.POST_AlumnoJuegoDePuntos(new AlumnoJuegoDePuntos(this.alumnosGrupo[i].id, this.juego.id))
+      this.juegoDePuntosService.POST_AlumnoJuegoDePuntos(new AlumnoJuegoDePuntos(this.alumnosGrupo[i].id, this.juego.id))
       .subscribe(alumnoJuego => console.log('alumnos inscritos correctamente'));
     }
   }
@@ -395,7 +396,7 @@ export class JuegoComponent implements OnInit {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.equiposGrupo.length; i++) {
       console.log(this.equiposGrupo[i]);
-      this.juegoService.POST_EquipoJuegoDePuntos(new EquipoJuegoDePuntos(this.equiposGrupo[i].id, this.juego.id))
+      this.juegoDePuntosService.POST_EquipoJuegoDePuntos(new EquipoJuegoDePuntos(this.equiposGrupo[i].id, this.juego.id))
       .subscribe(equiposJuego => console.log(equiposJuego));
     }
 

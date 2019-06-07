@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material';
 import { Alumno, Equipo, Juego, Punto, AsignacionPuntosJuego} from '../../../clases/index';
 
 // Services
-import { JuegoService, GrupoService, PuntosInsigniasService, ProfesorService } from '../../../servicios/index';
+import { JuegoService, GrupoService, PuntosInsigniasService, ProfesorService, JuegoDePuntosService } from '../../../servicios/index';
 
 @Component({
   selector: 'app-asignacion-punto-juego',
@@ -38,6 +38,7 @@ export class AsignacionPuntoJuegoComponent implements OnInit {
   constructor( private juegoService: JuegoService,
                private profesorService: ProfesorService,
                private grupoService: GrupoService,
+               private juegoDePuntosService: JuegoDePuntosService,
                public snackBar: MatSnackBar,
                private puntosInsigniasService: PuntosInsigniasService) { }
 
@@ -136,7 +137,7 @@ export class AsignacionPuntoJuegoComponent implements OnInit {
         punto = this.puntosSeleccionables[i];
         console.log(punto.Nombre + ' seleccionado');
 
-        this.juegoService.POST_AsignacionPuntoJuego(new AsignacionPuntosJuego(punto.id, this.juego.id))
+        this.juegoDePuntosService.POST_AsignacionPuntoJuego(new AsignacionPuntosJuego(punto.id, this.juego.id))
         .subscribe(asignacion => console.log(asignacion));
       }
     }

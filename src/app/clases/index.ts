@@ -17,3 +17,8 @@ export * from './HistorialPuntosAlumno';
 export * from './clasesParaTablasJuegoDePuntos/ListaHistorialPuntosAlumno';
 export * from './Coleccion';
 export * from './Cromo';
+export * from './clasesParaTablasJuegoDePuntos/TablaHistorialPuntosAlumno';
+export * from './clasesParaTablasJuegoDePuntos/TablaEquipoJuegoDePuntos';
+export * from './HistorialPuntosEquipo';
+
+

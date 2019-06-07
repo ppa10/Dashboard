@@ -16,6 +16,8 @@ export class AlumnoService {
   private APIUrlGrupos = 'http://localhost:3000/api/Grupos';
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
 
+  private APIURLImagenAlumno = 'http://localhost:3000/api/imagenes/imagenAlumno';
+
 
   listaAlumnos: any = [];
   alumno: any;
@@ -42,6 +44,11 @@ export class AlumnoService {
   GET_Alumno(alumnoId: number): Observable<Alumno> {
     return this.http.get<Alumno>(this.APIUrl + '/' + alumnoId);
   }
+
+  POST_ImagenAlumno(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.APIURLImagenAlumno + '/upload', formData);
+  }
+
 
 
   // SERVICIOS PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES
