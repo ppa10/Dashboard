@@ -20,7 +20,7 @@ export class ColeccionService {
   constructor(private http: HttpClient ) { }
 
   POST_Coleccion(coleccion: Coleccion, profesorId: number): Observable<Coleccion> {
-    return this.http.post<Coleccion>(this.APIUrlProfesor + '/' + profesorId + '/colecciones', coleccion);
+    return this.http.post<Coleccion>(this.APIUrlProfesor + '/' + profesorId + '/coleccions', coleccion);
   }
 
   POST_LogoColecciones(formData: FormData): Observable<any> {
@@ -28,15 +28,15 @@ export class ColeccionService {
   }
 
   PUT_Coleccion(coleccion: Coleccion, profesorId: number, coleccionId: number): Observable<Coleccion> {
-    return this.http.put<Coleccion>(this.APIUrlProfesor + '/' + profesorId + '/colecciones/' + coleccionId, coleccion);
+    return this.http.put<Coleccion>(this.APIUrlProfesor + '/' + profesorId + '/coleccions/' + coleccionId, coleccion);
   }
 
   DELETE_Coleccion(profesorId: number, coleccionId: number): Observable<any> {
-    return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/colecciones/' + coleccionId);
+    return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/coleccions/' + coleccionId);
   }
 
   GET_ColeccionesDelProfesor(profesorId: number): Observable<Coleccion[]> {
-    return this.http.get<Coleccion[]>(this.APIUrlProfesor + '/' + profesorId + '/colecciones');
+    return this.http.get<Coleccion[]>(this.APIUrlProfesor + '/' + profesorId + '/coleccions');
   }
 
   GET_CromosColeccion(coleccionId: number): Observable<Coleccion[]> {

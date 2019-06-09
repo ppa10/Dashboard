@@ -262,7 +262,7 @@ export class EquiposComponent implements OnInit {
     nombreEquipo = this.myForm.value.nombreEquipo;
 
     console.log('Entro a crear el equipo ' + nombreEquipo);
-
+    console.log(this.nombreLogo);
     // Hace el POST del equipo
     this.equipoService.POST_Equipo(new Equipo(nombreEquipo, this.nombreLogo), this.grupoId)
     .subscribe((res) => {
