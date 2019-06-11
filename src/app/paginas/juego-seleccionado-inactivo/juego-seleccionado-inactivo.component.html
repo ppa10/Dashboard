@@ -1,0 +1,7 @@
+<h2>{{juegoSeleccionado.Tipo}}</h2>
+<h3>{{juegoSeleccionado.Modo}}</h3>
+<mat-divider></mat-divider>
+
+<div *ngIf= "juegoSeleccionado.Tipo === 'Juego De Puntos'">
+  <app-juego-de-puntos-seleccionado-inactivo></app-juego-de-puntos-seleccionado-inactivo>
+</div>

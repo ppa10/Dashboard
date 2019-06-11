@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Location } from '@angular/common';
 
 // Clases
 import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDePuntos,
@@ -54,7 +55,8 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   constructor( private juegoService: JuegoService,
                private alumnoService: AlumnoService,
                private equipoService: EquipoService,
-               private juegoDePuntosService: JuegoDePuntosService ) { }
+               private juegoDePuntosService: JuegoDePuntosService,
+               private location: Location ) { }
 
   ngOnInit() {
 
@@ -453,6 +455,18 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
         this.alumnosEquipo = undefined;
       }
     });
+  }
+
+  DesactivarJuego() {
+    console.log(this.juegoSeleccionado);
+    this.juegoDePuntosService.PUT_DesactivarJuegoDePuntos(new Juego (this.juegoSeleccionado.Tipo, this.juegoSeleccionado.Modo,
+      undefined, false), this.juegoSeleccionado.id, this.juegoSeleccionado.grupoId).subscribe(res => {
+        if (res !== undefined) {
+          console.log(res);
+          console.log('juego desactivado');
+          this.location.back();
+        }
+      });
   }
 
 }

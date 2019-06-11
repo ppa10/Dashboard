@@ -144,6 +144,9 @@ export class JuegoDePuntosService {
     return this.http.delete<HistorialPuntosEquipo[]>(this.APIURLHistorialPuntosEquipo + '/' + historialPuntosEquipoId);
   }
 
+  PUT_DesactivarJuegoDePuntos(juegoDePuntos: Juego, juegoDePuntosId: number, grupoId: number): Observable<Juego> {
+    return this.http.put<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDePuntos/' + juegoDePuntosId, juegoDePuntos);
+  }
 
 
 

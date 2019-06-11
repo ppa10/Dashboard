@@ -152,12 +152,14 @@ export class JuegoComponent implements OnInit {
     this.juegoDePuntosService.GET_JuegoDePuntos(this.grupoId)
     .subscribe(juegos => {
       console.log('He recibido los juegos de puntos');
-
+      console.log(juegos);
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < juegos.length; i++) {
         if (juegos[i].JuegoActivo === true) {
           this.juegosDePuntosActivos.push(juegos[i]);
         } else {
+          console.log('Juego inactivo');
+          console.log(juegos[i]);
           this.juegosDePuntosInactivos.push(juegos[i]);
         }
       }
@@ -273,13 +275,7 @@ export class JuegoComponent implements OnInit {
     // enviaremos los alumnos tmb
   }
 
-  prueba() {
-    console.log(this.alumnosGrupo);
-    console.log(this.equiposGrupo);
-    console.log(this.equiposGrupo[0]);
-    console.log(this.grupoId);
 
-  }
 
 
 
@@ -402,7 +398,9 @@ export class JuegoComponent implements OnInit {
 
   }
 
-
+  prueba() {
+    console.log(this.juegosDePuntosInactivos);
+  }
 
 
 
