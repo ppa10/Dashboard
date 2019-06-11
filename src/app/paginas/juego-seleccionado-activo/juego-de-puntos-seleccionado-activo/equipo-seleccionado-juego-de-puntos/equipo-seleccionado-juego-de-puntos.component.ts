@@ -223,6 +223,8 @@ export class EquipoSeleccionadoJuegoDePuntosComponent implements OnInit {
       } else {
         this.historial = undefined;
       }
+
+
     });
 
     this.historial = this.historial.filter(res => res.nombre !== '');

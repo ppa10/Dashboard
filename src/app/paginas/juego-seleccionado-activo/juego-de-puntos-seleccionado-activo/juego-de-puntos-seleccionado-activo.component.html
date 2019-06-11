@@ -18,7 +18,15 @@
 </form>
 
 <form *ngIf="rankingJuegoDePuntos[0]">
-  <table mat-table [dataSource]="rankingJuegoDePuntos" class="example-container mat-elevation-z8">
+
+  <div class = "filter">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro para buscar alumno...">
+        <i class="material-icons" matSuffix>search</i>
+      </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="datasourceAlumno" class="example-container mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -79,7 +87,15 @@
 
  <!-- ////////////////////////////////////// CLASIFICACIÓN EQUIPOS ////////////////////////////////////////////////////-->
 <form *ngIf="rankingEquiposJuegoDePuntos[0]">
-  <table mat-table [dataSource]="rankingEquiposJuegoDePuntos" class="example-container mat-elevation-z8">
+
+  <div class = "filter">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilterEquipo($event.target.value)" placeholder="Filtro para buscar equipo...">
+        <i class="material-icons" matSuffix>search</i>
+      </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="datasourceEquipo" class="example-container mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -150,9 +166,5 @@
 
   </table>
 
-
 </form>
 
-
-<button (click) = "TablaClasificacionTotal()">tabla</button>
-<button (click) = "prueba()">prueba</button>

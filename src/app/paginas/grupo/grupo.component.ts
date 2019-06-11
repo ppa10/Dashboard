@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
 
 // Clases
 import { Grupo, Alumno } from '../../clases/index';
@@ -21,10 +22,14 @@ export class GrupoComponent implements OnInit {
 
   // PONEMOS LAS COLUMNAS DE LA TABLA Y LA LISTA QUE TENDRÁ LA INFORMACIÓN QUE QUEREMOS MOSTRAR
   displayedColumns: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
+  alumnosGrupoSeleccionado: Alumno[];
+
+  dataSource;
+
 
   grupoSeleccionado: Grupo;
   profesorId: number;
-  alumnosGrupoSeleccionado: Alumno[];
+
 
   // tslint:disable-next-line:no-inferrable-types
   mensaje: string = 'Estás seguro/a de que quieres eliminar el grupo llamado: ';
@@ -48,6 +53,10 @@ export class GrupoComponent implements OnInit {
 
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
   AlumnosDelGrupo() {
 
@@ -56,6 +65,7 @@ export class GrupoComponent implements OnInit {
 
       if (res[0] !== undefined) {
         this.alumnosGrupoSeleccionado = res;
+        this.dataSource = new MatTableDataSource(this.alumnosGrupoSeleccionado);
       } else {
         console.log('No hay alumnos en este grupo');
       }
@@ -149,5 +159,9 @@ export class GrupoComponent implements OnInit {
   // NOS DEVOLVERÁ AL INICIO
   goBack() {
     this.location.back();
+  }
+
+  prueba() {
+    console.log(this.dataSource);
   }
 }

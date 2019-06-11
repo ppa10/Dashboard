@@ -45,9 +45,16 @@
           </div>
 </div>
 
-<form>
+<form *ngIf="alumnosGrupoSeleccionado;else Aviso_no_alumnos">
 
-    <table align = "center" text *ngIf="alumnosGrupoSeleccionado;else Aviso_no_alumnos" mat-table [dataSource]="alumnosGrupoSeleccionado" class="example-container mat-elevation-z8">
+    <div class = "filter">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro para buscar alumno...">
+        <i class="material-icons" matSuffix>search</i>
+      </mat-form-field>
+    </div>
+
+    <table align = "center" text mat-table [dataSource]="dataSource" class="example-container mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -82,9 +89,11 @@
     </table>
 
     <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
-    <div class="contenedor">
-      <ng-template  #Aviso_no_alumnos><div class="texto">Todavía no hay alumnos en este grupo.  </div></ng-template>
-    </div>
-
 
   </form>
+
+  <div class="contenedor">
+      <ng-template  #Aviso_no_alumnos><div class="texto">Todavía no hay alumnos en este grupo.  </div></ng-template>
+  </div>
+
+  <button (click) = "prueba()">prueba</button>

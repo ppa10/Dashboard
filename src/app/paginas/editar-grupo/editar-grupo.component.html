@@ -24,8 +24,16 @@
   </div>
 </div>
 
-  <form>
-    <table align= "center" *ngIf="alumnosGrupoSeleccionado[0];else Aviso_no_alumnos" mat-table [dataSource]="alumnosGrupoSeleccionado" class="mat-elevation-z8">
+  <form *ngIf="alumnosGrupoSeleccionado[0];else Aviso_no_alumnos">
+
+    <div class = "filter">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtro para buscar alumno...">
+        <i class="material-icons" matSuffix>search</i>
+      </mat-form-field>
+    </div>
+
+    <table align= "center" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
@@ -78,12 +86,12 @@
           (click)="selection.toggle(row)">
       </tr>
     </table>
-
-    <div class="contenedor">
-      <ng-template  #Aviso_no_alumnos><div class="texto">Todavía no hay alumnos en este grupo.</div></ng-template>
-    </div>
-
   </form>
+
+  <div class="contenedor">
+      <ng-template  #Aviso_no_alumnos><div class="texto">Todavía no hay alumnos en este grupo.</div></ng-template>
+  </div>
+
   <div>
       <button type="button" class="btn btn-success" (click)= "EditarGrupo()">Aceptar</button>
     </div>
