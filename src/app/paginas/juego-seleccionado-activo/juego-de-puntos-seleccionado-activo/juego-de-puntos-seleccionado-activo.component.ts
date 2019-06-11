@@ -260,7 +260,6 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
     this.juegoDePuntosService.EnviarListaEquiposOrdenadaJuegoPuntosAlServicio(this.listaEquiposOrdenadaPorPuntos);
     this.juegoDePuntosService.EnviarRankingEquipoJuegoPuntosAlServicio(this.rankingEquiposJuegoDePuntos);
 
-
   }
 
   AccederAlumno(alumno: TablaAlumnoJuegoDePuntos) {
@@ -279,14 +278,13 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   AccederEquipo(equipo: TablaEquipoJuegoDePuntos) {
 
     const equipoSeleccionado = this.equiposDelJuego.filter(res => res.Nombre === equipo.nombre);
+    console.log(equipoSeleccionado);
+    this.equipoService.EnviarEquipoAlServicio(equipoSeleccionado);
 
-
-    // this.alumnoService.EnviarAlumnoAlServicio(alumnoSeleccionado);
-    // // tslint:disable-next-line:max-line-length
     // tslint:disable-next-line:max-line-length
-    // this.juegoService.EnviarInscripcionAlServicio(this.listaAlumnosOrdenadaPorPuntos.filter(res => res.alumnoId === alumnoSeleccionado[0].id));
-    // this.juegoService.EnviarPuntosAlServicio(this.puntosDelJuego);
-    // this.juegoService.EnviarNivelesAlServicio(this.nivelesDelJuego);
+    this.juegoDePuntosService.EnviarInscripcionEquipoAlServicio(this.listaEquiposOrdenadaPorPuntos.filter(res => res.equipoId === equipoSeleccionado[0].id));
+    this.juegoDePuntosService.EnviarPuntosAlServicio(this.puntosDelJuego);
+    this.juegoDePuntosService.EnviarNivelesAlServicio(this.nivelesDelJuego);
   }
 
   MostrarRankingSeleccionado() {

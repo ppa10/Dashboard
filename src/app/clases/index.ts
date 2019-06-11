@@ -14,10 +14,11 @@ export * from './AsignacionPuntosJuego';
 export * from './EquipoJuegoDePuntos';
 export * from './clasesParaTablasJuegoDePuntos/TablaAlumnoJuegoDePuntos';
 export * from './HistorialPuntosAlumno';
-export * from './clasesParaTablasJuegoDePuntos/ListaHistorialPuntosAlumno';
+export * from './clasesParaTablasJuegoDePuntos/TablaHistorialPuntosAlumno';
 export * from './Coleccion';
 export * from './Cromo';
 export * from './clasesParaTablasJuegoDePuntos/TablaHistorialPuntosAlumno';
 export * from './clasesParaTablasJuegoDePuntos/TablaEquipoJuegoDePuntos';
 export * from './HistorialPuntosEquipo';
+export * from './clasesParaTablasJuegoDePuntos/TablaHistorialPuntosEquipo';
 

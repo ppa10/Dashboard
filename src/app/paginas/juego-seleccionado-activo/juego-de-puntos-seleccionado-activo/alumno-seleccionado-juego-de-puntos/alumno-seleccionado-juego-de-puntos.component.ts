@@ -178,49 +178,37 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
     // Si es indefinido muestro la tabla del total de puntos
     if (this.puntosDelJuego.filter(res => res.id === Number(this.puntoSeleccionadoId))[0] === undefined) {
-      if (this.juegoSeleccionado.Modo === 'Individual') {
-        console.log('Tabla historial de todos los puntos');
-        this.HistorialTotal();
-        // this.TablaClasificacionTotal();
-      } else {
-        // Recuperar inscripciones de los equipo
-      }
-    } else {
-      if (this.juegoSeleccionado.Modo === 'Individual') {
-        console.log('Tabla historial de un punto concreto');
 
-        this.HistorialPorPunto();
-        // this.ClasificacionPorTipoDePunto();
-      } else {
-        // Recuperar inscripciones de los equipo
-      }
+      console.log('Tabla historial de todos los puntos');
+      this.HistorialTotal();
+
+    } else {
+      console.log('Tabla historial de un punto concreto');
+
+      this.HistorialPorPunto();
+
     }
   }
 
   HistorialTotal() {
     console.log('Voy a por el historial');
     this.historial = [];
-    if (this.juegoSeleccionado.Modo === 'Individual') {
-      console.log('Es individual');
-      this.juegoDePuntosService.GET_HistorialPuntosAlumno(this.alumnoJuegoDePuntos[0].id)
-      .subscribe(historial => {
-        console.log(historial);
 
-        if (historial[0] !== null) {
-          for (let i = 0; i < historial.length; i++) {
-            this.historial[i] = new TablaHistorialPuntosAlumno (this.BuscarPunto(historial[i].puntoId).Nombre,
-            this.BuscarPunto(historial[i].puntoId).Descripcion, historial[i].ValorPunto, historial[i].alumnoJuegoDePuntosId,
-             historial[i].id, historial[i].puntoId);
-          }
-        } else {
-          this.historial = undefined;
+    this.juegoDePuntosService.GET_HistorialPuntosAlumno(this.alumnoJuegoDePuntos[0].id)
+    .subscribe(historial => {
+      console.log(historial);
+
+      if (historial[0] !== null) {
+        for (let i = 0; i < historial.length; i++) {
+          this.historial[i] = new TablaHistorialPuntosAlumno (this.BuscarPunto(historial[i].puntoId).Nombre,
+          this.BuscarPunto(historial[i].puntoId).Descripcion, historial[i].ValorPunto, historial[i].alumnoJuegoDePuntosId,
+           historial[i].id, historial[i].puntoId);
         }
+      } else {
+        this.historial = undefined;
+      }
+    });
 
-
-      });
-    } else {
-      console.log('Aqui van los equipos');
-    }
 
     this.historial = this.historial.filter(res => res.nombre !== '');
     this.historialTotal = this.historial;

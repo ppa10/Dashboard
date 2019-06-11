@@ -3,7 +3,9 @@
 
 
 <div class="contenedor">
-    <mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs>
+
+<mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs>
+
 
   <!-- LISTA DE EQUIPOS -->
   <mat-tab index = "0" label="Lista de equipos">
@@ -19,15 +21,26 @@
               Información sobre {{equipo.Nombre}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-            <p>
-                <img class ="logo" *ngIf="imagenLogo" hight = "100" width = "100" mat-card-image [src]="imagenLogo" >
-                <span style="font-weight: bold;">Miembros del equipo</span>
+            <div class="contenedor2">
+                <div>
+                <img class ="logo" *ngIf="imagenLogo" mat-card-image [src]="imagenLogo" >
+                </div>
+                <div style="margin-right: 20%">
+                <span style="font-weight: bold; margin-left: 16px; font-size: 130%;">Miembros del equipo</span>
                 <mat-list role="list" *ngFor="let alumno of alumnosEquipo">
                   <mat-list-item role="listitem">{{alumno.Nombre}} {{alumno.PrimerApellido}} {{alumno.SegundoApellido}}</mat-list-item>
                 </mat-list>
-                <button type="button" class="btn btn-info" routerLink= "editarEquipo" (click) = "EnviarEquipoEditar(equipo, alumnosEquipo)">Editar equipo</button>
-                <button type="button" class="btn btn-danger" (click) = "AbrirDialogoConfirmacionBorrar(equipo)">Eliminar equipo</button>
-            </p>
+                </div>
+                <div class="contenedor3" style="margin-right: 2% ">
+                  <div class="elemento">
+                    <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" routerLink= "editarEquipo" (click) = "EnviarEquipoEditar(equipo, alumnosEquipo)">Editar equipo</button>
+                  </div>
+                  <div class="elemento">
+                    <button type="button" style="background-color: rgb(212, 57, 52)" class="btn" (click) = "AbrirDialogoConfirmacionBorrar(equipo)">Eliminar equipo</button>
+                  </div>
+
+                </div>
+            </div>
 
         </mat-expansion-panel>
       </mat-accordion>

@@ -1,30 +1,47 @@
 <div class="titulo"><h2>Mis Grupos</h2></div>
-<mat-divider></mat-divider>
+<mat-divider style="width: 70%; margin-left : 15%"></mat-divider>
 
-<div class="contenedor contenedor2">
-    <div class="texto">
+<div class="contenedor contenedor3">
+  <div class="contenedor2">
+  <div class="texto" style=" text-align: left;">
         <p>
           <span style="font-weight: bold;">Nombre:</span>
           {{grupoSeleccionado.Nombre}}
         </p>
     </div>
-    <div class="texto">
+    <div class="texto" style=" text-align: left;">
         <p>
             <span style="font-weight: bold;">Descripción:</span>
             {{grupoSeleccionado.Descripcion}}
         </p>
     </div>
+  </div>
+  <div>
+    <div class="elemento elemento1"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn " (click) = EntrarEditarGrupo(); routerLink= "editarGrupo"><i class="material-icons">
+      edit </i> Editar Grupo </button></div>
+
+    <div class="elemento elemento5"> <button type="button" style="background-color: rgb(212, 57, 52)" class="btn" (click)="AbrirDialogoConfirmacionBorrar()">Eliminar Grupo <i class="material-icons">
+      delete
+      </i></button>
+
+    </div>
+  </div>
 </div>
 
 <div class="contenedor">
-  <div class="elemento elemento1"><button type="button" class="btn " (click) = EntrarEditarGrupo(); routerLink= "editarGrupo">Editar Grupo</button></div>
-      <div class="elemento elemento2"><button type="button" class="btn ">Pasar Lista</button>
-      </div>
-          <div class="elemento elemento3"> <button type="button" class="btn" (click) = EntrarEquipos(); routerLink= "equiposGrupo">Equipos</button>
+    <div class="elemento elemento2"><button type="button"  style="background-color: rgb(240, 173, 78)" class="btn ">Pasar Lista <i class="material-icons" >
+      list
+      </i></button>
+
+    </div>
+
+           <div class="elemento elemento3"> <button type="button"  style="background-color: rgb(92, 184, 92)" class="btn" (click) = EntrarEquipos(); routerLink= "equiposGrupo">Equipos <i class="material-icons">
+            group
+            </i></button>
           </div>
-          <div class="elemento elemento4"> <button type="button" class="btn "(click) = EntrarJuegos(); routerLink = "juegos">Juegos</button>
-          </div>
-          <div class="elemento elemento5"> <button type="button" class="btn" (click)="AbrirDialogoConfirmacionBorrar()">Eliminar Grupo</button>
+          <div class="elemento elemento4"> <button type="button"   style="background-color: rgb(51, 122, 183)"class="btn "(click) = EntrarJuegos(); routerLink = "juegos">Juegos <i class="material-icons">
+            videogame_asset
+            </i></button>
           </div>
 </div>
 
@@ -37,25 +54,25 @@
 
       <!-- Nombre Alumno Column -->
       <ng-container matColumnDef="nombreAlumno">
-        <th mat-header-cell *matHeaderCellDef style='color:black; text-align: center;'> Nombre </th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Nombre </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.Nombre}} </td>
       </ng-container>
 
       <!-- Primer Apellido Column -->
       <ng-container matColumnDef="primerApellido">
-        <th mat-header-cell *matHeaderCellDef style='color:black; text-align: center;'> Primer Apellido </th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Primer Apellido </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.PrimerApellido}} </td>
       </ng-container>
 
       <!-- Segundo Apellido Column -->
       <ng-container matColumnDef="segundoApellido">
-        <th mat-header-cell *matHeaderCellDef style='color:black; text-align: center;'> Segundo Apellido </th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Segundo Apellido </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.SegundoApellido}} </td>
       </ng-container>
 
       <!-- alumnoId Column -->
       <ng-container matColumnDef="alumnoId">
-        <th mat-header-cell *matHeaderCellDef style='color:black; text-align: center;'> Identificador Alumno </th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Identificador Alumno </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.id}} </td>
       </ng-container>
 

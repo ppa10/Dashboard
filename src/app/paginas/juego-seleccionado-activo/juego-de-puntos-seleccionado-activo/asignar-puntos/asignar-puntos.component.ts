@@ -46,6 +46,9 @@ export class AsignarPuntosComponent implements OnInit {
 
   alumnosEquipo: Alumno[];
 
+  // tslint:disable-next-line:ban-types
+  isDisabled: Boolean = true;
+
   constructor( private juegoService: JuegoService,
                private equipoService: EquipoService,
                private juegoDePuntosService: JuegoDePuntosService ) { }
@@ -119,6 +122,7 @@ export class AsignarPuntosComponent implements OnInit {
       this.seleccionados[i] = false;
     }
     console.log(this.seleccionados);
+    this.Disabled();
   }
 
   // Pone a true or false todo el vector seleccionado
@@ -128,8 +132,10 @@ export class AsignarPuntosComponent implements OnInit {
 
       if (!this.isAllSelected() === true) {
         this.seleccionados[i] = true;
+        this.BotonDesactivado();
       } else {
         this.seleccionados[i] = false;
+        this.isDisabled = true;
       }
 
     }
@@ -176,7 +182,8 @@ export class AsignarPuntosComponent implements OnInit {
     } else {
       this.seleccionadosEquipos[i] = false;
     }
-    console.log(this.seleccionadosEquipos);
+
+    this.Disabled();
   }
 
   // Pone a true or false todo el vector seleccionado
@@ -186,8 +193,11 @@ export class AsignarPuntosComponent implements OnInit {
 
       if (!this.isAllSelectedEquipos() === true) {
         this.seleccionadosEquipos[i] = true;
+        // Como se que todos estarán seleccionados, debo ver si ya he seleccionado el punto y el valor
+        this.BotonDesactivado();
       } else {
         this.seleccionadosEquipos[i] = false;
+        this.isDisabled = true;
       }
 
     }
@@ -207,6 +217,7 @@ export class AsignarPuntosComponent implements OnInit {
 
     this.selection.clear();
     this.selectionEquipos.clear();
+    this.isDisabled = true;
     this.seleccionados = Array(this.rankingJuegoDePuntos.length).fill(false);
     this.seleccionadosEquipos = Array(this.rankingEquiposJuegoDePunto.length).fill(false);
   }
@@ -537,10 +548,39 @@ export class AsignarPuntosComponent implements OnInit {
     });
   }
 
-  prueba() {
-    console.log(this.listaEquiposOrdenadaPorPuntos[0]);
-    console.log(this.listaEquiposOrdenadaPorPuntos);
-    console.log(this.rankingEquiposJuegoDePunto);
+  BotonDesactivado() {
+
+    console.log('voy a ver si hay algo en los inputs');
+    if (this.puntoSeleccionadoId !== undefined && this.valorPunto !== undefined && this.valorPunto !== null) {
+      console.log('hay algo, disabled');
+      this.isDisabled = false;
+    } else {
+      console.log('no hay nada');
+      this.isDisabled = true;
+    }
+  }
+
+  Disabled() {
+    if (this.juegoSeleccionado.Modo === 'Individual') {
+
+      if (this.seleccionados.filter(res => res === true)[0] !== undefined) {
+        console.log('Hay alguno seleccionado');
+        this.BotonDesactivado();
+      } else {
+        console.log('No hay alguno seleccionado');
+        this.isDisabled = true;
+      }
+
+    } else {
+
+      if (this.seleccionadosEquipos.filter(res => res === true)[0] !== undefined) {
+        console.log('Hay alguno seleccionado');
+        this.BotonDesactivado();
+      } else {
+        console.log('No hay alguno seleccionado');
+        this.isDisabled = true;
+      }
+    }
   }
 
 }

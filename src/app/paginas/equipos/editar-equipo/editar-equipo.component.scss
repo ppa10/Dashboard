@@ -6,6 +6,27 @@ table {
   width: 60%;
 }
 
+.contenedor{
+
+  width: 70%;
+  margin-left: 15%;
+  height: auto;
+  padding: 10px;
+  border: 10px solid transparent;
+  background-color: transparent;
+
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+
+  justify-content: center;
+  align-items: center;
+  /* align-content:   */
+  /*flex-direction: row;
+  flex-wrap: wrap;
+  flex-flow: row wrap;*/
+
+}
 .material-icons.red { color: rgb(228, 8, 8); }
 
 .material-icons.md-36 { font-size: 36px; }

@@ -1,17 +1,17 @@
 <h2>Asignar Puntos</h2>
 <mat-divider></mat-divider>
 
-<h4>Selecciona el punto que desea asignar y el valor</h4>
+<h5>Selecciona el punto que desea asignar y el valor:</h5>
 <mat-form-field>
-  <mat-label>Punto</mat-label>
-  <select matNativeControl [(ngModel)]="puntoSeleccionadoId" name="punto">
+  <mat-label>Punto...</mat-label>
+  <select matNativeControl (change) = "Disabled()" [(ngModel)]="puntoSeleccionadoId" name="punto">
     <option *ngFor="let punto of puntosDelJuego" [value]="punto.id">
       {{punto.Nombre}}
     </option>
   </select>
 </mat-form-field>
 <span>Valor: </span>
-<input type="number" name="valorPunto" placeholder="Escribe el valor del punto" requiered [(ngModel)]="valorPunto">
+<input (keyup)="Disabled()" type="number" name="valorPunto" placeholder="Escribe el valor del punto" requiered [(ngModel)]="valorPunto">
 
 <form>
   <table *ngIf="rankingJuegoDePuntos[0]" mat-table [dataSource]="rankingJuegoDePuntos" class="mat-elevation-z8">
@@ -158,6 +158,4 @@
 <form>
 
 </form>
-<button (click) = "AsignarPuntos()">Asignar</button>
-<button (click) = "prueba()">Pureba</button>
-
+<button type="button" [disabled]="isDisabled" class="btn btn-success" (click) = AsignarPuntos()>Asignar</button>

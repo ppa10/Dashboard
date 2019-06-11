@@ -32,6 +32,8 @@ export class JuegoDePuntosService {
 
   inscripcionAlumnoJuego: AlumnoJuegoDePuntos;
 
+  inscripcionEquipoJuego: EquipoJuegoDePuntos;
+
 
   puntos: Punto[];
   niveles: Nivel[];
@@ -133,6 +135,16 @@ export class JuegoDePuntosService {
     return this.http.delete<HistorialPuntosAlumno[]>(this.APIURLHistorialPuntosAlumno + '/' + historialPuntosAlumnoId);
   }
 
+  GET_HistorialPuntosEquipo(equipoJuegoDePuntosId: number): Observable<HistorialPuntosEquipo[]> {
+    return this.http.get<HistorialPuntosEquipo[]>(this.APIURLHistorialPuntosEquipo + '?filter[where][equipoJuegoDePuntosId]='
+     + equipoJuegoDePuntosId);
+  }
+
+  DELETE_PuntosEquipo(historialPuntosEquipoId: number): Observable<HistorialPuntosEquipo[]> {
+    return this.http.delete<HistorialPuntosEquipo[]>(this.APIURLHistorialPuntosEquipo + '/' + historialPuntosEquipoId);
+  }
+
+
 
 
 
@@ -190,5 +202,13 @@ export class JuegoDePuntosService {
 
   RecibirInscripcionDelServicio(): any {
     return this.inscripcionAlumnoJuego;
+  }
+
+  EnviarInscripcionEquipoAlServicio(inscripcionEquipoJuego: any) {
+    this.inscripcionEquipoJuego = inscripcionEquipoJuego;
+  }
+
+  RecibirInscripcionEquipoDelServicio(): any {
+    return this.inscripcionEquipoJuego;
   }
 }
