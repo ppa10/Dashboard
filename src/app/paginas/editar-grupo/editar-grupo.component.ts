@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AgregarAlumnoDialogComponent } from '../crear-grupo/agregar-alumno-dialog/agregar-alumno-dialog.component';
+import {MatTableDataSource} from '@angular/material/table';
 
 // Clases
 import { Grupo, Alumno } from '../../clases/index';
@@ -36,6 +37,8 @@ export class EditarGrupoComponent implements OnInit {
   nombreGrupo: string;
   descripcionGrupo: string;
 
+  dataSource;
+
 
   displayedColumns: string[] = ['select', 'nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
   selection = new SelectionModel<Alumno>(true, []);
@@ -66,8 +69,13 @@ export class EditarGrupoComponent implements OnInit {
     if (this.alumnosGrupoSeleccionado !== undefined) {
       // Al principio no hay alumnos seleccionados para eliminar
       this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
+      this.dataSource = new MatTableDataSource(this.alumnosGrupoSeleccionado);
     }
 
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -135,6 +143,7 @@ export class EditarGrupoComponent implements OnInit {
       if (res[0] !== undefined) {
         console.log('entro a actualizar la tabla');
         this.alumnosGrupoSeleccionado = res;
+        this.dataSource = new MatTableDataSource(this.alumnosGrupoSeleccionado);
         this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
         console.log(res);
 

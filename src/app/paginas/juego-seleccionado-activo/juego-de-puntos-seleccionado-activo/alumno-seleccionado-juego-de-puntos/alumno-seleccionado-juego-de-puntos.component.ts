@@ -7,6 +7,10 @@ import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDe
 // Services
 import { JuegoService, JuegoDePuntosService, AlumnoService } from '../../../../servicios/index';
 
+// Imports para abrir diálogo
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { DialogoConfirmacionComponent } from '../../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
+
 @Component({
   selector: 'app-alumno-seleccionado-juego-de-puntos',
   templateUrl: './alumno-seleccionado-juego-de-puntos.component.html',
@@ -39,10 +43,17 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
   displayedColumnsAlumnos: string[] = ['nombre', 'descripcion', 'valorPunto', ' '];
 
+  // tslint:disable-next-line:no-inferrable-types
+  mensaje: string = 'Estás seguro/a de que quieres borrar estos puntos a ';
+
+  posicion: number;
+
 
   constructor( private juegoService: JuegoService,
                private alumnoService: AlumnoService,
                private juegoDePuntosService: JuegoDePuntosService,
+               public dialog: MatDialog,
+               public snackBar: MatSnackBar,
                private http: Http  ) { }
 
   ngOnInit() {
@@ -52,6 +63,9 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
     this.alumnoJuegoDePuntos = this.juegoDePuntosService.RecibirInscripcionDelServicio();
 
     this.puntosDelJuego = this.juegoDePuntosService.RecibirPuntosDelServicio();
+    this.posicion = this.juegoDePuntosService.RecibirPosicionDelServicio();
+    console.log('muestro la posicion ' + this.posicion);
+    console.log(this.posicion);
 
     this.Nivel();
     this.GET_ImagenPerfil();
@@ -178,49 +192,37 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
     // Si es indefinido muestro la tabla del total de puntos
     if (this.puntosDelJuego.filter(res => res.id === Number(this.puntoSeleccionadoId))[0] === undefined) {
-      if (this.juegoSeleccionado.Modo === 'Individual') {
-        console.log('Tabla historial de todos los puntos');
-        this.HistorialTotal();
-        // this.TablaClasificacionTotal();
-      } else {
-        // Recuperar inscripciones de los equipo
-      }
-    } else {
-      if (this.juegoSeleccionado.Modo === 'Individual') {
-        console.log('Tabla historial de un punto concreto');
 
-        this.HistorialPorPunto();
-        // this.ClasificacionPorTipoDePunto();
-      } else {
-        // Recuperar inscripciones de los equipo
-      }
+      console.log('Tabla historial de todos los puntos');
+      this.HistorialTotal();
+
+    } else {
+      console.log('Tabla historial de un punto concreto');
+
+      this.HistorialPorPunto();
+
     }
   }
 
   HistorialTotal() {
     console.log('Voy a por el historial');
     this.historial = [];
-    if (this.juegoSeleccionado.Modo === 'Individual') {
-      console.log('Es individual');
-      this.juegoDePuntosService.GET_HistorialPuntosAlumno(this.alumnoJuegoDePuntos[0].id)
-      .subscribe(historial => {
-        console.log(historial);
 
-        if (historial[0] !== null) {
-          for (let i = 0; i < historial.length; i++) {
-            this.historial[i] = new TablaHistorialPuntosAlumno (this.BuscarPunto(historial[i].puntoId).Nombre,
-            this.BuscarPunto(historial[i].puntoId).Descripcion, historial[i].ValorPunto, historial[i].alumnoJuegoDePuntosId,
-             historial[i].id, historial[i].puntoId);
-          }
-        } else {
-          this.historial = undefined;
+    this.juegoDePuntosService.GET_HistorialPuntosAlumno(this.alumnoJuegoDePuntos[0].id)
+    .subscribe(historial => {
+      console.log(historial);
+
+      if (historial[0] !== null) {
+        for (let i = 0; i < historial.length; i++) {
+          this.historial[i] = new TablaHistorialPuntosAlumno (this.BuscarPunto(historial[i].puntoId).Nombre,
+          this.BuscarPunto(historial[i].puntoId).Descripcion, historial[i].ValorPunto, historial[i].alumnoJuegoDePuntosId,
+           historial[i].id, historial[i].puntoId);
         }
+      } else {
+        this.historial = undefined;
+      }
+    });
 
-
-      });
-    } else {
-      console.log('Aqui van los equipos');
-    }
 
     this.historial = this.historial.filter(res => res.nombre !== '');
     this.historialTotal = this.historial;
@@ -311,6 +313,26 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
       console.log('punto bronce');
     }
 
+  }
+
+  AbrirDialogoConfirmacionBorrarPunto(punto: TablaHistorialPuntosAlumno): void {
+
+    const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
+      height: '150px',
+      data: {
+        mensaje: this.mensaje,
+        nombre: this.alumnoSeleccionado[0].Nombre,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.BorrarPunto(punto);
+        this.snackBar.open('Puntos eliminados correctamente', 'Cerrar', {
+          duration: 2000,
+        });
+      }
+    });
   }
 
 

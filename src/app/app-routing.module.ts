@@ -25,6 +25,7 @@ import { MisColeccionesComponent } from './paginas/mis-colecciones/mis-coleccion
 import { InformacionJuegoPuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/informacion-juego-puntos/informacion-juego-puntos.component';
 // tslint:disable-next-line:max-line-length
 import { EquipoSeleccionadoJuegoDePuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/equipo-seleccionado-juego-de-puntos/equipo-seleccionado-juego-de-puntos.component';
+import { JuegoSeleccionadoInactivoComponent } from './paginas/juego-seleccionado-inactivo/juego-seleccionado-inactivo.component';
 
 
 
@@ -47,6 +48,10 @@ const routes: Routes = [
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionAlumnoJuego', component: AlumnoSeleccionadoJuegoDePuntosComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionJuego', component: InformacionJuegoPuntosComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionEquipoJuego', component: EquipoSeleccionadoJuegoDePuntosComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo', component: JuegoSeleccionadoInactivoComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionJuego', component: InformacionJuegoPuntosComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionAlumnoJuego', component: AlumnoSeleccionadoJuegoDePuntosComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionEquipoJuego', component: EquipoSeleccionadoJuegoDePuntosComponent },
 
   { path: 'inicio/:id/crearColeccion', component: CrearColeccionComponent },
   { path: 'inicio/:id/misColecciones', component: MisColeccionesComponent },

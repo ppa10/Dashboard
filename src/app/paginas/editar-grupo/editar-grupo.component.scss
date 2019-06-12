@@ -1,9 +1,15 @@
 table {
-  width: 50%;
+  width: 60%;
   text-align: center;
   align-content: center;
-
 }
+
+.filter {
+  width: 60%;
+  font-size: 14px;
+  margin-left: 20%;
+}
+
 input[type=text] {
   border: none;
   border-bottom: 1px solid rgb(63, 81, 181);

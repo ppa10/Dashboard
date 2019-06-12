@@ -46,7 +46,6 @@ export class NavbarComponent implements OnInit {
     this.URLCrearColeccion = this.URLInicio + '/crearColeccion';
 
 
-
   }
 
 

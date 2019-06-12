@@ -19,11 +19,7 @@
           </select>
       </mat-form-field>
 
-
-
-
         <div>
-
           <mat-list>
 
             <!-- ///////////////////////// LISTA DE JUEGOS ACTIVOS /////////////////////////////////-->
@@ -47,7 +43,7 @@
             <h3 class = "CabeceraInactivos" mat-subheader>Juegos Inactivos</h3>
               <form *ngIf="ListaJuegosSeleccionadoInactivo;else Aviso_no_juegos_inactivos">
                 <form *ngIf="ListaJuegosSeleccionadoInactivo[0];else Aviso_no_juegos_inactivos">
-                  <mat-list-item *ngFor="let juego of ListaJuegosSeleccionadoInactivo">
+                  <mat-list-item *ngFor="let juego of ListaJuegosSeleccionadoInactivo" (click) = JuegoSeleccionado(juego) routerLink = "juegoSeleccionadoInactivo">
                     <mat-icon mat-list-icon><i class="material-icons red">history</i></mat-icon>
                     <h4 class= "ItemsInactivos" mat-line>{{juego.Tipo}}</h4>
                     <p class= "ItemsInactivos" mat-line> {{juego.Modo}} </p>
@@ -219,6 +215,3 @@
   </mat-tab>
 </mat-tab-group>
 
-<div>
-  <button mat-raised-button color="primary" (click)= "prueba()">Prueba</button>
-</div>

@@ -61,7 +61,9 @@ import { MisColeccionesComponent } from './paginas/mis-colecciones/mis-coleccion
 import { InformacionJuegoPuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/informacion-juego-puntos/informacion-juego-puntos.component';
 // tslint:disable-next-line:max-line-length
 import { EquipoSeleccionadoJuegoDePuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/equipo-seleccionado-juego-de-puntos/equipo-seleccionado-juego-de-puntos.component';
-
+import { JuegoSeleccionadoInactivoComponent } from './paginas/juego-seleccionado-inactivo/juego-seleccionado-inactivo.component';
+// tslint:disable-next-line:max-line-length
+import { JuegoDePuntosSeleccionadoInactivoComponent } from './paginas/juego-seleccionado-inactivo/juego-de-puntos-seleccionado-inactivo/juego-de-puntos-seleccionado-inactivo.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
@@ -69,6 +71,7 @@ import { HttpClientModule } from '@angular/common/http';
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
+
 
 
 
@@ -111,7 +114,9 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     CrearColeccionComponent,
     MisColeccionesComponent,
     InformacionJuegoPuntosComponent,
-    EquipoSeleccionadoJuegoDePuntosComponent
+    EquipoSeleccionadoJuegoDePuntosComponent,
+    JuegoSeleccionadoInactivoComponent,
+    JuegoDePuntosSeleccionadoInactivoComponent
   ],
   imports: [
     BrowserModule,
