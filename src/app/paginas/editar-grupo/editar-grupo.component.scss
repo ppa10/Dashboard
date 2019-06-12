@@ -1,13 +1,45 @@
+.titulo{
+  width: 70%;
+  margin-left: 15%;
+  height: 60px;
+  padding: 10px;
+  color: rgb(63, 81, 181);
+
+}
+
+.h2, h2 {
+  font-size: 2.5rem !important;
+}
+
 table {
   width: 60%;
   text-align: center;
   align-content: center;
 }
 
+.letraCabecera{
+  color:white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 90%;
+}
+
+
 .filter {
   width: 60%;
   font-size: 14px;
   margin-left: 20%;
+}
+
+.mat-header-row{
+
+  text-align: center;
+  background-color:rgb(63, 81, 181);
+  }
+
+.mat-row:hover {
+  background-color: rgb(204, 197, 197);
+  cursor: pointer;
 }
 
 input[type=text] {
@@ -22,43 +54,61 @@ input[type=text] {
   text-align: center;
 
 }
-.mat-header-row{
 
-  text-align: center;
-  background-color:rgb(63, 81, 181);
-  }
-  .mat-row:hover {
-    background-color: rgb(204, 197, 197);
-    cursor: pointer;
-  }
-  .contenedor{
-    width: auto;
-    height: auto;
-    padding: 10px;
-    border: 10px solid transparent;
-    background-color: transparent;
+.contenedor{
 
-    display: flex;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+  width: 70%;
+  margin-left: 15%;
+  height: auto;
+  padding: 10px;
+  border: 10px solid transparent;
+  background-color: transparent;
 
-    justify-content: center;
-    align-items: center;
-    /* align-content:   */
-    /*flex-direction: row;
-    flex-wrap: wrap;
-    flex-flow: row wrap;*/
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
 
-  }
-  .contenedor2{
-    height: 100px;
-    // margin: 5px;
-    justify-content: left;
-    flex-direction: column;
-    align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+}
+.contenedor2{
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
 
-  }
-  .elemento{
+  justify-content: left ;
+  flex-direction: column;
+  // align-items: flex-start;
+  border: solid transparent;
+
+}
+.contenedor3{
+  justify-content: space-between;
+  border: solid transparent;
+
+}
+.elemento{
+/* color:rgba(0,0,0,.87); */
+margin: 5px;
+width: auto;
+height: auto;
+background-color:transparent;
+text-align: center;
+align-items: center;
+
+}
+.material-icons{
+  width: 15px;
+  height: 15px;
+}
+
+.btn{
+  align-items: center;
+  color: white;
+  width: 170px;
+}
+
+.elemento{
   /* color:rgba(0,0,0,.87); */
   margin: 5px;
   width: auto;
@@ -66,16 +116,18 @@ input[type=text] {
   background-color:transparent;
   text-align: center;
 
-  }
-  .btn{
-    background-color: rgb(233, 30, 99);
-    color: white;
-  }
+}
 
-  .texto{
-    // margin: 5px;
-    width: auto;
-    height: auto;
-    background-color:transparent;
-    text-align: center;
-  }
+.texto{
+  // margin: 5px;
+  width: auto;
+  height: auto;
+  background-color:transparent;
+  text-align: center;
+  font-size: 110% !important;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
