@@ -10,6 +10,8 @@
       {{alumnoSeleccionado[0].Nombre}} {{alumnoSeleccionado[0].PrimerApellido}} {{alumnoSeleccionado[0].SegundoApellido}}
       <span style="font-weight: bold;">Puntos:</span>
       {{alumnoJuegoDePuntos[0].PuntosTotalesAlumno}}
+      <span style="font-weight: bold;">Posición Total</span>
+      {{posicion}}º
     </p>
 
 </div>
@@ -79,7 +81,7 @@
     <ng-container matColumnDef=" ">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let punto">
-          <button (click) = "BorrarPunto(punto)" mat-icon-button matTooltip="Eliminar punto al alumno">
+          <button (click) = "AbrirDialogoConfirmacionBorrarPunto(punto)" mat-icon-button matTooltip="Eliminar punto al alumno">
             <i class="material-icons red md-36">delete</i>
           </button>
       </td>

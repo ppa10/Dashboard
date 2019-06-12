@@ -7,6 +7,11 @@ import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDe
 // Services
 import { JuegoService, JuegoDePuntosService, AlumnoService, EquipoService } from '../../../../servicios/index';
 
+
+// Imports para abrir diálogo
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { DialogoConfirmacionComponent } from '../../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
+
 @Component({
   selector: 'app-equipo-seleccionado-juego-de-puntos',
   templateUrl: './equipo-seleccionado-juego-de-puntos.component.html',
@@ -40,9 +45,16 @@ export class EquipoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
   displayedColumnsAlumnos: string[] = ['nombre', 'descripcion', 'valorPunto', ' '];
 
+  // tslint:disable-next-line:no-inferrable-types
+  mensaje: string = 'Estás seguro/a de que quieres borrar estos puntos a ';
+
+  posicion: number;
+
   constructor( private juegoService: JuegoService,
                private equipoService: EquipoService,
                private juegoDePuntosService: JuegoDePuntosService,
+               public dialog: MatDialog,
+               public snackBar: MatSnackBar,
                private http: Http) { }
 
   ngOnInit() {
@@ -52,6 +64,7 @@ export class EquipoSeleccionadoJuegoDePuntosComponent implements OnInit {
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
     this.equipoJuegoDePuntos = this.juegoDePuntosService.RecibirInscripcionEquipoDelServicio();
     this.puntosDelJuego = this.juegoDePuntosService.RecibirPuntosDelServicio();
+    this.posicion = this.juegoDePuntosService.RecibirPosicionDelServicio();
 
 
     this.Nivel();
@@ -237,6 +250,7 @@ export class EquipoSeleccionadoJuegoDePuntosComponent implements OnInit {
     this.historial = this.historialTotal;
     this.historial = this.historial.filter(historial => historial.puntoId === Number(this.puntoSeleccionadoId));
     return this.historial;
+    console.log(this.historial);
   }
 
   BuscarPunto(puntoId: number): Punto {
@@ -315,7 +329,26 @@ export class EquipoSeleccionadoJuegoDePuntosComponent implements OnInit {
       return undefined;
       console.log('punto bronce');
     }
+  }
 
+  AbrirDialogoConfirmacionBorrarPunto(punto: TablaHistorialPuntosEquipo): void {
+
+    const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
+      height: '150px',
+      data: {
+        mensaje: this.mensaje,
+        nombre: this.equipoSeleccionado[0].Nombre,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.BorrarPunto(punto);
+        this.snackBar.open('Puntos eliminados correctamente', 'Cerrar', {
+          duration: 2000,
+        });
+      }
+    });
   }
 
   prueba() {

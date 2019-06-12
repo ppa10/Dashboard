@@ -7,6 +7,10 @@ import { Alumno, Equipo, Juego, Punto, Nivel, AlumnoJuegoDePuntos, EquipoJuegoDe
 // Services
 import { JuegoService, JuegoDePuntosService, AlumnoService } from '../../../../servicios/index';
 
+// Imports para abrir diálogo
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { DialogoConfirmacionComponent } from '../../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
+
 @Component({
   selector: 'app-alumno-seleccionado-juego-de-puntos',
   templateUrl: './alumno-seleccionado-juego-de-puntos.component.html',
@@ -39,10 +43,17 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
 
   displayedColumnsAlumnos: string[] = ['nombre', 'descripcion', 'valorPunto', ' '];
 
+  // tslint:disable-next-line:no-inferrable-types
+  mensaje: string = 'Estás seguro/a de que quieres borrar estos puntos a ';
+
+  posicion: number;
+
 
   constructor( private juegoService: JuegoService,
                private alumnoService: AlumnoService,
                private juegoDePuntosService: JuegoDePuntosService,
+               public dialog: MatDialog,
+               public snackBar: MatSnackBar,
                private http: Http  ) { }
 
   ngOnInit() {
@@ -52,6 +63,9 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
     this.alumnoJuegoDePuntos = this.juegoDePuntosService.RecibirInscripcionDelServicio();
 
     this.puntosDelJuego = this.juegoDePuntosService.RecibirPuntosDelServicio();
+    this.posicion = this.juegoDePuntosService.RecibirPosicionDelServicio();
+    console.log('muestro la posicion ' + this.posicion);
+    console.log(this.posicion);
 
     this.Nivel();
     this.GET_ImagenPerfil();
@@ -299,6 +313,26 @@ export class AlumnoSeleccionadoJuegoDePuntosComponent implements OnInit {
       console.log('punto bronce');
     }
 
+  }
+
+  AbrirDialogoConfirmacionBorrarPunto(punto: TablaHistorialPuntosAlumno): void {
+
+    const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
+      height: '150px',
+      data: {
+        mensaje: this.mensaje,
+        nombre: this.alumnoSeleccionado[0].Nombre,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.BorrarPunto(punto);
+        this.snackBar.open('Puntos eliminados correctamente', 'Cerrar', {
+          duration: 2000,
+        });
+      }
+    });
   }
 
 

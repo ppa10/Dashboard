@@ -272,7 +272,6 @@ export class JuegoComponent implements OnInit {
   // Función que usaremos para clicar en un juego y entrar en él, enviándolo al servicio
   JuegoSeleccionado(juego: Juego) {
     this.juegoService.EnviarJuegoAlServicio(juego);
-    // enviaremos los alumnos tmb
   }
 
 
@@ -330,7 +329,6 @@ export class JuegoComponent implements OnInit {
     }
   }
 
-
   // Función que usaremos para crear un juego de puntos. Hay que diferenciar entre los tres juegos porque la URL es diferente
   CrearJuegoDePuntos() {
     this.juegoDePuntosService.POST_JuegoDePuntos(new Juego (this.tipoDeJuegoSeleccionado, this.modoDeJuegoSeleccionado), this.grupoId)
@@ -384,7 +382,6 @@ export class JuegoComponent implements OnInit {
   }
 
 
-
   // INSCRIBE A TODOS LOS EQUIPOS DEL GRUPO DONDE SE CREA EL JUEGO Y PONE SUS PUNTOS A 0
   InscribirEquiposJuego() {
     console.log('Voy a inscribir los equipos al grupo');
@@ -395,7 +392,6 @@ export class JuegoComponent implements OnInit {
       this.juegoDePuntosService.POST_EquipoJuegoDePuntos(new EquipoJuegoDePuntos(this.equiposGrupo[i].id, this.juego.id))
       .subscribe(equiposJuego => console.log(equiposJuego));
     }
-
   }
 
   prueba() {
