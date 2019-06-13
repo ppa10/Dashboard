@@ -106,37 +106,30 @@
                         group_add
                         </i>Agregar alumno</button>
                 </div>
-                <div class="contenedor2">
+                <!-- <div class="contenedor2">
               <table *ngIf="alumnosEquipoCreado;else Aviso_no_alumnos" mat-table [dataSource]="alumnosEquipoCreado" class="example-container mat-elevation-z8">
 
-                <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
 
-                <!-- Nombre Alumno Column -->
                 <ng-container matColumnDef="nombreAlumno">
                   <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 23%"> Nombre </th>
                   <td mat-cell *matCellDef="let alumno"> {{alumno.Nombre}} </td>
                 </ng-container>
 
-                <!-- Primer Apellido Column -->
                 <ng-container matColumnDef="primerApellido">
                   <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 23%"> Primer Apellido </th>
                   <td mat-cell *matCellDef="let alumno"> {{alumno.PrimerApellido}} </td>
                 </ng-container>
 
-                <!-- Segundo Apellido Column -->
-                <ng-container matColumnDef="segundoApellido">
+               <ng-container matColumnDef="segundoApellido">
                   <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 23%"> Segundo Apellido </th>
                   <td mat-cell *matCellDef="let alumno"> {{alumno.SegundoApellido}} </td>
                 </ng-container>
 
-                <!-- alumnoId Column -->
                 <ng-container matColumnDef="alumnoId">
                   <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 23%"> Identificador Alumno </th>
                   <td mat-cell *matCellDef="let alumno"> {{alumno.id}} </td>
                 </ng-container>
 
-                    <!-- Delete Column -->
                 <ng-container matColumnDef=" ">
                   <th mat-header-cell *matHeaderCellDef class="letraCabecera" ></th>
                   <td mat-cell *matCellDef="let alumno">
@@ -150,7 +143,9 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
               </table>
-            </div>
+            </div> -->
+
+              <ng-template *ngIf="alumnosEquipoCreado;else Aviso_no_alumnos"> Se han añadido correctamente los alumnos.</ng-template>
               <ng-template #Aviso_no_alumnos>Este equipo no tiene alumnos.</ng-template>
               </div>
             </form>
@@ -183,7 +178,4 @@
 
   </mat-tab>
 </mat-tab-group>
-</div>
-<div>
-  <button mat-raised-button color="primary" (click)= "goBack()">Volver</button>
 </div>
