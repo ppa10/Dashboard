@@ -1,32 +1,83 @@
-<h2>Crear Puntos e Insignias</h2>
+<h2>Crear Coleccion</h2>
 <mat-divider></mat-divider>
-<!--
-<form [formGroup]="myForm" class="contenedor">
+
+<!-- CREAR EQUIPO -->
+<!-- <mat-tab label="Crear equipo"> -->
+
+  <!-- STEPPER -->
+  <form [formGroup]="myForm">
+
+    <mat-card class="panel">
+
+      <mat-card-content>
+
+      <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true" #stepper>
+
+
+        <!-- PRIMER PASO -->
+        <mat-step [stepControl]="myForm">
+          <ng-template matStepLabel>Nombre y logo</ng-template>
+          <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombreColeccion" required>
+            <mat-error>Este campo es obligatorio</mat-error>
+          </mat-form-field>
+
+          <div>
+              <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarLogo($event)" style="display:none">
+              <img *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo" >
+              <button (click) = "ActivarInput()" type="button" class="btn btn-info">
+                <i class="material-icons">add_photo_alternate</i>
+                Agregar logo
+              </button>
+          </div>
+
+
+          <div>
+            <button *ngIf="coleccionYaCreada === false" mat-button matStepperNext (click)= CrearColeccion()>Siguiente</button>
+            <button *ngIf="coleccionYaCreada === true" mat-button matStepperNext (click)= EditarColeccion() >Siguiente</button>
+          </div>
+        </mat-step>
+
+
+
+        <!-- PASO FINALIZAR -->
+        <mat-step>
+          <ng-template matStepLabel>Finalizar</ng-template>
+          Equipo creado correctamente. Clique en "Finalizar" para guardar los cambios.
+          <!-- <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <button mat-raised-button color="primary" (click) = "Finalizar()">Finalizar</button>
+          </div> -->
+        </mat-step>
+      </mat-horizontal-stepper>
+    </mat-card-content>
+  </mat-card>
+  </form>
+
+
+<!-- </mat-tab> -->
+ <!-- <form [formGroup]="myForm" class="contenedor">
   <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true" style="width: 700px">
 
     <mat-step [stepControl]="myForm">
       <ng-template matStepLabel>Crear colección</ng-template>
 
-     <div class="contenedor">
      <div class="contenedor contenedor2">
       <mat-card class="panel">
         <mat-card class="panelInsignia">
 
           <mat-card-header>
-            <mat-card-title>Crear nueva insignia</mat-card-title>
+            <mat-card-title>Crear nueva coleccion</mat-card-title>
             <mat-card-subtitle>Introduce los parámetros</mat-card-subtitle>
           </mat-card-header>
 
           <mat-card-content>
             <div class="form-group">
-                <label for="inputNombreInsignia">Nombre</label>
-                <input (keyup)="DisabledInsignia()" type="text" id="inputNombreInsignia" class="form-control" requiered [(ngModel)]="nombreInsignia" placeholder="Escribe el nombre de la insignia">
+                <label for="inputNombreColeccion">Nombre</label>
+                <input (keyup)="DisabledInsignia()" type="text" id="inputNombreColeccion" class="form-control" requiered [(ngModel)]="nombreColeccion" placeholder="Escribe el nombre de la coleccion">
             </div>
 
-            <div class="form-group">
-              <label for="textareaDescripcionInsignia">Descripción</label>
-              <textarea (keyup)="DisabledInsignia()" class="form-control" id="textareaDescripcionInsignia" requiered [(ngModel)]="descripcionInsignia" placeholder="Escribe la descripción de la insignia" rows="4"></textarea>
-            </div>
           </mat-card-content>
 
           <mat-card-actions >
@@ -40,20 +91,21 @@
               </div>
 
             <div align="end">
-            <button style="margin: 5px" (click) = "CrearInsignia();" [disabled]="isDisabledInsignias" type="button" class="btn btn-primary">Crear Insignia</button>
+            <button style="margin: 5px" (click) = "CrearColeccion();" <[disabled]="isDisabledInsignias" type="button" class="btn btn-primary">Crear Insignia</button>
             <button style="margin: 5px" (click) = "LimpiarCamposInsignia()" type="button" class="btn btn-light">Limpiar Campos</button>
           </div>
 
           </mat-card-actions>
 
         </mat-card>
-    </div> -->
+      </mat-card>
+    </div>
 
-    <!-- <div>
+    <div>
       <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo() matStepperNext>Siguiente</button>
       <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() matStepperNext>Siguiente</button>
-    </div> -->
-<!--
+    </div>
+
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Finalizar</ng-template>

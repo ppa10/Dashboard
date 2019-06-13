@@ -43,6 +43,9 @@ export class CrearColeccionComponent implements OnInit {
   logoCargado: Boolean = false;
 
 
+  nombreColeccion: string;
+
+
   constructor(
     private coleccionService: ColeccionService,
     private profesorService: ProfesorService,
@@ -69,6 +72,7 @@ export class CrearColeccionComponent implements OnInit {
     nombreColeccion = this.myForm.value.nombreColeccion;
 
     console.log('Entro a crear el equipo ' + nombreColeccion);
+    console.log(this.nombreLogo);
 
     // Hace el POST del equipo
     this.coleccionService.POST_Coleccion(new Coleccion(nombreColeccion, this.nombreLogo), this.profesorId)
@@ -121,7 +125,7 @@ export class CrearColeccionComponent implements OnInit {
     // Si estamos creando el equipo y pasamos al siguiente paso, pero volvemos hacia atrás para modificar el nombre y/o el
   // logo, entonces no deberemos hacer un POST al darle a siguiente, sino un PUT. Por eso se hace esta función, que funciona
   // de igual manera que la de Crear Equipo pero haciendo un PUT.
-  EditarEquipo() {
+  EditarColeccion() {
 
     console.log('Entro a editar');
     let nombreColeccion: string;

@@ -1,5 +1,5 @@
-<h2>Crear Grupo</h2>
-<mat-divider></mat-divider>
+<div class="titulo"><h2>Crear Grupo</h2></div>
+<mat-divider style="width: 70%; margin-left : 15%"></mat-divider>
 
 <form [formGroup]="myForm" class="contenedor">
 
@@ -23,9 +23,9 @@
                     </mat-form-field>
                   </div>
 
-                  <div>
-                    <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button color="primary" (click)= CrearGrupo() matStepperNext>Siguiente</button>
-                    <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button color="primary" (click)= EditarGrupo() matStepperNext>Siguiente</button>
+                  <div class="btnCambiarStep">
+                    <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button style="background-color: rgb(63, 81, 181)" class="btn"  (click)= CrearGrupo() matStepperNext>Siguiente</button>
+                    <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button style="background-color: rgb(63, 81, 181)" class="btn"  (click)= EditarGrupo() matStepperNext>Siguiente</button>
                   </div>
 
                 </mat-step>
@@ -35,22 +35,16 @@
                   <ng-template matStepLabel>
                     <div>Añadir alumnos</div>
                   </ng-template>
-                  <div class="contenedor contenedor2">
                   <div>
-                    <button mat-raised-button style="margin: 5px;"  color="green" (click)= "AbrirDialogoAgregarAlumnos()"><i class="material-icons">
-                        person_add
-                        </i></button>
+                  <div>
+                    <button mat-raised-button style="background-color: rgb(63, 81, 181)" class="btn" (click)= "AbrirDialogoAgregarAlumnos()">Agregar alumno</button>
 
                   </div>
-                  <div>
-                    <button  mat-raised-button style="margin: 5px;" color="white" matStepperPrevious>
-                      <i class="material-icons">
-                        arrow_back
-                      </i></button>
-                    <button  mat-raised-button style="margin: 5px;"  color="primary" matStepperNext>
-                      <i class="material-icons">
-                        arrow_forward
-                      </i>
+                  <div class="btnCambiarStep">
+                    <button  mat-raised-button style="background-color: rgb(240, 173, 78)" class="btn"  matStepperPrevious>
+                       Atrás</button>
+                    <button  mat-raised-button style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>
+                       Siguiente
                     </button>
                   </div>
                 </div>
@@ -58,14 +52,13 @@
 
                 <mat-step>
                   <ng-template matStepLabel>Finalizar</ng-template>
-                  <div align="right" style="margin: 5px;">Grupo creado correctamente.</div>
-                  <div align="right">
-                    <button mat-raised-button style="margin: 5px;" color="white" matStepperPrevious> <i class="material-icons">
-                        arrow_back
-                      </i></button>
-                    <button mat-raised-button style="margin: 5px;"  color="primary" (click) = "VueltaInicio();"><i class="material-icons">
-                        check
-                        </i></button>
+                  <div style="margin: 5px;">
+                    <p>Grupo creado correctamente.</p>
+                    <p> Haga click en "Finalizar" para guardar los cambios.</p>
+                  </div>
+                  <div class="btnCambiarStep">
+                    <button mat-raised-button style="background-color: rgb(240, 173, 78)"  class="btn"  matStepperPrevious> Atrás</button>
+                    <button mat-raised-button  style="background-color: rgb(92, 184, 92)"   class="btn" (click) = "VueltaInicio();"> Finalizar</button>
                   </div>
                 </mat-step>
               </mat-horizontal-stepper>

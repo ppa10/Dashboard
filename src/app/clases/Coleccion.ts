@@ -4,9 +4,9 @@ export class Coleccion {
   id: number;
   profesorId: number;
 
-  constructor(nombre?: string, ImagenColeccion?: string) {
+  constructor(nombre?: string, imagenColeccion?: string) {
 
     this.Nombre = nombre;
-    this.ImagenColeccion = ImagenColeccion;
+    this.ImagenColeccion = imagenColeccion;
   }
 }
