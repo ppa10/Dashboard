@@ -1,70 +1,80 @@
-<h2>Editar equipo</h2>
-<mat-divider></mat-divider>
+<div class="titulo"><h2>Editar Equipo</h2></div>
+<mat-divider style="width: 70%; margin-left : 15%"></mat-divider>
 
-<div>
-    <img class ="logo" *ngIf="imagenLogo" hight = "180" width = "180" mat-card-image [src]="imagenLogo" >
+<div class="contenedor contenedor3">
+  <div class="contenedor2" style=" text-align: left;">
+    <p>
+      <span style="font-weight: bold;">Nombre: </span>
+      <input style="background-color: transparent" type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="nombreEquipo">
+    </p>
+    <div class="elemento">
+        <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
+        <img class ="logo" *ngIf="imagenLogo" hight = "180" width = "180" mat-card-image [src]="imagenLogo" >
+      </div>
+  </div>
+
   <div>
-      <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
-      <button (click) = "ActivarInput()" type="button" class="btn btn-info">
+
+    <div class="elemento">
+      <button (click) = "ActivarInput()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
         <i class="material-icons">add_photo_alternate</i>
         Agregar logo
       </button>
+    </div>
+    <div class="elemento">
+        <button type="button"  style="background-color: rgb(92, 184, 92)" class="btn "  (click)= "EditarEquipo()"> <i class="material-icons">
+          check </i>Aceptar Cambios</button>
   </div>
 
-  <p>
-    <span style="font-weight: bold;">Nombre: </span>
-    <input type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="nombreEquipo">
-  </p>
-  <p>
-      <span style="font-weight: bold;">Miembros del equipo</span>
-  </p>
+
 </div>
-<div>
-  <form>
+</div>
 
-    <div>
-        <button type="button" class="btn btn-info" (click) = AbrirDialogoAgregarAlumnosEquipo()>
-          <i class="material-icons">group_add</i>
-            Agregar alumno
-          </button>
-        <button type="button" class="btn btn-primary" (click) = "AbrirDialogoMoverAlumno()"><i class="material-icons">
-            compare_arrows
-            </i>
-            Mover alumno</button>
-    </div>
+<div class="contenedor">
+  <div class="elemento"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarAlumnosEquipo()>
+    <i class="material-icons">group_add</i>
+      Agregar alumno
+    </button> </div>
+    <div class="elemento"><button type="button" style="background-color: rgb(240, 173, 78)" class="btn" (click) = "AbrirDialogoMoverAlumno()"><i class="material-icons">
+      compare_arrows
+      </i>
+      Mover alumno</button></div>
+</div>
 
-    <table *ngIf="alumnosEquipo;else Aviso_no_alumnos" mat-table [dataSource]="alumnosEquipo" class="example-container mat-elevation-z8">
+  <form *ngIf="alumnosEquipo[0];else Aviso_no_alumnos">
+
+    <table align="center" mat-table [dataSource]="alumnosEquipo" class="example-container mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
 
       <!-- Nombre Alumno Column -->
       <ng-container matColumnDef="nombreAlumno">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 25%"> Nombre </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.Nombre}} </td>
       </ng-container>
 
       <!-- Primer Apellido Column -->
       <ng-container matColumnDef="primerApellido">
-        <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 25%"> Primer Apellido </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.PrimerApellido}} </td>
       </ng-container>
 
       <!-- Segundo Apellido Column -->
       <ng-container matColumnDef="segundoApellido">
-        <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 25%"> Segundo Apellido </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.SegundoApellido}} </td>
       </ng-container>
 
       <!-- alumnoId Column -->
       <ng-container matColumnDef="alumnoId">
-        <th mat-header-cell *matHeaderCellDef> Identificador Alumno </th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera"style="width: 15%"> Identificador Alumno </th>
         <td mat-cell *matCellDef="let alumno"> {{alumno.id}} </td>
       </ng-container>
 
           <!-- Delete Column -->
       <ng-container matColumnDef=" ">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef class="letraCabecera"></th>
         <td mat-cell *matCellDef="let alumno">
             <button (click) = "BorrarAlumnoEquipo(alumno)" mat-icon-button matTooltip="Borrar a {{alumno.Nombre}} del equipo">
               <i class="material-icons red md-36">delete</i>
@@ -77,10 +87,8 @@
 
     </table>
 
-    <ng-template #Aviso_no_alumnos>Este equipo no tiene alumnos</ng-template>
-
   </form>
-</div>
-<div>
-    <button type="button" class="btn btn-success" (click)= "EditarEquipo()">Aceptar</button>
-</div>
+  <div class="contenedor">
+      <ng-template #Aviso_no_alumnos><div class="texto">Este equipo no tiene alumnos</div></ng-template>
+  </div>
+

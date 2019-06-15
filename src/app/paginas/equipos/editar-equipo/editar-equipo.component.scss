@@ -2,9 +2,53 @@
   overflow: auto;
 }
 
+.titulo{
+  width: 70%;
+  margin-left: 15%;
+  height: 60px;
+  padding: 10px;
+  color: rgb(63, 81, 181);
+
+}
+
+.h2, h2 {
+  font-size: 2.5rem !important;
+}
+input[type=text] {
+  border: none;
+  border-bottom: 1px solid rgb(63, 81, 181);
+}
+
 table {
   width: 60%;
+  text-align: center;
 }
+
+.letraCabecera{
+  color:white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 90%;
+}
+
+
+.filter {
+  width: 60%;
+  font-size: 14px;
+  margin-left: 20%;
+}
+
+.mat-header-row{
+
+  text-align: center;
+  background-color:rgb(63, 81, 181);
+  }
+
+.mat-row:hover {
+  background-color: rgb(204, 197, 197);
+  // cursor: pointer;
+}
+
 
 .contenedor{
 
@@ -21,33 +65,60 @@ table {
 
   justify-content: center;
   align-items: center;
-  /* align-content:   */
-  /*flex-direction: row;
-  flex-wrap: wrap;
-  flex-flow: row wrap;*/
+}
+.contenedor2{
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
 
+  border: solid transparent;
+  flex-direction: column;
+}
+.contenedor3{
+  justify-content: space-between;
+  border: solid transparent;
+
+  align-items: flex-start;
+
+}
+.elemento{
+/* color:rgba(0,0,0,.87); */
+width: auto;
+height: auto;
+background-color:transparent;
+text-align: center;
+align-items: center;
+
+border: solid transparent;
+
+}
+.material-icons{
+  width: 15px;
+  height: 15px;
+}
+
+.btn{
+  margin: 5px;
+  align-items: center;
+  color: white;
+  width: 170px;
+}
+
+.texto{
+  // margin: 5px;
+  width: auto;
+  height: auto;
+  background-color:transparent;
+  text-align: center;
+  font-size: 110%;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
 }
 .material-icons.red { color: rgb(228, 8, 8); }
 
 .material-icons.md-36 { font-size: 36px; }
-
-th {
-  background-color: #2a7af3d0;
-  /* text-align: center; */
-  color: #fff;
-  /* font-weight: bold;
-  padding-bottom: 5px;
-  padding-top: 5px; */
-
-}
-
-td {
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-  /* padding-bottom: 5px;
-  padding-top: 5px;
-  text-align: center; */
-}
 
 .logo {
   max-width: 180px;
