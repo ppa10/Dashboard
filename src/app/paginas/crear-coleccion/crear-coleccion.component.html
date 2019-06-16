@@ -5,7 +5,6 @@
 <!-- <mat-tab label="Crear equipo"> -->
 
   <!-- STEPPER -->
-  <form [formGroup]="myForm">
 
     <mat-card class="panel">
 
@@ -16,6 +15,8 @@
 
         <!-- PRIMER PASO -->
         <mat-step [stepControl]="myForm">
+
+  <form [formGroup]="myForm">
           <ng-template matStepLabel>Nombre y logo</ng-template>
           <mat-form-field>
             <mat-label>Nombre</mat-label>
@@ -37,23 +38,53 @@
             <button *ngIf="coleccionYaCreada === false" mat-button matStepperNext (click)= CrearColeccion()>Siguiente</button>
             <button *ngIf="coleccionYaCreada === true" mat-button matStepperNext (click)= EditarColeccion() >Siguiente</button>
           </div>
+        </form>
         </mat-step>
 
 
 
         <!-- PASO FINALIZAR -->
-        <mat-step>
-          <ng-template matStepLabel>Finalizar</ng-template>
-          Equipo creado correctamente. Clique en "Finalizar" para guardar los cambios.
-          <!-- <div>
+         <mat-step [stepControl]="myForm2">
+
+  <form [formGroup]="myForm2">
+            <ng-template matStepLabel>Crear cromo</ng-template>
+
+              <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombreCromo" required>
+                <mat-error>Este campo es obligatorio</mat-error>
+              </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Probabilidad</mat-label>
+              <input matInput formControlName="probabilidadCromo" required>
+              <mat-error>Este campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Nivel</mat-label>
+              <input matInput formControlName="nivelCromo" required>
+              <mat-error>Este campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <div>
+              <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarLogo($event)" style="display:none">
+              <img *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo" >
+              <button (click) = "ActivarInput()" type="button" class="btn btn-info">
+                <i class="material-icons">add_photo_alternate</i>
+                Agregar logo
+              </button>
+          </div>
+          <div>
             <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-raised-button color="primary" (click) = "Finalizar()">Finalizar</button>
-          </div> -->
+            <button mat-raised-button color="primary" (click) = "AgregarCromoColeccion()">Finalizar</button>
+          </div>
+          </form>
         </mat-step>
       </mat-horizontal-stepper>
     </mat-card-content>
   </mat-card>
-  </form>
+
 
 
 <!-- </mat-tab> -->

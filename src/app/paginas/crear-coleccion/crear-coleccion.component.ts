@@ -25,6 +25,7 @@ export class CrearColeccionComponent implements OnInit {
   @ViewChild('stepper') stepper;
   @ViewChild('tabs') tabGroup: MatTabGroup;
   myForm: FormGroup;
+  myForm2: FormGroup;
 
 
   // CREAR EQUIPO
@@ -63,6 +64,11 @@ export class CrearColeccionComponent implements OnInit {
     this.myForm = this.formBuilder.group({
      nombreColeccion: ['', Validators.required]
     });
+    this.myForm2 = this.formBuilder.group({
+      nombreCromo : ['', Validators.required],
+      probabilidadCromo : ['', Validators.required],
+      nivelCromo : ['', Validators.required]
+     });
   }
 
   CrearColeccion() {
@@ -71,7 +77,7 @@ export class CrearColeccionComponent implements OnInit {
 
     nombreColeccion = this.myForm.value.nombreColeccion;
 
-    console.log('Entro a crear el equipo ' + nombreColeccion);
+    console.log('Entro a crear la coleccion ' + nombreColeccion);
     console.log(this.nombreLogo);
 
     // Hace el POST del equipo
@@ -98,6 +104,30 @@ export class CrearColeccionComponent implements OnInit {
     });
   }
 
+  AgregarCromoColeccion() {
+
+    let nombreCromo: string;
+    let probabilidadCromo: string;
+    let nivelCromo: string;
+
+    nombreCromo = this.myForm2.value.nombreCromo;
+    probabilidadCromo = this.myForm2.value.probabilidadCromo;
+    nivelCromo = this.myForm2.value.nivelCromo;
+
+    console.log('Entro a asignar el cromo ' + nombreCromo);
+    console.log('Entro a asignar el cromo a la coleccionID' + this.coleccionCreada.id);
+
+    this.coleccionService.POST_CromoColeccion(new Cromo(nombreCromo, 'sinImagen', probabilidadCromo, nivelCromo), this.coleccionCreada.id)
+    .subscribe((res) => {
+      if (res != null) {
+        console.log('asignado correctamente');
+
+      } else {
+        console.log('fallo en la asignación');
+      }
+    });
+
+  }
     // Activa la función ExaminarLogo
     ActivarInput() {
       console.log('Activar input');

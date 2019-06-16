@@ -11,11 +11,12 @@ import { core } from '@angular/compiler';
 })
 export class ColeccionService {
 
-  private APIUrl = 'http://localhost:3000/api/Coleccion';
+  private APIUrl = 'http://localhost:3000/api/Colecciones';
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
   private APIURLLogosColecciones = 'http://localhost:3000/api/imagenes/LogosColecciones';
 
   coleccion: Coleccion;
+  cromo: Cromo;
 
   constructor(private http: HttpClient ) { }
 
@@ -43,7 +44,7 @@ export class ColeccionService {
     return this.http.get<Coleccion[]>(this.APIUrl + '/' + coleccionId + '/cromos');
   }
 
-  // POST_CromoColeccion(asignacionEquipos: AsignacionEquipo, grupoId: number): Observable<AsignacionEquipo> {
-  //   return this.http.post<AsignacionEquipo>(this.APIUrlGrupos + '/' + grupoId + '/asignacionEquipos', asignacionEquipos);
-  // }
+  POST_CromoColeccion(cromo: Cromo, coleccionId: number): Observable<Cromo> {
+    return this.http.post<Cromo>(this.APIUrl + '/' + coleccionId + '/cromos', cromo);
+  }
 }
