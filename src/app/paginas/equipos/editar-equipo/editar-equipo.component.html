@@ -41,9 +41,9 @@
       Mover alumno</button></div>
 </div>
 
-  <form *ngIf="alumnosEquipo[0];else Aviso_no_alumnos">
+  <form>
 
-    <table align="center" mat-table [dataSource]="alumnosEquipo" class="example-container mat-elevation-z8">
+    <table align="center" *ngIf="alumnosEquipo;else Aviso_no_alumnos" mat-table [dataSource]="alumnosEquipo" class="example-container mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -86,9 +86,9 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
-
-  </form>
-  <div class="contenedor">
+    <div class="contenedor">
       <ng-template #Aviso_no_alumnos><div class="texto">Este equipo no tiene alumnos</div></ng-template>
   </div>
+
+  </form>
 
