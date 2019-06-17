@@ -47,4 +47,7 @@ export class ColeccionService {
   POST_CromoColeccion(cromo: Cromo, coleccionId: number): Observable<Cromo> {
     return this.http.post<Cromo>(this.APIUrl + '/' + coleccionId + '/cromos', cromo);
   }
+  DELETE_Cromo(cromoId: number, coleccionId: number): Observable<any> {
+    return this.http.delete<any>(this.APIUrl + '/' + coleccionId + '/cromos/' + cromoId);
+  }
 }

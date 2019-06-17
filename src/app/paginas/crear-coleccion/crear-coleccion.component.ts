@@ -43,8 +43,12 @@ export class CrearColeccionComponent implements OnInit {
   // tslint:disable-next-line:ban-types
   logoCargado: Boolean = false;
 
+  cromosAgregados: Cromo [] = [];
 
   nombreColeccion: string;
+
+  // PONEMOS LAS COLUMNAS DE LA TABLA Y LA LISTA QUE TENDRÁ LA INFORMACIÓN QUE QUEREMOS MOSTRAR
+  displayedColumns: string[] = ['nombreCromo', 'probabilidadCromo', 'nivelCromo', ' '];
 
 
   constructor(
@@ -121,12 +125,32 @@ export class CrearColeccionComponent implements OnInit {
     .subscribe((res) => {
       if (res != null) {
         console.log('asignado correctamente');
-
+        this.CromosAgregados(res);
       } else {
         console.log('fallo en la asignación');
       }
     });
 
+  }
+  CromosAgregados(cromo: Cromo) {
+    this.cromosAgregados.push(cromo);
+    this.cromosAgregados = this.cromosAgregados.filter(res => res.Nombre !== '');
+    return this.cromosAgregados;
+  }
+
+  // Utilizamos esta función para eliminar un cromo de la base de datos y de la lista de añadidos recientemente
+  BorrarCromo(cromo: Cromo) {
+    console.log('Id cromo ' + this.coleccionCreada.id);
+    this.coleccionService.DELETE_Cromo(cromo.id, this.coleccionCreada.id)
+    .subscribe(() => {
+      this.CromosEliminados(cromo);
+      console.log('Cromo borrado correctamente');
+
+    });
+  }
+  CromosEliminados(cromo: Cromo) {
+    this.cromosAgregados = this.cromosAgregados.filter(res => res.id !== cromo.id);
+    return this.cromosAgregados;
   }
     // Activa la función ExaminarLogo
     ActivarInput() {
@@ -182,4 +206,19 @@ export class CrearColeccionComponent implements OnInit {
       }
     });
   }
+  // Función que se activará al clicar en finalizar el último paso del stepper
+  Finalizar() {
+    // Al darle al botón de finalizar limpiamos el formulario y reseteamos el stepper
+    this.myForm.reset();
+    this.myForm2.reset();
+    this.stepper.reset();
+
+    // Tambien limpiamos las variables utilizadas para crear el nuevo equipo, por si queremos crear otro.
+    this.coleccionYaCreada = false;
+    this.logoCargado = false;
+    this.logo = undefined;
+    this.coleccionCreada = undefined;
+    this.cromosAgregados = [];
+
+    }
 }
