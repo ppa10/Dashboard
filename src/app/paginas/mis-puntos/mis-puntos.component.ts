@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseContentType, Http, Response } from '@angular/http';
 
+
 // Imports para abrir diálogo confirmar eliminar equipo
 import { MatDialog, MatSnackBar, MatTabGroup } from '@angular/material';
 import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
@@ -21,7 +22,6 @@ export class MisPuntosComponent implements OnInit {
 
   profesorId: number;
 
-  //////////// PARA JUEGO DE PUNTOS
 
   puntosProfesor: Punto[];
   insigniasProfesor: Insignia[];
