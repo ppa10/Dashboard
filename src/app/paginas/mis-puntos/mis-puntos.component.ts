@@ -146,7 +146,7 @@ export class MisPuntosComponent implements OnInit {
     // Lo mismo que con el punto
      EnviarInsigniaEditar(insigna: Insignia) {
       console.log('voy a enviar');
-      this.puntosInsigniasService.EnviarPuntoAlServicio(insigna);
+      this.puntosInsigniasService.EnviarInsigniaAlServicio(insigna);
       console.log(insigna.Nombre);
     }
 

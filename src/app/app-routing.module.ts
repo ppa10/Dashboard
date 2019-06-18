@@ -27,6 +27,7 @@ import { InformacionJuegoPuntosComponent } from './paginas/juego-seleccionado-ac
 import { EquipoSeleccionadoJuegoDePuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/equipo-seleccionado-juego-de-puntos/equipo-seleccionado-juego-de-puntos.component';
 import { JuegoSeleccionadoInactivoComponent } from './paginas/juego-seleccionado-inactivo/juego-seleccionado-inactivo.component';
 import { EditarPuntoComponent } from './paginas/mis-puntos/editar-punto/editar-punto.component';
+import { EditarInsigniaComponent } from './paginas/mis-puntos/editar-insignia/editar-insignia.component';
 
 
 import { AppComponent } from './app.component';
@@ -59,7 +60,9 @@ const routes: Routes = [
   { path: 'aboutClasspip', component: AboutClasspipComponent },
   { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },
   { path: 'inicio/:id/misPuntos', component: MisPuntosComponent },
-  { path: 'inicio/:id/misPuntos/editarPunto', component: EditarPuntoComponent }
+  { path: 'inicio/:id/misPuntos/editarPunto', component: EditarPuntoComponent },
+  { path: 'inicio/:id/misPuntos/editarInsignia', component: EditarInsigniaComponent }
+
 
 
 

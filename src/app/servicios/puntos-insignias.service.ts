@@ -34,6 +34,9 @@ export class PuntosInsigniasService {
     return this.http.post<Insignia>(this.APIUrlProfesor + '/' + profesorId + '/insignia', insignia);
   }
 
+  PUT_Insignia(insignia: Insignia, profesorId: number, insigniaId: number): Observable<Insignia> {
+    return this.http.put<Insignia>(this.APIUrlProfesor + '/' + profesorId + '/insignia/' + insigniaId, insignia);
+  }
   DELETE_Insignia(insigniaId: number, profesorId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/insignia/' + insigniaId);
   }
