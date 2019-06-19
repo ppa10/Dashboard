@@ -52,7 +52,7 @@ export class MisPuntosComponent implements OnInit {
     this.PuntosDelProfesor();
     console.log(this.puntosProfesor);
 
-    this. InsigniasDelProfesor();
+    this.InsigniasDelProfesor();
     console.log(this.insigniasProfesor);
 
   }

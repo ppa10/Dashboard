@@ -41,6 +41,15 @@
   align-items: flex-start;
 
 }
+.agregarImagen{
+
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  align-items: flex-start;
+
+  flex-direction: column;
+}
 .elemento{
 /* color:rgba(0,0,0,.87); */
 width: auto;
@@ -81,4 +90,11 @@ border: solid transparent;
   margin: 40px;
   width: 90%;
 
+}
+.logo {
+  margin: 5px;
+  width: 130px;
+  height: 130px;
+  max-width: 130px;
+  max-height: 130px;
 }
