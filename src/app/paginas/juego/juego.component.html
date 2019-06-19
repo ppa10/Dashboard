@@ -1,8 +1,8 @@
-<h2>Juegos</h2>
-<mat-divider></mat-divider>
+<div class="titulo"><h2>Juegos</h2></div>
+<mat-divider style="width: 70%; margin-left : 15%"></mat-divider>
 
 
-
+<div class="contenedor">
 
 <mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs>
 
@@ -10,7 +10,7 @@
 
   <mat-tab index = "0" label="Lista de juegos">
     <form>
-      <mat-form-field>
+      <mat-form-field style="margin: 15px;">
         <mat-label>Mostrar lista de: </mat-label>
           <select matNativeControl [(ngModel)]="opcionSeleccionada" name="opcion" (change) = "ListaJuegoSeleccionado()">
             <option *ngFor="let opcion of opcionesMostrar" [value]="opcion.id">
@@ -19,8 +19,8 @@
           </select>
       </mat-form-field>
 
-        <div>
-          <mat-list>
+        <div >
+          <mat-list >
 
             <!-- ///////////////////////// LISTA DE JUEGOS ACTIVOS /////////////////////////////////-->
             <h3 class = "CabeceraActivos" mat-subheader>Juegos Activos</h3>
@@ -70,8 +70,11 @@
 
   <mat-tab label="Crear juego">
 
-      <form>
-        <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true">
+    <form>
+      <mat-card class="panel">
+
+        <mat-card-content>
+          <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true">
 
 
         <!-- /////////////////////// PRIMER PASO: SELECCIÓN DEL TIPO DE JUEGO ////////////////////////////////-->
@@ -90,8 +93,8 @@
 
               </div>
 
-              <div>
-                <button [disabled]="isDisabled" mat-raised-button color="primary" matStepperNext>Siguiente</button>
+              <div class="btnCambiarStep">
+                <button [disabled]="isDisabled" type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
               </div>
 
           </mat-step>
@@ -114,9 +117,9 @@
 
               </div>
 
-              <div>
-                <button mat-button matStepperPrevious>Atrás</button>
-                <button mat-raised-button color="primary"  [disabled]="isDisabledModo" matStepperNext (click) = "CrearJuegoCorrespondiente()">Siguiente</button>
+              <div class="btnCambiarStep">
+                <button type="button" style="background-color: rgb(240, 173, 78)" class="btn" matStepperPrevious>Atrás</button>
+                <button type="button" style="background-color: rgb(63, 81, 181)" class="btn"  [disabled]="isDisabledModo" matStepperNext (click) = "CrearJuegoCorrespondiente()">Siguiente</button>
               </div>
           </mat-step>
 
@@ -144,9 +147,9 @@
 
                   <app-crear-nivel ></app-crear-nivel>
 
-                  <div>
-                      <button *ngIf="juego.Modo === 'Individual'" (click)="InscribirAlumnosJuego()" mat-raised-button color="primary" matStepperNext>Siguiente</button>
-                      <button *ngIf="juego.Modo === 'Equipos'" (click)="InscribirEquiposJuego()" mat-raised-button color="primary" matStepperNext>Siguiente</button>
+                  <div class="btnCambiarStep">
+                      <button *ngIf="juego.Modo === 'Individual'" (click)="InscribirAlumnosJuego()" type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
+                      <button *ngIf="juego.Modo === 'Equipos'" (click)="InscribirEquiposJuego()" type="button" style="background-color: rgb(63, 81, 181)" class="btn"  matStepperNext>Siguiente</button>
                   </div>
 
             </mat-step>
@@ -163,9 +166,9 @@
 
                 <label class = "LabelStepper">Selecciona una colección para el juego</label>
 
-                <div>
-                  <button mat-button matStepperPrevious>Atrás</button>
-                  <button mat-button matStepperNext>Siguiente</button>
+                <div class="btnCambiarStep">
+                  <button type="button" style="background-color: rgb(240, 173, 78)" class="btn" matStepperPrevious>Atrás</button>
+                  <button type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
                 </div>
               </mat-step>
 
@@ -193,9 +196,9 @@
 
                 </div>
 
-                <div>
-                  <button mat-button matStepperPrevious>Atrás</button>
-                  <button mat-button matStepperNext>Siguiente</button>
+                <div class="btnCambiarStep">
+                  <button type="button" style="background-color: rgb(240, 173, 78)" class="btn" matStepperPrevious>Atrás</button>
+                  <button type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
                 </div>
               </mat-step>
           </div>
@@ -204,14 +207,16 @@
           <mat-step>
             <ng-template matStepLabel>Finalizar</ng-template>
               Juego creado correctamente
-              <div>
-                <button mat-button (click) = "VueltaInicio();">Finalizar</button>
+              <div class="btnCambiarStep">
+                <button type="button" style="background-color: rgb(92, 184, 92)" class="btn" (click) = "VueltaInicio();">Finalizar</button>
               </div>
           </mat-step>
 
-        </mat-horizontal-stepper>
-
-      </form>
+          </mat-horizontal-stepper>
+        </mat-card-content>
+      </mat-card>
+    </form>
   </mat-tab>
 </mat-tab-group>
 
+</div>
