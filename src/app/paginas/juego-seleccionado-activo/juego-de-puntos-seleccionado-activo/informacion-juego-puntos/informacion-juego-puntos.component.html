@@ -1,7 +1,7 @@
-<h2>Información Juego De Puntos</h2>
-<mat-divider></mat-divider>
+<div class="titulo"><h2>Información Juego de Puntos</h2></div>
+<mat-divider class="lineaDivisoria"></mat-divider>
 
-
+<div class="contenedor">
 <mat-tab-group [backgroundColor] = "primary">
 
   <!-- LISTA DE EQUIPOS -->
@@ -44,19 +44,19 @@
 
   <!-- MIS PUNTOS-->
   <mat-tab label="Puntos Del Juego">
-
+      <div class="contenedor"></div>
     <form>
-      <table *ngIf="puntosDelJuego;else Aviso_no_puntos" mat-table [dataSource]="puntosDelJuego" class="mat-elevation-z8">
+      <table align="center" *ngIf="puntosDelJuego;else Aviso_no_puntos" mat-table [dataSource]="puntosDelJuego" class="mat-elevation-z8">
 
         <!-- Nombre Punto Column -->
         <ng-container matColumnDef="nombre">
-          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Nombre </th>
           <td mat-cell *matCellDef="let punto"> {{punto.Nombre}} </td>
         </ng-container>
 
         <!-- Descripción Punto Column -->
         <ng-container matColumnDef="descripcion">
-          <th mat-header-cell *matHeaderCellDef> Descripción </th>
+          <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Descripción </th>
           <td mat-cell *matCellDef="let punto"> {{punto.Descripcion}} </td>
         </ng-container>
 
@@ -73,3 +73,6 @@
 
   </mat-tab>
 </mat-tab-group>
+</div>
+
+<div class="contenedor"></div>
