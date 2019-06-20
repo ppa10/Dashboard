@@ -1,6 +1,6 @@
 /* Colores de iconos */
-.material-icons.red { color: rgb(228, 8, 8); }
-.material-icons.green { color: rgb(49, 151, 2); }
+.material-icons.red { color: rgb(212, 57, 52); }
+.material-icons.green { color: rgb(92, 184, 92); }
 .material-icons.margin { margin-top: 10 px; margin-left: 10 px;}
 
 .titulo{
@@ -76,14 +76,14 @@
   justify-content: flex-end;
 }
 .CabeceraActivos {
-  background-color: green;
+  background-color: rgb(92, 184, 92);
   color: white;
   font-style: bold;
   width: 100%;
 }
 
 .CabeceraInactivos {
-  background-color: rgba(212, 0, 0, 0.801);
+  background-color: rgb(212, 57, 52);
   color: white;
   font-style: bold;
   width: 100%;
