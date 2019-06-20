@@ -14,21 +14,27 @@
             <mat-panel-title>
               {{nivel.Nombre}}
             </mat-panel-title>
-            <mat-panel-description>
+            <!-- <mat-panel-description>
               Información sobre nivel {{nivel.Nombre}}
-            </mat-panel-description>
+            </mat-panel-description> -->
           </mat-expansion-panel-header>
-            <div>
-              <img class ="logo" *ngIf="imagenNivel" hight = "100" width = "100" mat-card-image [src]="imagenNivel" >
+            <div class="contenedor2">
               <div>
-                Nivel
-                <h1 class="md-display-3">{{nivel.Nombre}}</h1>
-                <div>
-                  PX
-                  <h3 class="md-headline">{{nivel.PuntosAlcanzar}}</h3>
-                </div>
-                <span style="font-weight: bold;">Privilegio: </span> {{nivel.PrivilegiosDelNivel}}
+              <img class ="logo"  style="margin: 15px;" *ngIf="imagenNivel" hight = "100" width = "100" mat-card-image [src]="imagenNivel" >
+            </div>
+              <div style="margin-right: 45%; border: 15px; width: 70%;">
+                  <span style="font-weight: bold; font-size: 130%;">Nivel</span>
+                <p style="font-size: 200%; margin: 5px;">{{nivel.Nombre}}</p>
+                <p></p>
+                  <span style="font-weight: bold; font-size: 130%;">Privilegio</span>
+                <p style="font-size: 150%; margin: 5px;">{{nivel.PrivilegiosDelNivel}}</p>
+
               </div>
+                <div class="contenedor3">
+                    <span style="font-weight: bold; font-size: 110%;">PX</span>
+                  <h2 style="color: rgb(63, 81, 181)">{{nivel.PuntosAlcanzar}}</h2>
+                </div>
+
 
             </div>
 
