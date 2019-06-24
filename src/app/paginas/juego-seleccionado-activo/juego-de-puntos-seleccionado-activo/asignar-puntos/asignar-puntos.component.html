@@ -1,24 +1,33 @@
-<h2>Asignar Puntos</h2>
-<mat-divider></mat-divider>
+<div class="titulo"><h2>Asignar Puntos</h2></div>
+<mat-divider class="lineaDivisoria"></mat-divider>
 
-<h5>Selecciona el punto que desea asignar y el valor:</h5>
+<div class="contenedor">
+<h5>Seleccione el punto que desee asignar y su valor:</h5>
+<div class="contenedor2">
+<div>
 <mat-form-field>
-  <mat-label>Punto...</mat-label>
+  <mat-label>Tipo de punto</mat-label>
   <select matNativeControl (change) = "Disabled()" [(ngModel)]="puntoSeleccionadoId" name="punto">
     <option *ngFor="let punto of puntosDelJuego" [value]="punto.id">
       {{punto.Nombre}}
     </option>
   </select>
 </mat-form-field>
-<span>Valor: </span>
-<input (keyup)="Disabled()" type="number" name="valorPunto" placeholder="Escribe el valor del punto" requiered [(ngModel)]="valorPunto">
-
+</div>
+<div style="margin-top: 15px">
+<span>Valor del punto: </span>
+<input (keyup)="Disabled()" type="number" name="valorPunto" placeholder="Escribe su valor" requiered [(ngModel)]="valorPunto">
+</div>
+<div style="margin-top: 10px">
+<button type="button" style="background-color: rgb(92, 184, 92)" class="btn "[disabled]="isDisabled" (click) = AsignarPuntos()>Asignar</button>
+</div>
+</div>
 <form>
-  <table *ngIf="rankingJuegoDePuntos[0]" mat-table [dataSource]="rankingJuegoDePuntos" class="mat-elevation-z8">
+  <table align="center" *ngIf="rankingJuegoDePuntos[0]" mat-table [dataSource]="rankingJuegoDePuntos" class="mat-elevation-z8">
 
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera">
         <mat-checkbox (change)="$event ? masterToggle() : null"
                       (click) = "SeleccionarTodos();"
                       [checked]="selection.hasValue() && isAllSelected()"
@@ -39,37 +48,37 @@
 
     <!-- Posición Column -->
     <ng-container matColumnDef="posicion">
-      <th mat-header-cell *matHeaderCellDef> Posicion </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Posicion </th>
       <td mat-cell *matCellDef="let alumno"> {{alumno.posicion}} </td>
     </ng-container>
 
     <!-- Nombre Alumno Column -->
     <ng-container matColumnDef="nombreAlumno">
-      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Nombre </th>
       <td mat-cell *matCellDef="let alumno; let i = index" (click) = "Seleccionar(i);"> {{alumno.nombre}} </td>
     </ng-container>
 
     <!-- Primer Apellido Column -->
     <ng-container matColumnDef="primerApellido">
-      <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Primer Apellido </th>
       <td mat-cell *matCellDef="let alumno; let i = index" (click) = "Seleccionar(i);"> {{alumno.primerApellido}} </td>
     </ng-container>
 
     <!-- Segundo Apellido Column -->
     <ng-container matColumnDef="segundoApellido">
-      <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Segundo Apellido </th>
       <td mat-cell *matCellDef="let alumno; let i = index" (click) = "Seleccionar(i);"> {{alumno.segundoApellido}} </td>
     </ng-container>
 
     <!-- Puntos Column -->
     <ng-container matColumnDef="puntos">
-      <th mat-header-cell *matHeaderCellDef> Puntos </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Puntos </th>
       <td mat-cell *matCellDef="let alumno; let i = index" (click) = "Seleccionar(i);"> {{alumno.puntos}} </td>
     </ng-container>
 
     <!-- Nivel Column -->
     <ng-container matColumnDef="nivel">
-      <th mat-header-cell *matHeaderCellDef> Nivel </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Nivel </th>
       <td mat-cell *matCellDef="let alumno; let i = index" (click) = "Seleccionar(i);"> {{alumno.nivel}} </td>
     </ng-container>
 
@@ -80,11 +89,11 @@
   </table>
 
 </form>
-  <table *ngIf="rankingEquiposJuegoDePunto[0]" mat-table [dataSource]="rankingEquiposJuegoDePunto" class="mat-elevation-z8">
+  <table align="center" *ngIf="rankingEquiposJuegoDePunto[0]" mat-table [dataSource]="rankingEquiposJuegoDePunto" class="mat-elevation-z8">
 
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera">
         <mat-checkbox (change)="$event ? masterToggleEquipos() : null"
                       (click) = "SeleccionarTodosEquipos();"
                       [checked]="selectionEquipos.hasValue() && isAllSelectedEquipos()"
@@ -105,19 +114,19 @@
 
     <!-- Posición Column -->
     <ng-container matColumnDef="posicion">
-      <th mat-header-cell *matHeaderCellDef> Posicion </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Posicion </th>
       <td mat-cell *matCellDef="let equipo"> {{equipo.posicion}} </td>
     </ng-container>
 
     <!-- Nombre Alumno Column -->
     <ng-container matColumnDef="nombreEquipo">
-      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Nombre </th>
       <td mat-cell *matCellDef="let equipo; let i = index" (click) = "SeleccionarEquipo(i);"> {{equipo.nombre}} </td>
     </ng-container>
 
     <!-- Miembros Column -->
     <ng-container matColumnDef="miembros">
-      <th mat-header-cell *matHeaderCellDef> Miembros </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Miembros </th>
       <td mat-cell *matCellDef="let equipo"><button mat-icon-button matTooltip="Ver miembros de {{equipo.nombre}}" color="primary"
         [mdePopoverTriggerFor]="appPopover" (click) = "AlumnosDelEquipo(equipo)"
         mdePopoverTriggerOn="click" #popoverTrigger="mdePopoverTrigger">
@@ -140,13 +149,13 @@
 
     <!-- Puntos Column -->
     <ng-container matColumnDef="puntos">
-      <th mat-header-cell *matHeaderCellDef> Puntos </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Puntos </th>
       <td mat-cell *matCellDef="let equipo; let i = index" (click) = "SeleccionarEquipo(i);"> {{equipo.puntos}} </td>
     </ng-container>
 
     <!-- Nivel Column -->
     <ng-container matColumnDef="nivel">
-      <th mat-header-cell *matHeaderCellDef> Nivel </th>
+      <th mat-header-cell *matHeaderCellDef class="letraCabecera"> Nivel </th>
       <td mat-cell *matCellDef="let equipo; let i = index" (click) = "SeleccionarEquipo(i);"> {{equipo.nivel}} </td>
     </ng-container>
 
@@ -158,4 +167,5 @@
 <form>
 
 </form>
-<button type="button" [disabled]="isDisabled" class="btn btn-success" (click) = AsignarPuntos()>Asignar</button>
+<div class="contenedor"></div>
+</div>
