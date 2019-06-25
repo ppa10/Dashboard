@@ -6,6 +6,7 @@ import { PuntosInsigniasService} from '../../../servicios/index';
 
 // Clases
 import { Punto} from '../../../clases/index';
+import { strictEqual } from 'assert';
 
 @Component({
   selector: 'app-editar-punto',
@@ -17,6 +18,7 @@ export class EditarPuntoComponent implements OnInit {
   punto: Punto;
   nombrePunto: string;
   descripcionPunto: string;
+
 
   // tslint:disable-next-line:no-shadowed-variable
   constructor(  private PuntosInsigniasService: PuntosInsigniasService,
@@ -47,4 +49,6 @@ export class EditarPuntoComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+
+
 }

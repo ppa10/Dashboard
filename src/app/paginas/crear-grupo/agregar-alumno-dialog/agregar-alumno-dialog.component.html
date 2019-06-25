@@ -33,11 +33,27 @@
 
             </mat-form-field>
           </div>
+
+
           <div class="centrado2">
             <button mat-stroked-button  style="background-color: rgb(63, 81, 181)" class="btn" >Añadir alumno</button>
           </div>
       </form>
   </div>
+  <form (ngSubmit)="BuscarAlumnoBaseDeDatosTexto();" [formGroup]="myForm2">
+      <div>
+          <p>
+            <span  style="font-weight: bold;">Descripción: </span>
+            <mat-form-field style="width: 100%; border: none; ">
+              <textarea matInput placeholder="Nombre Apellido Apellido; Nombre Apellido Apellido " formControlName="textoAlumnos"></textarea>
+            </mat-form-field>
+          </p>
+        </div>
+        <div class="centrado2">
+            <button mat-stroked-button  style="background-color: rgb(63, 81, 181)" class="btn" >Añadir alumno 2</button>
+          </div>
+    </form>
+
   <div class=" centrado centrado2">
   <form>
 
