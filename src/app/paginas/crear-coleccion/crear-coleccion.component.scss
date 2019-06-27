@@ -26,7 +26,7 @@
 }
 
 table {
-  width: 100%;
+  width: 90%;
   table-layout:fixed;
   text-align: center;
 }
@@ -60,6 +60,7 @@ table {
 
 }
 
+
 .elemento{
   /* color:rgba(0,0,0,.87); */
   // margin: 5px;
@@ -84,4 +85,32 @@ table {
 .btnCambiarStep{
   display: flex;
   justify-content: flex-end;
+}
+
+
+.imagen {
+  max-width: 150px;
+  max-height: 150px;
+  margin: 5px;
+}
+
+// Crear nivel
+.panel2{
+
+  background-color: rgba(97, 10, 203, 0.568);
+  width: 75%;
+  align-content: center;
+
+}
+
+mat-card-title {
+  color: white
+}
+
+mat-card-subtitle{
+  color: white;
+}
+
+label{
+  color: white;
 }

@@ -13,7 +13,7 @@ export class ColeccionService {
 
   private APIUrl = 'http://localhost:3000/api/Colecciones';
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
-  private APIURLLogosColecciones = 'http://localhost:3000/api/imagenes/LogosColecciones';
+  private APIURLImagenColeccion = 'http://localhost:3000/api/imagenes/ImagenColeccion';
 
   coleccion: Coleccion;
   cromo: Cromo;
@@ -24,8 +24,8 @@ export class ColeccionService {
     return this.http.post<Coleccion>(this.APIUrlProfesor + '/' + profesorId + '/coleccions', coleccion);
   }
 
-  POST_LogoColecciones(formData: FormData): Observable<any> {
-    return this.http.post<any>(this.APIURLLogosColecciones + '/upload', formData);
+  POST_ImagenColeccion(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.APIURLImagenColeccion + '/upload', formData);
   }
 
   PUT_Coleccion(coleccion: Coleccion, profesorId: number, coleccionId: number): Observable<Coleccion> {

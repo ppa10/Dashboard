@@ -15,7 +15,7 @@
         <mat-step [stepControl]="myForm">
 
          <form [formGroup]="myForm">
-          <ng-template matStepLabel>Nombre y logo</ng-template>
+          <ng-template matStepLabel>Nombre e imagen</ng-template>
           <mat-form-field>
             <mat-label>Nombre</mat-label>
             <input matInput formControlName="nombreColeccion" required>
@@ -23,11 +23,10 @@
           </mat-form-field>
 
           <div>
-              <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarLogo($event)" style="display:none">
-              <img *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo" >
+              <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
+              <img class="imagen" *ngIf="imagen" hight = "150" width = "150" mat-card-image [src]="imagen" style="margin: 5px">
               <button (click) = "ActivarInput()" type="button" class="btn btn-info">
-                <i class="material-icons">add_photo_alternate</i>
-                Agregar logo
+                Agregar imagen<i class="material-icons">add_photo_alternate</i>
               </button>
           </div>
 
@@ -43,8 +42,31 @@
 
         <!-- PASO AÑADIR CROMOS -->
          <mat-step [stepControl]="myForm2">
+          <ng-template matStepLabel>Cromos</ng-template>
 
-        <form [formGroup]="myForm2">
+              <mat-card class="panel2">
+            <mat-card-header>
+              <mat-card-title>Crear nuevo cromo</mat-card-title>
+              <mat-card-subtitle>Introduce los parámetros</mat-card-subtitle>
+           </mat-card-header>
+           <mat-card-content>
+
+              <div class="form-group">
+                  <label for="inputNombreCromo">Nombre</label>
+                  <input (keyup)="Disabled()" type="text" id="inputNombreNivel" class="form-control" requiered [(ngModel)]="nombreCromo" placeholder="Escribe el nombre del cromo">
+              </div>
+
+              <div class="form-group">
+                  <label for="inputProbabilidadCromo">Probabilidad</label>
+                  <input (keyup)="Disabled()" type="text" id="inputProbabilidadCromo" class="form-control" requiered [(ngModel)]="probabilidadCromo" placeholder="Elige la probabilidad del cromo">
+              </div>
+
+              <div class="form-group">
+                  <label for="inputNivelCromo">Nivel</label>
+                  <input (keyup)="Disabled()" type="text" id="inputNivelCromo" class="form-control" requiered [(ngModel)]="nivelCromo" placeholder="Elige el nivel del cromo">
+              </div>
+
+          <!-- <form [formGroup]="myForm2">
             <ng-template matStepLabel>Crear cromo</ng-template>
 
               <mat-form-field>
@@ -65,62 +87,76 @@
               <mat-error>Este campo es obligatorio</mat-error>
             </mat-form-field>
 
-            <div>
-              <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarLogo($event)" style="display:none">
-              <img *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo" >
+
+
+
+          </form> -->
+
+          </mat-card-content>
+
+          <div>
+              <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
+              <img class="imagen" *ngIf="imagen" hight = "150" width = "150" mat-card-image [src]="imagen">
               <button (click) = "ActivarInput()" type="button" class="btn btn-info">
-                <i class="material-icons">add_photo_alternate</i>
-                Agregar logo
+               Agregar imagen <i class="material-icons">add_photo_alternate</i>
               </button>
           </div>
-          <button mat-raised-button color="primary" (click) = "AgregarCromoColeccion()">Agregar cromo</button>
+
+          <mat-card-actions align="end">
+            <button  (click) = "LimpiarCampos()" type="button" style="background-color: rgb(240, 173, 78)" class="btn">Limpiar Campos</button>
+            <button  (click) = "AgregarCromoColeccion()" [disabled]="isDisabledCromo" style="background-color: rgb(92, 184, 92)" class="btn">Agregar cromo</button>
+          </mat-card-actions>
+
+              </mat-card>
+
           <div>
-            <form *ngIf="cromosAgregados[0]">
+              <form *ngIf="cromosAgregados[0]">
 
-              <div>
-                <p>
-                  <span style="font-weight: bold;">Cromos creados recientemente</span>
-                </p>
-              </div>
+                <div>
+                  <p style="margin: 10px">
+                    <span style="font-weight: bold;">Cromos creados recientemente</span>
+                  </p>
+                </div>
 
-              <table mat-table [dataSource]="cromosAgregados" class="example-container mat-elevation-z8">
+                <table  align="center" mat-table [dataSource]="cromosAgregados" class="example-container mat-elevation-z8">
 
-                <ng-container matColumnDef="nombreCromo">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 30%"> Nombre </th>
-                  <td mat-cell *matCellDef="let cromo"> {{cromo.Nombre}} </td>
-                </ng-container>
+                  <ng-container matColumnDef="nombreCromo">
+                    <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 30%"> Nombre </th>
+                    <td mat-cell *matCellDef="let cromo"> {{cromo.Nombre}} </td>
+                  </ng-container>
 
-                <ng-container matColumnDef="probabilidadCromo">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 30%"> Probabilidad </th>
-                  <td mat-cell *matCellDef="let cromo"> {{cromo.Probabilidad}} </td>
-                </ng-container>
+                  <ng-container matColumnDef="probabilidadCromo">
+                    <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 30%"> Probabilidad </th>
+                    <td mat-cell *matCellDef="let cromo"> {{cromo.Probabilidad}} </td>
+                  </ng-container>
 
-                <ng-container matColumnDef="nivelCromo">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 30%"> Nivel </th>
-                  <td mat-cell *matCellDef="let cromo"> {{cromo.Nivel}} </td>
-                </ng-container>
+                  <ng-container matColumnDef="nivelCromo">
+                    <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 30%"> Nivel </th>
+                    <td mat-cell *matCellDef="let cromo"> {{cromo.Nivel}} </td>
+                  </ng-container>
 
-                <!-- Delete Column -->
-                <ng-container matColumnDef=" ">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera"></th>
-                  <td mat-cell *matCellDef="let cromo">
-                    <button (click) = "BorrarCromo(cromo)" mat-icon-button matTooltip="Borrar el cromo {{cromo.Nombre}}">
-                      <i class="material-icons red md-36">delete</i>
-                    </button>
-                  </td>
-                </ng-container>
+                  <!-- Delete Column -->
+                  <ng-container matColumnDef=" ">
+                    <th mat-header-cell *matHeaderCellDef class="letraCabecera"></th>
+                    <td mat-cell *matCellDef="let cromo">
+                      <button (click) = "BorrarCromo(cromo)" mat-icon-button matTooltip="Borrar el cromo {{cromo.Nombre}}">
+                        <i class="material-icons red md-36">delete</i>
+                      </button>
+                    </td>
+                  </ng-container>
 
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-              </table>
-            </form>
-          </div>
-          <div class="btnCambiarStep">
-            <button type="button" style="background-color: rgb(240, 173, 78)" class="btn"   matStepperPrevious>Atrás</button>
-            <button type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
-          </div>
-          </form>
+                </table>
+              </form>
+            </div>
+
+          <div class="btnCambiarStep" style="margin-top:10px;">
+              <button type="button" style="background-color: rgb(240, 173, 78)" class="btn"   matStepperPrevious>Atrás</button>
+              <button type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
+            </div>
+
         </mat-step>
 
         <!-- PASO FINALIZAR -->

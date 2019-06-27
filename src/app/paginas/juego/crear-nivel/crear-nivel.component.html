@@ -29,8 +29,8 @@
         <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
         <img class = "foto" *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo"  style="margin: 5px" >
         <button (click) = "ActivarInput()" type="button"  style="background-color: rgb(65, 178, 212)" class="btn">
-          <i class="material-icons">add_photo_alternate</i>
-          Agregar foto
+          Agregar foto<i class="material-icons">add_photo_alternate</i>
+
         </button>
     </div>
 

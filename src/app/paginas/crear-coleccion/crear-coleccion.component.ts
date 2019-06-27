@@ -28,20 +28,28 @@ export class CrearColeccionComponent implements OnInit {
   myForm2: FormGroup;
 
 
-  // CREAR EQUIPO
-  logo: string;
+  // CREAR COLECCION
+  imagen: string;
   coleccionCreada: Coleccion;
+
+  // CREAR CROMO
+  nombreCromo: string;
+  probabilidadCromo: string;
+  nivelCromo: string;
+
+  // tslint:disable-next-line:ban-types
+  isDisabledCromo: Boolean = true;
 
   // COMPARTIDO
   profesorId: number;
-  nombreLogo: string;
+  nombreImagen: string;
   file: File;
 
-  // Al principio coleccion no creada y logo no cargado
+  // Al principio coleccion no creada y imagen no cargada
   // tslint:disable-next-line:ban-types
   coleccionYaCreada: Boolean = false;
   // tslint:disable-next-line:ban-types
-  logoCargado: Boolean = false;
+  imagenCargado: Boolean = false;
 
   cromosAgregados: Cromo [] = [];
 
@@ -82,24 +90,24 @@ export class CrearColeccionComponent implements OnInit {
     nombreColeccion = this.myForm.value.nombreColeccion;
 
     console.log('Entro a crear la coleccion ' + nombreColeccion);
-    console.log(this.nombreLogo);
+    console.log(this.nombreImagen);
 
     // Hace el POST del equipo
-    this.coleccionService.POST_Coleccion(new Coleccion(nombreColeccion, this.nombreLogo), this.profesorId)
+    this.coleccionService.POST_Coleccion(new Coleccion(nombreColeccion, this.nombreImagen), this.profesorId)
     .subscribe((res) => {
       if (res != null) {
         console.log(res);
         this.coleccionYaCreada = true; // Si tiro atrás y cambio algo se hará un PUT y no otro POST
         this.coleccionCreada = res; // Lo metemos en coleccionCreada, y no en coleccion!!
 
-        // Hago el POST de la imagen SOLO si hay algo cargado. Ese boolean se cambiará en la función ExaminarLogo
-        if (this.logoCargado === true) {
+        // Hago el POST de la imagen SOLO si hay algo cargado. Ese boolean se cambiará en la función ExaminarImagen
+        if (this.imagenCargado === true) {
 
-          // Hacemos el POST de la nueva imagen en la base de datos recogida de la función ExaminarLogo
+          // Hacemos el POST de la nueva imagen en la base de datos recogida de la función ExaminarImagen
           const formData: FormData = new FormData();
-          formData.append(this.nombreLogo, this.file);
-          this.coleccionService.POST_LogoColecciones(formData)
-          .subscribe(() => console.log('Logo cargado'));
+          formData.append(this.nombreImagen, this.file);
+          this.coleccionService.POST_ImagenColeccion(formData)
+          .subscribe(() => console.log('Imagen cargado'));
         }
 
       } else {
@@ -110,18 +118,19 @@ export class CrearColeccionComponent implements OnInit {
 
   AgregarCromoColeccion() {
 
-    let nombreCromo: string;
-    let probabilidadCromo: string;
-    let nivelCromo: string;
+    // let nombreCromo: string;
+    // let probabilidadCromo: string;
+    // let nivelCromo: string;
 
-    nombreCromo = this.myForm2.value.nombreCromo;
-    probabilidadCromo = this.myForm2.value.probabilidadCromo;
-    nivelCromo = this.myForm2.value.nivelCromo;
+    // nombreCromo = this.myForm2.value.nombreCromo;
+    // probabilidadCromo = this.myForm2.value.probabilidadCromo;
+    // nivelCromo = this.myForm2.value.nivelCromo;
 
-    console.log('Entro a asignar el cromo ' + nombreCromo);
+    console.log('Entro a asignar el cromo ' + this.nombreCromo);
     console.log('Entro a asignar el cromo a la coleccionID' + this.coleccionCreada.id);
 
-    this.coleccionService.POST_CromoColeccion(new Cromo(nombreCromo, 'sinImagen', probabilidadCromo, nivelCromo), this.coleccionCreada.id)
+    this.coleccionService.POST_CromoColeccion(
+      new Cromo(this.nombreCromo, 'sinImagen', this.probabilidadCromo, this.nivelCromo), this.coleccionCreada.id)
     .subscribe((res) => {
       if (res != null) {
         console.log('asignado correctamente');
@@ -132,6 +141,7 @@ export class CrearColeccionComponent implements OnInit {
     });
 
   }
+
   CromosAgregados(cromo: Cromo) {
     this.cromosAgregados.push(cromo);
     this.cromosAgregados = this.cromosAgregados.filter(res => res.Nombre !== '');
@@ -148,36 +158,37 @@ export class CrearColeccionComponent implements OnInit {
 
     });
   }
+
   CromosEliminados(cromo: Cromo) {
     this.cromosAgregados = this.cromosAgregados.filter(res => res.id !== cromo.id);
     return this.cromosAgregados;
   }
-    // Activa la función ExaminarLogo
+    // Activa la función ExaminarImagen
     ActivarInput() {
       console.log('Activar input');
       document.getElementById('input').click();
     }
 
 
-    // Buscaremos la imagen en nuestro ordenador y después se mostrará en el form con la variable "logo" y guarda el
-    // nombre de la foto en la variable nombreLogo
-    ExaminarLogo($event) {
+    // Buscaremos la imagen en nuestro ordenador y después se mostrará en el form con la variable "imagen" y guarda el
+    // nombre de la foto en la variable nombreImagen
+    ExaminarImagen($event) {
       this.file = $event.target.files[0];
 
       console.log('fichero ' + this.file.name);
-      this.nombreLogo = this.file.name;
+      this.nombreImagen = this.file.name;
 
       const reader = new FileReader();
       reader.readAsDataURL(this.file);
       reader.onload = () => {
         console.log('ya');
-        this.logoCargado = true;
-        this.logo = reader.result.toString();
+        this.imagenCargado = true;
+        this.imagen = reader.result.toString();
       };
     }
 
     // Si estamos creando el equipo y pasamos al siguiente paso, pero volvemos hacia atrás para modificar el nombre y/o el
-  // logo, entonces no deberemos hacer un POST al darle a siguiente, sino un PUT. Por eso se hace esta función, que funciona
+  // imagen, entonces no deberemos hacer un POST al darle a siguiente, sino un PUT. Por eso se hace esta función, que funciona
   // de igual manera que la de Crear Equipo pero haciendo un PUT.
   EditarColeccion() {
 
@@ -186,25 +197,44 @@ export class CrearColeccionComponent implements OnInit {
 
     nombreColeccion = this.myForm.value.nombreColeccion;
 
-    this.coleccionService.PUT_Coleccion(new Coleccion(nombreColeccion, this.nombreLogo), this.profesorId, this.coleccionCreada.id)
+    this.coleccionService.PUT_Coleccion(new Coleccion(nombreColeccion, this.nombreImagen), this.profesorId, this.coleccionCreada.id)
     .subscribe((res) => {
       if (res != null) {
         console.log('Voy a editar la coleccion con id ' + this.coleccionCreada.id);
         this.coleccionCreada = res;
 
         // Hago el POST de la imagen SOLO si hay algo cargado
-        if (this.logoCargado === true) {
+        if (this.imagenCargado === true) {
           // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
           const formData: FormData = new FormData();
-          formData.append(this.nombreLogo, this.file);
-          this.coleccionService.POST_LogoColecciones(formData)
-          .subscribe(() => console.log('Logo cargado'));
+          formData.append(this.nombreImagen, this.file);
+          this.coleccionService.POST_ImagenColeccion(formData)
+          .subscribe(() => console.log('Imagen cargada'));
         }
 
       } else {
         console.log('fallo editando');
       }
     });
+  }
+
+  LimpiarCampos() {
+    this.nombreCromo = undefined;
+    this.probabilidadCromo = undefined;
+    this.nivelCromo = null;
+    this.isDisabledCromo = true;
+    // this.logoCargado = false;
+    // this.logo = undefined;
+    // this.nombreLogo = undefined;
+  }
+  Disabled() {
+
+    if (this.nombreCromo === undefined || this.probabilidadCromo === undefined || this.nivelCromo === undefined ||
+      this.nivelCromo === '' || this.probabilidadCromo === '' || this.nivelCromo === null) {
+      this.isDisabledCromo = true;
+    } else {
+      this.isDisabledCromo = false;
+    }
   }
   // Función que se activará al clicar en finalizar el último paso del stepper
   Finalizar() {
@@ -215,8 +245,8 @@ export class CrearColeccionComponent implements OnInit {
 
     // Tambien limpiamos las variables utilizadas para crear el nuevo equipo, por si queremos crear otro.
     this.coleccionYaCreada = false;
-    this.logoCargado = false;
-    this.logo = undefined;
+    this.imagenCargado = false;
+    this.imagen = undefined;
     this.coleccionCreada = undefined;
     this.cromosAgregados = [];
 
