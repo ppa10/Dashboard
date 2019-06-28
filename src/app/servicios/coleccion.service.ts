@@ -14,6 +14,7 @@ export class ColeccionService {
   private APIUrl = 'http://localhost:3000/api/Colecciones';
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
   private APIURLImagenColeccion = 'http://localhost:3000/api/imagenes/ImagenColeccion';
+  private APIURLImagenCromo = 'http://localhost:3000/api/imagenes/ImagenCromo';
 
   coleccion: Coleccion;
   cromo: Cromo;
@@ -46,6 +47,9 @@ export class ColeccionService {
 
   POST_CromoColeccion(cromo: Cromo, coleccionId: number): Observable<Cromo> {
     return this.http.post<Cromo>(this.APIUrl + '/' + coleccionId + '/cromos', cromo);
+  }
+  POST_ImagenCromo(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.APIURLImagenCromo + '/upload', formData);
   }
   DELETE_Cromo(cromoId: number, coleccionId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrl + '/' + coleccionId + '/cromos/' + cromoId);

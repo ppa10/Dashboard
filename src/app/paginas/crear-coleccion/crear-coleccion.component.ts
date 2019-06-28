@@ -14,6 +14,11 @@ import { ColeccionService, ProfesorService } from '../../servicios/index';
 // Clases
 import { Coleccion, Cromo } from '../../clases/index';
 
+export interface OpcionSeleccionada {
+  nombre: string;
+  id: string;
+}
+
 @Component({
   selector: 'app-crear-coleccion',
   templateUrl: './crear-coleccion.component.html',
@@ -31,12 +36,14 @@ export class CrearColeccionComponent implements OnInit {
   // CREAR COLECCION
   imagen: string;
   coleccionCreada: Coleccion;
+  nombreColeccion: string;
 
   // CREAR CROMO
   nombreCromo: string;
   probabilidadCromo: string;
   nivelCromo: string;
-
+  imagenCromo: string;
+  cromosAgregados: Cromo [] = [];
   // tslint:disable-next-line:ban-types
   isDisabledCromo: Boolean = true;
 
@@ -45,18 +52,47 @@ export class CrearColeccionComponent implements OnInit {
   nombreImagen: string;
   file: File;
 
+  nombreImagenCromo: string;
+  fileCromo: File;
+
   // Al principio coleccion no creada y imagen no cargada
   // tslint:disable-next-line:ban-types
   coleccionYaCreada: Boolean = false;
   // tslint:disable-next-line:ban-types
   imagenCargado: Boolean = false;
+  // tslint:disable-next-line:ban-types
+  imagenCargadoCromo: Boolean = false;
 
-  cromosAgregados: Cromo [] = [];
 
-  nombreColeccion: string;
+
+
+
+    // Opciones para mostrar en la lista desplegable para seleccionar el tipo de juego que listar
+    opcionesProbabilidad: OpcionSeleccionada[] = [
+      {nombre: 'Muy baja', id: 'probabilidadMuyBaja'},
+      {nombre: 'Baja', id: 'probabilidadBaja'},
+      {nombre: 'Media', id: 'probabilidadMedia'},
+      {nombre: 'Alta', id: 'probabilidadAlta'},
+      {nombre: 'Muy alta', id: 'probabilidadMuyAlta'},
+
+    ];
+
+    opcionSeleccionadaProbabilidad: string;
+
+      // Opciones para mostrar en la lista desplegable para seleccionar el tipo de juego que listar
+    opcionesNivel: OpcionSeleccionada[] = [
+        {nombre: 'Diamante', id: 'nivelDiamante'},
+        {nombre: 'Platino', id: 'nivelPlatino'},
+        {nombre: 'Oro', id: 'nivelOro'},
+        {nombre: 'Plata', id: 'nivelPlata'},
+        {nombre: 'Bronce', id: 'nivelBronce'},
+    ];
+    opcionSeleccionadaNivel: string;
+
 
   // PONEMOS LAS COLUMNAS DE LA TABLA Y LA LISTA QUE TENDRÁ LA INFORMACIÓN QUE QUEREMOS MOSTRAR
   displayedColumns: string[] = ['nombreCromo', 'probabilidadCromo', 'nivelCromo', ' '];
+
 
 
   constructor(
@@ -118,23 +154,26 @@ export class CrearColeccionComponent implements OnInit {
 
   AgregarCromoColeccion() {
 
-    // let nombreCromo: string;
-    // let probabilidadCromo: string;
-    // let nivelCromo: string;
-
-    // nombreCromo = this.myForm2.value.nombreCromo;
-    // probabilidadCromo = this.myForm2.value.probabilidadCromo;
-    // nivelCromo = this.myForm2.value.nivelCromo;
-
     console.log('Entro a asignar el cromo ' + this.nombreCromo);
     console.log('Entro a asignar el cromo a la coleccionID' + this.coleccionCreada.id);
+    console.log(this.nombreImagenCromo );
 
     this.coleccionService.POST_CromoColeccion(
-      new Cromo(this.nombreCromo, 'sinImagen', this.probabilidadCromo, this.nivelCromo), this.coleccionCreada.id)
+      new Cromo(this.nombreCromo, this.nombreImagenCromo , this.probabilidadCromo, this.nivelCromo), this.coleccionCreada.id)
     .subscribe((res) => {
       if (res != null) {
         console.log('asignado correctamente');
         this.CromosAgregados(res);
+
+         // Hago el POST de la imagen SOLO si hay algo cargado. Ese boolean se cambiará en la función ExaminarImagenCromo
+        if (this.imagenCargadoCromo === true) {
+
+          // Hacemos el POST de la nueva imagen en la base de datos recogida de la función ExaminarImagenCromo
+          const formData: FormData = new FormData();
+          formData.append(this.nombreImagenCromo, this.fileCromo);
+          this.coleccionService.POST_ImagenCromo(formData)
+          .subscribe(() => console.log('Imagen cargado'));
+        }
       } else {
         console.log('fallo en la asignación');
       }
@@ -163,31 +202,48 @@ export class CrearColeccionComponent implements OnInit {
     this.cromosAgregados = this.cromosAgregados.filter(res => res.id !== cromo.id);
     return this.cromosAgregados;
   }
-    // Activa la función ExaminarImagen
-    ActivarInput() {
-      console.log('Activar input');
-      document.getElementById('input').click();
-    }
+
+  // Activa la función ExaminarImagen
+  ActivarInput() {
+    console.log('Activar input');
+    document.getElementById('input').click();
+  }
 
 
-    // Buscaremos la imagen en nuestro ordenador y después se mostrará en el form con la variable "imagen" y guarda el
-    // nombre de la foto en la variable nombreImagen
-    ExaminarImagen($event) {
-      this.file = $event.target.files[0];
+  // Buscaremos la imagen en nuestro ordenador y después se mostrará en el form con la variable "imagen" y guarda el
+  // nombre de la foto en la variable nombreImagen
+  ExaminarImagen($event) {
+    this.file = $event.target.files[0];
+    console.log('fichero ' + this.file.name);
+    this.nombreImagen = this.file.name;
+    this.nombreImagenCromo = this.file.name;
 
-      console.log('fichero ' + this.file.name);
-      this.nombreImagen = this.file.name;
+    const reader = new FileReader();
+    reader.readAsDataURL(this.file);
+    reader.onload = () => {
 
-      const reader = new FileReader();
-      reader.readAsDataURL(this.file);
-      reader.onload = () => {
-        console.log('ya');
-        this.imagenCargado = true;
-        this.imagen = reader.result.toString();
-      };
-    }
+      console.log('ya');
+      this.imagenCargado = true;
+      this.imagen = reader.result.toString();
+    };
+  }
 
-    // Si estamos creando el equipo y pasamos al siguiente paso, pero volvemos hacia atrás para modificar el nombre y/o el
+  ExaminarImagenCromo($event) {
+    this.fileCromo = $event.target.files[0];
+
+    console.log('fichero ' + this.fileCromo.name);
+    this.nombreImagenCromo = this.fileCromo.name;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileCromo);
+    reader.onload = () => {
+      console.log('ya Cromo');
+      this.imagenCargadoCromo = true;
+      this.imagenCromo = reader.result.toString();
+    };
+  }
+
+  // Si estamos creando el equipo y pasamos al siguiente paso, pero volvemos hacia atrás para modificar el nombre y/o el
   // imagen, entonces no deberemos hacer un POST al darle a siguiente, sino un PUT. Por eso se hace esta función, que funciona
   // de igual manera que la de Crear Equipo pero haciendo un PUT.
   EditarColeccion() {
@@ -218,37 +274,85 @@ export class CrearColeccionComponent implements OnInit {
     });
   }
 
-  LimpiarCampos() {
-    this.nombreCromo = undefined;
-    this.probabilidadCromo = undefined;
-    this.nivelCromo = null;
-    this.isDisabledCromo = true;
-    // this.logoCargado = false;
-    // this.logo = undefined;
-    // this.nombreLogo = undefined;
+  OpcionProbabilidadSeleccionada() {
+
+    // Opcion selecionada para probabilidad
+    if (this.opcionSeleccionadaProbabilidad === 'probabilidadMuyBaja') {
+      this.probabilidadCromo = 'Muy baja';
+    }
+    if (this.opcionSeleccionadaProbabilidad === 'probabilidadBaja') {
+      this.probabilidadCromo = 'Baja';
+    }
+
+    if (this.opcionSeleccionadaProbabilidad === 'probabilidadMedia') {
+      this.probabilidadCromo = 'Media';
+    }
+
+    if (this.opcionSeleccionadaProbabilidad === 'probabilidadAlta') {
+      this.probabilidadCromo = 'Alta';
+    }
+
+    if (this.opcionSeleccionadaProbabilidad === 'probabilidadMuyAlta') {
+      this.probabilidadCromo = 'Muy alta';
+    }
   }
+
+  OpcionNivelSeleccionado() {
+    // Opcion selecionada para nivel
+    if (this.opcionSeleccionadaNivel === 'nivelDiamante') {
+      this.nivelCromo = 'Diamante';
+    }
+    if (this.opcionSeleccionadaNivel === 'nivelPlatino') {
+      this.nivelCromo = 'Platino';
+    }
+
+    if (this.opcionSeleccionadaNivel === 'nivelOro') {
+      this.nivelCromo = 'Oro';
+    }
+
+    if (this.opcionSeleccionadaNivel === 'nivelPlata') {
+      this.nivelCromo = 'Plata';
+    }
+
+    if (this.opcionSeleccionadaNivel === 'nivelBronce') {
+      this.nivelCromo = 'Bronce';
+    }
+  }
+
+  LimpiarCampos() {
+      this.nombreCromo = undefined;
+      this.probabilidadCromo = undefined;
+      this.nivelCromo = null;
+      this.isDisabledCromo = true;
+      this.imagenCargadoCromo = false;
+      this.imagenCromo = undefined;
+      this.nombreImagenCromo = undefined;
+  }
+
   Disabled() {
 
-    if (this.nombreCromo === undefined || this.probabilidadCromo === undefined || this.nivelCromo === undefined ||
-      this.nivelCromo === '' || this.probabilidadCromo === '' || this.nivelCromo === null) {
-      this.isDisabledCromo = true;
-    } else {
-      this.isDisabledCromo = false;
+  if (this.nombreCromo === undefined || this.probabilidadCromo === undefined || this.nivelCromo === undefined ||
+        this.nivelCromo === '' || this.probabilidadCromo === '' || this.nivelCromo === null) {
+        this.isDisabledCromo = true;
+  } else {
+        this.isDisabledCromo = false;
     }
   }
-  // Función que se activará al clicar en finalizar el último paso del stepper
+    // Función que se activará al clicar en finalizar el último paso del stepper
   Finalizar() {
-    // Al darle al botón de finalizar limpiamos el formulario y reseteamos el stepper
-    this.myForm.reset();
-    this.myForm2.reset();
-    this.stepper.reset();
+      // Al darle al botón de finalizar limpiamos el formulario y reseteamos el stepper
+      this.myForm.reset();
+      this.myForm2.reset();
+      this.stepper.reset();
 
-    // Tambien limpiamos las variables utilizadas para crear el nuevo equipo, por si queremos crear otro.
-    this.coleccionYaCreada = false;
-    this.imagenCargado = false;
-    this.imagen = undefined;
-    this.coleccionCreada = undefined;
-    this.cromosAgregados = [];
+      // Tambien limpiamos las variables utilizadas para crear el nueva coleccion, por si queremos crear otra.
+      this.coleccionYaCreada = false;
+      this.imagenCargado = false;
+      this.imagen = undefined;
+      this.imagenCargadoCromo = false;
+      this.imagenCromo = undefined;
+      this.coleccionCreada = undefined;
+      this.cromosAgregados = [];
 
-    }
+  }
 }

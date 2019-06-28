@@ -25,7 +25,7 @@
           <div>
               <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
               <img class="imagen" *ngIf="imagen" hight = "150" width = "150" mat-card-image [src]="imagen" style="margin: 5px">
-              <button (click) = "ActivarInput()" type="button" class="btn btn-info">
+              <button (click) = "ActivarInput()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
                 Agregar imagen<i class="material-icons">add_photo_alternate</i>
               </button>
           </div>
@@ -56,15 +56,34 @@
                   <input (keyup)="Disabled()" type="text" id="inputNombreNivel" class="form-control" requiered [(ngModel)]="nombreCromo" placeholder="Escribe el nombre del cromo">
               </div>
 
+<!--
               <div class="form-group">
                   <label for="inputProbabilidadCromo">Probabilidad</label>
                   <input (keyup)="Disabled()" type="text" id="inputProbabilidadCromo" class="form-control" requiered [(ngModel)]="probabilidadCromo" placeholder="Elige la probabilidad del cromo">
               </div>
-
               <div class="form-group">
-                  <label for="inputNivelCromo">Nivel</label>
-                  <input (keyup)="Disabled()" type="text" id="inputNivelCromo" class="form-control" requiered [(ngModel)]="nivelCromo" placeholder="Elige el nivel del cromo">
-              </div>
+                <label for="inputNivelCromo">Nivel</label>
+                <input (keyup)="Disabled()" type="text" id="inputNivelCromo" class="form-control" requiered [(ngModel)]="nivelCromo" placeholder="Elige el nivel del cromo">
+              </div> -->
+              <mat-form-field style="margin: 15px;">
+                <mat-label>Probabilidad </mat-label>
+                  <select matNativeControl [(ngModel)]="opcionSeleccionadaProbabilidad" name="opcion" (change) = "OpcionProbabilidadSeleccionada()">
+                    <option  (keyup)="Disabled()" *ngFor="let opcion of opcionesProbabilidad" [value]="opcion.id">
+                        {{opcion.nombre}}
+                    </option>
+                  </select>
+              </mat-form-field>
+
+              <mat-form-field style="margin: 15px; ">
+                <mat-label>Nivel </mat-label>
+                  <select matNativeControl [(ngModel)]="opcionSeleccionadaNivel" name="opcion" (change) = "OpcionNivelSeleccionado()">
+                    <option  (keyup)="Disabled()" *ngFor="let opcion of opcionesNivel" [value]="opcion.id">
+                        {{opcion.nombre}}
+                    </option>
+                  </select>
+              </mat-form-field>
+
+
 
           <!-- <form [formGroup]="myForm2">
             <ng-template matStepLabel>Crear cromo</ng-template>
@@ -95,16 +114,16 @@
           </mat-card-content>
 
           <div>
-              <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
-              <img class="imagen" *ngIf="imagen" hight = "150" width = "150" mat-card-image [src]="imagen">
-              <button (click) = "ActivarInput()" type="button" class="btn btn-info">
+              <input #file id = "input" type="file" accept= 'imagen/*' (change)="ExaminarImagenCromo($event)" style="display:none">
+              <img class="imagen" *ngIf="imagenCromo" hight = "150" width = "150" mat-card-image [src]="imagenCromo">
+              <button (click) = "ActivarInput()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
                Agregar imagen <i class="material-icons">add_photo_alternate</i>
               </button>
           </div>
 
           <mat-card-actions align="end">
             <button  (click) = "LimpiarCampos()" type="button" style="background-color: rgb(240, 173, 78)" class="btn">Limpiar Campos</button>
-            <button  (click) = "AgregarCromoColeccion()" [disabled]="isDisabledCromo" style="background-color: rgb(92, 184, 92)" class="btn">Agregar cromo</button>
+            <button  (click) = "AgregarCromoColeccion()"  style="background-color: rgb(92, 184, 92)" class="btn">Agregar cromo</button>
           </mat-card-actions>
 
               </mat-card>
