@@ -33,7 +33,7 @@ export class ColeccionService {
     return this.http.put<Coleccion>(this.APIUrlProfesor + '/' + profesorId + '/coleccions/' + coleccionId, coleccion);
   }
 
-  DELETE_Coleccion(profesorId: number, coleccionId: number): Observable<any> {
+  DELETE_Coleccion(coleccionId: number, profesorId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/coleccions/' + coleccionId);
   }
 
@@ -41,8 +41,8 @@ export class ColeccionService {
     return this.http.get<Coleccion[]>(this.APIUrlProfesor + '/' + profesorId + '/coleccions');
   }
 
-  GET_CromosColeccion(coleccionId: number): Observable<Coleccion[]> {
-    return this.http.get<Coleccion[]>(this.APIUrl + '/' + coleccionId + '/cromos');
+  GET_CromosColeccion(coleccionId: number): Observable<Cromo[]> {
+    return this.http.get<Cromo[]>(this.APIUrl + '/' + coleccionId + '/cromos');
   }
 
   POST_CromoColeccion(cromo: Cromo, coleccionId: number): Observable<Cromo> {
@@ -54,4 +54,14 @@ export class ColeccionService {
   DELETE_Cromo(cromoId: number, coleccionId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrl + '/' + coleccionId + '/cromos/' + cromoId);
   }
+
+  // FUNCIONES PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES
+  EnviarColeccionAlServicio(coleccion: any) {
+    this.coleccion = coleccion;
+  }
+
+  RecibirColeccionDelServicio(): any {
+    return this.coleccion;
+  }
+
 }
