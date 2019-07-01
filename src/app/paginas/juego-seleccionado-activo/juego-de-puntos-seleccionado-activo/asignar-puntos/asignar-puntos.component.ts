@@ -310,7 +310,7 @@ export class AsignarPuntosComponent implements OnInit {
             this.rankingJuegoDePuntos[i].puntos = nuevosPuntos;
             this.rankingJuegoDePuntos[i].nivel = nivel.Nombre;
             this.fechaAsignacionPunto = new Date();
-            this.fechaString = this.fechaAsignacionPunto.toString();
+            this.fechaString = this.fechaAsignacionPunto.toLocaleDateString() + '  ' + this.fechaAsignacionPunto.toLocaleTimeString();
             // tslint:disable-next-line:max-line-length
             this.POST_HistorialAlumno(this.valorPunto, this.puntoSeleccionadoId, this.listaAlumnosOrdenadaPorPuntos[i].id, this.fechaString);
             this.OrdenarListaPorPuntos();
@@ -327,7 +327,7 @@ export class AsignarPuntosComponent implements OnInit {
 
             this.rankingJuegoDePuntos[i].puntos = nuevosPuntos;
             this.fechaAsignacionPunto = new Date();
-            this.fechaString = this.fechaAsignacionPunto.toString();
+            this.fechaString = this.fechaAsignacionPunto.toLocaleDateString() + '  ' + this.fechaAsignacionPunto.toLocaleTimeString();
 
             // tslint:disable-next-line:max-line-length
             this.POST_HistorialAlumno(this.valorPunto, this.puntoSeleccionadoId, this.listaAlumnosOrdenadaPorPuntos[i].id, this.fechaString);
@@ -426,7 +426,7 @@ export class AsignarPuntosComponent implements OnInit {
               this.rankingEquiposJuegoDePunto[i].nivel = nivel.Nombre;
 
               this.fechaAsignacionPunto = new Date();
-              this.fechaString = this.fechaAsignacionPunto.toString();
+              this.fechaString = this.fechaAsignacionPunto.toLocaleDateString() + '  ' + this.fechaAsignacionPunto.toLocaleTimeString();
 
               // tslint:disable-next-line:max-line-length
               this.POST_HistorialEquipo(this.valorPunto, this.puntoSeleccionadoId, this.listaEquiposOrdenadaPorPuntos[i].id, this.fechaString);
@@ -445,7 +445,7 @@ export class AsignarPuntosComponent implements OnInit {
                 this.rankingEquiposJuegoDePunto[i].puntos = nuevosPuntos;
 
                 this.fechaAsignacionPunto = new Date();
-                this.fechaString = this.fechaAsignacionPunto.toString();
+                this.fechaString = this.fechaAsignacionPunto.toLocaleDateString() + '  ' + this.fechaAsignacionPunto.toLocaleTimeString();
 
                 // tslint:disable-next-line:max-line-length
                 this.POST_HistorialEquipo(this.valorPunto, this.puntoSeleccionadoId, this.listaEquiposOrdenadaPorPuntos[i].id, this.fechaString);
@@ -609,9 +609,11 @@ export class AsignarPuntosComponent implements OnInit {
   prueba() {
 
     this.fechaAsignacionPunto = new Date();
+    this.fechaAsignacionPunto.toDateString();
 
 
-    this.fechaString =  this.fechaAsignacionPunto.toString();
+    console.log(this.fechaAsignacionPunto.toLocaleDateString() + '  ' + this.fechaAsignacionPunto.toLocaleTimeString());
+
 
   }
 
