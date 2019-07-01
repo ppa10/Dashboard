@@ -1,24 +1,65 @@
+.titulo{
+  width: 70%;
+  margin-left: 15%;
+  height: 60px;
+  padding: 10px;
+  color: rgb(63, 81, 181);
+
+}
+
+
+.h2, h2 {
+  font-size: 2.5rem !important;
+}
+
+.contenedor{
+
+  width: 70%;
+  margin-left: 15%;
+  height: auto;
+  padding: 10px;
+  border: 10px solid transparent;
+  background-color: transparent;
+
+}
+
 .panel{
 
   background-color: rgb(63, 81, 181);
-  margin: 40px;
-  width: 600px;
+  margin: 20px;
+  width: 400px;
 }
 
 .panelInsignia {
   background-color: rgb(232, 12, 122);
-  margin: 40px;
-  width: 600px;
+  margin: 20px;
+  width: 400px;
 }
 
 table {
-  width: 120%;
+  width: 100%;
   text-align: center;
   align-content: center;
-  width: 600px;
   table-layout: fixed;
 }
 
+.letraCabecera{
+  color:white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 90%;
+}
+
+.mat-header-row{
+
+  text-align: center;
+  background-color:rgb(63, 81, 181);
+  }
+
+.mat-row:hover {
+  background-color: rgb(204, 197, 197);
+  // cursor: pointer;
+}
 .btn-primary {
   background-color: rgb(232, 12, 122);
   border-color: rgb(232, 12, 122);
@@ -49,7 +90,7 @@ label{
 }
 
 
-.contenedor{
+.contenedor4{
   width: auto;
   height: auto;
   border: 10px solid transparent;
@@ -59,19 +100,20 @@ label{
   display: -webkit-flex;
   display: -ms-flexbox;
 
-  // flex-direction: column;
-  align-items: center;
+  // align-items: center;
 }
 .contenedor2{
   border: 5px solid transparent;
   justify-content: center;
   align-items: center;
 }
-.mat-header-row{
 
-  text-align: center;
-  background-color:rgb(63, 81, 181);
-  }
+.btn{
+  margin: 5px !important;
+  align-items: center;
+  color: white;
+  width: 170px;
+}
 /* Colores de iconos */
 .material-icons.red { color: rgb(228, 8, 8); }
 

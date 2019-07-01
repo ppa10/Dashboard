@@ -17,9 +17,9 @@
             <mat-panel-title>
               {{equipo.Nombre}}
             </mat-panel-title>
-            <mat-panel-description>
+            <!-- <mat-panel-description>
               Información sobre {{equipo.Nombre}}
-            </mat-panel-description>
+            </mat-panel-description> -->
           </mat-expansion-panel-header>
             <div class="contenedor2">
                 <div>
@@ -33,10 +33,13 @@
                 </div>
                 <div class="contenedor3" style="margin-right: 2% ">
                   <div class="elemento">
-                    <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" routerLink= "editarEquipo" (click) = "EnviarEquipoEditar(equipo, alumnosEquipo)">Editar equipo</button>
+                    <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" routerLink= "editarEquipo" (click) = "EnviarEquipoEditar(equipo, alumnosEquipo)">Editar equipo <i class="material-icons">
+                      edit </i>  </button>
                   </div>
                   <div class="elemento">
-                    <button type="button" style="background-color: rgb(212, 57, 52)" class="btn" (click) = "AbrirDialogoConfirmacionBorrar(equipo)">Eliminar equipo</button>
+                    <button type="button" style="background-color: rgb(212, 57, 52)" class="btn" (click) = "AbrirDialogoConfirmacionBorrar(equipo)">Eliminar equipo <i class="material-icons">
+                      delete
+                      </i></button>
                   </div>
 
                 </div>
@@ -97,15 +100,16 @@
             <ng-template matStepLabel>
               <div>Añadir alumnos</div>
             </ng-template>
+            <div>
+                <button type="button"  style="background-color: rgb(63, 81, 181)" class="btn" (click) = AbrirDialogoAgregarAlumnosEquipo()>
+                  <i class="material-icons">
+                    group_add
+                    </i>Agregar alumno</button>
+            </div>
 
-            <form>
+            <form *ngIf="alumnosEquipoCreado;else Aviso_no_alumnos">
               <div>
-                <div>
-                    <button type="button"  style="background-color: rgb(63, 81, 181)" class="btn" (click) = AbrirDialogoAgregarAlumnosEquipo()>
-                      <i class="material-icons">
-                        group_add
-                        </i>Agregar alumno</button>
-                </div>
+
                 <!-- <div class="contenedor2">
               <table *ngIf="alumnosEquipoCreado;else Aviso_no_alumnos" mat-table [dataSource]="alumnosEquipoCreado" class="example-container mat-elevation-z8">
 
@@ -144,11 +148,14 @@
 
               </table>
             </div> -->
-
-              <ng-template *ngIf="alumnosEquipoCreado;else Aviso_no_alumnos"> Se han añadido correctamente los alumnos.</ng-template>
-              <ng-template #Aviso_no_alumnos>Este equipo no tiene alumnos.</ng-template>
+            <p>
+              Se han añadido correctamente los alumnos.
+            </p>
               </div>
             </form>
+
+            <ng-template #Aviso_no_alumnos>Este equipo no tiene alumnos.</ng-template>
+
 
             <div class="btnCambiarStep">
               <button  type="button" style="background-color: rgb(240, 173, 78)" class="btn"  matStepperPrevious>Atrás</button>

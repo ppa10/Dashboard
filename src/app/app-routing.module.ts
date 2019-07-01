@@ -26,6 +26,9 @@ import { InformacionJuegoPuntosComponent } from './paginas/juego-seleccionado-ac
 // tslint:disable-next-line:max-line-length
 import { EquipoSeleccionadoJuegoDePuntosComponent } from './paginas/juego-seleccionado-activo/juego-de-puntos-seleccionado-activo/equipo-seleccionado-juego-de-puntos/equipo-seleccionado-juego-de-puntos.component';
 import { JuegoSeleccionadoInactivoComponent } from './paginas/juego-seleccionado-inactivo/juego-seleccionado-inactivo.component';
+import { EditarPuntoComponent } from './paginas/mis-puntos/editar-punto/editar-punto.component';
+import { EditarInsigniaComponent } from './paginas/mis-puntos/editar-insignia/editar-insignia.component';
+import { EditarColeccionComponent } from './paginas/mis-colecciones/editar-coleccion/editar-coleccion.component';
 
 
 
@@ -55,10 +58,15 @@ const routes: Routes = [
 
   { path: 'inicio/:id/crearColeccion', component: CrearColeccionComponent },
   { path: 'inicio/:id/misColecciones', component: MisColeccionesComponent },
+  { path: 'inicio/:id/misColecciones/editarColeccion', component: EditarColeccionComponent },
+
 
   { path: 'aboutClasspip', component: AboutClasspipComponent },
   { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },
-  { path: 'inicio/:id/misPuntos', component: MisPuntosComponent }
+  { path: 'inicio/:id/misPuntos', component: MisPuntosComponent },
+  { path: 'inicio/:id/misPuntos/editarPunto', component: EditarPuntoComponent },
+  { path: 'inicio/:id/misPuntos/editarInsignia', component: EditarInsigniaComponent }
+
 
 
 

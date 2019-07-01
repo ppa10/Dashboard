@@ -13,6 +13,8 @@ export class PuntosInsigniasService {
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
 
   private APIURLImagenInsignia = 'http://localhost:3000/api/imagenes/ImagenInsignia';
+  punto: Punto;
+  insignia: Insignia;
 
   constructor( private http: HttpClient ) { }
 
@@ -32,6 +34,9 @@ export class PuntosInsigniasService {
     return this.http.post<Insignia>(this.APIUrlProfesor + '/' + profesorId + '/insignia', insignia);
   }
 
+  PUT_Insignia(insignia: Insignia, profesorId: number, insigniaId: number): Observable<Insignia> {
+    return this.http.put<Insignia>(this.APIUrlProfesor + '/' + profesorId + '/insignia/' + insigniaId, insignia);
+  }
   DELETE_Insignia(insigniaId: number, profesorId: number): Observable<any> {
     return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/insignia/' + insigniaId);
   }
@@ -49,5 +54,22 @@ export class PuntosInsigniasService {
   }
   GET_ImagenInsignia(ImagenInsignia: string): Observable<any> {
     return this.http.get<any>(this.APIURLImagenInsignia + '/download/' + ImagenInsignia);
+  }
+
+  // FUNCIONES PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES
+  EnviarPuntoAlServicio(punto: any) {
+    this.punto = punto;
+  }
+
+  RecibirPuntoDelServicio(): any {
+    return this.punto;
+  }
+
+  EnviarInsigniaAlServicio(insignia: any) {
+    this.insignia = insignia;
+  }
+
+  RecibirInsigniaDelServicio(): any {
+    return this.insignia;
   }
 }

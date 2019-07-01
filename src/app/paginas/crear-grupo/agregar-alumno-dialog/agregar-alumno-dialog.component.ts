@@ -23,9 +23,10 @@ export class AgregarAlumnoDialogComponent implements OnInit {
   grupoId: number;
   profesorId: number;
 
+
   // Declaramos el FormGroup que tendrá los tres controladores que recibirán los parámetros de entrada
   myForm: FormGroup;
-
+  myForm2: FormGroup;
 
   constructor(private matriculaService: MatriculaService,
               private alumnoService: AlumnoService,
@@ -44,6 +45,10 @@ export class AgregarAlumnoDialogComponent implements OnInit {
       nombreAlumno: ['', Validators.required],
       primerApellido: ['', Validators.required],
       segundoApellido: ['', Validators.required],
+      textoAlumnos: ['', Validators.required],
+    });
+    this.myForm2 = this.formBuilder.group({
+      textoAlumnos: ['', Validators.required],
     });
 
   }
@@ -163,9 +168,92 @@ export class AgregarAlumnoDialogComponent implements OnInit {
     console.log('Alumnos añadidos. Cierro el dialogo');
   }
 
-  prue() {
-    console.log(this.grupoId);
-    console.log(this.alumnosAgregados);
+////////////////////////////////////////////// PARA TEXTO ////////////////////////////////////////////////
+
+
+    // A LA HORA DE AÑADIR UN ALUMNO AL GRUPO, PRIMERO COMPRUEBA SI ESE ALUMNO YA ESTA REGISTRADO EN LA BASE DE DATOS.
+    // EN CASO DE ESTAR REGISTRADO, SOLO HACE LA MATRICULA. SINO, LO AGREGA Y HACE LA MATRICULA
+
+    BuscarAlumnoBaseDeDatosTexto() {
+
+    let textoAlumnos: string;
+
+    textoAlumnos = this.myForm2.value.textoAlumnos;
+
+    for (let i = 0; i < textoAlumnos.split(';').length; i++) {
+
+      if (textoAlumnos) {
+
+        let nombreAlumno: string;
+        let primerApellido: string;
+        let segundoApellido: string;
+        let nombreCompleto: string;
+
+        nombreCompleto = textoAlumnos.split('; ')[0 + i];
+
+        nombreAlumno = nombreCompleto.split(' ')[0];
+        primerApellido = nombreCompleto.split(' ')[1];
+        segundoApellido = nombreCompleto.split(' ')[2];
+
+        console.log(nombreCompleto);
+
+        this.alumnoService.GET_AlumnoConcreto(
+          new Alumno (nombreAlumno, primerApellido, segundoApellido), this.profesorId)
+          .subscribe((respuesta) => {
+            if (respuesta[0] !== undefined) {
+            console.log('El alumno existe. Solo voy a matricularlo en este grupo');
+            this.alumno = respuesta[0];
+            console.log(this.alumno);
+            this.MatricularAlumnoTexto(respuesta[0]);
+          } else {
+            console.log('El alumno no existe. Voy a agregarlo y matricularlo');
+            this.AgregarAlumnoNuevoGrupoTexto(nombreAlumno, primerApellido, segundoApellido);
+            }
+          });
+      }
+
+   }
   }
+
+
+  // PARA AGREGAR UN ALUMNO NUEVO A LA BASE DE DATOS DEBEMOS HACERLO DESDE LAS VENTANAS DE CREAR GRUPO O EDITAR GRUPO.
+  // CREARÁ AL ALUMNO Y LO MATRICULARÁ EN EL GRUPO QUE ESTAMOS CREANDO/EDITANDO
+  AgregarAlumnoNuevoGrupoTexto(nombreAlumno: string, primerApellido: string, segundoApellido: string) {
+
+
+    this.alumnoService.POST_AlumnosAlProfesor(
+      new Alumno (nombreAlumno, primerApellido, segundoApellido), this.profesorId)
+      .subscribe(res => {
+        if (res != null) {
+          console.log('Voy a añadir a ' + res);
+          this.alumno = res;
+          this.MatricularAlumnoTexto(res);
+
+        } else {
+          console.log('fallo añadiendo');
+        }
+      });
+  }
+
+  // MATRICULA A UN ALUMNO CONCRETO EN UN GRUPO CONCRETO MEDIANTE SUS IDENTIFICADORES
+   MatricularAlumnoTexto(alumno: Alumno) {
+
+    console.log('voy a entrar a matricular al alumno con id y grupo ' + alumno.id + ' ' + this.grupoId);
+    this.matriculaService.POST_Matricula(new Matricula (alumno.id, this.grupoId))
+    .subscribe((resMatricula) => {
+      if (resMatricula != null) {
+        console.log('Matricula: ' + resMatricula);
+
+        this.AgregarAlumnoListaAgregados(alumno);
+
+        // Una vez matriculado el alumno, limpiamos el form para poder añadir un alumno nuevo
+        this.myForm.reset();
+      } else {
+        console.log('fallo en la matriculación');
+      }
+    });
+
+  }
+
 
 }

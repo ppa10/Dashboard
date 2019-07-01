@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { Location } from '@angular/common';
 import { ResponseContentType, Http, Response } from '@angular/http';
+
+
+// Imports para abrir diálogo confirmar eliminar equipo
+import { MatDialog, MatSnackBar, MatTabGroup } from '@angular/material';
+import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 
 // Servicios
 import { PuntosInsigniasService, ProfesorService } from '../../servicios/index';
@@ -19,15 +22,16 @@ export class MisPuntosComponent implements OnInit {
 
   profesorId: number;
 
-  //////////// PARA JUEGO DE PUNTOS
 
   puntosProfesor: Punto[];
   insigniasProfesor: Insignia[];
 
-  // imagenInsignia: string;
+  imagenInsignia: string;
 
-  displayedColumns: string[] = ['nombre', 'descripcion', ' '];
 
+  // PARA DIÁLOGO DE CONFIRMACIÓN
+  // tslint:disable-next-line:no-inferrable-types
+  mensaje: string = 'Estás seguro/a de que quieres eliminar el equipo llamado: ';
 
   constructor(
     private puntosInsigniasService: PuntosInsigniasService,
@@ -48,39 +52,11 @@ export class MisPuntosComponent implements OnInit {
     this.PuntosDelProfesor();
     console.log(this.puntosProfesor);
 
-    this. InsigniasDelProfesor();
+    this.InsigniasDelProfesor();
     console.log(this.insigniasProfesor);
 
   }
 
-  // ImagenInsignia(insignas: Insignia) {
-
-  //   console.log('entro a buscar insignia y foto');
-  //   console.log(insignas.Imagen);
-  //   // Si el equipo tiene una foto (recordemos que la foto no es obligatoria)
-  //   if (insignas.Imagen !== undefined) {
-
-  //     // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
-  //     this.http.get('http://localhost:3000/api/imagenes/ImagenInsignias/download/' + insignas.Imagen,
-  //     { responseType: ResponseContentType.Blob })
-  //     .subscribe(response => {
-  //       const blob = new Blob([response.blob()], { type: 'image/jpg'});
-
-  //       const reader = new FileReader();
-  //       reader.addEventListener('load', () => {
-  //         this.imagenInsignia = reader.result.toString();
-  //       }, false);
-
-  //       if (blob) {
-  //         reader.readAsDataURL(blob);
-  //       }
-  //     });
-
-  //     // Sino la imagenLogo será undefined para que no nos pinte la foto de otro equipo préviamente seleccionado
-  //   } else {
-  //     this.imagenInsignia = undefined;
-  //   }
-  // }
   ////////////////////////////////////////////// PARA PUNTOS ////////////////////////////////////////////////
   PuntosDelProfesor() {
 
@@ -98,7 +74,42 @@ export class MisPuntosComponent implements OnInit {
     });
   }
 
-  // Utilizamos esta función para eliminar un punto de la base de datos y de la lista de añadidos recientemente
+  // Una vez seleccionado un punto, lo podemos editar o eliminar. Esta función se activará si clicamos en editar.
+  // Envía el punto específico al componente editar-punto
+  EnviarPuntoEditar(punto: Punto) {
+    console.log('voy a enviar');
+    this.puntosInsigniasService.EnviarPuntoAlServicio(punto);
+    console.log(punto.Nombre);
+
+  }
+
+  // Si queremos borrar un equipo, antes nos saldrá un aviso para confirmar la acción como medida de seguridad. Esto se
+  // hará mediante un diálogo al cual pasaremos el mensaje y el nombre del equipo
+  AbrirDialogoConfirmacionBorrarPunto(punto: Punto): void {
+
+    const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
+      height: '150px',
+      data: {
+        mensaje: this.mensaje,
+        nombre: punto.Nombre,
+      }
+    });
+
+    // Antes de cerrar recogeremos el resultado del diálogo: Borrar (true) o cancelar (false). Si confirmamos, borraremos
+    // el punto (función BorrarPunto) y mostraremos un snackBar con el mensaje de que se ha eliminado correctamente.
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.BorrarPunto(punto);
+        this.snackBar.open(punto.Nombre + ' eliminado correctamente', 'Cerrar', {
+          duration: 2000,
+        });
+
+      }
+    });
+  }
+
+
+  // Utilizamos esta función para eliminar un punto de la base de datos y actualiza la lista de puntos
   BorrarPunto(punto: Punto) {
     this.puntosInsigniasService.DELETE_Punto(punto.id, punto.profesorId)
     .subscribe(() => {
@@ -131,7 +142,39 @@ export class MisPuntosComponent implements OnInit {
       });
     }
 
-    // Utilizamos esta función para eliminar un punto de la base de datos y de la lista de añadidos recientemente
+
+    // Lo mismo que con el punto
+     EnviarInsigniaEditar(insigna: Insignia) {
+      console.log('voy a enviar');
+      this.puntosInsigniasService.EnviarInsigniaAlServicio(insigna);
+      console.log(insigna.Nombre);
+    }
+
+    // Lo mismo que con el punto
+    AbrirDialogoConfirmacionBorrarInsignia(insigna: Insignia): void {
+
+    const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
+      height: '150px',
+      data: {
+        mensaje: this.mensaje,
+        nombre: insigna.Nombre,
+      }
+    });
+
+    // Antes de cerrar recogeremos el resultado del diálogo: Borrar (true) o cancelar (false). Si confirmamos, borraremos
+    // el punto (función BorrarPunto) y mostraremos un snackBar con el mensaje de que se ha eliminado correctamente.
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.BorrarInsignia(insigna);
+        this.snackBar.open(insigna.Nombre + ' eliminado correctamente', 'Cerrar', {
+          duration: 2000,
+        });
+
+      }
+    });
+  }
+
+    // Utilizamos esta función para eliminar una insignia de la base de datos y de la lista de añadidos recientemente
     BorrarInsignia(insignas: Insignia) {
       this.puntosInsigniasService.DELETE_Insignia(insignas.id, insignas.profesorId)
       .subscribe(() => {
@@ -141,9 +184,39 @@ export class MisPuntosComponent implements OnInit {
       });
     }
 
-    // Borramos el punto de la lista de puntos agregados
+    // Borramos la insignia de la lista de insingias agregadas
     InsigniasEliminadas(insignas: Insignia) {
       this.insigniasProfesor = this.insigniasProfesor.filter(res => res.id !== insignas.id);
       return this.insigniasProfesor;
     }
+
+  ImagenDelaInsignia(insigna: Insignia) {
+
+    console.log('entro a buscar insignia y foto');
+    console.log(insigna.Imagen);
+    // Si el equipo tiene una foto (recordemos que la foto no es obligatoria)
+    if (insigna.Imagen !== undefined) {
+
+      // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
+      this.http.get('http://localhost:3000/api/imagenes/ImagenInsignia/download/' + insigna.Imagen,
+      { responseType: ResponseContentType.Blob })
+      .subscribe(response => {
+        const blob = new Blob([response.blob()], { type: 'image/jpg'});
+
+        const reader = new FileReader();
+        reader.addEventListener('load', () => {
+          this.imagenInsignia = reader.result.toString();
+        }, false);
+
+        if (blob) {
+          reader.readAsDataURL(blob);
+        }
+      });
+
+      // Sino la imagenInsignia será undefined para que no nos pinte la foto de otro equipo préviamente seleccionado
+    } else {
+      this.imagenInsignia = undefined;
+    }
+  }
+
 }

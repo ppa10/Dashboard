@@ -1,3 +1,44 @@
+
 table {
   width: 80%;
+  text-align: center;
+  align-content: center;
+  table-layout:fixed;
+}
+
+.letraCabecera{
+  color:white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 90%;
+}
+
+
+.filter {
+  width: 60%;
+  font-size: 14px;
+  margin-left: 20%;
+}
+
+.mat-header-row{
+
+  text-align: center;
+  background-color:rgb(63, 81, 181);
+  }
+
+.mat-row:hover {
+  background-color: rgb(204, 197, 197);
+  // cursor: pointer;
+}
+
+.material-icons{
+  width: 15px;
+  height: 15px;
+}
+
+.btn{
+  margin: 5px;
+  align-items: center;
+  color: white;
+  width: 170px;
 }
