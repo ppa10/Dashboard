@@ -1,3 +1,40 @@
-<p>
-  editar-coleccion works!
-</p>
+<div class="titulo"><h2>Editar Colección</h2></div>
+<mat-divider style="width: 70%; margin-left : 15%"></mat-divider>
+
+
+<div class="contenedor contenedor3">
+  <div class="contenedor2" style=" text-align: left;">
+    <p>
+      <span style="font-weight: bold;">Nombre: </span>
+      <input style="background-color: transparent" type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="nombreColeccion">
+    </p>
+    <div class="elemento">
+        <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
+        <img class ="logo" *ngIf="imagenColeccion" hight = "130" width = "130" mat-card-image [src]="imagenColeccion" >
+      </div>
+  </div>
+
+  <div>
+
+    <div class="elemento">
+        <button type="button"  style="background-color: rgb(92, 184, 92)" class="btn"  (click)= "EditarColeccion()">Aceptar Cambios <i class="material-icons">
+          check </i></button>
+  </div>
+
+</div>
+</div>
+
+<div class="contenedor">
+  <div class="elemento">
+      <button (click) = "ActivarInput()" type="button" style="background-color: rgb(51, 122, 183)" class="btn">
+        Agregar imagen<i class="material-icons">add_photo_alternate</i>
+      </button>
+    </div>
+<div class="elemento"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarAlumnosEquipo()>
+  Agregar cromo <i class="material-icons">library_add</i>
+  </button> </div>
+  <div class="elemento"><button type="button" style="background-color: rgb(240, 173, 78)" class="btn" (click) = "AbrirDialogoMoverAlumno()">
+    Mover alumno<i class="material-icons">compare_arrows </i>
+    </button></div>
+</div>
+
