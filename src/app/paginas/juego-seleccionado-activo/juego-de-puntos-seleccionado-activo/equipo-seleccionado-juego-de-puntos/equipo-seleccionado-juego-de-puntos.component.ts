@@ -43,7 +43,7 @@ export class EquipoSeleccionadoJuegoDePuntosComponent implements OnInit {
   historial: TablaHistorialPuntosEquipo[] = [];
   historialTotal: TablaHistorialPuntosEquipo[] = [];
 
-  displayedColumnsAlumnos: string[] = ['nombre', 'descripcion', 'valorPunto', ' '];
+  displayedColumnsAlumnos: string[] = ['nombre', 'descripcion', 'valorPunto', 'fecha', ' '];
 
   // tslint:disable-next-line:no-inferrable-types
   mensaje: string = 'Estás seguro/a de que quieres borrar estos puntos a ';
@@ -230,8 +230,8 @@ export class EquipoSeleccionadoJuegoDePuntosComponent implements OnInit {
       if (historial[0] !== null) {
         for (let i = 0; i < historial.length; i++) {
           this.historial[i] = new TablaHistorialPuntosEquipo (this.BuscarPunto(historial[i].puntoId).Nombre,
-          this.BuscarPunto(historial[i].puntoId).Descripcion, historial[i].ValorPunto, historial[i].equipoJuegoDePuntosId,
-           historial[i].id, historial[i].puntoId);
+          this.BuscarPunto(historial[i].puntoId).Descripcion, historial[i].ValorPunto, historial[i].fecha,
+          historial[i].equipoJuegoDePuntosId, historial[i].id, historial[i].puntoId);
         }
       } else {
         this.historial = undefined;

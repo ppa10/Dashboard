@@ -14,6 +14,9 @@ import { JuegoService, EquipoService, JuegoDePuntosService } from '../../../../s
 })
 export class AsignarPuntosComponent implements OnInit {
 
+  fechaAsignacionPunto: Date;
+  fechaString: string;
+
   juegoSeleccionado: Juego;
 
   // Recupera la informacion del juego, los alumnos o los equipos, los puntos y los niveles del juego
@@ -42,7 +45,8 @@ export class AsignarPuntosComponent implements OnInit {
 
   puntoSeleccionadoId: number;
 
-  valorPunto: number;
+  // tslint:disable-next-line:no-inferrable-types
+  valorPunto: number = 1;
 
   alumnosEquipo: Alumno[];
 
@@ -305,7 +309,10 @@ export class AsignarPuntosComponent implements OnInit {
 
             this.rankingJuegoDePuntos[i].puntos = nuevosPuntos;
             this.rankingJuegoDePuntos[i].nivel = nivel.Nombre;
-            this.POST_HistorialAlumno(this.valorPunto, this.puntoSeleccionadoId, this.listaAlumnosOrdenadaPorPuntos[i].id);
+            this.fechaAsignacionPunto = new Date();
+            this.fechaString = this.fechaAsignacionPunto.toString();
+            // tslint:disable-next-line:max-line-length
+            this.POST_HistorialAlumno(this.valorPunto, this.puntoSeleccionadoId, this.listaAlumnosOrdenadaPorPuntos[i].id, this.fechaString);
             this.OrdenarListaPorPuntos();
             this.OrdenarRankingPorPuntos();
           });
@@ -319,8 +326,11 @@ export class AsignarPuntosComponent implements OnInit {
             // this.listaAlumnosOrdenadaPorPuntos[i].nivelId = nivel.id;
 
             this.rankingJuegoDePuntos[i].puntos = nuevosPuntos;
+            this.fechaAsignacionPunto = new Date();
+            this.fechaString = this.fechaAsignacionPunto.toString();
 
-            this.POST_HistorialAlumno(this.valorPunto, this.puntoSeleccionadoId, this.listaAlumnosOrdenadaPorPuntos[i].id);
+            // tslint:disable-next-line:max-line-length
+            this.POST_HistorialAlumno(this.valorPunto, this.puntoSeleccionadoId, this.listaAlumnosOrdenadaPorPuntos[i].id, this.fechaString);
             this.OrdenarListaPorPuntos();
             this.OrdenarRankingPorPuntos();
           });
@@ -414,7 +424,12 @@ export class AsignarPuntosComponent implements OnInit {
 
               this.rankingEquiposJuegoDePunto[i].puntos = nuevosPuntos;
               this.rankingEquiposJuegoDePunto[i].nivel = nivel.Nombre;
-              this.POST_HistorialEquipo(this.valorPunto, this.puntoSeleccionadoId, this.listaEquiposOrdenadaPorPuntos[i].id);
+
+              this.fechaAsignacionPunto = new Date();
+              this.fechaString = this.fechaAsignacionPunto.toString();
+
+              // tslint:disable-next-line:max-line-length
+              this.POST_HistorialEquipo(this.valorPunto, this.puntoSeleccionadoId, this.listaEquiposOrdenadaPorPuntos[i].id, this.fechaString);
               this.OrdenarListaEquiposPorPuntos();
               this.OrdenarRankingEquiposPorPuntos();
             });
@@ -429,7 +444,11 @@ export class AsignarPuntosComponent implements OnInit {
 
                 this.rankingEquiposJuegoDePunto[i].puntos = nuevosPuntos;
 
-                this.POST_HistorialEquipo(this.valorPunto, this.puntoSeleccionadoId, this.listaEquiposOrdenadaPorPuntos[i].id);
+                this.fechaAsignacionPunto = new Date();
+                this.fechaString = this.fechaAsignacionPunto.toString();
+
+                // tslint:disable-next-line:max-line-length
+                this.POST_HistorialEquipo(this.valorPunto, this.puntoSeleccionadoId, this.listaEquiposOrdenadaPorPuntos[i].id, this.fechaString);
                 this.OrdenarListaEquiposPorPuntos();
                 this.OrdenarRankingEquiposPorPuntos();
               });
@@ -439,13 +458,17 @@ export class AsignarPuntosComponent implements OnInit {
 
   }
 
-  POST_HistorialAlumno(valorPunto: number, puntoId: number, alumnoJuegoDePuntos: number ) {
-    this.juegoDePuntosService.POST_HistorialPuntosAlumno(new HistorialPuntosAlumno (valorPunto, puntoId, alumnoJuegoDePuntos))
+  POST_HistorialAlumno(valorPunto: number, puntoId: number, alumnoJuegoDePuntos: number, fechaAsignacionPunto: string ) {
+
+    console.log(fechaAsignacionPunto);
+    // tslint:disable-next-line:max-line-length
+    this.juegoDePuntosService.POST_HistorialPuntosAlumno(new HistorialPuntosAlumno (valorPunto, puntoId, alumnoJuegoDePuntos, fechaAsignacionPunto))
     .subscribe(res => console.log(res));
   }
 
-  POST_HistorialEquipo(valorPunto: number, puntoId: number, equipoJuegoDePuntos: number ) {
-    this.juegoDePuntosService.POST_HistorialPuntosEquipo(new HistorialPuntosEquipo (valorPunto, puntoId, equipoJuegoDePuntos))
+  POST_HistorialEquipo(valorPunto: number, puntoId: number, equipoJuegoDePuntos: number, fechaAsignacionPunto: string) {
+    // tslint:disable-next-line:max-line-length
+    this.juegoDePuntosService.POST_HistorialPuntosEquipo(new HistorialPuntosEquipo (valorPunto, puntoId, equipoJuegoDePuntos, fechaAsignacionPunto))
     .subscribe(res => console.log(res));
   }
 
@@ -581,6 +604,15 @@ export class AsignarPuntosComponent implements OnInit {
         this.isDisabled = true;
       }
     }
+  }
+
+  prueba() {
+
+    this.fechaAsignacionPunto = new Date();
+
+
+    this.fechaString =  this.fechaAsignacionPunto.toString();
+
   }
 
 }

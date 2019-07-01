@@ -291,7 +291,12 @@ export class JuegoDePuntosSeleccionadoInactivoComponent implements OnInit {
     const alumnoSeleccionado = this.alumnosDelJuego.filter(res => res.Nombre === alumno.nombre &&
       res.PrimerApellido === alumno.primerApellido && res.SegundoApellido === alumno.segundoApellido);
 
+    const posicion = this.rankingJuegoDePuntos.filter(res => res.nombre === alumno.nombre &&
+      res.primerApellido === alumno.primerApellido && res.segundoApellido === alumno.segundoApellido)[0].posicion;
 
+    console.log('muestro posicion' + posicion);
+
+    this.juegoDePuntosService.EnviarPosicionAlServicio(posicion);
     this.alumnoService.EnviarAlumnoAlServicio(alumnoSeleccionado);
     // tslint:disable-next-line:max-line-length
     this.juegoDePuntosService.EnviarInscripcionAlServicio(this.listaAlumnosOrdenadaPorPuntos.filter(res => res.alumnoId === alumnoSeleccionado[0].id));
@@ -302,9 +307,12 @@ export class JuegoDePuntosSeleccionadoInactivoComponent implements OnInit {
   AccederEquipo(equipo: TablaEquipoJuegoDePuntos) {
 
     const equipoSeleccionado = this.equiposDelJuego.filter(res => res.Nombre === equipo.nombre);
-    console.log(equipoSeleccionado);
-    this.equipoService.EnviarEquipoAlServicio(equipoSeleccionado);
 
+
+    const posicion = this.rankingEquiposJuegoDePuntos.filter(res => res.nombre === equipo.nombre)[0].posicion;
+    console.log(posicion);
+    this.juegoDePuntosService.EnviarPosicionAlServicio(posicion);
+    this.equipoService.EnviarEquipoAlServicio(equipoSeleccionado);
     // tslint:disable-next-line:max-line-length
     this.juegoDePuntosService.EnviarInscripcionEquipoAlServicio(this.listaEquiposOrdenadaPorPuntos.filter(res => res.equipoId === equipoSeleccionado[0].id));
     this.juegoDePuntosService.EnviarPuntosAlServicio(this.puntosDelJuego);
