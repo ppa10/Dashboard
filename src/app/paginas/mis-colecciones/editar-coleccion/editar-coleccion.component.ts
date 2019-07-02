@@ -66,6 +66,8 @@ export class EditarColeccionComponent implements OnInit {
 
       }
     }
+
+
       // AL CLICAR EN AGREGAR LOGO NOS ACTIVARÁ LA FUNCIÓN MOSTRAR DE ABAJO
   ActivarInput() {
     console.log('Activar input');

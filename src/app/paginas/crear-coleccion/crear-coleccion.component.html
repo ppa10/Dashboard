@@ -23,9 +23,9 @@
           </mat-form-field>
 
           <div>
-              <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
+              <input #file id = "inputColeccion" type="file" accept= 'image/*' (change)="ExaminarImagenColeccion($event)" style="display:none">
               <img class="imagen" *ngIf="imagen" hight = "150" width = "150" mat-card-image [src]="imagen" style="margin: 5px">
-              <button (click) = "ActivarInput()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
+              <button (click) = "ActivarInputColeccion()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
                 Agregar imagen<i class="material-icons">add_photo_alternate</i>
               </button>
           </div>
@@ -51,7 +51,7 @@
            </mat-card-header>
            <mat-card-content>
 
-              <div class="form-group">
+              <div class="form-group" style="margin: 15px;">
                   <label for="inputNombreCromo">Nombre</label>
                   <input (keyup)="Disabled()" type="text" id="inputNombreNivel" class="form-control" requiered [(ngModel)]="nombreCromo" placeholder="Escribe el nombre del cromo">
               </div>
@@ -66,7 +66,7 @@
                 <input (keyup)="Disabled()" type="text" id="inputNivelCromo" class="form-control" requiered [(ngModel)]="nivelCromo" placeholder="Elige el nivel del cromo">
               </div> -->
               <mat-form-field style="margin: 15px;">
-                <mat-label>Probabilidad </mat-label>
+                <mat-label style="color: white;">Probabilidad </mat-label>
                   <select matNativeControl [(ngModel)]="opcionSeleccionadaProbabilidad" name="opcion" (change) = "OpcionProbabilidadSeleccionada()">
                     <option  (keyup)="Disabled()" *ngFor="let opcion of opcionesProbabilidad" [value]="opcion.id">
                         {{opcion.nombre}}
@@ -75,7 +75,7 @@
               </mat-form-field>
 
               <mat-form-field style="margin: 15px; ">
-                <mat-label>Nivel </mat-label>
+                <mat-label  style="color: white;">Nivel </mat-label>
                   <select matNativeControl [(ngModel)]="opcionSeleccionadaNivel" name="opcion" (change) = "OpcionNivelSeleccionado()">
                     <option  (keyup)="Disabled()" *ngFor="let opcion of opcionesNivel" [value]="opcion.id">
                         {{opcion.nombre}}
@@ -114,9 +114,9 @@
           </mat-card-content>
 
           <div>
-              <input #file id = "input" type="file" accept= 'imagen/*' (change)="ExaminarImagenCromo($event)" style="display:none">
+              <input #file id = "inputCromo" type="file" accept= 'imagen/*' (change)="ExaminarImagenCromo($event)" style="display:none">
               <img class="imagen" *ngIf="imagenCromo" hight = "150" width = "150" mat-card-image [src]="imagenCromo">
-              <button (click) = "ActivarInput()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
+              <button (click) = "ActivarInputCromo()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
                Agregar imagen <i class="material-icons">add_photo_alternate</i>
               </button>
           </div>
@@ -191,6 +191,8 @@
             <button  type="button" style="background-color: rgb(92, 184, 92)" class="btn" (click) = "Finalizar()">Finalizar</button>
           </div>
         </mat-step>
+
+
       </mat-horizontal-stepper>
     </mat-card-content>
   </mat-card>

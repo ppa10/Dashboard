@@ -33,8 +33,26 @@
 <div class="elemento"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarAlumnosEquipo()>
   Agregar cromo <i class="material-icons">library_add</i>
   </button> </div>
-  <div class="elemento"><button type="button" style="background-color: rgb(240, 173, 78)" class="btn" (click) = "AbrirDialogoMoverAlumno()">
-    Mover alumno<i class="material-icons">compare_arrows </i>
-    </button></div>
 </div>
+<div class="contenedor">
+    <form>
 
+        <mat-card class="example-card" *ngFor="let cromo of cromosColeccion">
+          <mat-card-header>
+
+            <mat-card-title>{{cromo.Nombre}}</mat-card-title>
+            <mat-card-subtitle><p style="margin-bottom: -2px;">Nivel: {{cromo.Nivel}} </p><p style="margin-bottom: -2px;">Probabilidad: {{cromo.Probabilidad}} </p></mat-card-subtitle>
+
+          </mat-card-header>
+          <img align="center" class ="imagenCromo" *ngIf="imagenColeccion" mat-card-image [src]="imagenColeccion" >
+          <mat-card-actions>
+              <button type="button" style="background-color: rgb(65, 178, 212);" class="btn" routerLink= "editarColeccion" (click) = "EnviarColeccionEditar(coleccion, cromosColeccion)"> Editar cromo<i class="material-icons">
+                edit </i>  </button>
+                <button type="button" style="background-color: rgb(212, 57, 52);" class="btn" (click) = "AbrirDialogoConfirmacionBorrarColeccion(coleccion)"> Eliminar cromo<i class="material-icons">
+                    delete
+                    </i></button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+
+</div>
