@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { ResponseContentType, Http, Response } from '@angular/http';
+import { AgregarCromoDialogComponent } from '../agregar-cromo-dialog/agregar-cromo-dialog.component';
 
 // Clases
 import { Cromo, Coleccion } from '../../../clases/index';
@@ -89,6 +90,27 @@ export class EditarColeccionComponent implements OnInit {
       this.imagenCambiada = true;
       this.imagenColeccion = reader.result.toString();
     };
+  }
+
+  // SI QUEREMOS AÑADIR CROMOS MANUALMENTE LO HAREMOS EN UN DIALOGO
+  AbrirDialogoAgregarCromoColeccion(): void {
+    const dialogRef = this.dialog.open(AgregarCromoDialogComponent, {
+      // width: '900px',
+      // maxHeight: '600px',
+      // Le pasamos solo los id del grupo y profesor ya que es lo único que hace falta para vincular los alumnos
+      data: {
+        coleccionId: this.coleccion.id,
+      }
+    });
+  }
+
+  // Una vez seleccionado un cromo, lo podemos editar o eliminar. Esta función se activará si clicamos en editar.
+  // Envía el cromo específico al componente editar-cromo
+  EnviarCromoEditar(cromo: Cromo) {
+    console.log('voy a enviar');
+    this.coleccionService.EnviarCromoAlServicio(cromo);
+
+
   }
 
   EditarColeccion() {

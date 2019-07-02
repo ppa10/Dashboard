@@ -30,7 +30,7 @@
         Agregar imagen<i class="material-icons">add_photo_alternate</i>
       </button>
     </div>
-<div class="elemento"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarAlumnosEquipo()>
+<div class="elemento"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarCromoColeccion()>
   Agregar cromo <i class="material-icons">library_add</i>
   </button> </div>
 </div>
@@ -46,7 +46,7 @@
           </mat-card-header>
           <img align="center" class ="imagenCromo" *ngIf="imagenColeccion" mat-card-image [src]="imagenColeccion" >
           <mat-card-actions>
-              <button type="button" style="background-color: rgb(65, 178, 212);" class="btn" routerLink= "editarColeccion" (click) = "EnviarColeccionEditar(coleccion, cromosColeccion)"> Editar cromo<i class="material-icons">
+              <button type="button" style="background-color: rgb(65, 178, 212);" class="btn" routerLink= "editarCromo" (click) = "EnviarCromoEditar(cromo)"> Editar cromo<i class="material-icons">
                 edit </i>  </button>
                 <button type="button" style="background-color: rgb(212, 57, 52);" class="btn" (click) = "AbrirDialogoConfirmacionBorrarColeccion(coleccion)"> Eliminar cromo<i class="material-icons">
                     delete

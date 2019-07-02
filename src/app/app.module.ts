@@ -67,6 +67,8 @@ import { JuegoDePuntosSeleccionadoInactivoComponent } from './paginas/juego-sele
 import { EditarPuntoComponent } from './paginas/mis-puntos/editar-punto/editar-punto.component';
 import { EditarInsigniaComponent } from './paginas/mis-puntos/editar-insignia/editar-insignia.component';
 import { EditarColeccionComponent } from './paginas/mis-colecciones/editar-coleccion/editar-coleccion.component';
+import { AgregarCromoDialogComponent } from './paginas/mis-colecciones/agregar-cromo-dialog/agregar-cromo-dialog.component';
+import { EditarCromoComponent } from './paginas/mis-colecciones/editar-coleccion/editar-cromo/editar-cromo.component';
 
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
@@ -123,7 +125,9 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     JuegoDePuntosSeleccionadoInactivoComponent,
     EditarPuntoComponent,
     EditarInsigniaComponent,
-    EditarColeccionComponent
+    EditarColeccionComponent,
+    AgregarCromoDialogComponent,
+    EditarCromoComponent
   ],
   imports: [
     BrowserModule,
