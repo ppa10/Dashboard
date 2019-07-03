@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { ResponseContentType, Http, Response } from '@angular/http';
 import { AgregarCromoDialogComponent } from '../agregar-cromo-dialog/agregar-cromo-dialog.component';
+import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 
 // Clases
 import { Cromo, Coleccion } from '../../../clases/index';
@@ -32,11 +33,16 @@ export class EditarColeccionComponent implements OnInit {
   // tslint:disable-next-line:ban-types
   imagenCambiada: Boolean = false;
 
+  // PARA DIÁLOGO DE CONFIRMACIÓN
+  // tslint:disable-next-line:no-inferrable-types
+  mensaje: string = 'Estás seguro/a de que quieres eliminar el equipo llamado: ';
+
   constructor(
               private coleccionService: ColeccionService,
               public dialog: MatDialog,
               private location: Location,
-              private http: Http
+              private http: Http,
+              public snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -72,7 +78,7 @@ export class EditarColeccionComponent implements OnInit {
       }
     }
 
-     // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
+      // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
      GET_ImagenCromo() {
 
       this.cromo = this.cromosColeccion[0];
@@ -166,6 +172,46 @@ export class EditarColeccionComponent implements OnInit {
     this.goBack();
   }
 
+  // Si queremos borrar un equipo, antes nos saldrá un aviso para confirmar la acción como medida de seguridad. Esto se
+  // hará mediante un diálogo al cual pasaremos el mensaje y el nombre del equipo
+  AbrirDialogoConfirmacionBorrarCromo(cromo: Cromo): void {
+
+    const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
+      height: '150px',
+      data: {
+        mensaje: this.mensaje,
+        nombre: cromo.Nombre,
+      }
+    });
+
+    // Antes de cerrar recogeremos el resultado del diálogo: Borrar (true) o cancelar (false). Si confirmamos, borraremos
+    // el punto (función BorrarPunto) y mostraremos un snackBar con el mensaje de que se ha eliminado correctamente.
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.BorrarCromo(cromo);
+        this.snackBar.open(cromo.Nombre + ' eliminado correctamente', 'Cerrar', {
+          duration: 2000,
+        });
+
+      }
+    });
+  }
+
+  // Utilizamos esta función para eliminar un punto de la base de datos y actualiza la lista de puntos
+  BorrarCromo(cromo: Cromo) {
+    this.coleccionService.DELETE_Cromo(cromo.id, this.coleccion.id)
+    .subscribe(() => {
+      this.CromosEliminados(cromo);
+      console.log('Coleccion borrada correctamente');
+      console.log(this.cromosColeccion);
+    });
+  }
+
+  // Borramos el punto de la lista de puntos agregados
+  CromosEliminados(cromo: Cromo) {
+    this.cromosColeccion = this.cromosColeccion.filter(res => res.id !== cromo.id);
+    return this.cromosColeccion;
+  }
   goBack() {
     this.location.back();
   }

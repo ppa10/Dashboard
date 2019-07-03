@@ -52,6 +52,17 @@ align-items: center;
 border: solid transparent;
 
 }
+.elementoCromo{
+  display: flex;
+  width: auto;
+  height: auto;
+
+  align-items: right;
+  flex-direction: column;
+
+  border: solid transparent;
+
+  }
 .material-icons{
   width: 15px;
   height: 15px;
@@ -65,17 +76,76 @@ border: solid transparent;
   font-size: 110%;
 }
 
+
 .logo {
   max-width: 150px;
   max-height: 150px;
   margin: 5px;
 }
 .imagenCromo {
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 250px;
+  max-height: 250px;
+  margin-top: 0px !important;
   margin: 5px;
 }
 
-mat-grid-tile {
-  background: lightblue;
+
+.Diamante {
+  background-color: rgb(148,179,184);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0px 3px 6px 0px rgb(104, 126, 129);
+}
+
+.Platino {
+  background-color: rgb(43,102,91);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0px 3px 6px 0px rgb(32, 73, 66);
+}
+
+.Oro {
+  background-color: rgb(161,125,36);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0px 3px 6px 0px rgb(128, 99, 29);
+}
+
+.Plata {
+  background-color: rgb(163,178,170);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0px 3px 6px 0px rgb(132, 143, 137);
+}
+
+.Bronce {
+  background-color: rgb(97,64,50);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0px 3px 6px 0px rgb(75, 50, 39);
+}
+.cromo {
+  max-width: 300px;
+  max-height: 450px;
+}
+
+.posicionImagen{
+
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  align-items: center;
+  max-width: 250px;
+  max-height: 250px;
+  border: solid transparent;
 }
