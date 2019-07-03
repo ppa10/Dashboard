@@ -20,6 +20,9 @@ export class EditarColeccionComponent implements OnInit {
   coleccion: Coleccion;
   cromosColeccion: Cromo[];
 
+  cromo: Cromo;
+  imagenCromo: string;
+
   nombreColeccion: string;
   // imagen coleccion
   imagenColeccion: string;
@@ -43,9 +46,10 @@ export class EditarColeccionComponent implements OnInit {
 
     // Cargo el imagen de la coleccion
     this.GET_Imagen();
+    this.GET_ImagenCromo();
   }
 
-    // Busca el logo que tiene el nombre del equipo.FotoEquipo y lo carga en imagenLogo
+    // Busca la imagen que tiene el nombre del coleccion.ImagenColeccion y lo carga en imagenColeccion
     GET_Imagen() {
 
       if (this.coleccion.ImagenColeccion !== undefined ) {
@@ -65,6 +69,30 @@ export class EditarColeccionComponent implements OnInit {
           }
       });
 
+      }
+    }
+
+     // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
+     GET_ImagenCromo() {
+
+      this.cromo = this.cromosColeccion[0];
+
+      if (this.cromo.Imagen !== undefined ) {
+        // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
+        this.http.get('http://localhost:3000/api/imagenes/ImagenCromo/download/' + this.cromo.Imagen,
+        { responseType: ResponseContentType.Blob })
+        .subscribe(response => {
+          const blob = new Blob([response.blob()], { type: 'image/jpg'});
+
+          const reader = new FileReader();
+          reader.addEventListener('load', () => {
+            this.imagenCromo = reader.result.toString();
+          }, false);
+
+          if (blob) {
+            reader.readAsDataURL(blob);
+          }
+      });
       }
     }
 

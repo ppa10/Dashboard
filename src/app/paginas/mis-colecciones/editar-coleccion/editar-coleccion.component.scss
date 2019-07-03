@@ -32,6 +32,9 @@ table {
   flex-direction: column;
 }
 .contenedor3{
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   justify-content: space-between;
   border: solid transparent;
 
@@ -63,8 +66,8 @@ border: solid transparent;
 }
 
 .logo {
-  max-width: 130px;
-  max-height: 130px;
+  max-width: 150px;
+  max-height: 150px;
   margin: 5px;
 }
 .imagenCromo {
@@ -73,6 +76,6 @@ border: solid transparent;
   margin: 5px;
 }
 
-.example-card {
-  max-width: 350px;
+mat-grid-tile {
+  background: lightblue;
 }
