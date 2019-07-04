@@ -1,10 +1,5 @@
 
-.panel{
 
-  background-color: rgb(63, 81, 181);
-  margin: 40px;
-  width: 90%;
-}
 table {
   width: 90%;
   table-layout:fixed;
@@ -33,10 +28,16 @@ max-height: 150px;
 margin: 5px;
 }
 
-// Crear nivel
+.panel{
+
+  border: 15px solid rgb(63, 81, 181);
+  margin: 40px;
+  width: 90%;
+}
+
 .panel2{
 
-background-color: rgb(167, 63, 181);
+background-color: rgb(217, 111, 231);
 width: 75%;
 align-content: center;
 

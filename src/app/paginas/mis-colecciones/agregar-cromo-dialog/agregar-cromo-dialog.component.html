@@ -1,6 +1,6 @@
 <h3>Agregar cromo </h3>
 <mat-divider></mat-divider>
-<!--
+
 <mat-card class="panel">
 
     <mat-card-content>
@@ -11,13 +11,15 @@
    </mat-card-header>
    <mat-card-content>
 
-      <div class="form-group" style="margin: 15px;">
-          <label for="inputNombreCromo">Nombre</label>
-          <input (keyup)="Disabled()" type="text" id="inputNombreNivel" class="form-control" requiered [(ngModel)]="nombreCromo" placeholder="Escribe el nombre del cromo">
-      </div>
+      <div style=" text-align: left;">
+          <mat-form-field style="margin: 15px;">
+              <input matInput type="text" placeholder="Nombre" required [(ngModel)]="nombreCromo" style="background-color: transparent">
+
+            </mat-form-field>
+        </div>
 
       <mat-form-field style="margin: 15px;">
-        <mat-label style="color: white;">Probabilidad </mat-label>
+        <mat-label>Probabilidad </mat-label>
           <select matNativeControl [(ngModel)]="opcionSeleccionadaProbabilidad" name="opcion" (change) = "OpcionProbabilidadSeleccionada()">
             <option  (keyup)="Disabled()" *ngFor="let opcion of opcionesProbabilidad" [value]="opcion.id">
                 {{opcion.nombre}}
@@ -26,7 +28,7 @@
       </mat-form-field>
 
       <mat-form-field style="margin: 15px; ">
-        <mat-label  style="color: white;">Nivel </mat-label>
+        <mat-label >Nivel </mat-label>
           <select matNativeControl [(ngModel)]="opcionSeleccionadaNivel" name="opcion" (change) = "OpcionNivelSeleccionado()">
             <option  (keyup)="Disabled()" *ngFor="let opcion of opcionesNivel" [value]="opcion.id">
                 {{opcion.nombre}}
@@ -93,15 +95,9 @@
         </table>
       </form>
     </div>
-
-  <div class="btnCambiarStep" style="margin-top:10px;">
-      <button type="button" style="background-color: rgb(240, 173, 78)" class="btn"   matStepperPrevious>Atrás</button>
-      <button type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
-    </div>
-
   </mat-card-content>
 </mat-card>
 
 <mat-dialog-actions align= "end">
  <button mat-button [mat-dialog-close]  style="background-color: rgb(240, 173, 78)" class="btn">Cerrar</button>
-</mat-dialog-actions> -->
+</mat-dialog-actions>

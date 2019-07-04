@@ -166,7 +166,7 @@ export class CrearColeccionComponent implements OnInit {
       if (res != null) {
         console.log('asignado correctamente');
         this.CromosAgregados(res);
-
+        this.LimpiarCampos();
          // Hago el POST de la imagen SOLO si hay algo cargado. Ese boolean se cambiará en la función ExaminarImagenCromo
         if (this.imagenCargadoCromo === true) {
 

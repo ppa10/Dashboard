@@ -71,9 +71,8 @@ export class EditarCromoComponent implements OnInit {
     this.cromo = this.coleccionService.RecibirCromoDelServicio();
     this.nombreCromo = this.cromo.Nombre;
     this.nivelCromo = this.cromo.Nivel;
-
-
     this.probabilidadCromo = this.cromo.Probabilidad;
+
     this.opcionSeleccionadaNivel = this.cromo.Nivel;
     this.opcionSeleccionadaProbabilidad = this.cromo.Probabilidad;
     console.log(this.cromo);
@@ -104,7 +103,7 @@ export class EditarCromoComponent implements OnInit {
       }
 
       prueba() {
-        console.log(this.cromo.coleccionId);
+        console.log(this.cromo);
 
       }
 
@@ -133,7 +132,7 @@ export class EditarCromoComponent implements OnInit {
 
     EditarCromo() {
         console.log('Entro a editar');
-        console.log(this.cromo);
+        console.log(this.probabilidadCromo);
         // tslint:disable-next-line:max-line-length
         this.coleccionService.PUT_CromoColeccion(new Cromo(this.nombreCromo, this.nombreImagenCromo, this.probabilidadCromo, this.nivelCromo), this.cromo.coleccionId, this.cromo.id)
         .subscribe((res) => {
@@ -156,46 +155,45 @@ export class EditarCromoComponent implements OnInit {
       }
 
       OpcionProbabilidadSeleccionada() {
-
         // Opcion selecionada para probabilidad
-        if (this.opcionSeleccionadaProbabilidad === 'probabilidadMuyBaja') {
+        if (this.opcionSeleccionadaProbabilidad === 'Muy baja') {
           this.probabilidadCromo = 'Muy baja';
         }
-        if (this.opcionSeleccionadaProbabilidad === 'probabilidadBaja') {
+        if (this.opcionSeleccionadaProbabilidad === 'Baja') {
           this.probabilidadCromo = 'Baja';
         }
 
-        if (this.opcionSeleccionadaProbabilidad === 'probabilidadMedia') {
+        if (this.opcionSeleccionadaProbabilidad === 'Media') {
           this.probabilidadCromo = 'Media';
         }
 
-        if (this.opcionSeleccionadaProbabilidad === 'probabilidadAlta') {
+        if (this.opcionSeleccionadaProbabilidad === 'Alta') {
           this.probabilidadCromo = 'Alta';
         }
 
-        if (this.opcionSeleccionadaProbabilidad === 'probabilidadMuyAlta') {
+        if (this.opcionSeleccionadaProbabilidad === 'Muy alta') {
           this.probabilidadCromo = 'Muy alta';
         }
       }
 
       OpcionNivelSeleccionado() {
         // Opcion selecionada para nivel
-        if (this.opcionSeleccionadaNivel === 'nivelDiamante') {
+        if (this.opcionSeleccionadaNivel === 'Diamante') {
           this.nivelCromo = 'Diamante';
         }
-        if (this.opcionSeleccionadaNivel === 'nivelPlatino') {
+        if (this.opcionSeleccionadaNivel === 'Platino') {
           this.nivelCromo = 'Platino';
         }
 
-        if (this.opcionSeleccionadaNivel === 'nivelOro') {
+        if (this.opcionSeleccionadaNivel === 'Oro') {
           this.nivelCromo = 'Oro';
         }
 
-        if (this.opcionSeleccionadaNivel === 'nivelPlata') {
+        if (this.opcionSeleccionadaNivel === 'Plata') {
           this.nivelCromo = 'Plata';
         }
 
-        if (this.opcionSeleccionadaNivel === 'nivelBronce') {
+        if (this.opcionSeleccionadaNivel === 'Bronce') {
           this.nivelCromo = 'Bronce';
         }
       }

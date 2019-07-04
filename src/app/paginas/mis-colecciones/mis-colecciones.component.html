@@ -2,9 +2,8 @@
 <mat-divider style="width: 70%; margin-left : 15%"></mat-divider>
 
 <div class="contenedor">
-
-    <div class="contenedor"></div>
-
+    <mat-card class="panel">
+        <mat-card-content>
     <form>
         <mat-accordion *ngIf="coleccionesProfesor;else Aviso_no_colecciones">
             <mat-expansion-panel *ngFor="let coleccion of coleccionesProfesor" (click) = "CromosEImagenDeLaColeccion(coleccion)">
@@ -44,5 +43,6 @@
 
 
     </form>
-
+</mat-card-content>
+</mat-card>
 </div>

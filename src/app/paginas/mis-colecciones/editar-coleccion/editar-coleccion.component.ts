@@ -48,8 +48,8 @@ export class EditarColeccionComponent implements OnInit {
   ngOnInit() {
     this.coleccion = this.coleccionService.RecibirColeccionDelServicio();
     this.nombreColeccion = this.coleccion.Nombre;
-    this. cromosColeccion = this.coleccionService.RecibirCromosColeccionDelServicio();
 
+    this.CromosEImagenDeLaColeccion(this.coleccion);
     // Cargo el imagen de la coleccion
     this.GET_Imagen();
   }
@@ -101,10 +101,6 @@ export class EditarColeccionComponent implements OnInit {
       });
       }
     }
-    prueba() {
-      this.GET_ImagenCromo(0);
-      console.log(this.imagenCromo);
-    }
 
 
       // AL CLICAR EN AGREGAR LOGO NOS ACTIVARÁ LA FUNCIÓN MOSTRAR DE ABAJO
@@ -133,13 +129,20 @@ export class EditarColeccionComponent implements OnInit {
   // SI QUEREMOS AÑADIR CROMOS MANUALMENTE LO HAREMOS EN UN DIALOGO
   AbrirDialogoAgregarCromoColeccion(): void {
     const dialogRef = this.dialog.open(AgregarCromoDialogComponent, {
-      // width: '900px',
-      // maxHeight: '600px',
+      width: '900px',
+      maxHeight: '600px',
       // Le pasamos solo los id del grupo y profesor ya que es lo único que hace falta para vincular los alumnos
       data: {
         coleccionId: this.coleccion.id,
       }
     });
+
+     // RECUPERAREMOS LA NUEVA LISTA DE LOS CROMO Y VOLVEREMOS A BUSCAR LOS CROMOS QUE TIENE LA COLECCION
+    dialogRef.afterClosed().subscribe(cromo => {
+
+    this.CromosEImagenDeLaColeccion(this.coleccion);
+
+     });
   }
 
   // Una vez seleccionado un cromo, lo podemos editar o eliminar. Esta función se activará si clicamos en editar.
@@ -216,6 +219,53 @@ export class EditarColeccionComponent implements OnInit {
     this.cromosColeccion = this.cromosColeccion.filter(res => res.id !== cromo.id);
     return this.cromosColeccion;
   }
+
+  // Le pasamos la coleccion y buscamos la imagen que tiene y sus cromos
+ CromosEImagenDeLaColeccion(coleccion: Coleccion) {
+
+  console.log('entro a buscar cromos y foto');
+  console.log(coleccion.ImagenColeccion);
+  // Si la coleccion tiene una foto (recordemos que la foto no es obligatoria)
+  if (coleccion.ImagenColeccion !== undefined) {
+
+    // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
+    this.http.get('http://localhost:3000/api/imagenes/ImagenColeccion/download/' + coleccion.ImagenColeccion,
+    { responseType: ResponseContentType.Blob })
+    .subscribe(response => {
+      const blob = new Blob([response.blob()], { type: 'image/jpg'});
+
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        this.imagenColeccion = reader.result.toString();
+      }, false);
+
+      if (blob) {
+        reader.readAsDataURL(blob);
+      }
+    });
+
+    // Sino la imagenColeccion será undefined para que no nos pinte la foto de otro equipo préviamente seleccionado
+  } else {
+    this.imagenColeccion = undefined;
+  }
+
+
+  // Una vez tenemos el logo del equipo seleccionado, buscamos sus alumnos
+  console.log('voy a mostrar los cromos de la coleccion ' + coleccion.id);
+
+  // Busca los cromos dela coleccion en la base de datos
+  this.coleccionService.GET_CromosColeccion(coleccion.id)
+  .subscribe(res => {
+    if (res[0] !== undefined) {
+      this.cromosColeccion = res;
+      this.GET_ImagenCromo(0);
+      console.log(res);
+    } else {
+      console.log('No hay cromos en esta coleccion');
+      this.cromosColeccion = undefined;
+    }
+  });
+}
   goBack() {
     this.location.back();
   }
