@@ -4,7 +4,7 @@ export class Cromo {
   Probabilidad: string;
   Nivel: string;
   id: number;
-  ColeccionId: number;
+  coleccionId: number;
 
   constructor(nombre?: string, imagen?: string, probabilidad?: string, nivel?: string) {
 

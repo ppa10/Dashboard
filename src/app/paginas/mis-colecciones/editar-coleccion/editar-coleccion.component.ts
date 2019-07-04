@@ -54,6 +54,7 @@ export class EditarColeccionComponent implements OnInit {
     this.GET_Imagen();
   }
 
+
     // Busca la imagen que tiene el nombre del coleccion.ImagenColeccion y lo carga en imagenColeccion
     GET_Imagen() {
 

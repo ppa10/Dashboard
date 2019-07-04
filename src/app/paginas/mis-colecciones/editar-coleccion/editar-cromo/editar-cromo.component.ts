@@ -103,6 +103,11 @@ export class EditarCromoComponent implements OnInit {
         }
       }
 
+      prueba() {
+        console.log(this.cromo.coleccionId);
+
+      }
+
       // AL CLICAR EN AGREGAR LOGO NOS ACTIVARÁ LA FUNCIÓN MOSTRAR DE ABAJO
       ActivarInput() {
         console.log('Activar input');
@@ -130,7 +135,7 @@ export class EditarCromoComponent implements OnInit {
         console.log('Entro a editar');
         console.log(this.cromo);
         // tslint:disable-next-line:max-line-length
-        this.coleccionService.PUT_CromoColeccion(new Cromo(this.nombreCromo, this.nombreImagenCromo, this.probabilidadCromo, this.nivelCromo), this.cromo.ColeccionId, this.cromo.id)
+        this.coleccionService.PUT_CromoColeccion(new Cromo(this.nombreCromo, this.nombreImagenCromo, this.probabilidadCromo, this.nivelCromo), this.cromo.coleccionId, this.cromo.id)
         .subscribe((res) => {
           if (res != null) {
             console.log('Voy a editar el cromo con id ' + this.cromo.id);

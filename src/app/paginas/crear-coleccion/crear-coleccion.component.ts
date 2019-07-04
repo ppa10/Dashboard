@@ -117,6 +117,10 @@ export class CrearColeccionComponent implements OnInit {
      });
   }
 
+  pr() {
+    console.log('hoo');
+  }
+
   CrearColeccion() {
 
     let nombreColeccion: string;
