@@ -101,12 +101,6 @@ export class EditarCromoComponent implements OnInit {
         });
         }
       }
-
-      prueba() {
-        console.log(this.cromo);
-
-      }
-
       // AL CLICAR EN AGREGAR LOGO NOS ACTIVARÁ LA FUNCIÓN MOSTRAR DE ABAJO
       ActivarInput() {
         console.log('Activar input');

@@ -166,7 +166,7 @@ export class CrearColeccionComponent implements OnInit {
       if (res != null) {
         console.log('asignado correctamente');
         this.CromosAgregados(res);
-        this.LimpiarCampos();
+
          // Hago el POST de la imagen SOLO si hay algo cargado. Ese boolean se cambiará en la función ExaminarImagenCromo
         if (this.imagenCargadoCromo === true) {
 
@@ -176,11 +176,11 @@ export class CrearColeccionComponent implements OnInit {
           this.coleccionService.POST_ImagenCromo(formData)
           .subscribe(() => console.log('Imagen cargado'));
         }
+        this.LimpiarCampos();
       } else {
         console.log('fallo en la asignación');
       }
     });
-
   }
 
   CromosAgregados(cromo: Cromo) {
