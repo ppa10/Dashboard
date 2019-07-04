@@ -1,0 +1,55 @@
+
+.panel{
+
+  background-color: rgb(63, 81, 181);
+  margin: 40px;
+  width: 90%;
+}
+table {
+  width: 90%;
+  table-layout:fixed;
+  text-align: center;
+}
+.material-icons{
+  width: 15px;
+  height: 15px;
+}
+
+.btn{
+  margin: 5px;
+  align-items: center;
+  color: white;
+  width: 170px;
+}
+.btnCambiarStep{
+display: flex;
+justify-content: flex-end;
+}
+
+
+.imagen {
+max-width: 150px;
+max-height: 150px;
+margin: 5px;
+}
+
+// Crear nivel
+.panel2{
+
+background-color: rgb(167, 63, 181);
+width: 75%;
+align-content: center;
+
+}
+
+mat-card-title {
+color: white
+}
+
+mat-card-subtitle{
+color: white;
+}
+
+label{
+color: white;
+}

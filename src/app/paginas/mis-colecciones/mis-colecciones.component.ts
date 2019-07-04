@@ -131,8 +131,8 @@ export class MisColeccionesComponent implements OnInit {
     return this.coleccionesProfesor;
   }
 
- // Una vez seleccionado un punto, lo podemos editar o eliminar. Esta función se activará si clicamos en editar.
-  // Envía el punto específico al componente editar-punto
+ // Una vez seleccionado una coleccion, lo podemos editar o eliminar. Esta función se activará si clicamos en editar.
+  // Envía la coleccion específico al componente editar-coleccion
   EnviarColeccionEditar(coleccion: Coleccion, cromosColeccion: Cromo[]) {
     console.log('voy a enviar');
     this.coleccionService.EnviarColeccionAlServicio(coleccion);
@@ -141,7 +141,7 @@ export class MisColeccionesComponent implements OnInit {
       this.coleccionService.EnviarCromosColeccionAlServicio(cromosColeccion);
     } else {
       this.coleccionService.EnviarCromosColeccionAlServicio(cromosColeccion);
-      console.log('no hay alumnos en este equipo');
+      console.log('no hay cromos en esta coleccion');
     }
 
   }

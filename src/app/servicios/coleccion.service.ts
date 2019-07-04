@@ -49,6 +49,11 @@ export class ColeccionService {
   POST_CromoColeccion(cromo: Cromo, coleccionId: number): Observable<Cromo> {
     return this.http.post<Cromo>(this.APIUrl + '/' + coleccionId + '/cromos', cromo);
   }
+
+  PUT_CromoColeccion(cromo: Cromo, coleccionId: number, cromoId: number): Observable<Cromo> {
+    return this.http.put<Cromo>(this.APIUrl + '/' + coleccionId + '/cromos/' + cromoId, cromo);
+  }
+
   POST_ImagenCromo(formData: FormData): Observable<any> {
     return this.http.post<any>(this.APIURLImagenCromo + '/upload', formData);
   }
@@ -73,4 +78,11 @@ export class ColeccionService {
     return this.cromosColeccion;
   }
 
+  EnviarCromoAlServicio(cromo: any) {
+    this.cromo = cromo;
+  }
+
+  RecibirCromoDelServicio(): any {
+    return this.cromo;
+  }
 }

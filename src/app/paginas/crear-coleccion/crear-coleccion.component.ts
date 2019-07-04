@@ -113,9 +113,7 @@ export class CrearColeccionComponent implements OnInit {
      nombreColeccion: ['', Validators.required]
     });
     this.myForm2 = this.formBuilder.group({
-      nombreCromo : ['', Validators.required],
-      probabilidadCromo : ['', Validators.required],
-      nivelCromo : ['', Validators.required]
+      nombreCromo : ['', Validators.required]
      });
   }
 
@@ -203,16 +201,22 @@ export class CrearColeccionComponent implements OnInit {
     return this.cromosAgregados;
   }
 
-  // Activa la función ExaminarImagen
-  ActivarInput() {
+  // Activa la función ExaminarImagenColeccion
+  ActivarInputColeccion() {
     console.log('Activar input');
-    document.getElementById('input').click();
+    document.getElementById('inputColeccion').click();
+  }
+
+    // Activa la función ExaminarImagenCromo
+  ActivarInputCromo() {
+    console.log('Activar input');
+    document.getElementById('inputCromo').click();
   }
 
 
   // Buscaremos la imagen en nuestro ordenador y después se mostrará en el form con la variable "imagen" y guarda el
   // nombre de la foto en la variable nombreImagen
-  ExaminarImagen($event) {
+  ExaminarImagenColeccion($event) {
     this.file = $event.target.files[0];
     console.log('fichero ' + this.file.name);
     this.nombreImagen = this.file.name;
@@ -327,6 +331,8 @@ export class CrearColeccionComponent implements OnInit {
       this.imagenCargadoCromo = false;
       this.imagenCromo = undefined;
       this.nombreImagenCromo = undefined;
+      this.opcionSeleccionadaProbabilidad = null;
+      this.opcionSeleccionadaNivel = null;
   }
 
   Disabled() {
