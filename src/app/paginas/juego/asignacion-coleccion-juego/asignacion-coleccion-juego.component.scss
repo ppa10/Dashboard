@@ -2,3 +2,21 @@
   display: flex;
   justify-content: flex-end;
 }
+
+table {
+  width: 100%;
+  table-layout:fixed;
+  text-align: left;
+}
+
+
+.mat-row:hover {
+  cursor: pointer;
+}
+
+
+
+// Para que al hacer click se quede la fila marcada
+.highlight{
+  background: rgba(63, 81, 181, 0.664);; /* green */
+}
