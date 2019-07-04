@@ -163,7 +163,8 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
 
 
   ],
-  entryComponents: [AgregarAlumnoDialogComponent, AgregarAlumnoEquipoComponent, DialogoConfirmacionComponent, MoverAlumnoComponent ],
+  entryComponents: [AgregarAlumnoDialogComponent,
+    AgregarAlumnoEquipoComponent, DialogoConfirmacionComponent, MoverAlumnoComponent, AgregarCromoDialogComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -52,7 +52,6 @@ export class EditarColeccionComponent implements OnInit {
 
     // Cargo el imagen de la coleccion
     this.GET_Imagen();
-    this.GET_ImagenCromo();
   }
 
     // Busca la imagen que tiene el nombre del coleccion.ImagenColeccion y lo carga en imagenColeccion
@@ -79,9 +78,9 @@ export class EditarColeccionComponent implements OnInit {
     }
 
       // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
-     GET_ImagenCromo() {
+     GET_ImagenCromo(i: number) {
 
-      this.cromo = this.cromosColeccion[0];
+      this.cromo = this.cromosColeccion[i];
 
       if (this.cromo.Imagen !== undefined ) {
         // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
@@ -100,6 +99,10 @@ export class EditarColeccionComponent implements OnInit {
           }
       });
       }
+    }
+    prueba() {
+      this.GET_ImagenCromo(0);
+      console.log(this.imagenCromo);
     }
 
 

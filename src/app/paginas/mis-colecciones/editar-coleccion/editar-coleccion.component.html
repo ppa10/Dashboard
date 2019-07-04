@@ -9,11 +9,24 @@
       <input style="background-color: transparent" type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="nombreColeccion">
     </p>
     <div class="elemento">
-        <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
-        <img class ="logo" *ngIf="imagenColeccion" hight = "150" width = "150" mat-card-image [src]="imagenColeccion" >
+        <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarCromoColeccion()>
+          Agregar cromo <i class="material-icons">library_add</i>
+        </button>
       </div>
   </div>
 
+  <div>
+  <div class="elemento">
+    <button (click) = "ActivarInput()" type="button" style="background-color: rgb(51, 122, 183)" class="btn">
+      Agregar imagen<i class="material-icons">add_photo_alternate</i>
+    </button>
+  </div>
+
+  <div class="elemento">
+      <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
+      <img class ="logo" *ngIf="imagenColeccion" hight = "200" width = "200" mat-card-image [src]="imagenColeccion" >
+    </div>
+</div>
   <div>
 
     <div class="elemento">
@@ -23,7 +36,7 @@
 
 </div>
 </div>
-
+<!--
 <div class="contenedor">
   <div class="elemento">
       <button (click) = "ActivarInput()" type="button" style="background-color: rgb(51, 122, 183)" class="btn">
@@ -33,10 +46,8 @@
 <div class="elemento"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarCromoColeccion()>
   Agregar cromo <i class="material-icons">library_add</i>
   </button> </div>
-</div>
-<div class="contenedor">
+</div> -->
 
-</div>
 <mat-grid-list cols="3" rowHeight="100px" style="width: 70%; margin-left : 15%" >
   <mat-grid-tile
       *ngFor="let cromo of cromosColeccion"
@@ -64,11 +75,13 @@
           </div>
         </div>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content style="display: flex; align-items: center;justify-content: center;">
         <div class="posicionImagen" >
-        <img   class ="imagenCromo" *ngIf="imagenCromo" mat-card-image [src]="imagenCromo" >
+        <img class ="imagenCromo" *ngIf="imagenCromo" mat-card-image [src]="imagenCromo" >
       </div>
     </mat-card-content>
       </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
+
+<button (click)="prueba()">hoal</button>
