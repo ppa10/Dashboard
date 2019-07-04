@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatTabGroup } from '@angular/material';
 
 // Clases
 import { Alumno, Equipo, Juego, Punto, AlumnoJuegoDePuntos, EquipoJuegoDePuntos} from '../../clases/index';
@@ -35,6 +35,7 @@ export class JuegoComponent implements OnInit {
   alumnosGrupo: Alumno[];
   equiposGrupo: Equipo[];
   @ViewChild('stepper') stepper;
+  @ViewChild('tabs') tabGroup: MatTabGroup;
 
   // tslint:disable-next-line:ban-types
   juegoCreado: Boolean = false;
@@ -341,14 +342,16 @@ export class JuegoComponent implements OnInit {
     });
   }
 
-  // CrearJuegoDeColeccion() {
-  //   this.juegoService.POST_JuegoDeColeccion(new Juego (this.tipoDeJuegoSeleccionado, this.modoDeJuegoSeleccionado,
-  // this.coleccionSeleccionada), this.grupoId)
-  //   .subscribe(juegoCreado => {
-  //     console.log(juegoCreado);
-  //     console.log('Juego creado correctamente');
-  //   });
-  // }
+  CrearJuegoDeColeccion() {
+    this.juegoService.POST_JuegoDeColeccion(new Juego (this.tipoDeJuegoSeleccionado, this.modoDeJuegoSeleccionado), this.grupoId)
+    .subscribe(juegoCreado => {
+      this.juego = juegoCreado;
+      console.log(juegoCreado);
+      console.log('Juego creado correctamente');
+      this.juegoService.EnviarJuegoAlServicio(juegoCreado);
+      this.juegoCreado = true;
+    });
+  }
 
   // Si decidimos crear un juego de puntos, lo crearemos ya en la base de datos y posteriormente le añadiremos puntos y niveles
   // Si decidimos crear un juego de colección no haremos el POST en este paso, sino en el siguente cuando indiquemos la colección
@@ -358,6 +361,9 @@ export class JuegoComponent implements OnInit {
     if (this.tipoDeJuegoSeleccionado === 'Juego De Puntos') {
       console.log('Voy a crear juego de puntos');
       this.CrearJuegoDePuntos();
+    } else if (this.tipoDeJuegoSeleccionado === 'Juego De Colección') {
+      console.log('Voy a crear juego de colección');
+      this.CrearJuegoDeColeccion();
     }
     this.snackBar.open(this.tipoDeJuegoSeleccionado + ' creado correctamente', 'Cerrar', {
       duration: 2000,
@@ -394,8 +400,44 @@ export class JuegoComponent implements OnInit {
     }
   }
 
+  Finalizar() {
+    this.ListaJuegosDePuntos();
+
+    // AHORA SEPARAMOS ENTRE LOS JUEGOS ACTIVOS E INACTIVOS DE CADA TIPO DE JUEGO
+
+    // Separamos entre juegos de puntos activos e inactivos
+    this.juegosDePuntosActivos = [];
+    this.juegosDePuntosInactivos = [];
+
+    // Separamos entre juegos de coleccion activos e inactivos
+    this.juegosDeColeccionActivos = [];
+    this.juegosDeColeccionInactivos  = [];
+
+    // Separamos entre juegos de competición activos e inactivos
+    this.juegosDeCompeticionActivos = [];
+    this.juegosDeCompeticionInactivos = [];
+
+
+    // HACEMOS DOS LISTAS CON LOS JUEGOS ACTIVOS E INACTIVOS DE LOS TRES TIPOS DE JUEGOS
+    this.todosLosJuegosActivos = [];
+    this.todosLosJuegosInactivos = [];
+
+    // Al seleccionar el tipo de juego que deseo mostrar de la lista desplegable (OpcionSeleccionada), copiaremos esa lista
+    // en este vector, ya que será de donde se sacará la información que se mostrará
+    this.ListaJuegosSeleccionadoActivo = [];
+    this.ListaJuegosSeleccionadoInactivo = [];
+
+    this.juegoCreado = false;
+
+    // Regresamos a la lista de equipos (mat-tab con índice 0)
+    this.tabGroup.selectedIndex = 0;
+
+    // Al darle al botón de finalizar limpiamos el formulario y reseteamos el stepper
+    this.stepper.reset();
+  }
+
   prueba() {
-    console.log(this.juegosDePuntosInactivos);
+    console.log(this.juego);
   }
 
 

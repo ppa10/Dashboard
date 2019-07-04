@@ -21,8 +21,6 @@ export class AsignacionPuntoJuegoComponent implements OnInit {
   // tslint:disable-next-line:ban-types
   isDisabled: Boolean = true;
 
-  //////////// PARA JUEGO DE PUNTOS
-
   puntosSeleccionables: Punto[];
   seleccionados: boolean[];
 

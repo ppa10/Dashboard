@@ -69,13 +69,17 @@ import { EditarInsigniaComponent } from './paginas/mis-puntos/editar-insignia/ed
 import { EditarColeccionComponent } from './paginas/mis-colecciones/editar-coleccion/editar-coleccion.component';
 import { AgregarCromoDialogComponent } from './paginas/mis-colecciones/agregar-cromo-dialog/agregar-cromo-dialog.component';
 import { EditarCromoComponent } from './paginas/mis-colecciones/editar-coleccion/editar-cromo/editar-cromo.component';
-
+import { AsignacionColeccionJuegoComponent } from './paginas/juego/asignacion-coleccion-juego/asignacion-coleccion-juego.component';
+// tslint:disable-next-line:max-line-length
+import { DialogMostrarCromosComponent } from './paginas/juego/asignacion-coleccion-juego/dialog-mostrar-cromos/dialog-mostrar-cromos.component';
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
 
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
+
+
 
 
 
@@ -127,7 +131,9 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     EditarInsigniaComponent,
     EditarColeccionComponent,
     AgregarCromoDialogComponent,
-    EditarCromoComponent
+    EditarCromoComponent,
+    AsignacionColeccionJuegoComponent,
+    DialogMostrarCromosComponent
   ],
   imports: [
     BrowserModule,
@@ -163,7 +169,7 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
 
 
   ],
-  entryComponents: [AgregarAlumnoDialogComponent,
+  entryComponents: [AgregarAlumnoDialogComponent, DialogMostrarCromosComponent,
     AgregarAlumnoEquipoComponent, DialogoConfirmacionComponent, MoverAlumnoComponent, AgregarCromoDialogComponent ],
   providers: [],
   bootstrap: [AppComponent]

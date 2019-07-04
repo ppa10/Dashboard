@@ -74,7 +74,7 @@
       <mat-card class="panel">
 
         <mat-card-content>
-          <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true">
+          <mat-horizontal-stepper #stepper #linearHorizontalStepper="matHorizontalStepper" [linear]="true">
 
 
         <!-- /////////////////////// PRIMER PASO: SELECCIÓN DEL TIPO DE JUEGO ////////////////////////////////-->
@@ -159,19 +159,19 @@
           <!-- ////////////////////////////SI ESCOGEMOS EL JUEGO DE TIPO DE COLECCIÓN ////////////////////////////////-->
 
           <div *ngIf="tipoDeJuegoSeleccionado === 'Juego De Colección'">
+            <div *ngIf="juegoCreado === true">
+
+
 
             <!-- TERCER PASO: ASIGNACIÓN DE COLECCIÓN AL JUEGO -->
             <mat-step>
                 <ng-template matStepLabel><div>Asignación De La Colección</div></ng-template>
 
                 <label class = "LabelStepper">Selecciona una colección para el juego</label>
+                <app-asignacion-coleccion-juego></app-asignacion-coleccion-juego>
 
-                <div class="btnCambiarStep">
-                  <button type="button" style="background-color: rgb(240, 173, 78)" class="btn" matStepperPrevious>Atrás</button>
-                  <button type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
-                </div>
               </mat-step>
-
+            </div>
           </div>
 
 
@@ -208,7 +208,7 @@
             <ng-template matStepLabel>Finalizar</ng-template>
               Juego creado correctamente
               <div class="btnCambiarStep">
-                <button type="button" style="background-color: rgb(92, 184, 92)" class="btn" (click) = "VueltaInicio();">Finalizar</button>
+                <button type="button" style="background-color: rgb(92, 184, 92)" class="btn" (click) = "Finalizar();">Finalizar</button>
               </div>
           </mat-step>
 

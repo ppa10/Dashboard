@@ -21,4 +21,5 @@ export * from './clasesParaTablasJuegoDePuntos/TablaHistorialPuntosAlumno';
 export * from './clasesParaTablasJuegoDePuntos/TablaEquipoJuegoDePuntos';
 export * from './HistorialPuntosEquipo';
 export * from './clasesParaTablasJuegoDePuntos/TablaHistorialPuntosEquipo';
-
+export * from './AlumnoJuegoDeColeccion';
+export * from './EquipoJuegoDeColeccion';

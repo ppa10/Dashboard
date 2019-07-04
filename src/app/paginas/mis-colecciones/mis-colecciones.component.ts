@@ -114,7 +114,7 @@ export class MisColeccionesComponent implements OnInit {
       this.cromosColeccion = undefined;
     }
   });
-}
+  }
   // Utilizamos esta función para eliminar un punto de la base de datos y actualiza la lista de puntos
   BorrarColeccion(coleccion: Coleccion) {
     this.coleccionService.DELETE_Coleccion(coleccion.id, coleccion.profesorId)

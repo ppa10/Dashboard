@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Juego, AlumnoJuegoDePuntos, AsignacionPuntosJuego, Nivel, EquipoJuegoDePuntos, Alumno, Equipo, Punto,
+import { Juego, AlumnoJuegoDeColeccion, AsignacionPuntosJuego, Nivel, EquipoJuegoDeColeccion, Alumno, Equipo, Punto,
          TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno, HistorialPuntosEquipo, TablaEquipoJuegoDePuntos } from '../clases/index';
 
 @Injectable({
@@ -13,6 +13,9 @@ export class JuegoService {
   constructor( private http: HttpClient ) { }
 
   private APIUrlGrupos = 'http://localhost:3000/api/Grupos';
+
+  private APIUrlAlumnoJuego = 'http://localhost:3000/api/AlumnosJuegoDeColeccion';
+  private APIUrlEquipoJuego = 'http://localhost:3000/api/EquipoJuegoDeColeccion';
 
   juegoSeleccionado: Juego;
 
@@ -41,6 +44,18 @@ export class JuegoService {
     return this.http.post<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeCompeticions', juego);
   }
 
+  PUT_JuegoDeColeccion(juego: Juego, grupoId: number, juegoId: number): Observable<Juego> {
+    return this.http.put<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeColeccions/' + juegoId, juego);
+  }
+
+
+  POST_AlumnoJuegoDeColeccion(alumnoJuegoDeColeccion: AlumnoJuegoDeColeccion) {
+    return this.http.post<AlumnoJuegoDeColeccion>(this.APIUrlAlumnoJuego, alumnoJuegoDeColeccion);
+  }
+
+  POST_EquipoJuegoDeColeccion(equipoJuegoDeColeccion: EquipoJuegoDeColeccion) {
+    return this.http.post<EquipoJuegoDeColeccion>(this.APIUrlEquipoJuego, equipoJuegoDeColeccion);
+  }
 
   ///////////////////////////////////// PARA JUEGO DE PUNTOS ////////////////////////////////////////
 
