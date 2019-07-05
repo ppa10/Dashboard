@@ -35,6 +35,10 @@ export class AsignacionColeccionJuegoComponent implements OnInit {
 
   juego: Juego;
 
+  // Para que al hacer click se quede la fila marcada
+  selectedRowIndex = -1;
+
+
   constructor( private juegoService: JuegoService,
                private profesorService: ProfesorService,
                private grupoService: GrupoService,
@@ -71,6 +75,11 @@ export class AsignacionColeccionJuegoComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.datasourceColecciones.filter = filterValue.trim().toLowerCase();
+  }
+
+  // Para que al hacer click se quede la fila marcada
+  highlight(row) {
+    this.selectedRowIndex = row.id;
   }
 
   GET_ListaColecciones() {
@@ -125,7 +134,8 @@ export class AsignacionColeccionJuegoComponent implements OnInit {
   AbrirDialogoMostrarCromos(coleccionSeleccionada: Coleccion): void {
 
     const dialogRef = this.dialog.open(DialogMostrarCromosComponent, {
-      height: '150px',
+      width: '1000px',
+      maxHeight: '600px',
       data: {
         coleccion: coleccionSeleccionada
       }
