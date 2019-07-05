@@ -23,6 +23,7 @@ export class EditarColeccionComponent implements OnInit {
 
   cromo: Cromo;
   imagenCromo: string;
+  imagenCromoArray: string[] = [];
 
   nombreColeccion: string;
   // imagen coleccion
@@ -79,7 +80,10 @@ export class EditarColeccionComponent implements OnInit {
     }
 
       // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
-     GET_ImagenCromo(i: number) {
+     GET_ImagenCromo() {
+
+      // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.cromosColeccion.length; i++) {
 
       this.cromo = this.cromosColeccion[i];
 
@@ -92,7 +96,7 @@ export class EditarColeccionComponent implements OnInit {
 
           const reader = new FileReader();
           reader.addEventListener('load', () => {
-            this.imagenCromo = reader.result.toString();
+            this.imagenCromoArray[i] = reader.result.toString();
           }, false);
 
           if (blob) {
@@ -101,6 +105,11 @@ export class EditarColeccionComponent implements OnInit {
       });
       }
     }
+    }
+
+  prueba() {
+    console.log(this.imagenCromoArray);
+  }
 
 
       // AL CLICAR EN AGREGAR LOGO NOS ACTIVARÁ LA FUNCIÓN MOSTRAR DE ABAJO
@@ -208,17 +217,18 @@ export class EditarColeccionComponent implements OnInit {
   BorrarCromo(cromo: Cromo) {
     this.coleccionService.DELETE_Cromo(cromo.id, this.coleccion.id)
     .subscribe(() => {
-      this.CromosEliminados(cromo);
-      console.log('Coleccion borrada correctamente');
-      console.log(this.cromosColeccion);
+      this.CromosEImagenDeLaColeccion(this.coleccion);
+
     });
   }
 
   // Borramos el punto de la lista de puntos agregados
-  CromosEliminados(cromo: Cromo) {
-    this.cromosColeccion = this.cromosColeccion.filter(res => res.id !== cromo.id);
-    return this.cromosColeccion;
-  }
+  // CromosEliminados(cromo: Cromo) {
+  //   this.cromosColeccion = this.cromosColeccion.filter(res => res.id !== cromo.id);
+  //   return this.cromosColeccion;
+
+
+  // }
 
   // Le pasamos la coleccion y buscamos la imagen que tiene y sus cromos
  CromosEImagenDeLaColeccion(coleccion: Coleccion) {
@@ -258,7 +268,7 @@ export class EditarColeccionComponent implements OnInit {
   .subscribe(res => {
     if (res[0] !== undefined) {
       this.cromosColeccion = res;
-      this.GET_ImagenCromo(0);
+      this.GET_ImagenCromo();
       console.log(res);
     } else {
       console.log('No hay cromos en esta coleccion');

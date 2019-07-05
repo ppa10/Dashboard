@@ -15,8 +15,14 @@ export class JuegoService {
   private APIUrlGrupos = 'http://localhost:3000/api/Grupos';
 
   private APIUrlAlumnoJuego = 'http://localhost:3000/api/AlumnosJuegoDeColeccion';
-  private APIUrlEquipoJuego = 'http://localhost:3000/api/EquipoJuegoDeColeccion';
+  private APIUrlEquipoJuego = 'http://localhost:3000/api/EquiposJuegoDeColeccion';
 
+  private APIRURLJuegoDeColeccion = 'http://localhost:3000/api/JuegosDeColeccion';
+
+  private APIURLAlumnoJuegoDeColeccion = 'http://localhost:3000/api/AlumnosJuegoDeColeccion';
+  private APIURLEquiposJuegoDeColeccion = 'http://localhost:3000/api/EquiposJuegoDeColeccion';
+
+  private APIURLNumeroCromosAlumno = 'http://localhost:3000/api/AlumnosJuegoDeColeccion/';
   juegoSeleccionado: Juego;
 
   alumnosDelJuego: Alumno[];
@@ -55,6 +61,35 @@ export class JuegoService {
 
   POST_EquipoJuegoDeColeccion(equipoJuegoDeColeccion: EquipoJuegoDeColeccion) {
     return this.http.post<EquipoJuegoDeColeccion>(this.APIUrlEquipoJuego, equipoJuegoDeColeccion);
+  }
+
+
+  GET_AlumnosJuegoDeColeccion(juegoDeColeccionId: number): Observable<Alumno[]> {
+    console.log('Voy a por los alumnos');
+    return this.http.get<Alumno[]>(this.APIRURLJuegoDeColeccion + '/' + juegoDeColeccionId + '/alumnos');
+  }
+
+  GET_EquiposJuegoDeColeccion(juegoDeColeccionId: number): Observable<Equipo[]> {
+    return this.http.get<Equipo[]>(this.APIRURLJuegoDeColeccion + '/' + juegoDeColeccionId + '/equipos');
+  }
+
+  // GET_InscripcionAlumnoJuegoDePuntos(alumnoId: number, juegoDePuntosId: number): Observable<AlumnoJuegoDePuntos> {
+  //   return this.http.get<AlumnoJuegoDeColeccion>(this.APIURLAlumnoJuegoDePuntos + '?filter[where][alumnoId]=' + alumnoId
+  //   + '&filter[where][juegoDePuntosId]=' + juegoDePuntosId);
+  // }
+
+  GET_NumeroCromosAlumno(alumnoJuegoDeColeccionId: number): Observable<any> {
+    return this.http.get<any>(this.APIURLNumeroCromosAlumno +  alumnoJuegoDeColeccionId + '/cromos/count');
+  }
+
+  GET_InscripcionesAlumnoJuegoDeColeccion(juegoDeColeccionId: number): Observable<AlumnoJuegoDeColeccion[]> {
+    return this.http.get<AlumnoJuegoDeColeccion[]>(this.APIURLAlumnoJuegoDeColeccion + '?filter[where][juegoDeColeccionId]='
+    + juegoDeColeccionId);
+  }
+
+  GET_InscripcionesEquipoJuegoDeColeccion(juegoDeColeccionId: number): Observable<EquipoJuegoDeColeccion[]> {
+    return this.http.get<EquipoJuegoDeColeccion[]>(this.APIURLEquiposJuegoDeColeccion + '?filter[where][juegoDeColeccionId]='
+    + juegoDeColeccionId);
   }
 
   ///////////////////////////////////// PARA JUEGO DE PUNTOS ////////////////////////////////////////

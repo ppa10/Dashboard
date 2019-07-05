@@ -4,10 +4,10 @@ export class EquipoJuegoDeColeccion {
   juegoDeColeccionId: number;
   id: number;
 
-  constructor(equipoId?: number, juegoDePuntosId?: number) {
+  constructor(equipoId?: number, juegoDeColeccionId?: number) {
 
     this.equipoId = equipoId;
-    this.juegoDeColeccionId = juegoDePuntosId;
+    this.juegoDeColeccionId = juegoDeColeccionId;
 
   }
 }

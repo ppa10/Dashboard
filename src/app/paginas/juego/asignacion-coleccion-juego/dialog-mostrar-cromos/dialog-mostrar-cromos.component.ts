@@ -19,8 +19,13 @@ export class DialogMostrarCromosComponent implements OnInit {
   coleccion: Coleccion;
   cromosColeccion: Cromo[];
 
+  imagenCromoArray: string[] = [];
+
+
   cromo: Cromo;
-  imagenCromo: string;
+
+
+
 
   constructor( public dialogRef: MatDialogRef<DialogMostrarCromosComponent>,
                @Inject(MAT_DIALOG_DATA) public data: any,
@@ -40,7 +45,7 @@ export class DialogMostrarCromosComponent implements OnInit {
         this.cromosColeccion = res;
         console.log(res);
 
-        this.GET_ImagenCromo(0);
+        this.GET_ImagenCromo();
       } else {
         console.log('No hay cromos en esta coleccion');
         this.cromosColeccion = undefined;
@@ -48,8 +53,10 @@ export class DialogMostrarCromosComponent implements OnInit {
     });
   }
   // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
-  GET_ImagenCromo(i: number) {
+  GET_ImagenCromo() {
 
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.cromosColeccion.length; i++) {
     this.cromo = this.cromosColeccion[i];
 
     if (this.cromo.Imagen !== undefined ) {
@@ -61,13 +68,14 @@ export class DialogMostrarCromosComponent implements OnInit {
 
         const reader = new FileReader();
         reader.addEventListener('load', () => {
-          this.imagenCromo = reader.result.toString();
+          this.imagenCromoArray[i] = reader.result.toString();
         }, false);
 
         if (blob) {
           reader.readAsDataURL(blob);
         }
     });
+  }
     }
   }
 

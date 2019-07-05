@@ -78,6 +78,8 @@ import { HttpClientModule } from '@angular/common/http';
 // COMPONENTES EN COMPARTIDO
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
+// tslint:disable-next-line:max-line-length
+import { JuegoDeColeccionSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/juego-de-coleccion-seleccionado-activo.component';
 
 
 
@@ -133,7 +135,8 @@ import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
     AgregarCromoDialogComponent,
     EditarCromoComponent,
     AsignacionColeccionJuegoComponent,
-    DialogMostrarCromosComponent
+    DialogMostrarCromosComponent,
+    JuegoDeColeccionSeleccionadoActivoComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
 <mat-divider></mat-divider>
 <mat-grid-list cols="3" rowHeight="100px">
     <mat-grid-tile
-        *ngFor="let cromo of cromosColeccion"
+        *ngFor="let cromo of cromosColeccion; let i = index"
         [colspan]="1"
         [rowspan]="4"
         [style.background]="white">
@@ -22,7 +22,7 @@
           </mat-card-header>
           <mat-card-content style="display: flex; align-items: center;justify-content: center;">
           <div class="posicionImagen" >
-          <img class ="imagenCromo" *ngIf="imagenCromo" mat-card-image [src]="imagenCromo" >
+          <img class ="imagenCromo" *ngIf="imagenCromoArray[i]" mat-card-image [src]="imagenCromoArray[i]" >
         </div>
       </mat-card-content>
         </mat-card>
