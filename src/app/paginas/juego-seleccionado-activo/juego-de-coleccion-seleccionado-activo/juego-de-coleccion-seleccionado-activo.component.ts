@@ -158,13 +158,11 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
   AccederAlumno(alumno: Alumno) {
 
+    this.alumnoService.EnviarAlumnoAlServicio(alumno);
 
-    // this.alumnoService.EnviarAlumnoAlServicio(alumnoSeleccionado);
-    // // tslint:disable-next-line:max-line-length
     // tslint:disable-next-line:max-line-length
-    // this.juegoDePuntosService.EnviarInscripcionAlServicio(this.listaAlumnosOrdenadaPorPuntos.filter(res => res.alumnoId === alumnoSeleccionado[0].id));
-    // this.juegoDePuntosService.EnviarPuntosAlServicio(this.puntosDelJuego);
-    // this.juegoDePuntosService.EnviarNivelesAlServicio(this.nivelesDelJuego);
+    this.juegoService.EnviarInscripcionAlServicio(this.inscripcionesAlumnos.filter(res => res.alumnoId === alumno.id)[0]);
+
   }
 
 

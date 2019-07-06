@@ -6,7 +6,7 @@ import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion,
  Album, AlbumEquipo, Coleccion, Cromo } from '../../../../clases/index';
 
 // Services
-import { JuegoService, EquipoService, JuegoDePuntosService, ColeccionService } from '../../../../servicios/index';
+import { JuegoService, EquipoService, ColeccionService } from '../../../../servicios/index';
 
 @Component({
   selector: 'app-asignar-cromos',

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Juego, AlumnoJuegoDeColeccion, AsignacionPuntosJuego, Nivel, EquipoJuegoDeColeccion, Alumno, Equipo, Punto,
-         Album, AlbumEquipo, HistorialPuntosEquipo, TablaEquipoJuegoDePuntos } from '../clases/index';
+         Album, AlbumEquipo, HistorialPuntosEquipo, TablaEquipoJuegoDePuntos, Cromo } from '../clases/index';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +26,16 @@ export class JuegoService {
 
   private APIRURLAlbum = 'http://localhost:3000/api/Albumes';
   private APIRURLAlbumEquipo = 'http://localhost:3000/api/albumsEquipo';
+  private APIURLCromosAlumno = 'http://localhost:3000/api/AlumnosJuegoDeColeccion/';
   juegoSeleccionado: Juego;
 
   alumnosDelJuego: Alumno[];
   equiposDelJuego: Equipo[];
   puntos: Punto[];
   niveles: Nivel[];
+
+  inscripcionAlumno: AlumnoJuegoDeColeccion;
+  inscripcionEquipo: EquipoJuegoDeColeccion;
 
   // rankingSeleccionado: number;
 
@@ -103,6 +107,10 @@ export class JuegoService {
     return this.http.post<AlbumEquipo>(this.APIRURLAlbumEquipo, album);
   }
 
+  GET_CromosAlumno(alumnoJuegoDeColeccionId: number): Observable<Cromo[]> {
+    return this.http.get<Cromo[]>(this.APIURLCromosAlumno + '/' + alumnoJuegoDeColeccionId + '/cromos');
+  }
+
   ///////////////////////////////////// PARA JUEGO DE PUNTOS ////////////////////////////////////////
 
   // Enviar y recibir juegos entre componentes
@@ -131,6 +139,22 @@ export class JuegoService {
 
   RecibirEquipoJuegoDelServicio() {
     return this.equiposDelJuego;
+  }
+
+  EnviarInscripcionAlServicio(inscripcionAlumno: any) {
+    this.inscripcionAlumno = inscripcionAlumno;
+  }
+
+  RecibirInscripcionAlumnoDelServicio() {
+    return this.inscripcionAlumno;
+  }
+
+  EnviarInscripcionEquipoAlServicio(inscripcionEquipo: any) {
+    this.inscripcionEquipo = inscripcionEquipo;
+  }
+
+  RecibirInscripcionEquipoDelServicio() {
+    return this.inscripcionEquipo;
   }
 
 }
