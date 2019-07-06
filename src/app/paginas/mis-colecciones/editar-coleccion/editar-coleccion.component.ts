@@ -79,8 +79,8 @@ export class EditarColeccionComponent implements OnInit {
       }
     }
 
-      // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
-     GET_ImagenCromo() {
+  // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
+  GET_ImagenCromo() {
 
       // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.cromosColeccion.length; i++) {
@@ -105,7 +105,7 @@ export class EditarColeccionComponent implements OnInit {
       });
       }
     }
-    }
+  }
 
   prueba() {
     console.log(this.imagenCromoArray);

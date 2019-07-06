@@ -24,3 +24,6 @@ export * from './clasesParaTablasJuegoDePuntos/TablaHistorialPuntosEquipo';
 export * from './AlumnoJuegoDeColeccion';
 export * from './EquipoJuegoDeColeccion';
 export * from './clasesParaTablasJuegoColeccion/TablaAlumnoJuegoDeColeccion';
+export * from './clasesParaTablasJuegoColeccion/Prueba';
+export * from './Album';
+export * from './AlbumEquipo';

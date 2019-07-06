@@ -72,6 +72,12 @@ import { EditarCromoComponent } from './paginas/mis-colecciones/editar-coleccion
 import { AsignacionColeccionJuegoComponent } from './paginas/juego/asignacion-coleccion-juego/asignacion-coleccion-juego.component';
 // tslint:disable-next-line:max-line-length
 import { DialogMostrarCromosComponent } from './paginas/juego/asignacion-coleccion-juego/dialog-mostrar-cromos/dialog-mostrar-cromos.component';
+// tslint:disable-next-line:max-line-length
+import { JuegoDeColeccionSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/juego-de-coleccion-seleccionado-activo.component';
+// tslint:disable-next-line:max-line-length
+import { AsignarCromosComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/asignar-cromos/asignar-cromos.component';
+
+
 // IMPORTs CONSULTA BASE DE DATOS
 import { HttpClientModule } from '@angular/common/http';
 
@@ -79,8 +85,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
 import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
 // tslint:disable-next-line:max-line-length
-import { JuegoDeColeccionSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/juego-de-coleccion-seleccionado-activo.component';
-
+import { InformacionJuegoColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/informacion-juego-coleccion/informacion-juego-coleccion.component';
+// tslint:disable-next-line:max-line-length
+import { AlumnoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/alumno-seleccionado-juego-de-coleccion/alumno-seleccionado-juego-de-coleccion.component';
+// tslint:disable-next-line:max-line-length
+import { EquipoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/equipo-seleccionado-juego-de-coleccion/equipo-seleccionado-juego-de-coleccion.component';
 
 
 
@@ -136,7 +145,11 @@ import { JuegoDeColeccionSeleccionadoActivoComponent } from './paginas/juego-sel
     EditarCromoComponent,
     AsignacionColeccionJuegoComponent,
     DialogMostrarCromosComponent,
-    JuegoDeColeccionSeleccionadoActivoComponent
+    JuegoDeColeccionSeleccionadoActivoComponent,
+    AsignarCromosComponent,
+    InformacionJuegoColeccionComponent,
+    AlumnoSeleccionadoJuegoDeColeccionComponent,
+    EquipoSeleccionadoJuegoDeColeccionComponent
   ],
   imports: [
     BrowserModule,

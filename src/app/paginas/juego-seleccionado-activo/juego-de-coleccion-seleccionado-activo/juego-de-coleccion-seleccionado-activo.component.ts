@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 // Clases
-import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion, TablaAlumnoJuegoDeColeccion
+import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion, TablaAlumnoJuegoDeColeccion, Prueba
   } from '../../../clases/index';
 
 // Services
-import { JuegoService, EquipoService, AlumnoService, JuegoDePuntosService } from '../../../servicios/index';
+import { JuegoService, EquipoService, AlumnoService, JuegoDePuntosService, ColeccionService} from '../../../servicios/index';
 
 // Imports para abrir diálogo y snackbar
 import { MatDialog, MatSnackBar } from '@angular/material';
@@ -33,9 +33,11 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
   datasourceAlumno;
   datasourceEquipo;
 
-  displayedColumnsAlumnos: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', 'cromos', ' '];
+  pruebaTabla: Prueba[] = [];
 
-  displayedColumnsEquipos: string[] = ['posicion', 'nombreEquipo', 'miembros', 'cromos', ' '];
+  displayedColumnsAlumnos: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', ' '];
+
+  displayedColumnsEquipos: string[] = ['nombreEquipo', 'miembros', ' '];
 
   alumnosEquipo: Alumno[];
 
@@ -47,6 +49,7 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
   constructor( private juegoService: JuegoService,
                private alumnoService: AlumnoService,
                private equipoService: EquipoService,
+               private coleccionService: ColeccionService,
                private juegoDePuntosService: JuegoDePuntosService,
                public dialog: MatDialog,
                public snackBar: MatSnackBar) { }
@@ -77,6 +80,8 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
       console.log(alumnosJuego);
       this.alumnosDelJuego = alumnosJuego;
       this.RecuperarInscripcionesAlumnoJuego();
+      this.ColeccionDelJuego();
+      this.juegoService.EnviarAlumnoJuegoAlServicio(this.alumnosDelJuego);
     });
   }
 
@@ -97,12 +102,16 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
     for (let i = 0; i < this.inscripcionesAlumnos.length; i ++) {
       this.juegoService.GET_NumeroCromosAlumno(this.inscripcionesAlumnos[i].id)
       .subscribe(numeroCromos => {
-        console.log(numeroCromos);
-        this.tablaAlumno[i] = new TablaAlumnoJuegoDeColeccion(this.alumnosDelJuego[i].Nombre, this.alumnosDelJuego[i].PrimerApellido,
+        this.tablaAlumno[i] = new TablaAlumnoJuegoDeColeccion (this.alumnosDelJuego[i].Nombre, this.alumnosDelJuego[i].PrimerApellido,
           this.alumnosDelJuego[i].SegundoApellido, numeroCromos.count, this.inscripcionesAlumnos[i].id);
+
+        this.pruebaTabla[i] = new Prueba (this.alumnosDelJuego[i].Nombre, this.alumnosDelJuego[i].PrimerApellido,
+          this.alumnosDelJuego[i].SegundoApellido, numeroCromos.count);
       });
+      this.datasourceAlumno = new MatTableDataSource(this.alumnosDelJuego);
+
+
     }
-    this.datasourceAlumno = new MatTableDataSource(this.tablaAlumno);
   }
   // Recupera los equipos que pertenecen al juego
   EquiposDelJuego() {
@@ -111,6 +120,8 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
       this.equiposDelJuego = equiposJuego;
       console.log(equiposJuego);
       this.RecuperarInscripcionesEquiposJuego();
+      this.ColeccionDelJuego();
+      this.juegoService.EnviarEquipoJuegoAlServicio(this.equiposDelJuego);
     });
   }
 
@@ -122,13 +133,69 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
     .subscribe(inscripciones => {
       this.inscripcionesEquipos = inscripciones;
       console.log(this.inscripcionesEquipos);
+      this.datasourceEquipo = new MatTableDataSource(this.equiposDelJuego);
       // this.OrdenarPorPuntosEquipos();
       // this.TablaClasificacionTotal();
     });
   }
 
+
+  AlumnosDelEquipo(equipo: Equipo) {
+    console.log(equipo);
+
+    this.equipoService.GET_AlumnosEquipo(equipo.id)
+    .subscribe(res => {
+      if (res[0] !== undefined) {
+        this.alumnosEquipo = res;
+        console.log(res);
+      } else {
+        console.log('No hay alumnos en este equipo');
+        this.alumnosEquipo = undefined;
+      }
+    });
+  }
+
+
+  AccederAlumno(alumno: Alumno) {
+
+
+    // this.alumnoService.EnviarAlumnoAlServicio(alumnoSeleccionado);
+    // // tslint:disable-next-line:max-line-length
+    // tslint:disable-next-line:max-line-length
+    // this.juegoDePuntosService.EnviarInscripcionAlServicio(this.listaAlumnosOrdenadaPorPuntos.filter(res => res.alumnoId === alumnoSeleccionado[0].id));
+    // this.juegoDePuntosService.EnviarPuntosAlServicio(this.puntosDelJuego);
+    // this.juegoDePuntosService.EnviarNivelesAlServicio(this.nivelesDelJuego);
+  }
+
+
+  AccederEquipo(equipo: Equipo) {
+
+    this.equipoService.EnviarEquipoAlServicio(equipo);
+
+    // tslint:disable-next-line:max-line-length
+  //   this.juegoDePuntosService.EnviarInscripcionEquipoAlServicio(this.listaEquiposOrdenadaPorPuntos.filter(res => res.equipoId === equipoSeleccionado[0].id));
+  //   this.juegoDePuntosService.EnviarPuntosAlServicio(this.puntosDelJuego);
+  //   this.juegoDePuntosService.EnviarNivelesAlServicio(this.nivelesDelJuego);
+  }
+
+  // Le enviaremos solo la colección del juego
+  Informacion() {
+
+
+  }
+
+  ColeccionDelJuego() {
+    this.coleccionService.GET_Coleccion(this.juegoSeleccionado.coleccionId)
+    .subscribe(coleccion => {
+      console.log('voy a enviar la coleccion');
+      this.coleccionService.EnviarColeccionAlServicio(coleccion);
+    });
+  }
+
+
+
   prueba() {
-    console.log(this.tablaAlumno);
+    console.log(this.juegoSeleccionado);
 
   }
 

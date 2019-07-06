@@ -30,6 +30,16 @@ import { EditarPuntoComponent } from './paginas/mis-puntos/editar-punto/editar-p
 import { EditarInsigniaComponent } from './paginas/mis-puntos/editar-insignia/editar-insignia.component';
 import { EditarColeccionComponent } from './paginas/mis-colecciones/editar-coleccion/editar-coleccion.component';
 import { EditarCromoComponent } from './paginas/mis-colecciones/editar-coleccion/editar-cromo/editar-cromo.component';
+// tslint:disable-next-line:max-line-length
+import { AsignarCromosComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/asignar-cromos/asignar-cromos.component';
+// tslint:disable-next-line:max-line-length
+import { InformacionJuegoColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/informacion-juego-coleccion/informacion-juego-coleccion.component';
+
+// tslint:disable-next-line:max-line-length
+import { AlumnoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/alumno-seleccionado-juego-de-coleccion/alumno-seleccionado-juego-de-coleccion.component';
+// tslint:disable-next-line:max-line-length
+import { EquipoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/equipo-seleccionado-juego-de-coleccion/equipo-seleccionado-juego-de-coleccion.component';
+
 
 
 
@@ -62,6 +72,10 @@ const routes: Routes = [
   { path: 'inicio/:id/misColecciones/editarColeccion', component: EditarColeccionComponent },
   { path: 'inicio/:id/misColecciones/editarColeccion/editarCromo', component: EditarCromoComponent },
 
+  { path: 'grupo/:id/juegos/juegoSeleccionado/asignarCromos', component: AsignarCromosComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionado/informacionJuegoColeccion', component: InformacionJuegoColeccionComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionado/informacionAlumnoJuegoColeccion', component: AlumnoSeleccionadoJuegoDeColeccionComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionado/informacionEquipoJuegoColeccion', component: EquipoSeleccionadoJuegoDeColeccionComponent },
 
   { path: 'aboutClasspip', component: AboutClasspipComponent },
   { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },

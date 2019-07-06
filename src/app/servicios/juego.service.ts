@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Juego, AlumnoJuegoDeColeccion, AsignacionPuntosJuego, Nivel, EquipoJuegoDeColeccion, Alumno, Equipo, Punto,
-         TablaAlumnoJuegoDePuntos, HistorialPuntosAlumno, HistorialPuntosEquipo, TablaEquipoJuegoDePuntos } from '../clases/index';
+         Album, AlbumEquipo, HistorialPuntosEquipo, TablaEquipoJuegoDePuntos } from '../clases/index';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,9 @@ export class JuegoService {
   private APIURLEquiposJuegoDeColeccion = 'http://localhost:3000/api/EquiposJuegoDeColeccion';
 
   private APIURLNumeroCromosAlumno = 'http://localhost:3000/api/AlumnosJuegoDeColeccion/';
+
+  private APIRURLAlbum = 'http://localhost:3000/api/Albumes';
+  private APIRURLAlbumEquipo = 'http://localhost:3000/api/albumsEquipo';
   juegoSeleccionado: Juego;
 
   alumnosDelJuego: Alumno[];
@@ -90,6 +93,14 @@ export class JuegoService {
   GET_InscripcionesEquipoJuegoDeColeccion(juegoDeColeccionId: number): Observable<EquipoJuegoDeColeccion[]> {
     return this.http.get<EquipoJuegoDeColeccion[]>(this.APIURLEquiposJuegoDeColeccion + '?filter[where][juegoDeColeccionId]='
     + juegoDeColeccionId);
+  }
+
+  POST_AsignarCromoAlumno(album: Album) {
+    return this.http.post<Album>(this.APIRURLAlbum, album);
+  }
+
+  POST_AsignarCromoEquipo(album: AlbumEquipo) {
+    return this.http.post<AlbumEquipo>(this.APIRURLAlbumEquipo, album);
   }
 
   ///////////////////////////////////// PARA JUEGO DE PUNTOS ////////////////////////////////////////

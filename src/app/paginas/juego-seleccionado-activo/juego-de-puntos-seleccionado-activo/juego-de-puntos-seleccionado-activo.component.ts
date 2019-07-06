@@ -507,8 +507,7 @@ export class JuegoDePuntosSeleccionadoActivoComponent implements OnInit {
   }
 
   prueba2() {
-    console.log(this.rankingJuegoDePuntosTotal);
-    console.log(this.rankingEquiposJuegoDePuntosTotal);
+    console.log(this.rankingJuegoDePuntos);
   }
 
 

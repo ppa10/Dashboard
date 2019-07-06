@@ -15,6 +15,7 @@ export class ColeccionService {
   private APIUrlProfesor = 'http://localhost:3000/api/Profesores';
   private APIURLImagenColeccion = 'http://localhost:3000/api/imagenes/ImagenColeccion';
   private APIURLImagenCromo = 'http://localhost:3000/api/imagenes/ImagenCromo';
+  private APIRURLColecciones = 'http://localhost:3000/api/Colecciones';
 
   coleccion: Coleccion;
   cromo: Cromo;
@@ -61,12 +62,18 @@ export class ColeccionService {
     return this.http.delete<any>(this.APIUrl + '/' + coleccionId + '/cromos/' + cromoId);
   }
 
+  GET_Coleccion(coleccionId: number): Observable<Coleccion> {
+    return this.http.get<Coleccion>(this.APIRURLColecciones + '/' + coleccionId);
+  }
+
   // FUNCIONES PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES
   EnviarColeccionAlServicio(coleccion: any) {
     this.coleccion = coleccion;
   }
 
   RecibirColeccionDelServicio(): any {
+    console.log('voy a enviar la coleccion');
+    console.log(this.coleccion);
     return this.coleccion;
   }
 
