@@ -27,3 +27,4 @@ export * from './clasesParaTablasJuegoColeccion/TablaAlumnoJuegoDeColeccion';
 export * from './clasesParaTablasJuegoColeccion/Prueba';
 export * from './Album';
 export * from './AlbumEquipo';
+
