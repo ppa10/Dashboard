@@ -35,7 +35,14 @@
   <!-- REPARTIR PAQUETES DE CROMOS ALEATORIOS -->
   <mat-tab label="Asignar Cromo Aleatorio">
 
+    <div style="margin-top: 15px">
+      <span>Número de cromos aletorios que desea asignar: </span>
+      <input type="number" name="numeroCromosRandom" placeholder="Escribe el número de cromos" requiered [(ngModel)]="numeroCromosRandom">
+    </div>
 
+    <div style="margin-top: 10px">
+      <button type="button" style="background-color: rgb(92, 184, 92)" class="btn "[disabled]="isDisabled" (click) = prueba()>Asignar Cromo</button>
+      </div>
 
   </mat-tab>
 </mat-tab-group>
@@ -93,6 +100,6 @@
   </table>
 </form>
 
-<button (click) = "prueba()">Prueba raandom</button>
+<button (click) = "prueba()">Prueba random</button>
 
 
