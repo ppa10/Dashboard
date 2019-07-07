@@ -163,6 +163,7 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
     this.juegoService.EnviarInscripcionAlServicio(this.inscripcionesAlumnos.filter(res => res.alumnoId === alumno.id)[0]);
 
+
   }
 
 
@@ -194,6 +195,8 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
   prueba() {
     console.log(this.juegoSeleccionado);
+
+
 
   }
 

@@ -46,8 +46,16 @@ export class AsignarCromosComponent implements OnInit {
   inscripcionesEquipos: EquipoJuegoDeColeccion[];
 
 
+
+
   // tslint:disable-next-line:ban-types
   isDisabled: Boolean = true;
+
+
+  // Para asignar cromos random
+  probabilidadCromos: number[] = [];
+  indexCromo: number;
+  numeroCromosRandom: number;
 
 
   constructor( private juegoService: JuegoService,
@@ -81,6 +89,31 @@ export class AsignarCromosComponent implements OnInit {
       if (res[0] !== undefined) {
         this.cromosColeccion = res;
         this.cromoSeleccionadoId = this.cromosColeccion[0].id;
+
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.cromosColeccion.length; i ++) {
+          if (this.cromosColeccion[i].Probabilidad === 'Muy Baja') {
+            this.probabilidadCromos[i] = 3;
+
+          } else if (this.cromosColeccion[i].Probabilidad === 'Baja') {
+
+            this.probabilidadCromos[i] = 7;
+
+          } else if (this.cromosColeccion[i].Probabilidad === 'Media') {
+
+            this.probabilidadCromos[i] = 20;
+
+          } else if (this.cromosColeccion[i].Probabilidad === 'Alta') {
+
+            this.probabilidadCromos[i] = 30;
+
+          } else {
+
+            this.probabilidadCromos[i] = 40;
+
+          }
+        }
+
         console.log(res);
       } else {
         console.log('No hay cromos en esta coleccion');
@@ -324,5 +357,49 @@ export class AsignarCromosComponent implements OnInit {
 
 
     this.seleccionadosEquipos = Array(this.equiposDelJuego.length).fill(false);
+  }
+
+  prueba() {
+    // const randomIndex = Math.floor(Math.random() * this.cromosColeccion.length);
+    // console.log(randomIndex);
+    // const randomCromo = this.cromosColeccion[randomIndex];
+    // console.log(randomCromo);
+    const probabilities = [40, 30, 20, 7, 3];
+    // tslint:disable-next-line:prefer-const
+    let hits = this.probabilidadCromos.map(x => 0);
+    const numAttempts = 3;
+
+    for (let k = 0; k < numAttempts; k++) {
+
+        this.indexCromo = this.randomIndex(this.probabilidadCromos);
+        hits[this.indexCromo]++;
+        console.log(this.indexCromo);
+
+    }
+
+    for (let i = 0; i < this.probabilidadCromos.length; i++) {
+        console.log('' + i + ': prob=' + this.cromosColeccion[i].Nombre +
+          ', freq=' + (100 * hits[i] / numAttempts).toFixed(1));
+  }
+    console.log(hits);
+
+  }
+
+  randomIndex(
+    probabilities: number[],
+    randomGenerator: () => number = Math.random): number {
+
+      // get the cumulative distribution function
+      let acc = 0;
+      const cdf = probabilities
+          .map(v => acc += v) // running total [4,7,9,10]
+          .map(v => v / acc); // normalize to max 1 [0.4,0.7,0.9,1]
+
+      // pick a random number between 0 and 1
+      const randomNumber = randomGenerator();
+
+      // find the first index of cdf where it exceeds randomNumber
+      // (findIndex() is in ES2015+)
+      return cdf.findIndex(p => randomNumber < p);
   }
 }

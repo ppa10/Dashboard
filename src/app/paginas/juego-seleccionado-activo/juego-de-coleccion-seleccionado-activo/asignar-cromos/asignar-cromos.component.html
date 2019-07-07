@@ -1,26 +1,46 @@
 <div class="titulo"><h2>Asignar Puntos</h2></div>
 <mat-divider class="lineaDivisoria"></mat-divider>
 
-<div class="contenedor">
-  <h5>Seleccione el cromo que desee asignar:</h5>
-  <div class="contenedor2">
-    <div>
-    <mat-form-field>
-      <mat-label>Cromo</mat-label>
-      <select matNativeControl (change) = "Disabled()" [(ngModel)]="cromoSeleccionadoId" name="cromo">
-        <option *ngFor="let cromo of cromosColeccion" [value]="cromo.id">
-          {{cromo.Nombre}}
-        </option>
-      </select>
-    </mat-form-field>
+
+<mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs style="margin-top: 10px" style="width: 60%">
+
+
+  <!-- ASIGNAR EL CROMO QUE EL PROFESOR ESCOJA-->
+  <mat-tab index = "0" label="Asignar Cromo Manualmente">
+    <div class="contenedor">
+      <h5>Seleccione el cromo que desee asignar:</h5>
+      <div class="contenedor2">
+        <div>
+        <mat-form-field>
+          <mat-label>Cromo</mat-label>
+          <select matNativeControl (change) = "Disabled()" [(ngModel)]="cromoSeleccionadoId" name="cromo">
+            <option *ngFor="let cromo of cromosColeccion" [value]="cromo.id">
+              {{cromo.Nombre}}
+            </option>
+          </select>
+        </mat-form-field>
+        </div>
+      </div>
+
+      <div style="margin-top: 10px">
+      <button type="button" style="background-color: rgb(92, 184, 92)" class="btn "[disabled]="isDisabled" (click) = AsignarCromo()>Asignar Cromo</button>
+      </div>
     </div>
-  </div>
 
-  <div style="margin-top: 10px">
-  <button type="button" style="background-color: rgb(92, 184, 92)" class="btn "[disabled]="isDisabled" (click) = AsignarCromo()>Asignar Cromo</button>
-  </div>
 
-</div>
+  </mat-tab>
+
+
+
+  <!-- REPARTIR PAQUETES DE CROMOS ALEATORIOS -->
+  <mat-tab label="Asignar Cromo Aleatorio">
+
+
+
+  </mat-tab>
+</mat-tab-group>
+
+
 <form>
   <table align="center" *ngIf="alumnosDelJuego" mat-table [dataSource]="datasourceAlumno" class="mat-elevation-z8">
 
@@ -72,3 +92,7 @@
     </tr>
   </table>
 </form>
+
+<button (click) = "prueba()">Prueba raandom</button>
+
+

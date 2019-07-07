@@ -69,11 +69,11 @@ export class CrearColeccionComponent implements OnInit {
 
     // Opciones para mostrar en la lista desplegable para seleccionar el tipo de juego que listar
     opcionesProbabilidad: OpcionSeleccionada[] = [
-      {nombre: 'Muy baja', id: 'probabilidadMuyBaja'},
-      {nombre: 'Baja', id: 'probabilidadBaja'},
-      {nombre: 'Media', id: 'probabilidadMedia'},
-      {nombre: 'Alta', id: 'probabilidadAlta'},
-      {nombre: 'Muy alta', id: 'probabilidadMuyAlta'},
+      {nombre: 'Muy Baja', id: 'Muy Baja'},
+      {nombre: 'Baja', id: 'Baja'},
+      {nombre: 'Media', id: 'Media'},
+      {nombre: 'Alta', id: 'Alta'},
+      {nombre: 'Muy Alta', id: 'Muy Alta'},
 
     ];
 
@@ -81,11 +81,11 @@ export class CrearColeccionComponent implements OnInit {
 
       // Opciones para mostrar en la lista desplegable para seleccionar el tipo de juego que listar
     opcionesNivel: OpcionSeleccionada[] = [
-        {nombre: 'Diamante', id: 'nivelDiamante'},
-        {nombre: 'Platino', id: 'nivelPlatino'},
-        {nombre: 'Oro', id: 'nivelOro'},
-        {nombre: 'Plata', id: 'nivelPlata'},
-        {nombre: 'Bronce', id: 'nivelBronce'},
+        {nombre: 'Diamante', id: 'Diamante'},
+        {nombre: 'Platino', id: 'Platino'},
+        {nombre: 'Oro', id: 'Oro'},
+        {nombre: 'Plata', id: 'Plata'},
+        {nombre: 'Bronce', id: 'Bronce'},
     ];
     opcionSeleccionadaNivel: string;
 
@@ -283,47 +283,58 @@ export class CrearColeccionComponent implements OnInit {
   }
 
   OpcionProbabilidadSeleccionada() {
-
     // Opcion selecionada para probabilidad
-    if (this.opcionSeleccionadaProbabilidad === 'probabilidadMuyBaja') {
-      this.probabilidadCromo = 'Muy baja';
+    if (this.opcionSeleccionadaProbabilidad === 'Muy Baja') {
+      this.probabilidadCromo = 'Muy Baja';
     }
-    if (this.opcionSeleccionadaProbabilidad === 'probabilidadBaja') {
+    if (this.opcionSeleccionadaProbabilidad === 'Baja') {
       this.probabilidadCromo = 'Baja';
     }
 
-    if (this.opcionSeleccionadaProbabilidad === 'probabilidadMedia') {
+    if (this.opcionSeleccionadaProbabilidad === 'Media') {
       this.probabilidadCromo = 'Media';
     }
 
-    if (this.opcionSeleccionadaProbabilidad === 'probabilidadAlta') {
+    if (this.opcionSeleccionadaProbabilidad === 'Alta') {
       this.probabilidadCromo = 'Alta';
     }
 
-    if (this.opcionSeleccionadaProbabilidad === 'probabilidadMuyAlta') {
-      this.probabilidadCromo = 'Muy alta';
+    if (this.opcionSeleccionadaProbabilidad === 'Muy Alta') {
+      this.probabilidadCromo = 'Muy Alta';
     }
   }
 
   OpcionNivelSeleccionado() {
+    console.log(this.opcionSeleccionadaNivel);
     // Opcion selecionada para nivel
-    if (this.opcionSeleccionadaNivel === 'nivelDiamante') {
+    if (this.opcionSeleccionadaNivel === 'Diamante') {
       this.nivelCromo = 'Diamante';
+      this.probabilidadCromo = 'Muy Baja';
+      this.opcionSeleccionadaProbabilidad = 'Muy Baja';
+
     }
-    if (this.opcionSeleccionadaNivel === 'nivelPlatino') {
+    if (this.opcionSeleccionadaNivel === 'Platino') {
       this.nivelCromo = 'Platino';
+      this.probabilidadCromo = 'Baja';
+      this.opcionSeleccionadaProbabilidad = 'Baja';
     }
 
-    if (this.opcionSeleccionadaNivel === 'nivelOro') {
+    if (this.opcionSeleccionadaNivel === 'Oro') {
       this.nivelCromo = 'Oro';
+      this.probabilidadCromo = 'Media';
+      this.opcionSeleccionadaProbabilidad = 'Media';
     }
 
-    if (this.opcionSeleccionadaNivel === 'nivelPlata') {
+    if (this.opcionSeleccionadaNivel === 'Plata') {
       this.nivelCromo = 'Plata';
+      this.probabilidadCromo = 'Alta';
+      this.opcionSeleccionadaProbabilidad = 'Alta';
     }
 
-    if (this.opcionSeleccionadaNivel === 'nivelBronce') {
+    if (this.opcionSeleccionadaNivel === 'Bronce') {
       this.nivelCromo = 'Bronce';
+      this.probabilidadCromo = 'Muy Alta';
+      this.opcionSeleccionadaProbabilidad = 'Muy Alta';
     }
   }
 
