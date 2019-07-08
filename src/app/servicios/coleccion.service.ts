@@ -20,6 +20,7 @@ export class ColeccionService {
   coleccion: Coleccion;
   cromo: Cromo;
   cromosColeccion: any = [];
+  cromosAlumno: any = [];
 
   constructor(private http: HttpClient ) { }
 
@@ -83,6 +84,14 @@ export class ColeccionService {
 
   RecibirCromosColeccionDelServicio(): any {
     return this.cromosColeccion;
+  }
+
+  EnviarCromosAlumnoAlServicio(cromos: any) {
+    this.cromosAlumno = cromos;
+  }
+
+  RecibirCromosAlumnoDelServicio(): any {
+    return this.cromosAlumno;
   }
 
   EnviarCromoAlServicio(cromo: any) {

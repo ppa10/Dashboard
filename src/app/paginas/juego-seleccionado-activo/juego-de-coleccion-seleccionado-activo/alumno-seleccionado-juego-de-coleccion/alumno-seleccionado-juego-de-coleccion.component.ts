@@ -6,7 +6,7 @@ import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion,
   Album, AlbumEquipo, Coleccion, Cromo } from '../../../../clases/index';
 
 // Servicios
-import { AlumnoService, JuegoService, EquipoService } from '../../../../servicios/index';
+import { AlumnoService, JuegoService, EquipoService, ColeccionService } from '../../../../servicios/index';
 import { JuegoComponent } from 'src/app/paginas/juego/juego.component';
 
 @Component({
@@ -33,7 +33,8 @@ export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
 
   constructor( private alumnoService: AlumnoService,
                private juegoService: JuegoService,
-               private http: Http ) { }
+               private http: Http,
+               private coleccionService: ColeccionService ) { }
 
   ngOnInit() {
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
@@ -77,22 +78,19 @@ export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
     this.juegoService.GET_CromosAlumno(this.inscripcionAlumno.id)
     .subscribe(cromos => {
       this.ListaCromos = cromos;
+      this.coleccionService.EnviarCromosAlumnoAlServicio(this.ListaCromos);
+      this.OrdenarCromos();
       this.GET_ImagenCromo();
       console.log(this.ListaCromos);
-      this.OrdenarCromos();
+
     });
-
-
   }
 
-  // Ordena los cromos por nombre. Asi si tengo algun cromo repetido, salen juntos
+  // Ordena los cromos por nombre. Asi es más fácil identificar los cromos que tengo
   OrdenarCromos() {
     this.ListaCromos.sort((a, b) => a.Nombre.localeCompare(b.Nombre));
   }
 
-  // compare(a: number | string, b: number | string, isAsc: boolean) {
-  //   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  // }
 
   GET_ImagenCromo() {
 
@@ -124,6 +122,6 @@ export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
   }
 
   prueba() {
-    console.log(this.ListaCromos);
+    console.log(this.imagenCromoArray);
   }
 }

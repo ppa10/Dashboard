@@ -109,10 +109,10 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
           this.alumnosDelJuego[i].SegundoApellido, numeroCromos.count);
       });
       this.datasourceAlumno = new MatTableDataSource(this.alumnosDelJuego);
-
-
     }
   }
+
+
   // Recupera los equipos que pertenecen al juego
   EquiposDelJuego() {
     this.juegoService.GET_EquiposJuegoDeColeccion(this.juegoSeleccionado.id)

@@ -27,6 +27,8 @@ export class MisColeccionesComponent implements OnInit {
   cromosColeccion: Cromo[];
   imagenColeccion: string;
 
+  numeroDeCromos: number;
+
   // PARA DIÁLOGO DE CONFIRMACIÓN
   // tslint:disable-next-line:no-inferrable-types
   mensaje: string = 'Estás seguro/a de que quieres eliminar el equipo llamado: ';
@@ -109,12 +111,15 @@ export class MisColeccionesComponent implements OnInit {
     if (res[0] !== undefined) {
       this.cromosColeccion = res;
       console.log(res);
+      this.numeroDeCromos = this.cromosColeccion.length;
     } else {
       console.log('No hay cromos en esta coleccion');
       this.cromosColeccion = undefined;
+      this.numeroDeCromos = 0;
     }
   });
   }
+
   // Utilizamos esta función para eliminar un punto de la base de datos y actualiza la lista de puntos
   BorrarColeccion(coleccion: Coleccion) {
     this.coleccionService.DELETE_Coleccion(coleccion.id, coleccion.profesorId)

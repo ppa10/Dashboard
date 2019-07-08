@@ -107,6 +107,11 @@ export class EditarColeccionComponent implements OnInit {
     }
   }
 
+  // Ordena los cromos por nombre. Asi si tengo algun cromo repetido, salen juntos
+  OrdenarCromos() {
+    this.cromosColeccion.sort((a, b) => a.Nombre.localeCompare(b.Nombre));
+  }
+
   prueba() {
     console.log(this.imagenCromoArray);
   }
@@ -268,6 +273,7 @@ export class EditarColeccionComponent implements OnInit {
   .subscribe(res => {
     if (res[0] !== undefined) {
       this.cromosColeccion = res;
+      this.OrdenarCromos();
       this.GET_ImagenCromo();
       console.log(res);
     } else {

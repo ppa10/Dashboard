@@ -17,10 +17,12 @@
                         <img class ="logo" *ngIf="imagenColeccion" mat-card-image [src]="imagenColeccion" >
                     </div>
                     <div style="margin-right: 20%">
-                    <span style="font-weight: bold; margin-left: 16px; font-size: 130%;">Cromos</span>
-                    <mat-list role="list" *ngFor="let cromo of cromosColeccion">
-                        <mat-list-item role="listitem">{{cromo.Nombre}} </mat-list-item>
-                      </mat-list>
+                    <span style="font-weight: bold; margin-left: 16px; font-size: 130%;">Número De Cromos</span>
+
+                    <div>
+                      <span> {{numeroDeCromos}} </span>
+                    </div>
+
                     </div>
                     <div class="contenedor3" style="margin-right: 2% ">
                       <div class="elemento">
