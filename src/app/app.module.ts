@@ -90,6 +90,7 @@ import { InformacionJuegoColeccionComponent } from './paginas/juego-seleccionado
 import { AlumnoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/alumno-seleccionado-juego-de-coleccion/alumno-seleccionado-juego-de-coleccion.component';
 // tslint:disable-next-line:max-line-length
 import { EquipoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/equipo-seleccionado-juego-de-coleccion/equipo-seleccionado-juego-de-coleccion.component';
+import { PasarListaComponent } from './paginas/pasar-lista/pasar-lista.component';
 // tslint:disable-next-line:max-line-length
 import { AlbumDelAlumnoComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/alumno-seleccionado-juego-de-coleccion/album-del-alumno/album-del-alumno.component';
 // tslint:disable-next-line:max-line-length
@@ -154,6 +155,7 @@ import { AlbumEquipoComponent } from './paginas/juego-seleccionado-activo/juego-
     InformacionJuegoColeccionComponent,
     AlumnoSeleccionadoJuegoDeColeccionComponent,
     EquipoSeleccionadoJuegoDeColeccionComponent,
+    PasarListaComponent,
     AlbumDelAlumnoComponent,
     AlbumEquipoComponent
   ],

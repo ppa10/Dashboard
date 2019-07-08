@@ -75,7 +75,12 @@ export class GrupoComponent implements OnInit {
 
 
   // FUNCIONES DE LAS DIFERENTES OPCIONES QUE TENEMOS CON EL GRUPO
+  EntrarPasarLista() {
 
+    // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
+    this.grupoService.EnviarGrupoAlServicio(this.grupoSeleccionado);
+    this.alumnoService.EnviarListaAlumnosAlServicio(this.alumnosGrupoSeleccionado);
+  }
   EntrarEditarGrupo() {
 
     // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO

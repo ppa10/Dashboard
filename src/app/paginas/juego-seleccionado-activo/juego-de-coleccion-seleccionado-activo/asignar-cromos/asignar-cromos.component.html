@@ -1,14 +1,14 @@
 <div class="titulo"><h2>Asignar Puntos</h2></div>
 <mat-divider class="lineaDivisoria"></mat-divider>
 
-
-<mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs style="margin-top: 10px" style="width: 60%">
+<div class="contenedor">
+<mat-tab-group [color]="primary" [backgroundColor]="primary" #tabs style="margin-top: 10px">
 
 
   <!-- ASIGNAR EL CROMO QUE EL PROFESOR ESCOJA-->
   <mat-tab index = "0" label="Asignar Cromo Manualmente">
-    <div class="contenedor">
-      <h5>Seleccione el cromo que desee asignar:</h5>
+
+      <h5 style="margin-top: 10px">Seleccione el cromo que desee asignar:</h5>
       <div class="contenedor2">
         <div>
         <mat-form-field>
@@ -19,13 +19,12 @@
             </option>
           </select>
         </mat-form-field>
-        </div>
       </div>
+        <div style="margin-top: 10px">
+          <button type="button" style="background-color: rgb(92, 184, 92)" class="btn "[disabled]="isDisabled" (click) = AbrirDialogoConfirmacionAsignarCromo()>Asignar Cromo</button>
+          </div>
 
-      <div style="margin-top: 10px">
-      <button type="button" style="background-color: rgb(92, 184, 92)" class="btn "[disabled]="isDisabled" (click) = AbrirDialogoConfirmacionAsignarCromo()>Asignar Cromo</button>
       </div>
-    </div>
 
 
   </mat-tab>
@@ -34,7 +33,7 @@
 
   <!-- REPARTIR PAQUETES DE CROMOS ALEATORIOS -->
   <mat-tab label="Asignar Cromo Aleatorio">
-
+    <div class="contenedor2">
     <div style="margin-top: 15px">
       <span>Número de cromos aletorios que desea asignar: </span>
       <input type="number" name="numeroCromosRandom" placeholder="Escribe el número de cromos" requiered [(ngModel)]="numeroCromosRandom">
@@ -43,7 +42,7 @@
     <div style="margin-top: 10px">
       <button type="button" style="background-color: rgb(92, 184, 92)" class="btn "[disabled]="isDisabled" (click) = AbrirDialogoConfirmacionAsignarCromosAleatorios()>Asignar Cromo</button>
       </div>
-
+    </div>
   </mat-tab>
 </mat-tab-group>
 
@@ -107,7 +106,6 @@
     </tr>
   </table>
 </form>
-
 
 <!-- /////////////////////////////////////////// TABLA PARA ASIGNAR CROMOS EQUIPOS //////////////////////////////////////////////////// -->
 <form *ngIf="equiposDelJuego" >
@@ -190,7 +188,6 @@
 
   </table>
 </form>
-
-<button (click) = "prueba()">Prueba random</button>
+</div>
 
 

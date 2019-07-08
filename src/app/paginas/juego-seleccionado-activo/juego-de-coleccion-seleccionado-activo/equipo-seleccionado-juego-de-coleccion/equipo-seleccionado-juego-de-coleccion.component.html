@@ -2,20 +2,26 @@
 <div class="subtitulo"><h3>Información Del Equipo</h3></div>
 <mat-divider class="lineaDivisoria"></mat-divider>
 
-<div>
-  <img class = "imagen" hight = "200" width = "200" mat-card-image [src]="imagenPerfil" >
+<div class="contenedor">
+    <div class="contenedor3">
+  <div class="contenedor3">
+    <div>
+      <img class = "imagen" hight = "200" width = "200" mat-card-image [src]="imagenPerfil" >
 
+    </div>
+
+    <div>
+      <p style="font-size: 110%">
+        <span style="font-weight: bold;">Cromos de: </span>
+        {{equipo.Nombre}}
+      </p>
+    </div>
+  </div>
+<div>
+  <button type="button"  style="background-color: rgb(240, 173, 78)" class="btn" routerLink = "AlbumEquipo">Álbum Equipo</button>
 </div>
 
-<div>
-  <p style="font-size: 110%">
-    <span style="font-weight: bold;">Cromos de: </span>
-    {{equipo.Nombre}}
-  </p>
 </div>
-
-<div>
-  <button routerLink = "AlbumEquipo">Ver Álbum Equipo</button>
 </div>
 
 <mat-grid-list cols="3" rowHeight="100px" style="width: 70%; margin-left : 15%" >
