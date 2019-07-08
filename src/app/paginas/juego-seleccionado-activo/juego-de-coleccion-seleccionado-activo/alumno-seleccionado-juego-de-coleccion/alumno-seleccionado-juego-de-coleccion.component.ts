@@ -17,7 +17,6 @@ import { JuegoComponent } from 'src/app/paginas/juego/juego.component';
 export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
 
   inscripcionAlumno: AlumnoJuegoDeColeccion;
-  inscripcionEquipo: EquipoJuegoDeColeccion;
 
   alumno: Alumno;
 
@@ -39,14 +38,11 @@ export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
   ngOnInit() {
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
 
-    if (this.juegoSeleccionado.Modo === 'Individual') {
-      this.inscripcionAlumno = this.juegoService.RecibirInscripcionAlumnoDelServicio();
-      this.alumno = this.alumnoService.RecibirAlumnoDelServicio();
-      this.CromosDelAlumno();
-      this.GET_ImagenPerfil();
-    } else {
+    this.inscripcionAlumno = this.juegoService.RecibirInscripcionAlumnoDelServicio();
+    this.alumno = this.alumnoService.RecibirAlumnoDelServicio();
+    this.CromosDelAlumno();
+    this.GET_ImagenPerfil();
 
-    }
 
   }
 

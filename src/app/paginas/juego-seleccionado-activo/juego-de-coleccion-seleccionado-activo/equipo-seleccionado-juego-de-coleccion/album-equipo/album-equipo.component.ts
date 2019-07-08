@@ -8,11 +8,11 @@ import { Cromo, Coleccion, AlbumDelAlumno } from '../../../../../clases/index';
 import { ColeccionService } from '../../../../../servicios/index';
 
 @Component({
-  selector: 'app-album-del-alumno',
-  templateUrl: './album-del-alumno.component.html',
-  styleUrls: ['./album-del-alumno.component.scss']
+  selector: 'app-album-equipo',
+  templateUrl: './album-equipo.component.html',
+  styleUrls: ['./album-equipo.component.scss']
 })
-export class AlbumDelAlumnoComponent implements OnInit {
+export class AlbumEquipoComponent implements OnInit {
 
   coleccion: Coleccion;
   cromosColeccion: Cromo[];
@@ -23,12 +23,13 @@ export class AlbumDelAlumnoComponent implements OnInit {
 
   cromosAlumno: Cromo[];
 
-  AlbumDelAlumno: AlbumDelAlumno[] = [];
+  AlbumDelEquipo: AlbumDelAlumno[] = [];
 
   constructor( private coleccionService: ColeccionService,
                private http: Http) { }
 
   ngOnInit() {
+
     this.coleccion = this.coleccionService.RecibirColeccionDelServicio();
     this.cromosAlumno = this.coleccionService.RecibirCromosAlumnoDelServicio();
     this.CromosDeLaColeccion(this.coleccion);
@@ -95,12 +96,12 @@ export class AlbumDelAlumnoComponent implements OnInit {
 
       if (this.cromo !== undefined) {
         console.log('Tengo ' + this.cromo.Nombre);
-        this.AlbumDelAlumno[i] = new AlbumDelAlumno(this.cromosColeccion[i].Nombre, this.cromosColeccion[i].Imagen,
+        this.AlbumDelEquipo[i] = new AlbumDelAlumno(this.cromosColeccion[i].Nombre, this.cromosColeccion[i].Imagen,
           this.cromosColeccion[i].Probabilidad, this.cromosColeccion[i].Nivel, true);
 
       } else {
         console.log('No tengo ' + this.cromosColeccion[i].Nombre);
-        this.AlbumDelAlumno[i] = new AlbumDelAlumno(this.cromosColeccion[i].Nombre, this.cromosColeccion[i].Imagen,
+        this.AlbumDelEquipo[i] = new AlbumDelAlumno(this.cromosColeccion[i].Nombre, this.cromosColeccion[i].Imagen,
           this.cromosColeccion[i].Probabilidad, this.cromosColeccion[i].Nivel, false);
       }
     }
@@ -109,10 +110,5 @@ export class AlbumDelAlumnoComponent implements OnInit {
   // Ordena los cromos por nombre. Asi es más fácil identificar los cromos que tengo
   OrdenarCromos() {
     this.cromosColeccion.sort((a, b) => a.Nombre.localeCompare(b.Nombre));
-  }
-
-  prueba() {
-    console.log(this.AlbumDelAlumno);
-
   }
 }

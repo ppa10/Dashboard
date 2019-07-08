@@ -171,10 +171,8 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
     this.equipoService.EnviarEquipoAlServicio(equipo);
 
-    // tslint:disable-next-line:max-line-length
-  //   this.juegoDePuntosService.EnviarInscripcionEquipoAlServicio(this.listaEquiposOrdenadaPorPuntos.filter(res => res.equipoId === equipoSeleccionado[0].id));
-  //   this.juegoDePuntosService.EnviarPuntosAlServicio(this.puntosDelJuego);
-  //   this.juegoDePuntosService.EnviarNivelesAlServicio(this.nivelesDelJuego);
+    this.juegoService.EnviarInscripcionEquipoAlServicio(this.inscripcionesEquipos.filter(res => res.equipoId === equipo.id)[0]);
+
   }
 
   // Le enviaremos solo la colección del juego
