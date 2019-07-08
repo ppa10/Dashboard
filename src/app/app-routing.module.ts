@@ -44,6 +44,7 @@ import { PasarListaComponent } from './paginas/pasar-lista/pasar-lista.component
 import { AlbumDelAlumnoComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/alumno-seleccionado-juego-de-coleccion/album-del-alumno/album-del-alumno.component';
 // tslint:disable-next-line:max-line-length
 import { AlbumEquipoComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/equipo-seleccionado-juego-de-coleccion/album-equipo/album-equipo.component';
+import { ConfiguracionProfesorComponent } from './paginas/COMPARTIDO/configuracion-profesor/configuracion-profesor.component';
 
 
 
@@ -89,7 +90,8 @@ const routes: Routes = [
   { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },
   { path: 'inicio/:id/misPuntos', component: MisPuntosComponent },
   { path: 'inicio/:id/misPuntos/editarPunto', component: EditarPuntoComponent },
-  { path: 'inicio/:id/misPuntos/editarInsignia', component: EditarInsigniaComponent }
+  { path: 'inicio/:id/misPuntos/editarInsignia', component: EditarInsigniaComponent },
+  { path: 'inicio/:id/configuracionProfesor', component: ConfiguracionProfesorComponent }
 
 
 
