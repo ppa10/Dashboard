@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Juego, AlumnoJuegoDeColeccion, AsignacionPuntosJuego, Nivel, EquipoJuegoDeColeccion, Alumno, Equipo, Punto,
-         Album, AlbumEquipo, HistorialPuntosEquipo, TablaEquipoJuegoDePuntos } from '../clases/index';
+         Album, AlbumEquipo, HistorialPuntosEquipo, TablaEquipoJuegoDePuntos, Cromo } from '../clases/index';
 
 @Injectable({
   providedIn: 'root'
@@ -14,24 +14,24 @@ export class JuegoService {
 
   private APIUrlGrupos = 'http://localhost:3000/api/Grupos';
 
-  private APIUrlAlumnoJuego = 'http://localhost:3000/api/AlumnosJuegoDeColeccion';
-  private APIUrlEquipoJuego = 'http://localhost:3000/api/EquiposJuegoDeColeccion';
+  private APIURLAlumnoJuegoDeColeccion = 'http://localhost:3000/api/AlumnosJuegoDeColeccion';
+  private APIURLEquipoJuegoDeColeccion = 'http://localhost:3000/api/EquiposJuegoDeColeccion';
 
   private APIRURLJuegoDeColeccion = 'http://localhost:3000/api/JuegosDeColeccion';
 
-  private APIURLAlumnoJuegoDeColeccion = 'http://localhost:3000/api/AlumnosJuegoDeColeccion';
-  private APIURLEquiposJuegoDeColeccion = 'http://localhost:3000/api/EquiposJuegoDeColeccion';
-
-  private APIURLNumeroCromosAlumno = 'http://localhost:3000/api/AlumnosJuegoDeColeccion/';
-
   private APIRURLAlbum = 'http://localhost:3000/api/Albumes';
   private APIRURLAlbumEquipo = 'http://localhost:3000/api/albumsEquipo';
+
+
   juegoSeleccionado: Juego;
 
   alumnosDelJuego: Alumno[];
   equiposDelJuego: Equipo[];
   puntos: Punto[];
   niveles: Nivel[];
+
+  inscripcionAlumno: AlumnoJuegoDeColeccion;
+  inscripcionEquipo: EquipoJuegoDeColeccion;
 
   // rankingSeleccionado: number;
 
@@ -59,11 +59,11 @@ export class JuegoService {
 
 
   POST_AlumnoJuegoDeColeccion(alumnoJuegoDeColeccion: AlumnoJuegoDeColeccion) {
-    return this.http.post<AlumnoJuegoDeColeccion>(this.APIUrlAlumnoJuego, alumnoJuegoDeColeccion);
+    return this.http.post<AlumnoJuegoDeColeccion>(this.APIURLAlumnoJuegoDeColeccion, alumnoJuegoDeColeccion);
   }
 
   POST_EquipoJuegoDeColeccion(equipoJuegoDeColeccion: EquipoJuegoDeColeccion) {
-    return this.http.post<EquipoJuegoDeColeccion>(this.APIUrlEquipoJuego, equipoJuegoDeColeccion);
+    return this.http.post<EquipoJuegoDeColeccion>(this.APIURLEquipoJuegoDeColeccion, equipoJuegoDeColeccion);
   }
 
 
@@ -82,7 +82,7 @@ export class JuegoService {
   // }
 
   GET_NumeroCromosAlumno(alumnoJuegoDeColeccionId: number): Observable<any> {
-    return this.http.get<any>(this.APIURLNumeroCromosAlumno +  alumnoJuegoDeColeccionId + '/cromos/count');
+    return this.http.get<any>(this.APIURLAlumnoJuegoDeColeccion + '/' +  alumnoJuegoDeColeccionId + '/cromos/count');
   }
 
   GET_InscripcionesAlumnoJuegoDeColeccion(juegoDeColeccionId: number): Observable<AlumnoJuegoDeColeccion[]> {
@@ -91,7 +91,7 @@ export class JuegoService {
   }
 
   GET_InscripcionesEquipoJuegoDeColeccion(juegoDeColeccionId: number): Observable<EquipoJuegoDeColeccion[]> {
-    return this.http.get<EquipoJuegoDeColeccion[]>(this.APIURLEquiposJuegoDeColeccion + '?filter[where][juegoDeColeccionId]='
+    return this.http.get<EquipoJuegoDeColeccion[]>(this.APIURLEquipoJuegoDeColeccion + '?filter[where][juegoDeColeccionId]='
     + juegoDeColeccionId);
   }
 
@@ -99,8 +99,17 @@ export class JuegoService {
     return this.http.post<Album>(this.APIRURLAlbum, album);
   }
 
+
   POST_AsignarCromoEquipo(album: AlbumEquipo) {
     return this.http.post<AlbumEquipo>(this.APIRURLAlbumEquipo, album);
+  }
+
+  GET_CromosAlumno(alumnoJuegoDeColeccionId: number): Observable<Cromo[]> {
+    return this.http.get<Cromo[]>(this.APIURLAlumnoJuegoDeColeccion + '/' + alumnoJuegoDeColeccionId + '/cromos');
+  }
+
+  GET_CromosEquipo(equipoJuegoDeColeccionId: number): Observable<Cromo[]> {
+    return this.http.get<Cromo[]>(this.APIURLEquipoJuegoDeColeccion + '/' + equipoJuegoDeColeccionId + '/cromos');
   }
 
   ///////////////////////////////////// PARA JUEGO DE PUNTOS ////////////////////////////////////////
@@ -131,6 +140,22 @@ export class JuegoService {
 
   RecibirEquipoJuegoDelServicio() {
     return this.equiposDelJuego;
+  }
+
+  EnviarInscripcionAlServicio(inscripcionAlumno: any) {
+    this.inscripcionAlumno = inscripcionAlumno;
+  }
+
+  RecibirInscripcionAlumnoDelServicio() {
+    return this.inscripcionAlumno;
+  }
+
+  EnviarInscripcionEquipoAlServicio(inscripcionEquipo: any) {
+    this.inscripcionEquipo = inscripcionEquipo;
+  }
+
+  RecibirInscripcionEquipoDelServicio() {
+    return this.inscripcionEquipo;
   }
 
 }

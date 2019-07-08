@@ -18,7 +18,6 @@ export class InformacionJuegoColeccionComponent implements OnInit {
   cromosColeccion: Cromo[];
 
   cromo: Cromo;
-  imagenCromo: string;
   imagenCromoArray: string[] = [];
 
   nombreColeccion: string;

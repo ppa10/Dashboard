@@ -1,5 +1,5 @@
 table {
-  width: 60%;
+  width: 90%;
   text-align: center;
 }
 
@@ -25,4 +25,9 @@ input[type=number] {
   display: flex;
   justify-content: space-between;
 
+}
+
+.filter {
+  font-size: 14px;
+  margin-left: 5%;
 }

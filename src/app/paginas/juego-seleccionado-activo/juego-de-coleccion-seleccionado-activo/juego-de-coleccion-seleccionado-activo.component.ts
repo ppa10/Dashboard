@@ -109,10 +109,10 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
           this.alumnosDelJuego[i].SegundoApellido, numeroCromos.count);
       });
       this.datasourceAlumno = new MatTableDataSource(this.alumnosDelJuego);
-
-
     }
   }
+
+
   // Recupera los equipos que pertenecen al juego
   EquiposDelJuego() {
     this.juegoService.GET_EquiposJuegoDeColeccion(this.juegoSeleccionado.id)
@@ -158,13 +158,12 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
   AccederAlumno(alumno: Alumno) {
 
+    this.alumnoService.EnviarAlumnoAlServicio(alumno);
 
-    // this.alumnoService.EnviarAlumnoAlServicio(alumnoSeleccionado);
-    // // tslint:disable-next-line:max-line-length
     // tslint:disable-next-line:max-line-length
-    // this.juegoDePuntosService.EnviarInscripcionAlServicio(this.listaAlumnosOrdenadaPorPuntos.filter(res => res.alumnoId === alumnoSeleccionado[0].id));
-    // this.juegoDePuntosService.EnviarPuntosAlServicio(this.puntosDelJuego);
-    // this.juegoDePuntosService.EnviarNivelesAlServicio(this.nivelesDelJuego);
+    this.juegoService.EnviarInscripcionAlServicio(this.inscripcionesAlumnos.filter(res => res.alumnoId === alumno.id)[0]);
+
+
   }
 
 
@@ -172,10 +171,8 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
     this.equipoService.EnviarEquipoAlServicio(equipo);
 
-    // tslint:disable-next-line:max-line-length
-  //   this.juegoDePuntosService.EnviarInscripcionEquipoAlServicio(this.listaEquiposOrdenadaPorPuntos.filter(res => res.equipoId === equipoSeleccionado[0].id));
-  //   this.juegoDePuntosService.EnviarPuntosAlServicio(this.puntosDelJuego);
-  //   this.juegoDePuntosService.EnviarNivelesAlServicio(this.nivelesDelJuego);
+    this.juegoService.EnviarInscripcionEquipoAlServicio(this.inscripcionesEquipos.filter(res => res.equipoId === equipo.id)[0]);
+
   }
 
   // Le enviaremos solo la colección del juego
@@ -196,6 +193,8 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
   prueba() {
     console.log(this.juegoSeleccionado);
+
+
 
   }
 

@@ -1,36 +1,14 @@
-<div class="titulo"><h2>{{juegoSeleccionado.Tipo}}</h2></div>
-<div class="subtitulo"><h3>Información Del Equipo</h3></div>
+<div class="titulo"><h2>Álbum Del Alumno</h2></div>
 <mat-divider class="lineaDivisoria"></mat-divider>
-
-<div class="contenedor">
-    <div class="contenedor3">
-  <div class="contenedor3">
-    <div>
-      <img class = "imagen" hight = "200" width = "200" mat-card-image [src]="imagenPerfil" >
-
-    </div>
-
-    <div>
-      <p style="font-size: 110%">
-        <span style="font-weight: bold;">Cromos de: </span>
-        {{equipo.Nombre}}
-      </p>
-    </div>
-  </div>
-<div>
-  <button type="button"  style="background-color: rgb(240, 173, 78)" class="btn" routerLink = "AlbumEquipo">Álbum Equipo</button>
-</div>
-
-</div>
-</div>
 
 <mat-grid-list cols="3" rowHeight="100px" style="width: 70%; margin-left : 15%" >
   <mat-grid-tile
-      *ngFor="let cromo of ListaCromos; let i = index"
+      *ngFor="let cromo of AlbumDelAlumno; let i = index"
       [colspan]="1"
       [rowspan]="4"
       [style.background]="white">
       <mat-card class="cromo" [ngClass]="{
+        'Falti' : cromo.Tengi === false,
         'Diamante' : cromo.Nivel === 'Diamante',
         'Platino' : cromo.Nivel === 'Platino',
         'Oro' : cromo.Nivel === 'Oro',

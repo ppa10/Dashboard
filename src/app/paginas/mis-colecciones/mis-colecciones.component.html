@@ -17,18 +17,20 @@
                         <img class ="logo" *ngIf="imagenColeccion" mat-card-image [src]="imagenColeccion" >
                     </div>
                     <div style="margin-right: 20%">
-                    <span style="font-weight: bold; margin-left: 16px; font-size: 130%;">Cromos</span>
-                    <mat-list role="list" *ngFor="let cromo of cromosColeccion">
-                        <mat-list-item role="listitem">{{cromo.Nombre}} </mat-list-item>
-                      </mat-list>
+                    <span style="font-weight: bold; margin-left: 16px; font-size: 130%;">Número De Cromos</span>
+
+                    <div>
+                      <span> {{numeroDeCromos}} </span>
+                    </div>
+
                     </div>
                     <div class="contenedor3" style="margin-right: 2% ">
                       <div class="elemento">
-                        <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" routerLink= "editarColeccion" (click) = "EnviarColeccionEditar(coleccion, cromosColeccion)">Editar colección <i class="material-icons">
+                        <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" routerLink= "editarColeccion" (click) = "EnviarColeccionEditar(coleccion, cromosColeccion)">Editar Colección <i class="material-icons">
                           edit </i>  </button>
                       </div>
                       <div class="elemento">
-                        <button type="button" style="background-color: rgb(212, 57, 52)" class="btn" (click) = "AbrirDialogoConfirmacionBorrarColeccion(coleccion)">Eliminar colección <i class="material-icons">
+                        <button type="button" style="background-color: rgb(212, 57, 52)" class="btn" (click) = "AbrirDialogoConfirmacionBorrarColeccion(coleccion)">Eliminar Colección <i class="material-icons">
                           delete
                           </i></button>
                       </div>

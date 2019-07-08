@@ -68,7 +68,7 @@
     <ng-container matColumnDef=" ">
       <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 10%"></th>
       <td mat-cell *matCellDef="let alumno">
-          <button routerLink = "informacionAlumnoJuegoColeccion" mat-icon-button matTooltip="Ver progreso de {{alumno.Nombre}} en el juego">
+          <button (click) = "AccederAlumno(alumno)" routerLink = "informacionAlumnoJuegoColeccion" mat-icon-button matTooltip="Ver progreso de {{alumno.Nombre}} en el juego">
               <i class="material-icons">more_horiz</i>
           </button>
       </td>
@@ -143,6 +143,3 @@
   </table>
 
 </form>
-
-<button (click) = "prueba()">prueba</button>
-

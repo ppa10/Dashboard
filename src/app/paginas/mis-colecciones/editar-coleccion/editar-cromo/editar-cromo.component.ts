@@ -40,11 +40,11 @@ export class EditarCromoComponent implements OnInit {
 
     // Opciones para mostrar en la lista desplegable para seleccionar el tipo de juego que listar
     opcionesProbabilidad: OpcionSeleccionada[] = [
-      {nombre: 'Muy baja', id: 'Muy baja'},
+      {nombre: 'Muy Baja', id: 'Muy Baja'},
       {nombre: 'Baja', id: 'Baja'},
       {nombre: 'Media', id: 'Media'},
       {nombre: 'Alta', id: 'Alta'},
-      {nombre: 'Muy alta', id: 'Muy alta'},
+      {nombre: 'Muy Alta', id: 'Muy Alta'},
 
     ];
 
@@ -150,8 +150,8 @@ export class EditarCromoComponent implements OnInit {
 
       OpcionProbabilidadSeleccionada() {
         // Opcion selecionada para probabilidad
-        if (this.opcionSeleccionadaProbabilidad === 'Muy baja') {
-          this.probabilidadCromo = 'Muy baja';
+        if (this.opcionSeleccionadaProbabilidad === 'Muy Baja') {
+          this.probabilidadCromo = 'Muy Baja';
         }
         if (this.opcionSeleccionadaProbabilidad === 'Baja') {
           this.probabilidadCromo = 'Baja';
@@ -165,30 +165,42 @@ export class EditarCromoComponent implements OnInit {
           this.probabilidadCromo = 'Alta';
         }
 
-        if (this.opcionSeleccionadaProbabilidad === 'Muy alta') {
-          this.probabilidadCromo = 'Muy alta';
+        if (this.opcionSeleccionadaProbabilidad === 'Muy Alta') {
+          this.probabilidadCromo = 'Muy Alta';
         }
       }
 
       OpcionNivelSeleccionado() {
+        console.log(this.opcionSeleccionadaNivel);
         // Opcion selecionada para nivel
         if (this.opcionSeleccionadaNivel === 'Diamante') {
           this.nivelCromo = 'Diamante';
+          this.probabilidadCromo = 'Muy Baja';
+          this.opcionSeleccionadaProbabilidad = 'Muy Baja';
+
         }
         if (this.opcionSeleccionadaNivel === 'Platino') {
           this.nivelCromo = 'Platino';
+          this.probabilidadCromo = 'Baja';
+          this.opcionSeleccionadaProbabilidad = 'Baja';
         }
 
         if (this.opcionSeleccionadaNivel === 'Oro') {
           this.nivelCromo = 'Oro';
+          this.probabilidadCromo = 'Media';
+          this.opcionSeleccionadaProbabilidad = 'Media';
         }
 
         if (this.opcionSeleccionadaNivel === 'Plata') {
           this.nivelCromo = 'Plata';
+          this.probabilidadCromo = 'Alta';
+          this.opcionSeleccionadaProbabilidad = 'Alta';
         }
 
         if (this.opcionSeleccionadaNivel === 'Bronce') {
           this.nivelCromo = 'Bronce';
+          this.probabilidadCromo = 'Muy Alta';
+          this.opcionSeleccionadaProbabilidad = 'Muy Alta';
         }
       }
 

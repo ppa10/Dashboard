@@ -8,6 +8,12 @@
   border: 10px solid transparent;
   background-color: transparent;
 
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+
+  justify-content: center;
+  align-items: center;
 }
 .contenedor2{
   display: flex;
@@ -24,7 +30,7 @@
   justify-content: space-between;
   border: solid transparent;
 
- justify-content: space-between;
+  align-items: flex-start;
 
 }
 .elemento{
@@ -120,6 +126,18 @@ border: solid transparent;
   border-bottom-right-radius: 15px;
   box-shadow: 0px 3px 6px 0px rgb(133, 103, 64);
 }
+
+.Falti {
+  opacity: 0.5 !important;
+  background-color: rgb(235, 235, 228) !important;
+  color: rgb(84, 84, 84) !important;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0px 3px 6px 0px  rgb(126, 138, 141) !important;
+}
+
 .cromo {
   max-width: 300px;
   max-height: 300px;
@@ -137,10 +155,4 @@ border: solid transparent;
   max-width: 250px;
   max-height: 250px;
   border: solid transparent;
-}
-
-.imagen {
-  max-width: 200px;
-  max-height: 200px;
-  margin: 10px;
 }
