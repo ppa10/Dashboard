@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AgregarAlumnoDialogComponent } from '../crear-grupo/agregar-alumno-dialog/agregar-alumno-dialog.component';
+import {MatTableDataSource} from '@angular/material/table';
 
 // Clases
 import { Grupo, Alumno } from '../../clases/index';
 
 // Servicios
 import { GrupoService, MatriculaService, AlumnoService } from '../../servicios/index';
-
-
 // Imports para abrir diálogo agregar alumno/confirmar eliminar grupo
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
-
 
 @Component({
   selector: 'app-pasar-lista',
@@ -37,12 +33,8 @@ export class PasarListaComponent implements OnInit {
 
   seleccionados: boolean[];
 
-  // tslint:disable-next-line:no-inferrable-types
-  mensaje: string = 'Estás seguro/a de que quieres eliminar a los alumnos del grupo llamado: ';
-
 
   constructor( private grupoService: GrupoService,
-               private matriculaService: MatriculaService,
                private alumnoService: AlumnoService,
                public dialog: MatDialog,
                public snackBar: MatSnackBar,
@@ -52,13 +44,15 @@ export class PasarListaComponent implements OnInit {
     this.grupoSeleccionado = this.grupoService.RecibirGrupoDelServicio();
     this.profesorId = this.grupoSeleccionado.profesorId;
     this.alumnosGrupoSeleccionado = this.alumnoService.RecibirListaAlumnosDelServicio();
+    console.log(this.grupoSeleccionado);
+    console.log(this.profesorId);
+    console.log(this.alumnosGrupoSeleccionado);
 
-  }
-  // Para elegir fecha
-  myFilter = (d: Date): boolean => {
-    const day = d.getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
+    if (this.alumnosGrupoSeleccionado !== undefined) {
+      // Al principio no hay alumnos seleccionados para eliminar
+      this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
+      this.dataSource = new MatTableDataSource(this.alumnosGrupoSeleccionado);
+    }
   }
 
   // Filtro para alumnos
@@ -94,5 +88,31 @@ export class PasarListaComponent implements OnInit {
         return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
       }
       return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
+    }
+
+    // Pone a true o false la posición del vector seleccionados que le pasamos (i) en función de su estado
+    Seleccionar(i: number) {
+
+      if (!this.selection.isSelected(this.alumnosGrupoSeleccionado[i]) === true) {
+        this.seleccionados[i] = true;
+      } else {
+        this.seleccionados[i] = false;
+      }
+      console.log(this.seleccionados);
+    }
+
+    // Pone a true or false todo el vector seleccionado
+    SeleccionarTodos() {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.alumnosGrupoSeleccionado.length; i++) {
+
+        if (!this.isAllSelected() === true) {
+          this.seleccionados[i] = true;
+        } else {
+          this.seleccionados[i] = false;
+        }
+
+      }
+      console.log(this.seleccionados);
     }
 }
