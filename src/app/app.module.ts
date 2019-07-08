@@ -90,6 +90,7 @@ import { InformacionJuegoColeccionComponent } from './paginas/juego-seleccionado
 import { AlumnoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/alumno-seleccionado-juego-de-coleccion/alumno-seleccionado-juego-de-coleccion.component';
 // tslint:disable-next-line:max-line-length
 import { EquipoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/equipo-seleccionado-juego-de-coleccion/equipo-seleccionado-juego-de-coleccion.component';
+import { PasarListaComponent } from './paginas/pasar-lista/pasar-lista.component';
 
 
 
@@ -149,7 +150,8 @@ import { EquipoSeleccionadoJuegoDeColeccionComponent } from './paginas/juego-sel
     AsignarCromosComponent,
     InformacionJuegoColeccionComponent,
     AlumnoSeleccionadoJuegoDeColeccionComponent,
-    EquipoSeleccionadoJuegoDeColeccionComponent
+    EquipoSeleccionadoJuegoDeColeccionComponent,
+    PasarListaComponent
   ],
   imports: [
     BrowserModule,
