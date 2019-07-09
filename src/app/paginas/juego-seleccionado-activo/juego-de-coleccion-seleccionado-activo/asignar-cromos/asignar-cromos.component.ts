@@ -10,7 +10,7 @@ import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion,
  Album, AlbumEquipo, Coleccion, Cromo } from '../../../../clases/index';
 
 // Services
-import { JuegoService, EquipoService, ColeccionService } from '../../../../servicios/index';
+import { JuegoService, EquipoService, ColeccionService, JuegoDeColeccionService } from '../../../../servicios/index';
 
 @Component({
   selector: 'app-asignar-cromos',
@@ -70,6 +70,7 @@ export class AsignarCromosComponent implements OnInit {
   constructor( private juegoService: JuegoService,
                private equipoService: EquipoService,
                private coleccionService: ColeccionService,
+               private juegoDeColeccionService: JuegoDeColeccionService,
                public dialog: MatDialog,
                public snackBar: MatSnackBar) { }
 
@@ -305,7 +306,7 @@ export class AsignarCromosComponent implements OnInit {
 
   // Recupera las inscripciones de los alumnos en el juego y los puntos que tienen y los ordena de mayor a menor valor
   RecuperarInscripcionesAlumnoJuego() {
-    this.juegoService.GET_InscripcionesAlumnoJuegoDeColeccion(this.juegoSeleccionado.id)
+    this.juegoDeColeccionService.GET_InscripcionesAlumnoJuegoDeColeccion(this.juegoSeleccionado.id)
     .subscribe(inscripciones => {
       this.inscripcionesAlumnos = inscripciones;
       console.log(this.inscripcionesAlumnos);
@@ -315,7 +316,7 @@ export class AsignarCromosComponent implements OnInit {
       // Recupera las inscripciones de los alumnos en el juego y los puntos que tienen y los ordena de mayor a menor valor
   RecuperarInscripcionesEquiposJuego() {
 
-    this.juegoService.GET_InscripcionesEquipoJuegoDeColeccion(this.juegoSeleccionado.id)
+    this.juegoDeColeccionService.GET_InscripcionesEquipoJuegoDeColeccion(this.juegoSeleccionado.id)
     .subscribe(inscripciones => {
       this.inscripcionesEquipos = inscripciones;
       console.log(this.inscripcionesEquipos);
@@ -360,7 +361,7 @@ export class AsignarCromosComponent implements OnInit {
         alumnoJuegoDeColeccion = this.inscripcionesAlumnos.filter(res => res.alumnoId === alumno.id)[0];
         console.log(alumnoJuegoDeColeccion);
 
-        this.juegoService.POST_AsignarCromoAlumno(new Album (alumnoJuegoDeColeccion.id, cromoSeleccionado))
+        this.juegoDeColeccionService.POST_AsignarCromoAlumno(new Album (alumnoJuegoDeColeccion.id, cromoSeleccionado))
         .subscribe(res => {
 
           console.log(res);
@@ -388,7 +389,7 @@ export class AsignarCromosComponent implements OnInit {
         equipoJuegoDeColeccion = this.inscripcionesEquipos.filter(res => res.equipoId === equipo.id)[0];
         console.log(equipoJuegoDeColeccion);
 
-        this.juegoService.POST_AsignarCromoEquipo(new AlbumEquipo (equipoJuegoDeColeccion.id, cromoSeleccionado))
+        this.juegoDeColeccionService.POST_AsignarCromoEquipo(new AlbumEquipo (equipoJuegoDeColeccion.id, cromoSeleccionado))
         .subscribe(res => {
 
           console.log(res);
@@ -461,8 +462,8 @@ export class AsignarCromosComponent implements OnInit {
 
           console.log(this.cromosColeccion[this.indexCromo].Nombre);
 
-          this.juegoService.POST_AsignarCromoAlumno(new Album (alumnoJuegoDeColeccion.id, this.cromosColeccion[this.indexCromo].id))
-          .subscribe(res => {
+          this.juegoDeColeccionService.POST_AsignarCromoAlumno(new Album (alumnoJuegoDeColeccion.id,
+             this.cromosColeccion[this.indexCromo].id)).subscribe(res => {
 
             console.log(res);
 
@@ -506,8 +507,8 @@ export class AsignarCromosComponent implements OnInit {
 
           console.log(this.cromosColeccion[this.indexCromo].Nombre);
 
-          this.juegoService.POST_AsignarCromoEquipo(new AlbumEquipo (equipoJuegoDeColeccion.id, this.cromosColeccion[this.indexCromo].id))
-          .subscribe(res => {
+          this.juegoDeColeccionService.POST_AsignarCromoEquipo(new AlbumEquipo (equipoJuegoDeColeccion.id,
+            this.cromosColeccion[this.indexCromo].id)).subscribe(res => {
 
             console.log(res);
 

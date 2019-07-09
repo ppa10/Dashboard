@@ -4,7 +4,7 @@ import { ResponseContentType, Http, Response } from '@angular/http';
 import { Alumno, Equipo, Juego, EquipoJuegoDeColeccion, Cromo } from '../../../../clases/index';
 
 // Services
-import { JuegoService, JuegoDePuntosService, AlumnoService, EquipoService, ColeccionService } from '../../../../servicios/index';
+import { JuegoService, JuegoDeColeccionService, AlumnoService, EquipoService, ColeccionService } from '../../../../servicios/index';
 
 // Imports para abrir diálogo
 import { MatDialog, MatSnackBar } from '@angular/material';
@@ -37,6 +37,7 @@ export class EquipoSeleccionadoJuegoDeColeccionComponent implements OnInit {
   constructor( private juegoService: JuegoService,
                private equipoService: EquipoService,
                private http: Http,
+               private juegoDeColeccionService: JuegoDeColeccionService,
                private coleccionService: ColeccionService) { }
 
   ngOnInit() {
@@ -70,7 +71,7 @@ export class EquipoSeleccionadoJuegoDeColeccionComponent implements OnInit {
   }
 
   CromosDelEquipo() {
-    this.juegoService.GET_CromosEquipo(this.inscripcionEquipo.id)
+    this.juegoDeColeccionService.GET_CromosEquipo(this.inscripcionEquipo.id)
     .subscribe(cromos => {
       this.ListaCromos = cromos;
       this.coleccionService.EnviarCromosAlumnoAlServicio(this.ListaCromos);
