@@ -28,15 +28,15 @@
     <div>
         <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
         <img class = "foto" *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo"  style="margin: 5px" >
-        <button (click) = "ActivarInput()" type="button"  style="background-color: rgb(65, 178, 212)" class="btn">
+        <button (click) = "ActivarInput()" type="button" class="btn Agregar">
           Agregar foto<i class="material-icons">add_photo_alternate</i>
 
         </button>
     </div>
 
     <mat-card-actions align="end">
-      <button  (click) = "LimpiarCampos()" type="button" style="background-color: rgb(240, 173, 78)" class="btn">Limpiar Campos</button>
-      <button  (click) = "CrearNivel()" [disabled]="isDisabledNivel" style="background-color: rgb(92, 184, 92)" class="btn" >Crear Nivel</button>
+      <button  (click) = "LimpiarCampos()" type="button" class="btn Back">Limpiar Campos</button>
+      <button  (click) = "CrearNivel()" [disabled]="isDisabledNivel" class="btn Aceptar" >Crear Nivel</button>
 
     </mat-card-actions>
 

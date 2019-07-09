@@ -43,14 +43,14 @@
   <div>
       <input #file id = "inputCromo" type="file" accept= 'imagen/*' (change)="ExaminarImagenCromo($event)" style="display:none">
       <img class="imagen" *ngIf="imagenCromo" hight = "150" width = "150" mat-card-image [src]="imagenCromo">
-      <button (click) = "ActivarInputCromo()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
+      <button (click) = "ActivarInputCromo()" type="button" class="btn Agregar">
        Agregar imagen <i class="material-icons">add_photo_alternate</i>
       </button>
   </div>
 
   <mat-card-actions align="end">
-    <button  (click) = "LimpiarCampos()" type="button" style="background-color: rgb(240, 173, 78)" class="btn">Limpiar Campos</button>
-    <button  (click) = "AgregarCromoColeccion()"  style="background-color: rgb(92, 184, 92)" class="btn">Agregar cromo</button>
+    <button  (click) = "LimpiarCampos()" type="button" class="btn Back">Limpiar Campos</button>
+    <button  (click) = "AgregarCromoColeccion()" class="btn Aceptar">Agregar cromo</button>
   </mat-card-actions>
 
       </mat-card>
@@ -101,5 +101,5 @@
 </mat-card>
 
 <mat-dialog-actions align= "end">
- <button mat-button [mat-dialog-close]  style="background-color: rgb(240, 173, 78)" class="btn">Cerrar</button>
+ <button mat-button [mat-dialog-close] class="btn Cerrar">Cerrar</button>
 </mat-dialog-actions>
