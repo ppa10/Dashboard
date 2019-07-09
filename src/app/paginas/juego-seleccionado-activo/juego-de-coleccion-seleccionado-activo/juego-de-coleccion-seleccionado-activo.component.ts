@@ -3,16 +3,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
 
 // Clases
-import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion, TablaAlumnoJuegoDeColeccion, Prueba
-  } from '../../../clases/index';
+import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion } from '../../../clases/index';
 
 // Services
-import { JuegoService, EquipoService, AlumnoService, JuegoDePuntosService, ColeccionService} from '../../../servicios/index';
+import { JuegoService, EquipoService, AlumnoService, ColeccionService, JuegoDeColeccionService } from '../../../servicios/index';
 
 // Imports para abrir diálogo y snackbar
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
-import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 @Component({
   selector: 'app-juego-de-coleccion-seleccionado-activo',
@@ -34,8 +32,6 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
   datasourceAlumno;
   datasourceEquipo;
 
-  pruebaTabla: Prueba[] = [];
-
   displayedColumnsAlumnos: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', ' '];
 
   displayedColumnsEquipos: string[] = ['nombreEquipo', 'miembros', ' '];
@@ -45,13 +41,11 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
   inscripcionesAlumnos: AlumnoJuegoDeColeccion[];
   inscripcionesEquipos: EquipoJuegoDeColeccion[];
 
-  tablaAlumno: TablaAlumnoJuegoDeColeccion[] = [];
-
   constructor( private juegoService: JuegoService,
                private alumnoService: AlumnoService,
                private equipoService: EquipoService,
                private coleccionService: ColeccionService,
-               private juegoDePuntosService: JuegoDePuntosService,
+               private juegoDeColeccionService: JuegoDeColeccionService,
                public dialog: MatDialog,
                public snackBar: MatSnackBar,
                private location: Location) { }
@@ -77,47 +71,31 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
   // Recupera los alumnos que pertenecen al juego
   AlumnosDelJuego() {
-    this.juegoService.GET_AlumnosJuegoDeColeccion(this.juegoSeleccionado.id)
+    this.juegoDeColeccionService.GET_AlumnosJuegoDeColeccion(this.juegoSeleccionado.id)
     .subscribe(alumnosJuego => {
       console.log(alumnosJuego);
       this.alumnosDelJuego = alumnosJuego;
       this.RecuperarInscripcionesAlumnoJuego();
       this.ColeccionDelJuego();
       this.juegoService.EnviarAlumnoJuegoAlServicio(this.alumnosDelJuego);
+      this.datasourceAlumno = new MatTableDataSource(this.alumnosDelJuego);
     });
   }
 
 
   // Recupera las inscripciones de los alumnos en el juego y los puntos que tienen y los ordena de mayor a menor valor
   RecuperarInscripcionesAlumnoJuego() {
-    this.juegoService.GET_InscripcionesAlumnoJuegoDeColeccion(this.juegoSeleccionado.id)
+    this.juegoDeColeccionService.GET_InscripcionesAlumnoJuegoDeColeccion(this.juegoSeleccionado.id)
     .subscribe(inscripciones => {
       this.inscripcionesAlumnos = inscripciones;
       console.log(this.inscripcionesAlumnos);
-      this.RecuperarNumeroCromos();
     });
-  }
-
-  RecuperarNumeroCromos() {
-
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.inscripcionesAlumnos.length; i ++) {
-      this.juegoService.GET_NumeroCromosAlumno(this.inscripcionesAlumnos[i].id)
-      .subscribe(numeroCromos => {
-        this.tablaAlumno[i] = new TablaAlumnoJuegoDeColeccion (this.alumnosDelJuego[i].Nombre, this.alumnosDelJuego[i].PrimerApellido,
-          this.alumnosDelJuego[i].SegundoApellido, numeroCromos.count, this.inscripcionesAlumnos[i].id);
-
-        this.pruebaTabla[i] = new Prueba (this.alumnosDelJuego[i].Nombre, this.alumnosDelJuego[i].PrimerApellido,
-          this.alumnosDelJuego[i].SegundoApellido, numeroCromos.count);
-      });
-      this.datasourceAlumno = new MatTableDataSource(this.alumnosDelJuego);
-    }
   }
 
 
   // Recupera los equipos que pertenecen al juego
   EquiposDelJuego() {
-    this.juegoService.GET_EquiposJuegoDeColeccion(this.juegoSeleccionado.id)
+    this.juegoDeColeccionService.GET_EquiposJuegoDeColeccion(this.juegoSeleccionado.id)
     .subscribe(equiposJuego => {
       this.equiposDelJuego = equiposJuego;
       console.log(equiposJuego);
@@ -131,7 +109,7 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
     // Recupera las inscripciones de los alumnos en el juego y los puntos que tienen y los ordena de mayor a menor valor
   RecuperarInscripcionesEquiposJuego() {
 
-    this.juegoService.GET_InscripcionesEquipoJuegoDeColeccion(this.juegoSeleccionado.id)
+    this.juegoDeColeccionService.GET_InscripcionesEquipoJuegoDeColeccion(this.juegoSeleccionado.id)
     .subscribe(inscripciones => {
       this.inscripcionesEquipos = inscripciones;
       console.log(this.inscripcionesEquipos);
@@ -193,7 +171,7 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
   DesactivarJuego() {
     console.log(this.juegoSeleccionado);
-    this.juegoService.PUT_EstadoJuegoDeColeccion(new Juego (this.juegoSeleccionado.Tipo, this.juegoSeleccionado.Modo,
+    this.juegoDeColeccionService.PUT_EstadoJuegoDeColeccion(new Juego (this.juegoSeleccionado.Tipo, this.juegoSeleccionado.Modo,
       undefined, false), this.juegoSeleccionado.id, this.juegoSeleccionado.grupoId).subscribe(res => {
         if (res !== undefined) {
           console.log(res);
@@ -224,11 +202,8 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
   }
 
 
+
   prueba() {
-    console.log(this.juegoSeleccionado);
-
-
-
+    console.log(this.alumnosDelJuego);
   }
-
 }

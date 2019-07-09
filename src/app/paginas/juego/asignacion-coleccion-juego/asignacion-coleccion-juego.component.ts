@@ -8,7 +8,8 @@ import { DialogMostrarCromosComponent } from './dialog-mostrar-cromos/dialog-mos
 import { Coleccion, Juego, Alumno, Equipo, AlumnoJuegoDeColeccion,
  EquipoJuegoDeColeccion} from 'src/app/clases/index';
 // Services
-import { JuegoService, GrupoService, ColeccionService, ProfesorService, AlumnoService, EquipoService } from '../../../servicios/index';
+import { JuegoService, GrupoService, ColeccionService, ProfesorService,
+   JuegoDeColeccionService, EquipoService } from '../../../servicios/index';
 
 @Component({
   selector: 'app-asignacion-coleccion-juego',
@@ -43,6 +44,7 @@ export class AsignacionColeccionJuegoComponent implements OnInit {
                private profesorService: ProfesorService,
                private grupoService: GrupoService,
                private equipoService: EquipoService,
+               private juegoDeColeccionService: JuegoDeColeccionService,
                private coleccionService: ColeccionService,
                public dialog: MatDialog) { }
 
@@ -116,7 +118,7 @@ export class AsignacionColeccionJuegoComponent implements OnInit {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.alumnos.length; i++) {
         console.log(this.alumnos[i]);
-        this.juegoService.POST_AlumnoJuegoDeColeccion(new AlumnoJuegoDeColeccion (this.alumnos[i].id, this.juego.id))
+        this.juegoDeColeccionService.POST_AlumnoJuegoDeColeccion(new AlumnoJuegoDeColeccion (this.alumnos[i].id, this.juego.id))
         .subscribe(alumnoJuego => console.log('alumnos inscritos correctamente en el juego de coleccion'));
       }
     } else {
@@ -124,7 +126,7 @@ export class AsignacionColeccionJuegoComponent implements OnInit {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.equipos.length; i++) {
         console.log(this.equipos[i]);
-        this.juegoService.POST_EquipoJuegoDeColeccion(new EquipoJuegoDeColeccion(this.equipos[i].id, this.juego.id))
+        this.juegoDeColeccionService.POST_EquipoJuegoDeColeccion(new EquipoJuegoDeColeccion(this.equipos[i].id, this.juego.id))
         .subscribe(equiposJuego => console.log(equiposJuego));
       }
     }

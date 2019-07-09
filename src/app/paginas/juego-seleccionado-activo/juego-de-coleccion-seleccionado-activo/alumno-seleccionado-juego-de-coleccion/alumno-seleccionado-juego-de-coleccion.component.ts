@@ -6,7 +6,7 @@ import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion,
   Album, AlbumEquipo, Coleccion, Cromo } from '../../../../clases/index';
 
 // Servicios
-import { AlumnoService, JuegoService, EquipoService, ColeccionService } from '../../../../servicios/index';
+import { AlumnoService, JuegoService, EquipoService, ColeccionService, JuegoDeColeccionService } from '../../../../servicios/index';
 import { JuegoComponent } from 'src/app/paginas/juego/juego.component';
 
 @Component({
@@ -32,6 +32,7 @@ export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
 
   constructor( private alumnoService: AlumnoService,
                private juegoService: JuegoService,
+               private juegoDeColeccionService: JuegoDeColeccionService,
                private http: Http,
                private coleccionService: ColeccionService ) { }
 
@@ -71,7 +72,7 @@ export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
 
 
   CromosDelAlumno() {
-    this.juegoService.GET_CromosAlumno(this.inscripcionAlumno.id)
+    this.juegoDeColeccionService.GET_CromosAlumno(this.inscripcionAlumno.id)
     .subscribe(cromos => {
       this.ListaCromos = cromos;
       this.coleccionService.EnviarCromosAlumnoAlServicio(this.ListaCromos);
