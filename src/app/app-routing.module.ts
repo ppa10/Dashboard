@@ -85,6 +85,13 @@ const routes: Routes = [
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionEquipoJuegoColeccion', component: EquipoSeleccionadoJuegoDeColeccionComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionAlumnoJuegoColeccion/Album', component: AlbumDelAlumnoComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionEquipoJuegoColeccion/AlbumEquipo', component: AlbumEquipoComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionJuegoColeccion', component: InformacionJuegoColeccionComponent },
+  // tslint:disable-next-line:max-line-length
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionAlumnoJuegoColeccion', component: AlumnoSeleccionadoJuegoDeColeccionComponent },
+  // tslint:disable-next-line:max-line-length
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionEquipoJuegoColeccion', component: EquipoSeleccionadoJuegoDeColeccionComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionAlumnoJuegoColeccion/Album', component: AlbumDelAlumnoComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionEquipoJuegoColeccion/AlbumEquipo', component: AlbumEquipoComponent },
 
   { path: 'aboutClasspip', component: AboutClasspipComponent },
   { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },

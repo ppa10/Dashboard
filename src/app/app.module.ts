@@ -96,9 +96,9 @@ import { AlbumDelAlumnoComponent } from './paginas/juego-seleccionado-activo/jue
 // tslint:disable-next-line:max-line-length
 import { AlbumEquipoComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/equipo-seleccionado-juego-de-coleccion/album-equipo/album-equipo.component';
 import { ConfiguracionProfesorComponent } from './paginas/COMPARTIDO/configuracion-profesor/configuracion-profesor.component';
-
-
-
+import { FooterComponent } from './paginas/COMPARTIDO/footer/footer.component';
+// tslint:disable-next-line:max-line-length
+import { JuegoDeColeccionSeleccionadoInactivoComponent } from './paginas/juego-seleccionado-inactivo/juego-de-coleccion-seleccionado-inactivo/juego-de-coleccion-seleccionado-inactivo.component';
 
 
 
@@ -159,7 +159,9 @@ import { ConfiguracionProfesorComponent } from './paginas/COMPARTIDO/configuraci
     PasarListaComponent,
     AlbumDelAlumnoComponent,
     AlbumEquipoComponent,
-    ConfiguracionProfesorComponent
+    ConfiguracionProfesorComponent,
+    FooterComponent,
+    JuegoDeColeccionSeleccionadoInactivoComponent
   ],
   imports: [
     BrowserModule,
