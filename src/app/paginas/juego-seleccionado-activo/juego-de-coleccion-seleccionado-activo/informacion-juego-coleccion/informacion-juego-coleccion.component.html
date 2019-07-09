@@ -3,23 +3,20 @@
 
 
 <div class="contenedor contenedor3">
-  <div class="contenedor2" style=" text-align: left;">
-    <p>
-    <span style="font-weight: bold;">Nombre:</span>
-          {{nombreColeccion}}
-        </p>
+  <div class="contenedor3" style=" text-align: left;">
+      <div class="elemento">
+          <img class ="logo" style="margin-top: 5px" *ngIf="imagenColeccion" hight = "200" width = "200" mat-card-image [src]="imagenColeccion" >
+      </div>
+      <div style="margin-top: 20px">
+          <p>
+              <span style="font-weight: bold;">Nombre:</span>
+                    {{nombreColeccion}}
+                  </p>
+      </div>
+
 
   </div>
 
-  <div>
-
-  <div class="elemento">
-      <img class ="logo" *ngIf="imagenColeccion" hight = "200" width = "200" mat-card-image [src]="imagenColeccion" >
-  </div>
-</div>
-  <div>
-
-</div>
 </div>
 <!--
 <div class="contenedor">
@@ -63,5 +60,3 @@
       </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
-
-<button (click) = "prueba()">prueba</button>
