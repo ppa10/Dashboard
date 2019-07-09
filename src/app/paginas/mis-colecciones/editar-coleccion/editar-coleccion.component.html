@@ -3,30 +3,29 @@
 
 
 <div class="contenedor contenedor3">
-  <div class="contenedor2" style=" text-align: left;">
-    <p>
-      <span style="font-weight: bold;">Nombre: </span>
-      <input style="background-color: transparent" type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="nombreColeccion">
-    </p>
-    <div class="elemento">
-        <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarCromoColeccion()>
-          Agregar Cromo <i class="material-icons">library_add</i>
+   <div class="contenedor3">
+      <div class="elemento">
+          <div class="elemento">
+              <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
+              <img class ="logo" *ngIf="imagenColeccion" hight = "200" width = "200" mat-card-image [src]="imagenColeccion" >
+            </div>
+        <button (click) = "ActivarInput()" type="button" style="background-color: rgb(51, 122, 183)" class="btn">
+          Agregar Imagen<i class="material-icons">add_photo_alternate</i>
         </button>
       </div>
-  </div>
+      <div class="contenedor2" style=" text-align: left; margin-top: 20px">
+        <p>
+          <span style="font-weight: bold;">Nombre: </span>
+          <input style="background-color: transparent" type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="nombreColeccion">
+        </p>
+        <div class="elemento">
+            <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarCromoColeccion()>
+              Agregar Cromo <i class="material-icons">library_add</i>
+            </button>
+          </div>
+      </div>
+   </div>
 
-  <div>
-  <div class="elemento">
-    <button (click) = "ActivarInput()" type="button" style="background-color: rgb(51, 122, 183)" class="btn">
-      Agregar Imagen<i class="material-icons">add_photo_alternate</i>
-    </button>
-  </div>
-
-  <div class="elemento">
-      <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
-      <img class ="logo" *ngIf="imagenColeccion" hight = "200" width = "200" mat-card-image [src]="imagenColeccion" >
-    </div>
-</div>
   <div>
 
     <div class="elemento">
