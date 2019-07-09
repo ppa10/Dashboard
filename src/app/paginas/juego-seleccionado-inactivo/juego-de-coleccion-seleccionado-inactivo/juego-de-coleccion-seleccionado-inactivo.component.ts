@@ -15,11 +15,11 @@ import { DialogoConfirmacionComponent } from '../../COMPARTIDO/dialogo-confirmac
 import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 @Component({
-  selector: 'app-juego-de-coleccion-seleccionado-activo',
-  templateUrl: './juego-de-coleccion-seleccionado-activo.component.html',
-  styleUrls: ['./juego-de-coleccion-seleccionado-activo.component.scss']
+  selector: 'app-juego-de-coleccion-seleccionado-inactivo',
+  templateUrl: './juego-de-coleccion-seleccionado-inactivo.component.html',
+  styleUrls: ['./juego-de-coleccion-seleccionado-inactivo.component.scss']
 })
-export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
+export class JuegoDeColeccionSeleccionadoInactivoComponent implements OnInit {
 
   // Juego De Puntos seleccionado
   juegoSeleccionado: Juego;
@@ -30,6 +30,9 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
   // tslint:disable-next-line:no-inferrable-types
   mensaje: string = 'Estás seguro/a de que quieres desactivar el ';
+
+  // tslint:disable-next-line:no-inferrable-types
+  mensajeBorrar: string = 'Estás seguro/a de que quieres borrar el ';
 
   datasourceAlumno;
   datasourceEquipo;
@@ -46,15 +49,14 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
   inscripcionesEquipos: EquipoJuegoDeColeccion[];
 
   tablaAlumno: TablaAlumnoJuegoDeColeccion[] = [];
-
-  constructor( private juegoService: JuegoService,
-               private alumnoService: AlumnoService,
-               private equipoService: EquipoService,
-               private coleccionService: ColeccionService,
-               private juegoDePuntosService: JuegoDePuntosService,
-               public dialog: MatDialog,
-               public snackBar: MatSnackBar,
-               private location: Location) { }
+  constructor(private juegoService: JuegoService,
+              private alumnoService: AlumnoService,
+              private equipoService: EquipoService,
+              private coleccionService: ColeccionService,
+              private juegoDePuntosService: JuegoDePuntosService,
+              public dialog: MatDialog,
+              public snackBar: MatSnackBar,
+              private location: Location) { }
 
   ngOnInit() {
     this.juegoSeleccionado = this.juegoService.RecibirJuegoDelServicio();
@@ -86,7 +88,6 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
       this.juegoService.EnviarAlumnoJuegoAlServicio(this.alumnosDelJuego);
     });
   }
-
 
   // Recupera las inscripciones de los alumnos en el juego y los puntos que tienen y los ordena de mayor a menor valor
   RecuperarInscripcionesAlumnoJuego() {
@@ -191,19 +192,19 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
     });
   }
 
-  DesactivarJuego() {
+  ReactivarJuego() {
     console.log(this.juegoSeleccionado);
     this.juegoService.PUT_EstadoJuegoDeColeccion(new Juego (this.juegoSeleccionado.Tipo, this.juegoSeleccionado.Modo,
-      undefined, false), this.juegoSeleccionado.id, this.juegoSeleccionado.grupoId).subscribe(res => {
+      undefined, true), this.juegoSeleccionado.id, this.juegoSeleccionado.grupoId).subscribe(res => {
         if (res !== undefined) {
           console.log(res);
-          console.log('juego desactivado');
+          console.log('juego reactivado');
           this.location.back();
         }
       });
   }
 
-  AbrirDialogoConfirmacionDesactivar(): void {
+  AbrirDialogoConfirmacionReactivar(): void {
 
     const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
       height: '150px',
@@ -215,20 +216,40 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.DesactivarJuego();
-        this.snackBar.open(this.juegoSeleccionado.Tipo + ' desactivado correctamente', 'Cerrar', {
+        this.ReactivarJuego();
+        this.snackBar.open(this.juegoSeleccionado.Tipo + ' reactivado correctamente', 'Cerrar', {
           duration: 2000,
         });
       }
     });
   }
 
+  EliminarJuego() {
+    this.juegoService.DELETE_JuegoDeColeccion(this.juegoSeleccionado.id, this.juegoSeleccionado.grupoId)
+    .subscribe(res => {
+      console.log('Juego eliminado');
+      this.location.back();
+    });
+  }
 
-  prueba() {
-    console.log(this.juegoSeleccionado);
+  AbrirDialogoConfirmacionEliminar(): void {
 
+    const dialogRef = this.dialog.open(DialogoConfirmacionComponent, {
+      height: '150px',
+      data: {
+        mensaje: this.mensajeBorrar,
+        nombre: this.juegoSeleccionado.Tipo,
+      }
+    });
 
-
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.EliminarJuego();
+        this.snackBar.open(this.juegoSeleccionado.Tipo + ' eliminado correctamente', 'Cerrar', {
+          duration: 2000,
+        });
+      }
+    });
   }
 
 }

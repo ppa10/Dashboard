@@ -112,6 +112,13 @@ export class JuegoService {
     return this.http.get<Cromo[]>(this.APIURLEquipoJuegoDeColeccion + '/' + equipoJuegoDeColeccionId + '/cromos');
   }
 
+  PUT_EstadoJuegoDeColeccion(juegoDeColeccion: Juego, juegoDeColeccionId: number, grupoId: number): Observable<Juego> {
+    return this.http.put<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeColeccions/' + juegoDeColeccionId, juegoDeColeccion);
+  }
+
+  DELETE_JuegoDeColeccion(juegoDeColeccionId: number, grupoId: number): Observable<Juego> {
+    return this.http.delete<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeColeccions/' + juegoDeColeccionId);
+  }
   ///////////////////////////////////// PARA JUEGO DE PUNTOS ////////////////////////////////////////
 
   // Enviar y recibir juegos entre componentes
