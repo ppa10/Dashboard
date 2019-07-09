@@ -1,18 +1,4 @@
 
-.titulo{
-  width: 70%;
-  margin-left: 15%;
-  height: 60px;
-  padding: 10px;
-  color: rgb(63, 81, 181);
-
-}
-
-
-.h2, h2 {
-  font-size: 2.5rem !important;
-}
-
 table {
   width: 90%;
   table-layout:fixed;
@@ -22,24 +8,6 @@ table {
 .material-icons{
   width: 15px;
   height: 15px;
-}
-
-.letraCabecera{
-  color:white;
-  text-align: center;
-  font-weight: bold;
-  font-size: 90%;
-}
-
-.mat-header-row{
-
-  text-align: center;
-  background-color:rgb(63, 81, 181);
-  }
-
-.mat-row:hover {
-  background-color: rgb(204, 197, 197);
-  // cursor: pointer;
 }
 
 .contenedor{
@@ -99,12 +67,7 @@ table {
   align-items: center;
 
   }
-  .btn{
-    margin: 5px;
-    align-items: center;
-    color: white;
-    width: 170px;
-  }
+
   .logo {
     width: 130px;
     height: 130px;

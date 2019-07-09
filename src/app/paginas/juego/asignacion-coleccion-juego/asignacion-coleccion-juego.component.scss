@@ -1,8 +1,3 @@
-.btnCambiarStep{
-  display: flex;
-  justify-content: flex-end;
-}
-
 table {
   width: 100%;
   table-layout:fixed;
@@ -11,7 +6,7 @@ table {
 
 
 .mat-row:hover {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 
