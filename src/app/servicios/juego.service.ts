@@ -24,44 +24,39 @@ export class JuegoService {
   inscripcionAlumno: AlumnoJuegoDeColeccion;
   inscripcionEquipo: EquipoJuegoDeColeccion;
 
-  // rankingSeleccionado: number;
 
-
+  // OBTENEMOS LOS JUEGO DE COLECCIÓN DEL GRUPO
   GET_JuegoDeColeccion(grupoId: number): Observable<Juego[]> {
     return this.http.get<Juego[]>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeColeccions');
   }
 
+  // OBTENEMOS LOS JUEGO DE COMPETICIÓN DEL GRUPO
   GET_JuegoDeCompeticion(grupoId: number): Observable<Juego[]> {
     return this.http.get<Juego[]>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeCompeticions');
   }
 
-
+  // CREAMOS UN NUEVO JUEGO DE COLECCIÓN EN EL GRUPO
   POST_JuegoDeColeccion(juego: Juego, grupoId: number): Observable<Juego> {
     return this.http.post<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeColeccions', juego);
   }
 
+  // CREAMOS UN NUEVO JUEGO DE COMPETICIÓN EN EL GRUPO
   POST_JuegoDeCompeticion(juego: Juego, grupoId: number): Observable<Juego> {
     return this.http.post<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeCompeticions', juego);
   }
 
+  // EDITAMOS UN JUEGO DE COLECCIÓN
   PUT_JuegoDeColeccion(juego: Juego, grupoId: number, juegoId: number): Observable<Juego> {
     return this.http.put<Juego>(this.APIUrlGrupos + '/' + grupoId + '/juegoDeColeccions/' + juegoId, juego);
   }
 
 
 
-  // GET_InscripcionAlumnoJuegoDePuntos(alumnoId: number, juegoDePuntosId: number): Observable<AlumnoJuegoDePuntos> {
-  //   return this.http.get<AlumnoJuegoDeColeccion>(this.APIURLAlumnoJuegoDePuntos + '?filter[where][alumnoId]=' + alumnoId
-  //   + '&filter[where][juegoDePuntosId]=' + juegoDePuntosId);
-  // }
 
 
+  // FUNCIONES PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES
 
-  ///////////////////////////////////// PARA JUEGO DE PUNTOS ////////////////////////////////////////
-
-  // Enviar y recibir juegos entre componentes
-
-  // ESTA ES LA FUNCION QUE HAY QUE LLAMAR PARA ENVIAR EL JUEGO SELECIIONADO
+  // ESTA ES LA FUNCION QUE HAY QUE LLAMAR PARA ENVIAR EL JUEGO SELECIONADO
   EnviarJuegoAlServicio(juego: any) {
     this.juegoSeleccionado = juego;
   }

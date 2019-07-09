@@ -26,7 +26,8 @@ export class ProfesorService {
   }
 
 
-  // Enviar y recibir profesores entre componentes
+
+  // FUNCIONES PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES
 
   // ESTA ES LA FUNCION QUE HAY QUE LLAMAR PARA ENVIAR AL PROFESOR QUE HA INICIADO SESIÓN
   EnviarProfesorAlServicio(profesor: any) {
