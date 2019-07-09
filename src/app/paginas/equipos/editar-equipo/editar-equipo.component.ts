@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { AgregarAlumnoEquipoComponent } from '../agregar-alumno-equipo/agregar-alumno-equipo.component';
 import { MoverAlumnoComponent } from './mover-alumno/mover-alumno.component';
-import { ResponseContentType, Http, Response } from '@angular/http';
+import { ResponseContentType, Http } from '@angular/http';
 
 // Clases
 import { Equipo, Alumno, AsignacionEquipo } from '../../../clases/index';
@@ -40,9 +40,7 @@ export class EditarEquipoComponent implements OnInit {
   imagenLogo: string;
 
   file: File;
-
   nombreLogo: string;
-
   nombreEquipo: string;
 
   // tslint:disable-next-line:ban-types
@@ -252,12 +250,10 @@ export class EditarEquipoComponent implements OnInit {
   // NOS PERMITE MODIFICAR EL NOMBRE Y EL LOGO DEL EQUIPO
   EditarEquipo() {
 
-    console.log('Entro a editar');
-
     this.equipoService.PUT_Equipo(new Equipo(this.nombreEquipo, this.nombreLogo), this.equipo.grupoId, this.equipo.id)
     .subscribe((res) => {
       if (res != null) {
-        console.log('Voy a editar el equipo con id ' + this.equipo.id);
+
         this.equipo = res;
 
         if (this.logoCambiado === true) {
@@ -301,41 +297,41 @@ export class EditarEquipoComponent implements OnInit {
 
 
   // MOVER ALUMNO
-    // SE ABRE EL DIÁLOGO PARA AÑADIR ALUMNOS AL EQUIPO
-    AbrirDialogoMoverAlumno(): void {
+  // SE ABRE EL DIÁLOGO PARA AÑADIR ALUMNOS AL EQUIPO
+  AbrirDialogoMoverAlumno(): void {
 
-      const dialogRef = this.dialog.open(MoverAlumnoComponent, {
-        maxHeight: '95%',
+    const dialogRef = this.dialog.open(MoverAlumnoComponent, {
+      maxHeight: '95%',
 
-        // LE ENVIAMOS LOS ALUMNOS QUE TIENE ACTUALMENTE EL EQUIPO Y LOS QUE PODEMOS AÑADIR, ADEMÁS DEL EQUIPO QUE NOS SERÁ
-        // ÚTIL PARA SABER SU ID Y EL ID DEL GRUPO AL QUE PERTENCE
-        data: {
-          alumnosEquipo: this.alumnosEquipo,
-          equipo: this.equipo
-        }
-      });
+      // LE ENVIAMOS LOS ALUMNOS QUE TIENE ACTUALMENTE EL EQUIPO Y LOS QUE PODEMOS AÑADIR, ADEMÁS DEL EQUIPO QUE NOS SERÁ
+      // ÚTIL PARA SABER SU ID Y EL ID DEL GRUPO AL QUE PERTENCE
+      data: {
+        alumnosEquipo: this.alumnosEquipo,
+        equipo: this.equipo
+      }
+    });
 
-      // RECUPERAREMOS LA NUEVA LISTA DE LOS ALUMNOS ASIGNABLES Y VOLVEREMOS A BUSCAR LOS ALUMNOS QUE TIENE EL EQUIPO
-      dialogRef.afterClosed().subscribe(alumnosEquipo => {
+    // RECUPERAREMOS LA NUEVA LISTA DE LOS ALUMNOS ASIGNABLES Y VOLVEREMOS A BUSCAR LOS ALUMNOS QUE TIENE EL EQUIPO
+    dialogRef.afterClosed().subscribe(alumnosEquipo => {
 
-        // Si el usuario clica a aceptar para cerrar el dialogo, se enviarán los alumnos del equipo
-        if (alumnosEquipo !== undefined) {
-          this.alumnosEquipo = alumnosEquipo;
+      // Si el usuario clica a aceptar para cerrar el dialogo, se enviarán los alumnos del equipo
+      if (alumnosEquipo !== undefined) {
+        this.alumnosEquipo = alumnosEquipo;
 
-          // Si clica fuera del diálogo para cerrarlo, recuperaremos la lista de la base de datos
-        } else {
-          this.AlumnosDelEquipo(this.equipo.id);
-        }
+        // Si clica fuera del diálogo para cerrarlo, recuperaremos la lista de la base de datos
+      } else {
+        this.AlumnosDelEquipo(this.equipo.id);
+      }
 
-        // Limpiamos las listas que teniamos antes
-        this.alumnosConEquipo = [];
-        this.alumnosSinEquipo = [];
+      // Limpiamos las listas que teniamos antes
+      this.alumnosConEquipo = [];
+      this.alumnosSinEquipo = [];
 
-        // Volvemos a hacer la clasificación
-        this.ClasificacionAlumnos();
+      // Volvemos a hacer la clasificación
+      this.ClasificacionAlumnos();
 
-      });
-   }
+    });
+  }
 
   // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
   goBack() {

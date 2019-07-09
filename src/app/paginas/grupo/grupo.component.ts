@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Grupo, Alumno } from '../../clases/index';
 
 // Servicios
-import { GrupoService, ProfesorService, AlumnoService, MatriculaService  } from '../../servicios/index';
+import { GrupoService, AlumnoService, MatriculaService  } from '../../servicios/index';
 
 // Imports para abrir diálogo confirmar eliminar grupo
 import { MatDialog, MatSnackBar } from '@angular/material';
@@ -23,14 +23,14 @@ export class GrupoComponent implements OnInit {
   // PONEMOS LAS COLUMNAS DE LA TABLA Y LA LISTA QUE TENDRÁ LA INFORMACIÓN QUE QUEREMOS MOSTRAR
   displayedColumns: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
   alumnosGrupoSeleccionado: Alumno[];
-
   dataSource;
 
-
+  // Grupo en el que hemos entrado
   grupoSeleccionado: Grupo;
   profesorId: number;
 
 
+  // Mensaje confirmación borrado
   // tslint:disable-next-line:no-inferrable-types
   mensaje: string = 'Estás seguro/a de que quieres eliminar el grupo llamado: ';
 
@@ -53,6 +53,7 @@ export class GrupoComponent implements OnInit {
 
   }
 
+  // Filtro de la tabla
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -72,8 +73,6 @@ export class GrupoComponent implements OnInit {
     });
   }
 
-
-
   // FUNCIONES DE LAS DIFERENTES OPCIONES QUE TENEMOS CON EL GRUPO
   EntrarPasarLista() {
 
@@ -81,22 +80,21 @@ export class GrupoComponent implements OnInit {
     this.grupoService.EnviarGrupoAlServicio(this.grupoSeleccionado);
     this.alumnoService.EnviarListaAlumnosAlServicio(this.alumnosGrupoSeleccionado);
   }
-  EntrarEditarGrupo() {
 
-    // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
+  // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
+  EntrarEditarGrupo() {
     this.grupoService.EnviarGrupoAlServicio(this.grupoSeleccionado);
     this.alumnoService.EnviarListaAlumnosAlServicio(this.alumnosGrupoSeleccionado);
   }
 
+  // ENVIAMOS EL IDENTIFICADOR Y LOS ALUMNOS DEL GRUPO SELECCIONADO
   EntrarEquipos() {
-    // ENVIAMOS EL IDENTIFICADOR Y LOS ALUMNOS DEL GRUPO SELECCIONADO
     this.grupoService.EnviarGrupoIdAlServicio(this.grupoSeleccionado.id);
     this.grupoService.EnviarAlumnosGrupoAlServicio(this.alumnosGrupoSeleccionado);
   }
 
+  // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
   EntrarJuegos() {
-
-    // ENVIO AL SERVICIO LOS PARÁMETROS QUE NECESITO
     this.grupoService.EnviarGrupoIdAlServicio(this.grupoSeleccionado.id);
     this.grupoService.EnviarAlumnosGrupoAlServicio(this.alumnosGrupoSeleccionado);
   }
@@ -104,12 +102,11 @@ export class GrupoComponent implements OnInit {
   // ESTA FUNCIÓN BORRARÁ EL GRUPO DE ID QUE PASEMOS DEL PROFESOR CON ID QUE PASEMOS Y VOLVERÁ A LA PÁGINA DE LISTAR
   // ACTUALIZANDO LA TABLA
   EliminarGrupo() {
-    console.log('Voy a eliminar el grupo');
+
     this.grupoService.DELETE_Grupo(this.profesorId, this.grupoSeleccionado.id)
     .subscribe(() => {
-      console.log('Borrado correctamente');
-      this.EliminarMatriculas();
 
+      this.EliminarMatriculas();
       this.goBack();
     });
   }
@@ -122,7 +119,6 @@ export class GrupoComponent implements OnInit {
     this.matriculaService.GET_MatriculasDelGrupo(this.grupoSeleccionado.id)
     .subscribe( matriculas => {
       if (matriculas[0] !== undefined) {
-        console.log('he recibido las matriculas');
 
         // Una vez recibo las matriculas del grupo, las voy borrando una a una
         // tslint:disable-next-line:prefer-for-of
@@ -164,9 +160,5 @@ export class GrupoComponent implements OnInit {
   // NOS DEVOLVERÁ AL INICIO
   goBack() {
     this.location.back();
-  }
-
-  prueba() {
-    console.log(this.dataSource);
   }
 }

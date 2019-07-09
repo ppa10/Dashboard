@@ -8,7 +8,7 @@ Al iniciar el componente recuperamos el id del grupo donde vamos a crear el equi
 También buscamos los equipos que tiene el grupo mediante la función EquiposDelGrupo().
 
 
-////////////////////////////// LISTAR EQUIPOS ///////////////////////////////
+# ///////////////////////////////////////////////////// LISTAR EQUIPOS /////////////////////////////////////////////////////////
 
 # EquiposDelGrupo()
 
@@ -41,7 +41,7 @@ Recupera todas las asignacionEquipo del equipo y hace un bucle recorriendolas to
 Esta función recupera las asignaciones de los alumnos en el equipo que acabo de borrar y las borra.
 
 
-///////////////////////////////// CREAR EQUIPO //////////////////////////////
+# ///////////////////////////////////////////////////// CREAR EQUIPO /////////////////////////////////////////////////////////
 
 # CrearEquipo()
 

@@ -53,32 +53,64 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
 
+
+  // LOGIN
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+
+
+  ////////////////////////////// RUTAS DESDE EL INICIO A LOS COMPONENTES PRINCIPALES DEL NAVBAR ////////////////////
+
+  // CLASSPIP
+  { path: 'aboutClasspip', component: AboutClasspipComponent },
+
+  // INICIO
   { path: 'inicio/:id', component: InicioComponent },
+
+  // GRUPOS
   { path: 'inicio/:id/crearGrupo', component: CrearGrupoComponent },
   { path: 'inicio/:id/misGrupos', component: MisGruposComponent },
+
+  // COLECCIÓN
+  { path: 'inicio/:id/crearColeccion', component: CrearColeccionComponent },
+  { path: 'inicio/:id/misColecciones', component: MisColeccionesComponent },
+
+  // PUNTOS INSIGNIAS
+  { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },
+  { path: 'inicio/:id/misPuntos', component: MisPuntosComponent },
+
+
+  //////////////////////////// RUTAS RELACIONADAS CON COMPONENTES PRINCIPALES /////////////////////////////////////////
+
+
+
+  // GRUPOS
   { path: 'grupo/:id', component: GrupoComponent },
   { path: 'grupo/:id/editarGrupo', component: EditarGrupoComponent },
+
+  // GRUPOS --> PASAR LISTA
+  { path: 'grupo/:id/pasarLista', component: PasarListaComponent },
+
+  // GRUPOS --> EQUIPOS
   { path: 'grupo/:id/equiposGrupo', component: EquiposComponent },
   { path: 'grupo/:id/equiposGrupo/editarEquipo', component: EditarEquipoComponent },
-  { path: 'grupo/:id/pasarLista', component: PasarListaComponent },
+
+
+  // GRUPOS --> JUEGOS
   { path: 'grupo/:id/juegos', component: JuegoComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado', component: JuegoSeleccionadoActivoComponent },
+  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo', component: JuegoSeleccionadoInactivoComponent },
+
+  // GRUPOS --> JUEGOS --> JUEGO DE PUNTOS
   { path: 'grupo/:id/juegos/juegoSeleccionado/asignarPuntos', component: AsignarPuntosComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionAlumnoJuego', component: AlumnoSeleccionadoJuegoDePuntosComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionJuego', component: InformacionJuegoPuntosComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionEquipoJuego', component: EquipoSeleccionadoJuegoDePuntosComponent },
-  { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo', component: JuegoSeleccionadoInactivoComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionJuego', component: InformacionJuegoPuntosComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionAlumnoJuego', component: AlumnoSeleccionadoJuegoDePuntosComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionEquipoJuego', component: EquipoSeleccionadoJuegoDePuntosComponent },
 
-  { path: 'inicio/:id/crearColeccion', component: CrearColeccionComponent },
-  { path: 'inicio/:id/misColecciones', component: MisColeccionesComponent },
-  { path: 'inicio/:id/misColecciones/editarColeccion', component: EditarColeccionComponent },
-  { path: 'inicio/:id/misColecciones/editarColeccion/editarCromo', component: EditarCromoComponent },
-
+  // GRUPOS --> JUEGOS --> JUEGO DE COLECCIÓN
   { path: 'grupo/:id/juegos/juegoSeleccionado/asignarCromos', component: AsignarCromosComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionJuegoColeccion', component: InformacionJuegoColeccionComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionado/informacionAlumnoJuegoColeccion', component: AlumnoSeleccionadoJuegoDeColeccionComponent },
@@ -93,16 +125,18 @@ const routes: Routes = [
   { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionAlumnoJuegoColeccion/Album', component: AlbumDelAlumnoComponent },
   { path: 'grupo/:id/juegos/juegoSeleccionadoInactivo/informacionEquipoJuegoColeccion/AlbumEquipo', component: AlbumEquipoComponent },
 
-  { path: 'aboutClasspip', component: AboutClasspipComponent },
-  { path: 'inicio/:id/crearPuntos', component: CrearPuntoComponent },
-  { path: 'inicio/:id/misPuntos', component: MisPuntosComponent },
+
+
+  // COLECCIÓN
+  { path: 'inicio/:id/misColecciones/editarColeccion', component: EditarColeccionComponent },
+  { path: 'inicio/:id/misColecciones/editarColeccion/editarCromo', component: EditarCromoComponent },
+
+
+
+  // PUNTOS E INSIGNIAS
   { path: 'inicio/:id/misPuntos/editarPunto', component: EditarPuntoComponent },
   { path: 'inicio/:id/misPuntos/editarInsignia', component: EditarInsigniaComponent },
   { path: 'inicio/:id/configuracionProfesor', component: ConfiguracionProfesorComponent }
-
-
-
-
 ];
 
 @NgModule({

@@ -39,15 +39,10 @@ export class GrupoService {
     return this.http.delete<any>(this.APIUrlProfesor + '/' + profesorId + '/grupos/' + grupoId);
   }
 
+  // NOS DEVUELVE UN ARRAY CON LOS GRUPOS DEL PROFESOR
   GET_GruposDelProfesor(profesorId: number): Observable<Grupo[]> {
     return this.http.get<Grupo[]>(this.APIUrlProfesor + '/' + profesorId + '/grupos');
   }
-
-  // NumeroAlumnosGrupo(grupoId: string): Observable<number> {
-  //   return this.http.get<number>(this.APIUrl + '/' + grupoId + '/alumnos/count');
-  // }
-
-
 
 
   // FUNCIONES PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES

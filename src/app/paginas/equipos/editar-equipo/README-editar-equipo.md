@@ -53,6 +53,16 @@ Al cerrar el dialogo, recuperaremos los alumnos del equipo que pasamos del compo
 
 Limpiaremos los array de los alumnos con y sin equipo y volveremos a hacer la clasificación después de cerrar el componente de agregar alumno.
 
+# EditarEquipo()
+
+Se hace un PUT del equipo seleccionado para editar
+
+# AbrirDialogoMoverAlumno()
+
+Se abre un dialogo para mover los alumnos de equipo. Le pasamos los alumnos del Equipoy y el equipo.
+
+Al cerrar el dialogo recuperamos los alumnos de ese equipo, reiniciamos las listas de alumnos con equipos y sin equipos y volvemos a buscar la clasificación de éstos.
+
 <!-- editar-equipo.component.html -->
 
 Aparecerá el titulo de editar equipo y un separador (mat-divider). Después dos párrafos con Nombre: (en negrita) y el nombre del equipo, el cual aparecerá por defecto el que tiene actualmente el equipo.
@@ -63,6 +73,7 @@ Después aparecerá una tabla con los alumnos que pertencen el equipo de la mism
 
 Si nos situamos encima de la papelera nos dará información de lo que haremos si clicamos.
 
+Tendremos un botón para abrir el diálogo para mover alumnos entre los diferentes equipos.
 
 
 

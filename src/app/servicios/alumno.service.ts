@@ -29,7 +29,7 @@ export class AlumnoService {
     return this.http.post<Alumno>(this.APIUrlProfesor + '/' + profesorId + '/alumnos', alumno);
   }
 
-
+  // NOS DEVUELVE LOS ALUMNOS DEL GRUPO CUYO IDENTIFICADOR PASAMOS COMO PARÁMETRO
   GET_AlumnosDelGrupo(grupoId: number): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(this.APIUrlGrupos + '/' + grupoId + '/alumnos');
   }
@@ -41,10 +41,12 @@ export class AlumnoService {
     '&filter[where][PrimerApellido]=' + alumno.PrimerApellido + '&filter[where][SegundoApellido]=' + alumno.SegundoApellido);
   }
 
+  // NOS DEVUELVE EL ALUMNO CUYO IDENTIFICADOR PASAMOS COMO PARÁMETRO
   GET_Alumno(alumnoId: number): Observable<Alumno> {
     return this.http.get<Alumno>(this.APIUrl + '/' + alumnoId);
   }
 
+  // PONEMOS UNA FOTO DEL ALUMNO. POR DEFECTO SE LE ASIGNARÁ UNA. SI SE QUIERE CAMBIAR HABRÁ QUE HACER LA FUNCIÓN PUT
   POST_ImagenAlumno(formData: FormData): Observable<any> {
     return this.http.post<any>(this.APIURLImagenAlumno + '/upload', formData);
   }
@@ -52,6 +54,7 @@ export class AlumnoService {
 
 
   // SERVICIOS PARA ENVIAR Y RECIBIR DATOS ENTRE COMPONENTES
+
   EnviarListaAlumnosAlServicio(alumnos: any) {
     this.listaAlumnos = alumnos;
   }

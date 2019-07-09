@@ -15,15 +15,14 @@ export class JuegoService {
   private APIUrlGrupos = 'http://localhost:3000/api/Grupos';
 
 
-
-
   juegoSeleccionado: Juego;
 
   alumnosDelJuego: Alumno[];
   equiposDelJuego: Equipo[];
 
 
-
+  inscripcionAlumno: AlumnoJuegoDeColeccion;
+  inscripcionEquipo: EquipoJuegoDeColeccion;
 
   // rankingSeleccionado: number;
 

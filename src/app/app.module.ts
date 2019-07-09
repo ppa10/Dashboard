@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
+
+// IMPORTs CONSULTA BASE DE DATOS
+import { HttpClientModule } from '@angular/common/http';
 
 // IMPORTs DE ANGULAR MATERIAL
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -76,14 +79,6 @@ import { DialogMostrarCromosComponent } from './paginas/juego/asignacion-colecci
 import { JuegoDeColeccionSeleccionadoActivoComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/juego-de-coleccion-seleccionado-activo.component';
 // tslint:disable-next-line:max-line-length
 import { AsignarCromosComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/asignar-cromos/asignar-cromos.component';
-
-
-// IMPORTs CONSULTA BASE DE DATOS
-import { HttpClientModule } from '@angular/common/http';
-
-// COMPONENTES EN COMPARTIDO
-import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
-import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
 // tslint:disable-next-line:max-line-length
 import { InformacionJuegoColeccionComponent } from './paginas/juego-seleccionado-activo/juego-de-coleccion-seleccionado-activo/informacion-juego-coleccion/informacion-juego-coleccion.component';
 // tslint:disable-next-line:max-line-length
@@ -101,15 +96,9 @@ import { FooterComponent } from './paginas/COMPARTIDO/footer/footer.component';
 import { JuegoDeColeccionSeleccionadoInactivoComponent } from './paginas/juego-seleccionado-inactivo/juego-de-coleccion-seleccionado-inactivo/juego-de-coleccion-seleccionado-inactivo.component';
 
 
-
-
-
-
-
-
-
-
-
+// COMPONENTES EN COMPARTIDO
+import { DialogoConfirmacionComponent } from './paginas/COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
+import { NavbarComponent } from './paginas/COMPARTIDO/navbar/navbar.component';
 
 
 @NgModule({
@@ -197,6 +186,7 @@ import { JuegoDeColeccionSeleccionadoInactivoComponent } from './paginas/juego-s
 
 
   ],
+  // INCLUIR DIÁLOGOS AQUI ADEMÁS DE ARRIBA
   entryComponents: [AgregarAlumnoDialogComponent, DialogMostrarCromosComponent,
     AgregarAlumnoEquipoComponent, DialogoConfirmacionComponent, MoverAlumnoComponent, AgregarCromoDialogComponent ],
   providers: [],

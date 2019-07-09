@@ -1,4 +1,4 @@
-# OBJETIVO: eliminar o añadir alumnos de una manera cómoda al equipo
+# OBJETIVO: ñadir alumnos de una manera cómoda al equipo
 
 
 <!-- agregar-alumno-equipo.component.ts -->

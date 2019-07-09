@@ -36,6 +36,7 @@ export class AgregarAlumnoEquipoComponent implements OnInit {
     this.alumnosSinEquipo = this.data.alumnosSinEquipo;
   }
 
+  // Meto al alumno con el id que paso como parámetro en el equipo
   AgregarAlumnosEquipo(alumnoId: number) {
 
     this.equipoService.POST_AlumnoEquipo(new AsignacionEquipo(alumnoId, this.equipo.id), this.equipo.grupoId)
@@ -73,6 +74,7 @@ export class AgregarAlumnoEquipoComponent implements OnInit {
     return this.alumnosSinEquipo;
   }
 
+  // Añadimos a la lista de alumnos sin equipo al alumno que paso como parámetro
   AgregarAlumnoListaSinEquipo(alumno: Alumno): Alumno[] {
     this.alumnosSinEquipo.push(alumno);
 
@@ -83,6 +85,7 @@ export class AgregarAlumnoEquipoComponent implements OnInit {
     return this.alumnosSinEquipo;
   }
 
+  // Borro al alumno del equipo mediante la base de datos
   BorrarAlumnoEquipo(alumno: Alumno) {
     console.log('voy a borrar a ' + alumno.id);
     // PRIMERO BUSCO LA ASIGNACIÓN QUE VINCULA EL ALUMNO CON ID QUE PASO COMO PARÁMETRO Y EL EQUIPO EN EL QUE ESTOY
@@ -109,10 +112,4 @@ export class AgregarAlumnoEquipoComponent implements OnInit {
         }
       });
   }
-
-  prueba() {
-    console.log(this.alumnosSinEquipo);
-    console.log(this.data.alumnosEquipo);
-  }
-
 }
