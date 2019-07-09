@@ -23,8 +23,7 @@ export class JuegoService {
   equiposDelJuego: Equipo[];
 
 
-  inscripcionAlumno: AlumnoJuegoDeColeccion;
-  inscripcionEquipo: EquipoJuegoDeColeccion;
+
 
   // rankingSeleccionado: number;
 
