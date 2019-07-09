@@ -33,11 +33,11 @@
                 </div>
                 <div class="contenedor3" style="margin-right: 2% ">
                   <div class="elemento">
-                    <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" routerLink= "editarEquipo" (click) = "EnviarEquipoEditar(equipo, alumnosEquipo)">Editar equipo <i class="material-icons">
+                    <button type="button" class="btn Editar" routerLink= "editarEquipo" (click) = "EnviarEquipoEditar(equipo, alumnosEquipo)">Editar equipo <i class="material-icons">
                       edit </i>  </button>
                   </div>
                   <div class="elemento">
-                    <button type="button" style="background-color: rgb(212, 57, 52)" class="btn" (click) = "AbrirDialogoConfirmacionBorrar(equipo)">Eliminar equipo <i class="material-icons">
+                    <button type="button" class="btn Eliminar" (click) = "AbrirDialogoConfirmacionBorrar(equipo)">Eliminar equipo <i class="material-icons">
                       delete
                       </i></button>
                   </div>
@@ -81,7 +81,7 @@
             <div>
                 <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarLogo($event)" style="display:none">
                 <img class="foto" *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo" style="margin: 5px" >
-                <button  (click) = "ActivarInput()" type="button"  style="background-color: rgb(65, 178, 212)" class="btn">
+                <button  (click) = "ActivarInput()" type="button" class="btn Agregar">
                   <i style="margin: 5px" class="material-icons">add_photo_alternate</i>
                   Agregar logo
                 </button>
@@ -89,8 +89,8 @@
           </div>
 
             <div class="btnCambiarStep">
-              <button *ngIf="equipoYaCreado === false"  type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext (click)= CrearEquipo()>Siguiente</button>
-              <button *ngIf="equipoYaCreado === true"  type="button" style="background-color: rgb(63, 81, 181)" class="btn"  matStepperNext (click)= EditarEquipo() >Siguiente</button>
+              <button *ngIf="equipoYaCreado === false"  type="button" class="btn Next" matStepperNext (click)= CrearEquipo()>Siguiente</button>
+              <button *ngIf="equipoYaCreado === true"  type="button" class="btn Next"  matStepperNext (click)= EditarEquipo() >Siguiente</button>
             </div>
           </mat-step>
 
@@ -101,7 +101,7 @@
               <div>Añadir alumnos</div>
             </ng-template>
             <div>
-                <button type="button"  style="background-color: rgb(63, 81, 181)" class="btn" (click) = AbrirDialogoAgregarAlumnosEquipo()>
+                <button type="button" class="btn Agregar" (click) = AbrirDialogoAgregarAlumnosEquipo()>
                   <i class="material-icons">
                     group_add
                     </i>Agregar alumno</button>
@@ -109,45 +109,6 @@
 
             <form *ngIf="alumnosEquipoCreado;else Aviso_no_alumnos">
               <div>
-
-                <!-- <div class="contenedor2">
-              <table *ngIf="alumnosEquipoCreado;else Aviso_no_alumnos" mat-table [dataSource]="alumnosEquipoCreado" class="example-container mat-elevation-z8">
-
-
-                <ng-container matColumnDef="nombreAlumno">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 23%"> Nombre </th>
-                  <td mat-cell *matCellDef="let alumno"> {{alumno.Nombre}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="primerApellido">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 23%"> Primer Apellido </th>
-                  <td mat-cell *matCellDef="let alumno"> {{alumno.PrimerApellido}} </td>
-                </ng-container>
-
-               <ng-container matColumnDef="segundoApellido">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 23%"> Segundo Apellido </th>
-                  <td mat-cell *matCellDef="let alumno"> {{alumno.SegundoApellido}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="alumnoId">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera" style="width: 23%"> Identificador Alumno </th>
-                  <td mat-cell *matCellDef="let alumno"> {{alumno.id}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef=" ">
-                  <th mat-header-cell *matHeaderCellDef class="letraCabecera" ></th>
-                  <td mat-cell *matCellDef="let alumno">
-                      <button (click) = "BorrarAlumnoEquipo(alumno)" mat-icon-button matTooltip="Borrar a {{alumno.Nombre}} del equipo">
-                        <i class="material-icons red md-36">delete</i>
-                      </button>
-                  </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-              </table>
-            </div> -->
             <p>
               Se han añadido correctamente los alumnos.
             </p>
@@ -158,8 +119,8 @@
 
 
             <div class="btnCambiarStep">
-              <button  type="button" style="background-color: rgb(240, 173, 78)" class="btn"  matStepperPrevious>Atrás</button>
-              <button  type="button" style="background-color: rgb(63, 81, 181)" class="btn"  matStepperNext>Siguiente</button>
+              <button  type="button"  class="btn Back"  matStepperPrevious>Atrás</button>
+              <button  type="button" class="btn Next"  matStepperNext>Siguiente</button>
             </div>
           </mat-step>
 
@@ -173,8 +134,8 @@
            </div>
 
             <div class="btnCambiarStep">
-              <button  type="button" style="background-color: rgb(240, 173, 78)" class="btn"  matStepperPrevious>Atrás</button>
-              <button  type="button" style="background-color: rgb(92, 184, 92)" class="btn" (click) = "Finalizar()">Finalizar</button>
+              <button  type="button" class="btn Back"  matStepperPrevious>Atrás</button>
+              <button  type="button" class="btn Aceptar" (click) = "Finalizar()">Finalizar</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>

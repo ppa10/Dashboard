@@ -16,7 +16,7 @@
   <div>
 
     <div class="elemento">
-        <button type="button"  style="background-color: rgb(92, 184, 92)" class="btn"  (click)= "EditarEquipo()">Aceptar Cambios <i class="material-icons">
+        <button type="button"  class="btn Aceptar"  (click)= "EditarEquipo()">Aceptar Cambios <i class="material-icons">
           check </i></button>
   </div>
 
@@ -25,14 +25,14 @@
 
 <div class="contenedor">
     <div class="elemento">
-        <button (click) = "ActivarInput()" type="button" style="background-color: rgb(51, 122, 183)" class="btn">
+        <button (click) = "ActivarInput()" type="button" class="btn Next">
           Agregar logo<i class="material-icons">add_photo_alternate</i>
         </button>
       </div>
-  <div class="elemento"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarAlumnosEquipo()>
+  <div class="elemento"><button type="button" class="btn Agregar" (click) = AbrirDialogoAgregarAlumnosEquipo()>
     Agregar alumno <i class="material-icons">group_add</i>
     </button> </div>
-    <div class="elemento"><button type="button" style="background-color: rgb(240, 173, 78)" class="btn" (click) = "AbrirDialogoMoverAlumno()">
+    <div class="elemento"><button type="button" class="btn Info" (click) = "AbrirDialogoMoverAlumno()">
       Mover alumno<i class="material-icons">compare_arrows </i>
       </button></div>
 </div>

@@ -29,8 +29,8 @@
 
           <mat-card-actions  align="end">
 
-            <button style="margin: 5px" (click) = "LimpiarCampos()" type="button" style="background-color: rgb(240, 173, 78)" class="btn" >Limpiar Campos</button>
-            <button  style="margin: 5px" (click) = "CrearPunto();" [disabled]="isDisabledPuntos"type="button" style="background-color: rgb(92, 184, 92)" class="btn" >Crear Punto</button>
+            <button style="margin: 5px" (click) = "LimpiarCampos()" type="button" class="btn Back" >Limpiar Campos</button>
+            <button  style="margin: 5px" (click) = "CrearPunto();" [disabled]="isDisabledPuntos"type="button" class="btn Aceptar" >Crear Punto</button>
 
           </mat-card-actions>
 
@@ -113,15 +113,15 @@
                 <div>
                     <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarImagen($event)" style="display:none">
                     <img class = "foto" *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo"  style="margin: 5px">
-                    <button style="margin: 5px" (click) = "ActivarInput()" type="button" style="background-color: rgb(65, 178, 212)" class="btn" >
+                    <button style="margin: 5px" (click) = "ActivarInput()" type="button" class="btn Agregar" >
                       <i class="material-icons">add_photo_alternate</i>
                       Agregar foto
                     </button>
                 </div>
 
               <div align="end">
-              <button style="margin: 5px" (click) = "LimpiarCamposInsignia()" type="button" style="background-color: rgb(240, 173, 78)" class="btn" >Limpiar Campos</button>
-              <button style="margin: 5px" (click) = "CrearInsignia();" [disabled]="isDisabledInsignias" type="button" style="background-color: rgb(92, 184, 92)" class="btn" >Crear Insignia</button>
+              <button style="margin: 5px" (click) = "LimpiarCamposInsignia()" type="button" class="btn Back" >Limpiar Campos</button>
+              <button style="margin: 5px" (click) = "CrearInsignia();" [disabled]="isDisabledInsignias" type="button"class="btn Aceptar" >Crear Insignia</button>
 
             </div>
 
