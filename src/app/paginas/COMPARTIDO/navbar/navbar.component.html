@@ -10,126 +10,42 @@
         </mat-menu>
 
 
-    <button routerLink = {{URLInicio}} mat-button [matMenuTriggerFor]="Inicio" class="button1" >Inicio</button>
+    <button routerLink = {{URLInicio}} mat-button [matMenuTriggerFor]="Inicio" class="button1" > Inicio </button>
     <mat-menu  #Inicio="matMenu">
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="Grupos" class="button1">Grupos</button>
+    <button mat-button [matMenuTriggerFor]="Grupos" class="button1"> Grupos </button>
   <mat-menu #Grupos="matMenu" class="mat-menu">
-    <button mat-menu-item routerLink= {{URLMisGrupos}}>Mis Grupos</button>
-    <button mat-menu-item routerLink= {{URLCrearGrupo}} >Crear Grupo</button>
+    <button mat-menu-item routerLink= {{URLMisGrupos}}>M is Grupos </button>
+    <button mat-menu-item routerLink= {{URLCrearGrupo}} > Crear Grupo </button>
   </mat-menu>
 
-  <button mat-button [matMenuTriggerFor]="Cuestionarios" class="button1">Cuestionarios</button>
+  <button mat-button [matMenuTriggerFor]="Cuestionarios" class="button1"> Cuestionarios </button>
   <mat-menu #Cuestionarios="matMenu" >
-    <button mat-menu-item > Mis Cuestionarios</button>
-    <button mat-menu-item>Crear Cuestionario</button>
+    <button mat-menu-item > Mis Cuestionarios </button>
+    <button mat-menu-item> Crear Cuestionario </button>
   </mat-menu>
 
-  <button mat-button [matMenuTriggerFor]="Coleccion" class="button1">Coleccion</button>
+  <button mat-button [matMenuTriggerFor]="Coleccion" class="button1"> Coleccion </button>
   <mat-menu #Coleccion="matMenu" class="mat-menu">
-    <button mat-menu-item routerLink= {{URLMisColecciones}}> Mis Colecciones</button>
-    <button mat-menu-item routerLink = {{URLCrearColeccion}}>Crear Colecciones</button>
+    <button mat-menu-item routerLink= {{URLMisColecciones}}> Mis Colecciones </button>
+    <button mat-menu-item routerLink = {{URLCrearColeccion}}> Crear Colecciones </button>
   </mat-menu>
 
-  <button mat-button [matMenuTriggerFor]="PuntosInsignias" class="button1">Puntos e Insignias</button>
+  <button mat-button [matMenuTriggerFor]="PuntosInsignias" class="button1"> Puntos e Insignias </button>
   <mat-menu #PuntosInsignias="matMenu">
-      <button mat-menu-item routerLink= "{{URLMisPuntos}}">Mis Puntos e Insignias</button>
-      <button mat-menu-item routerLink= "{{URLCrearPuntos}}">Crear Puntos e Insignias</button>
+      <button mat-menu-item routerLink= "{{URLMisPuntos}}"> Mis Puntos e Insignias </button>
+      <button mat-menu-item routerLink= "{{URLCrearPuntos}}"> Crear Puntos e Insignias </button>
   </mat-menu>
 </div>
   <div>
   <button mat-button [matMenuTriggerFor]="NombreProfesor" class="button1"> {{profesor.Nombre}} {{profesor.Apellido}} </button>
   <mat-menu #NombreProfesor="matMenu">
-      <button mat-menu-item routerLink= "{{URLConfiguracionn}}">Configuración</button>
-      <button mat-menu-item routerLink= "{{URLCrearPuntos}}">Cerrar sesión</button>
+      <button mat-menu-item routerLink= "{{URLConfiguracionn}}"> Configuración </button>
+      <button mat-menu-item routerLink= "{{URLCrearPuntos}}"> Cerrar sesión </button>
   </mat-menu>
 </div>
 
 </form>
 
-
-<!-- <form class="Cabecera"> -->
-
-    <!--CONTENIDO REFERENTE AL LOGO DE CLASSPIP.-->
-        <!-- <h1><img width="60" src="../assets/Icono Classpip.png"></h1>
-        <h1 class="class">class</h1>
-        <h1 class="pip">pip</h1>
-   -->
-    <!--CONTENIDO REFERENTE AL MENU GENERAL DEL DASHBOARD-->
-    <!--Cada elemento a es una opción del menu. Como verás Inicio lo he tratado distinto, debido
-        a que tiene que tener una separación lateral izquierda superior a los demás.-->
-<!--
-        <a class="a1">
-          <button  class="button1" mat-button [matMenuTriggerFor]="Inicio">Inicio</button>
-          <mat-menu class="mat-menu" #Inicio="matMenu"></mat-menu>
-        </a>
-
-        <a>
-          <button class="button1" mat-button [matMenuTriggerFor]="Grupos">Grupos</button>
-          <mat-menu class="mat-menu" #Grupos="matMenu">-->
-            <!--LOS BOTONES FUNCIONAN CON href, asique no se como poner el id en ese href-->
-      <!--       <a style="color: gray"><button  mat-button >Mis Grupos</button></a>
-            <a style="color: gray" [routerLink]='crearGrupo'><button  mat-button>Crear Grupo</button></a>
-          </mat-menu>
-        </a>
-
-        <a >
-          <button class="button1" mat-button [matMenuTriggerFor]="Cuestionarios">Cuestionarios</button>
-          <mat-menu class="mat-menu" #Cuestionarios="matMenu">
-            <a href='' style="color: gray"><button mat-button>Mis Cuestionarios</button></a>
-            <a href='' style="color: gray"><button mat-button>Crear Cuestionario</button></a>
-          </mat-menu>
-        </a>
-
-
-        <a >
-          <button class="button1" mat-button [matMenuTriggerFor]="PuntosInsignias">Puntos e Insígnias</button>
-          <mat-menu class="mat-menu" #PuntosInsignias="matMenu" >
-            <a href='' style="color: gray"><button mat-button >Mis Puntos e Insígnias</button></a>
-            <a href='' style="color: gray"><button mat-button >Crear Puntos e Insígnias</button></a>
-          </mat-menu>
-        </a>
-
-        <a>
-          <button class="button1" mat-button [matMenuTriggerFor]="NombreProfesor">Nombre Profesor</button>
-          <mat-menu class="mat-menu" #NombreProfesor="matMenu" >
-            <a href='' style="color: gray"><button mat-button >Configuración</button></a>
-            <a href='' style="color: gray"><button mat-button >Cerrar sesión</button></a>
-          </mat-menu>
-        </a>
-  </form>
-
-  <router-outlet></router-outlet>
-
-
-
-  </div>
-  <div class="container" fxLayout="column">
-      <app-navbar></app-navbar>
-      <app-loading></app-loading>
-      <div fxFlex="1">
-        <router-outlet></router-outlet>
-      </div>
-      <app-footer></app-footer>
-    </div>
-
-    <div class="docs-footer-list">
-      <div class="docs-footer-links">
-        <ul>
-          <li>
-            <a routerLink="/aviso-legal">{{ 'APP.LEGAL' | translate }}</a>
-          </li>
-          <li>
-            <span>|</span>
-          </li>
-          <li>
-            <a routerLink="/privacidad">{{ 'APP.PRIVACY' | translate }}</a>
-          </li>
-        </ul>
-      </div>
-      <div class="docs-footer-copyright">
-        <p>{{ 'APP.MARK' | translate }}</p>
-      </div>
-    </div>-->
 

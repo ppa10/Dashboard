@@ -9,13 +9,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class DialogoConfirmacionComponent implements OnInit {
 
   // tslint:disable-next-line:no-inferrable-types
-  mensaje: string = 'Estás seguro/a que quieres borrar?';
+  mensaje: string;
+
+  // Las opciones de este dialogo serán siempre Aceptar y Cancelar
   TextoBotonBorrar = 'Aceptar';
   TextoBotonCancelar = 'Cancelar';
 
   constructor( public dialogRef: MatDialogRef<string>,
                @Inject(MAT_DIALOG_DATA) public mensajeConfirmacion: any) {
 
+                // El componente recibe un mensaje que le pasamos desde el componente que lo iniciamos
                 if (mensajeConfirmacion) {
                   this.mensaje = mensajeConfirmacion.mensaje || this.mensaje;
                 }

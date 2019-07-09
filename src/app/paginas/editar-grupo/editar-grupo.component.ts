@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AgregarAlumnoDialogComponent } from '../crear-grupo/agregar-alumno-dialog/agregar-alumno-dialog.component';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 
 // Clases
 import { Grupo, Alumno } from '../../clases/index';
@@ -30,21 +30,19 @@ export class EditarGrupoComponent implements OnInit {
   profesorId: number;
   alumnosGrupoSeleccionado: Alumno[];
 
-  //
-  alumnosSeleccionados: Alumno[];
-
   // PROPIEDADES GRUPO
   nombreGrupo: string;
   descripcionGrupo: string;
 
+  // PARÁMETROS PARA LA TABLA (FUENTE DE DATOS, COLUMNAS Y SELECCIÓN)
   dataSource;
-
-
   displayedColumns: string[] = ['select', 'nombreAlumno', 'primerApellido', 'segundoApellido', 'alumnoId'];
   selection = new SelectionModel<Alumno>(true, []);
 
+  // ARRAY DE BOOLEAN PARA SABER LOS ALUMNOS QUE HE SELECCIONADO
   seleccionados: boolean[];
 
+  // MENSAJE QUE PASAMOS PARA CONFIRMAR QUE QUEREMOS BORRAR A LOS ALUMNOS
   // tslint:disable-next-line:no-inferrable-types
   mensaje: string = 'Estás seguro/a de que quieres eliminar a los alumnos del grupo llamado: ';
 
@@ -56,28 +54,32 @@ export class EditarGrupoComponent implements OnInit {
                private location: Location) { }
 
   ngOnInit() {
+
+    // Recogemos los parámetros del grupo del servicio
     this.grupoSeleccionado = this.grupoService.RecibirGrupoDelServicio();
     this.profesorId = this.grupoSeleccionado.profesorId;
     this.alumnosGrupoSeleccionado = this.alumnoService.RecibirListaAlumnosDelServicio();
-
 
 
     // Inicio los parámetros de los inputs con los valores actuales
     this.nombreGrupo = this.grupoSeleccionado.Nombre;
     this.descripcionGrupo = this.grupoSeleccionado.Descripcion;
 
+    // Si el grupo tiene alumnos, creamos un vector de boolean de la misma longitud que los alumnos
+    // y creamos un datasource
     if (this.alumnosGrupoSeleccionado !== undefined) {
       // Al principio no hay alumnos seleccionados para eliminar
       this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
       this.dataSource = new MatTableDataSource(this.alumnosGrupoSeleccionado);
     }
-
   }
 
+  // Filtro para buscar alumnos de la tabla
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // Funciones para selección
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -97,9 +99,6 @@ export class EditarGrupoComponent implements OnInit {
   toggleCheckbox(row) {
     this.selection.toggle(row);
     row.selected = !row.selected;
-    console.log(row);
-    console.log(this.selection.toggle(row));
-
   }
 
   /** The label for the checkbox on the passed row */
@@ -113,12 +112,10 @@ export class EditarGrupoComponent implements OnInit {
   // NOS PERMITE MODIFICAR EL NOMBRE Y LA DESCRIPCIÓN DEL GRUPO QUE ESTAMOS CREANDO
   EditarGrupo() {
 
-    console.log('entro a editar');
-
     this.grupoService.PUT_Grupo(new Grupo(this.nombreGrupo, this.descripcionGrupo), this.profesorId, this.grupoSeleccionado.id)
     .subscribe((res) => {
       if (res != null) {
-        console.log('Voy a editar el equipo con id ' + this.grupoSeleccionado.id);
+        // Recupero los nuevos parámetros del grupo
         this.grupoSeleccionado = res;
 
         // Vuelvo a enviar el grupo al componente grupo para tener la versión acutalizada y vuelvo hacia atrás
@@ -131,7 +128,6 @@ export class EditarGrupoComponent implements OnInit {
         console.log('fallo editando');
       }
     });
-
   }
 
   // LE PASAMOS EL IDENTIFICADOR DEL GRUPO Y BUSCAMOS LOS ALUMNOS QUE TIENE
@@ -141,16 +137,16 @@ export class EditarGrupoComponent implements OnInit {
     .subscribe(res => {
 
       if (res[0] !== undefined) {
-        console.log('entro a actualizar la tabla');
+
         this.alumnosGrupoSeleccionado = res;
         this.dataSource = new MatTableDataSource(this.alumnosGrupoSeleccionado);
         this.seleccionados = Array(this.alumnosGrupoSeleccionado.length).fill(false);
-        console.log(res);
 
       } else {
-        console.log('No hay alumnos en este grupo');
+
         this.alumnosGrupoSeleccionado = undefined;
         this.seleccionados = [];
+
       }
     });
   }
@@ -171,7 +167,6 @@ export class EditarGrupoComponent implements OnInit {
 
       // Antes de que se cierre actualizaré la lista de alumnos
       this.AlumnosDelGrupo();
-
     });
   }
 
@@ -184,7 +179,6 @@ export class EditarGrupoComponent implements OnInit {
     } else {
       this.seleccionados[i] = false;
     }
-    console.log(this.seleccionados);
   }
 
   // Pone a true or false todo el vector seleccionado
@@ -199,10 +193,10 @@ export class EditarGrupoComponent implements OnInit {
       }
 
     }
-    console.log(this.seleccionados);
+
   }
 
-    // SI QUEREMOS BORRA UN GRUPO, ANTES NOS SALDRÁ UN AVISO PARA CONFIRMAR LA ACCIÓN COMO MEDIDA DE SEGURIDAD. ESTO SE HARÁ
+  // SI QUEREMOS BORRA UN GRUPO, ANTES NOS SALDRÁ UN AVISO PARA CONFIRMAR LA ACCIÓN COMO MEDIDA DE SEGURIDAD. ESTO SE HARÁ
   // MEDIANTE UN DIÁLOGO
   AbrirDialogoConfirmacionBorrar(): void {
 
@@ -224,40 +218,32 @@ export class EditarGrupoComponent implements OnInit {
     });
   }
 
+  // Recorro el array de seleccionados y miro si lo borro o no.
   BorrarAlumnos() {
 
     for (let i = 0; i < this.seleccionados.length; i++) {
 
+      // Miramos si el alumno esta seleccionado o no (true)
       if (this.seleccionados [i]) {
+
+        // Miramos cual es el alumno que he seleccionado
         let alumno: Alumno;
         alumno = this.alumnosGrupoSeleccionado[i];
-        console.log(alumno.Nombre + ' seleccionado');
 
         // Recupero la matrícula del alumno en este grupo
         this.matriculaService.GET_MatriculaAlumno(alumno.id, this.grupoSeleccionado.id)
         .subscribe(matricula => {
 
-          console.log('Doy la matricula de ' + alumno.Nombre);
-          console.log(matricula[0]);
-
           // Una vez recupero la matrícula, la borro
           this.matriculaService.DELETE_Matricula(matricula[0].id)
           .subscribe(res => {
-            console.log(alumno.Nombre + ' borrado correctamente');
             this.AlumnosDelGrupo();
-
           });
         });
       }
     }
     this.selection.clear();
   }
-
-  prueba() {
-    console.log(this.alumnosGrupoSeleccionado);
-    console.log(this.seleccionados);
-  }
-
 
   // NOS DEVOLVERÁ AL INICIO
   goBack() {

@@ -39,3 +39,7 @@ En estos momentos en el segundo paso aparecerá un botón de añadir alumnos que
 # VueltaInicio()
 
 Esta función se activará si clicamos en el botón "Finalizar" del último paso de la creación del grupo y nos devolverá a la pantalla de inicio del profesor.
+
+# Disabled()
+
+Esta función se utiliza para controlar si el botón de siguiente del stepper esta desativado. Si en alguno de los inputs no hay nada, esta disabled. Sino, podremos clicar.

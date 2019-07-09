@@ -102,11 +102,11 @@ export class EquiposComponent implements OnInit {
 
   // Coge el identificador del grupo que le pasamos del otro componente a través del servicio y busca los equipos que tiene
   EquiposDelGrupo() {
-    console.log('Voy a listar los equipos');
+
     this.equipoService.GET_EquiposDelGrupo(this.grupoId)
     .subscribe(res => {
       if (res[0] !== undefined) {
-        console.log('Voy a dar la lista de equipos');
+
         this.listaEquipos = res;
       } else {
         console.log('Este grupo no tiene equipos');
@@ -117,8 +117,7 @@ export class EquiposComponent implements OnInit {
   // Le pasamos el equipo y buscamos el logo que tiene y sus alumnos
   AlumnosYLogoDelEquipo(equipo: Equipo) {
 
-    console.log('entro a buscar alumnos y foto');
-    console.log(equipo.FotoEquipo);
+
     // Si el equipo tiene una foto (recordemos que la foto no es obligatoria)
     if (equipo.FotoEquipo !== undefined) {
 
@@ -145,14 +144,13 @@ export class EquiposComponent implements OnInit {
 
 
     // Una vez tenemos el logo del equipo seleccionado, buscamos sus alumnos
-    console.log('voy a mostrar los alumnos del equipo ' + equipo.id);
 
     // Busca los alumnos del equipo en la base de datos
     this.equipoService.GET_AlumnosEquipo(equipo.id)
     .subscribe(res => {
       if (res[0] !== undefined) {
         this.alumnosEquipo = res;
-        console.log(res);
+
       } else {
         console.log('No hay alumnos en este equipo');
         this.alumnosEquipo = undefined;
@@ -162,12 +160,13 @@ export class EquiposComponent implements OnInit {
 
 
 
-  // Una vez seleccionado un equipo, lo podemos editar o eliminar. Esta función se activará si clicamos en editar.
+  // Una vez seleccionado un equipo, lo podemos editar o eliminar. La primera se activará si clicamos en editar.
   // Envía el equipo y los alumnos de un equipo específico al componente editar-equipo
   EnviarEquipoEditar(equipo: Equipo, alumnosEquipo: Alumno[]) {
-    console.log('voy a enviar');
+
+    // Envio el equipo al servicio para posteriormente recuperarlo en el componente editar-equipo
     this.equipoService.EnviarEquipoAlServicio(equipo);
-    console.log(alumnosEquipo);
+
     if (alumnosEquipo !== undefined) {
       this.alumnoService.EnviarListaAlumnosAlServicio(alumnosEquipo);
     } else {
@@ -203,15 +202,14 @@ export class EquiposComponent implements OnInit {
 
   // Esta función borra el equipo que le pasamos como parámetro y actualiza la lista
   EliminarEquipo(equipo: Equipo) {
-    console.log('Voy a eliminar el equipo');
+
     this.equipoService.DELETE_EquipoDelGrupo(equipo)
     .subscribe(() => {
-      console.log('Borrado correctamente');
-      console.log('Voy a por las asignaciones');
+
       // Borro las asignaicones del equipo ya que no van a servir
       this.EliminarAsignacionesEquipo(equipo);
 
-      // Actualizo la tabla de grupos
+      // Actualizo la tabla de equipos
       this.EquiposDelGrupo();
 
     });
@@ -222,10 +220,8 @@ export class EquiposComponent implements OnInit {
   EliminarAsignacionesEquipo(equipo: Equipo) {
     this.equipoService.GET_AsignacionesDelEquipo(equipo)
     .subscribe(asignaciones => {
-      console.log(asignaciones);
 
       if (asignaciones[0] !== undefined) {
-        console.log('he recibido las asignaciones');
 
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < asignaciones.length; i++) {
@@ -239,8 +235,6 @@ export class EquiposComponent implements OnInit {
       }
     });
   }
-
-
 
 
 
@@ -261,13 +255,11 @@ export class EquiposComponent implements OnInit {
 
     nombreEquipo = this.myForm.value.nombreEquipo;
 
-    console.log('Entro a crear el equipo ' + nombreEquipo);
-    console.log(this.nombreLogo);
     // Hace el POST del equipo
     this.equipoService.POST_Equipo(new Equipo(nombreEquipo, this.nombreLogo), this.grupoId)
     .subscribe((res) => {
       if (res != null) {
-        console.log(res);
+
         this.equipoYaCreado = true; // Si tiro atrás y cambio algo se hará un PUT y no otro POST
         this.equipoCreado = res; // Lo metemos en equipoCreado, y no en equipo!!
 
@@ -280,8 +272,7 @@ export class EquiposComponent implements OnInit {
           // Hacemos el POST de la nueva imagen en la base de datos recogida de la función ExaminarLogo
           const formData: FormData = new FormData();
           formData.append(this.nombreLogo, this.file);
-          this.equipoService.POST_LogoEquipo(formData)
-          .subscribe(() => console.log('Logo cargado'));
+          this.equipoService.POST_LogoEquipo(formData);
         }
 
       } else {
@@ -290,10 +281,8 @@ export class EquiposComponent implements OnInit {
     });
   }
 
-
   // Activa la función ExaminarLogo
   ActivarInput() {
-    console.log('Activar input');
     document.getElementById('input').click();
   }
 
@@ -302,14 +291,12 @@ export class EquiposComponent implements OnInit {
   // nombre de la foto en la variable nombreLogo
   ExaminarLogo($event) {
     this.file = $event.target.files[0];
-
-    console.log('fichero ' + this.file.name);
     this.nombreLogo = this.file.name;
 
     const reader = new FileReader();
     reader.readAsDataURL(this.file);
     reader.onload = () => {
-      console.log('ya');
+
       this.logoCargado = true;
       this.logo = reader.result.toString();
     };
@@ -321,7 +308,6 @@ export class EquiposComponent implements OnInit {
   // de igual manera que la de Crear Equipo pero haciendo un PUT.
   EditarEquipo() {
 
-    console.log('Entro a editar');
     let nombreEquipo: string;
 
     nombreEquipo = this.myForm.value.nombreEquipo;
@@ -329,7 +315,7 @@ export class EquiposComponent implements OnInit {
     this.equipoService.PUT_Equipo(new Equipo(nombreEquipo, this.nombreLogo), this.grupoId, this.equipoCreado.id)
     .subscribe((res) => {
       if (res != null) {
-        console.log('Voy a editar el equipo con id ' + this.equipoCreado.id);
+
         this.equipoCreado = res;
 
         // Hago el POST de la imagen SOLO si hay algo cargado
@@ -360,14 +346,14 @@ export class EquiposComponent implements OnInit {
 
       // Si hay algun alumno en algun equipo, devolveremos las asignaciones y activaremos la funcion AlumnosAsignables
       if (asignaciones [0] !== undefined) {
-        console.log('Voy a dar asignaciones');
+
         // cuando recibimos las asignaciones las metemos en su lista
         this.asginacionEquipo = asignaciones;
         this.AlumnosAsignables();
 
         // En el caso de que no haya ningún alumno en ningun grupo, igualmente activamos la función AlumnosAsignables
       } else {
-        console.log('no hay asignaciones');
+
         this.AlumnosAsignables();
       }
     });
@@ -464,7 +450,6 @@ export class EquiposComponent implements OnInit {
 
   // Utilizaremos esta función para actualizar la lista de alumnosEquipoCreado y, asi, la tabla.
   AlumnosEquipoCreado() {
-    console.log('voy a mostrar los alumnos del equipo creado ' + this.equipoCreado.id);
 
     // Busca los alumnos del equipo en la base de datos
     this.equipoService.GET_AlumnosEquipo(this.equipoCreado.id)
@@ -480,12 +465,7 @@ export class EquiposComponent implements OnInit {
   }
 
 
-  // Borra al alumno de alumnosConEquipo y lo pone en alumnosSinEquipo
-  AlumnoBorrado(alumno: Alumno): Alumno[] {
-    this.alumnosConEquipo = this.alumnosConEquipo.filter(res => res.id !== alumno.id);
-    this.alumnosSinEquipo.push(alumno);
-    return this.alumnosConEquipo;
-  }
+
 
 
   // Borra al alumno del equipo
@@ -513,6 +493,13 @@ export class EquiposComponent implements OnInit {
         console.log('no se ha encontrado la asignación');
         }
       });
+  }
+
+  // Borra al alumno de alumnosConEquipo y lo pone en alumnosSinEquipo
+  AlumnoBorrado(alumno: Alumno): Alumno[] {
+    this.alumnosConEquipo = this.alumnosConEquipo.filter(res => res.id !== alumno.id);
+    this.alumnosSinEquipo.push(alumno);
+    return this.alumnosConEquipo;
   }
 
 

@@ -102,6 +102,8 @@ export class AgregarAlumnoDialogComponent implements OnInit {
   }
 
   AgregarAlumnoListaAgregados(alumno: Alumno): Alumno[] {
+
+    // Pasamos el alumno que ya esta en la base de datos
     this.alumnosAgregados.push(alumno);
 
     this.alumnosAgregados = this.alumnosAgregados.filter(res => res.Nombre !== '');

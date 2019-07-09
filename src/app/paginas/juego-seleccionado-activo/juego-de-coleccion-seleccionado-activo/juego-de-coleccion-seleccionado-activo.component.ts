@@ -201,9 +201,4 @@ export class JuegoDeColeccionSeleccionadoActivoComponent implements OnInit {
     });
   }
 
-
-
-  prueba() {
-    console.log(this.alumnosDelJuego);
-  }
 }

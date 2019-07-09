@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 // Clases
 import { Profesor } from '../../../clases/index';
@@ -33,11 +33,10 @@ export class NavbarComponent implements OnInit {
   URLConfiguracion: string;
 
   constructor( private profesorService: ProfesorService,
-               private router: Router,
-               private route: ActivatedRoute) { }
+               private router: Router) { }
 
   ngOnInit() {
-    console.log('inicio componente navbar');
+
     this.URLInicio = this.router.url;
     this.URLMisGrupos = this.URLInicio + '/misGrupos';
     this.URLCrearGrupo = this.URLInicio + '/crearGrupo';
@@ -49,21 +48,7 @@ export class NavbarComponent implements OnInit {
 
 
     this.profesor = this.profesorService.RecibirProfesorDelServicio();
-    console.log(this.profesor);
+
   }
-
-
-
-  // prueba() {
-  //   console.log('inicio componente navbar');
-  //   // this.profesor = this.profesorService.RecibirProfesorDelServicio()[0];
-
-  //   this.router.navigateByUrl ('/inicio/1');
-  //   console.log(this.route);
-  //   this.pruebas = 'inicio/1/misGrupos';
-  //   this.mensaje = 'Estás seguro/a de que quieres eliminar a los alumnos del grupo llamado: ';
-  //   console.log(this.pruebas);
-  //   console.log(this.mensaje);
-  // }
 
 }

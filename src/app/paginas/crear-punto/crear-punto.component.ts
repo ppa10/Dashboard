@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { Location } from '@angular/common';
 
 // Servicios
 import { PuntosInsigniasService, ProfesorService } from '../../servicios/index';
@@ -16,29 +15,40 @@ import { Punto, Insignia } from '../../clases/index';
 })
 export class CrearPuntoComponent implements OnInit {
 
+  // Columnas para la tabla de los puntos añadidos recientemente
   displayedColumns: string[] = ['nombre', 'descripcion', ' '];
+
+  // Identificador del profesor
   profesorId: number;
 
+  // Habilitador para poder crear puntos
   // tslint:disable-next-line:ban-types
   isDisabledPuntos: Boolean = true;
 
+  // Habilitador para poder crear insignias
   // tslint:disable-next-line:ban-types
   isDisabledInsignias: Boolean = true;
 
+  // Lista de los puntos agregados
   puntosAgregados: Punto [] = [];
 
+  // Lista de las insignias agregadss
   insigniasAgregadas: Insignia [] = [];
 
+  // Nombre del punto y descripción que creo
   nombrePunto: string;
   descripcionPunto: string;
 
+  // Nombre de insignia y descripción que creo
   nombreInsignia: string;
   descripcionInsignia: string;
 
+  // Nombre del logo que cargo para la insignia
   nombreLogo: string;
   file: File;
   logo: string;
 
+  // Para saber si se ha cargado un logo o no
   // tslint:disable-next-line:ban-types
   logoCargado: Boolean = false;
 
@@ -54,17 +64,17 @@ export class CrearPuntoComponent implements OnInit {
     // this.profesorId = this.profesorService.RecibirProfesorIdDelServicio();
     this.profesorId = Number (this.route.snapshot.paramMap.get('id'));
 
-    console.log(this.profesorId);
   }
 
   ///////////////////////////////////////////// CREAR PUNTO ///////////////////////////////////////////////////////
 
+  // Función para crear punto
   CrearPunto() {
 
     this.puntosInsigniasService.POST_Punto(new Punto(this.nombrePunto, this.descripcionPunto), this.profesorId)
     .subscribe(res => {
       if (res !== undefined) {
-        console.log('Punto añadido correctamente');
+
         this.snackBar.open(this.nombrePunto + ' creado correctamente', 'Cerrar', {
           duration: 2000,
         });
@@ -97,8 +107,6 @@ export class CrearPuntoComponent implements OnInit {
     this.puntosInsigniasService.DELETE_Punto(punto.id, punto.profesorId)
     .subscribe(() => {
       this.PuntosEliminados(punto);
-      console.log('punto borrado correctamente');
-
     });
   }
 
@@ -131,7 +139,6 @@ export class CrearPuntoComponent implements OnInit {
 
   // Activa la función ExaminarImagen
   ActivarInput() {
-    console.log('Activar input');
     document.getElementById('input').click();
   }
 
@@ -141,13 +148,13 @@ export class CrearPuntoComponent implements OnInit {
   ExaminarImagen($event) {
 
     this.file = $event.target.files[0];
-    console.log('fichero ' + this.file.name);
+
     this.nombreLogo = this.file.name;
 
     const reader = new FileReader();
     reader.readAsDataURL(this.file);
     reader.onload = () => {
-      console.log('ya');
+
       this.logoCargado = true;
       this.logo = reader.result.toString();
     };
@@ -159,7 +166,7 @@ export class CrearPuntoComponent implements OnInit {
     this.puntosInsigniasService.POST_Insignia(new Insignia(this.nombreInsignia, this.descripcionInsignia, this.nombreLogo)
     , this.profesorId).subscribe(insignia => {
       if (insignia !== undefined) {
-        console.log('Insignia añadida correctamente');
+
         this.snackBar.open(this.nombreInsignia + ' creada correctamente', 'Cerrar', {
           duration: 2000,
         });
@@ -201,34 +208,30 @@ export class CrearPuntoComponent implements OnInit {
     }
   }
 
+  // Vuelve a poner todos los campos de la insignia como al principio
+  LimpiarCamposInsignia() {
+    this.nombreInsignia = undefined;
+    this.descripcionInsignia = undefined;
+    this.isDisabledInsignias = true;
+    this.logoCargado = false;
+    this.logo = undefined;
+    this.nombreLogo = undefined;
+  }
 
+  // Borra la insignia que le pasamos de la API
+  BorrarInsignia(insignia: Insignia) {
+    this.puntosInsigniasService.DELETE_Insignia(insignia.id, insignia.profesorId)
+    .subscribe(() => {
+      this.InsigniasEliminadas(insignia);
+      console.log('punto borrado correctamente');
 
+    });
+  }
 
-
-
-
-
-LimpiarCamposInsignia() {
-  this.nombreInsignia = undefined;
-  this.descripcionInsignia = undefined;
-  this.isDisabledInsignias = true;
-  this.logoCargado = false;
-  this.logo = undefined;
-  this.nombreLogo = undefined;
-}
-
-BorrarInsignia(insignia: Insignia) {
-  this.puntosInsigniasService.DELETE_Insignia(insignia.id, insignia.profesorId)
-  .subscribe(() => {
-    this.InsigniasEliminadas(insignia);
-    console.log('punto borrado correctamente');
-
-  });
-}
-
-InsigniasEliminadas(insignia: Insignia) {
-  this.insigniasAgregadas = this.insigniasAgregadas.filter(res => res.id !== insignia.id);
-  return this.insigniasAgregadas;
-}
+  // Eliminan las insignias de la lista de insigniasAgregadas
+  InsigniasEliminadas(insignia: Insignia) {
+    this.insigniasAgregadas = this.insigniasAgregadas.filter(res => res.id !== insignia.id);
+    return this.insigniasAgregadas;
+  }
 
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { AgregarAlumnoDialogComponent } from './agregar-alumno-dialog/agregar-alumno-dialog.component';
@@ -19,15 +18,19 @@ import { Grupo } from '../../clases/index';
 })
 export class CrearGrupoComponent implements OnInit {
 
+  // Identificador del profesor
   profesorId: number;
 
+  // Grupo que hemos creado
   grupo: Grupo;
 
+  // Para el stepper
   myForm: FormGroup;
 
+  // URL del inicio
   URLVueltaInicio: string;
 
-
+  // Para saber si el botón está habilitado o no
   // tslint:disable-next-line:ban-types
   isDisabled: Boolean = true;
 
@@ -36,11 +39,9 @@ export class CrearGrupoComponent implements OnInit {
   grupoYaCreado: Boolean = false;
 
 
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private grupoService: GrupoService,
-              private location: Location,
               public dialog: MatDialog,
               // tslint:disable-next-line:variable-name
               private _formBuilder: FormBuilder) { }
@@ -48,7 +49,8 @@ export class CrearGrupoComponent implements OnInit {
 
   ngOnInit() {
 
-    // RECUPERAMOS EL ID DEL PROFESOR DE LA URL
+    // REALMENTE LA APP FUNCIONARÁ COGIENDO AL PROFESOR DEL SERVICIO, NO OBSTANTE AHORA LO RECOGEMOS DE LA URL
+    // this.profesorId = this.profesorService.RecibirProfesorIdDelServicio();
     this.profesorId = Number (this.route.snapshot.paramMap.get('id'));
 
     // tslint:disable-next-line:no-string-literal
@@ -58,8 +60,6 @@ export class CrearGrupoComponent implements OnInit {
       nombreGrupo: ['', Validators.required],
       descripcionGrupo: ['', Validators.required]
     });
-
-
   }
 
   // CREAMOS UN GRUPO DÁNDOLE UN NOMBRE Y UNA DESCRIPCIÓN
@@ -106,7 +106,7 @@ export class CrearGrupoComponent implements OnInit {
     });
   }
 
-  // SI QUEREMOS AÑADIR ALUMNOS MANUALMENTE LO HAREMOS EN UN DIALOGO
+  // SI QUEREMOS AÑADIR ALUMNOS MANUALMENTE LO HAREMOS A TRAVÉS DE UN DIÁLOGO
   AbrirDialogoAgregarAlumnos(): void {
     const dialogRef = this.dialog.open(AgregarAlumnoDialogComponent, {
       width: '900px',
@@ -119,23 +119,19 @@ export class CrearGrupoComponent implements OnInit {
     });
   }
 
+  // VUELTA AL INICIO
   VueltaInicio() {
     this.router.navigate([this.URLVueltaInicio, this.profesorId]);
     console.log(this.URLVueltaInicio);
   }
 
-  // NOS DEVOLVERÁ A LA DE LA QUE VENIMOS
-  goBack() {
-    this.location.back();
-  }
-
-  disabled() { // without type info
-    console.log('entro en la funcion');
+  // MIRO SI HAY ALGO SIMULTÁNEAMENTE EN EL NOMBRE Y LA DESCRIPCIÓN
+  Disabled() {
     if (this.myForm.value.nombreGrupo === '' || this.myForm.value.descripcionGrupo === '') {
-      console.log('entro');
+      // Si alguno de los valores es igual a nada, entonces estará desactivado
       this.isDisabled = true;
     } else {
-      console.log('no entro');
+      // Si ambos son diferentes a nulo, estará activado.
       this.isDisabled = false;
     }
   }

@@ -22,6 +22,7 @@ Esta función se utilizará cuando queramos añadir un alumno nuevo al grupo, es
 Recoge los valores que introducimos como inputs y hace un POST del alumno en la base de datos mediante la función POST_AlumnosAlProfesor del AlumnoService. Recogemos el Observable y lo ponemos en el parámetro alumno y matriculamos dicho alumno nuevo en el grupo al que lo estamos añadiendo. 
 
 
+
 # BuscarAlumnoBaseDeDatos()
 
 Antes de meter a un alumno en un grupo debemos comprobar si éste ya se encuentra registrado en la base de datos o no. Esto se hace porque so ya esta registrado utilizaremos al mismo alumno, sinó haríamos diferentes POSTs para un mismo alumno. 

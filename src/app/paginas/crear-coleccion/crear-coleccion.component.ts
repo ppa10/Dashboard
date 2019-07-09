@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ResponseContentType, Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 // Imports para abrir diálogo confirmar eliminar equipo
 import { MatDialog, MatSnackBar, MatTabGroup } from '@angular/material';
-import { DialogoConfirmacionComponent } from '../COMPARTIDO/dialogo-confirmacion/dialogo-confirmacion.component';
+
 
 // Servicios
 import { ColeccionService, ProfesorService } from '../../servicios/index';
@@ -107,7 +107,10 @@ export class CrearColeccionComponent implements OnInit {
 
   ngOnInit() {
 
+    // REALMENTE LA APP FUNCIONARÁ COGIENDO AL PROFESOR DEL SERVICIO, NO OBSTANTE AHORA LO RECOGEMOS DE LA URL
+    // this.profesorId = this.profesorService.RecibirProfesorIdDelServicio();
     this.profesorId = Number (this.route.snapshot.paramMap.get('id'));
+
     // Constructor myForm
     this.myForm = this.formBuilder.group({
      nombreColeccion: ['', Validators.required]
