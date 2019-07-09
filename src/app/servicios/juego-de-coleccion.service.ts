@@ -24,8 +24,6 @@ export class JuegoDeColeccionService {
 
 
 
-
-
   POST_AlumnoJuegoDeColeccion(alumnoJuegoDeColeccion: AlumnoJuegoDeColeccion) {
     return this.http.post<AlumnoJuegoDeColeccion>(this.APIURLAlumnoJuegoDeColeccion, alumnoJuegoDeColeccion);
   }

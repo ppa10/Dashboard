@@ -3,8 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
 
 // Clases
-import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion, TablaAlumnoJuegoDeColeccion, Prueba
-  } from '../../../clases/index';
+import { Alumno, Equipo, Juego, AlumnoJuegoDeColeccion, EquipoJuegoDeColeccion } from '../../../clases/index';
 
 // Services
 import { JuegoService, EquipoService, AlumnoService, JuegoDeColeccionService, ColeccionService} from '../../../servicios/index';
@@ -37,8 +36,6 @@ export class JuegoDeColeccionSeleccionadoInactivoComponent implements OnInit {
   datasourceAlumno;
   datasourceEquipo;
 
-  pruebaTabla: Prueba[] = [];
-
   displayedColumnsAlumnos: string[] = ['nombreAlumno', 'primerApellido', 'segundoApellido', ' '];
 
   displayedColumnsEquipos: string[] = ['nombreEquipo', 'miembros', ' '];
@@ -48,7 +45,6 @@ export class JuegoDeColeccionSeleccionadoInactivoComponent implements OnInit {
   inscripcionesAlumnos: AlumnoJuegoDeColeccion[];
   inscripcionesEquipos: EquipoJuegoDeColeccion[];
 
-  tablaAlumno: TablaAlumnoJuegoDeColeccion[] = [];
   constructor(private juegoService: JuegoService,
               private alumnoService: AlumnoService,
               private equipoService: EquipoService,
@@ -95,26 +91,8 @@ export class JuegoDeColeccionSeleccionadoInactivoComponent implements OnInit {
     .subscribe(inscripciones => {
       this.inscripcionesAlumnos = inscripciones;
       console.log(this.inscripcionesAlumnos);
-      this.RecuperarNumeroCromos();
     });
   }
-
-  RecuperarNumeroCromos() {
-
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.inscripcionesAlumnos.length; i ++) {
-      this.juegoDeColeccionService.GET_NumeroCromosAlumno(this.inscripcionesAlumnos[i].id)
-      .subscribe(numeroCromos => {
-        this.tablaAlumno[i] = new TablaAlumnoJuegoDeColeccion (this.alumnosDelJuego[i].Nombre, this.alumnosDelJuego[i].PrimerApellido,
-          this.alumnosDelJuego[i].SegundoApellido, numeroCromos.count, this.inscripcionesAlumnos[i].id);
-
-        this.pruebaTabla[i] = new Prueba (this.alumnosDelJuego[i].Nombre, this.alumnosDelJuego[i].PrimerApellido,
-          this.alumnosDelJuego[i].SegundoApellido, numeroCromos.count);
-      });
-      this.datasourceAlumno = new MatTableDataSource(this.alumnosDelJuego);
-    }
-  }
-
 
   // Recupera los equipos que pertenecen al juego
   EquiposDelJuego() {

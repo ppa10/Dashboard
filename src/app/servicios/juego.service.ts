@@ -24,9 +24,6 @@ export class JuegoService {
   puntos: Punto[];
   niveles: Nivel[];
 
-  inscripcionAlumno: AlumnoJuegoDeColeccion;
-  inscripcionEquipo: EquipoJuegoDeColeccion;
-
 
 
   // rankingSeleccionado: number;
