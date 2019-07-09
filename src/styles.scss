@@ -32,7 +32,7 @@
 
   text-align: center;
   background-color:rgb(63, 81, 181);
-  }
+}
 
 .mat-row:hover {
   background-color: rgb(204, 197, 197);
@@ -55,17 +55,40 @@
 .btn:hover {
   color: black !important;
 }
-.elemento{
-  /* color:rgba(0,0,0,.87); */
-  margin: 5px;
-  width: auto;
-  height: auto;
-  background-color:transparent;
-  text-align: center;
-  align-items: center;
 
-  }
-
+.btn.Agregar{
+ background-color: rgb(65, 178, 212);
+}
+.btn.Info{
+  background-color: rgb(240, 173, 78);
+}
+.btn.Back{
+  background-color: rgb(240, 173, 78);
+}
+.btn.Aceptar{
+  background-color: rgb(92, 184, 92);
+}
+.btn.Eliminar{
+  background-color: rgb(212, 57, 52);
+}
+.btn.Editar{
+  background-color: rgb(65, 178, 212);
+}
+.btn.Next{
+  background-color: rgb(51, 122, 183);
+}
+.btn.PasarLista{
+  background-color: rgb(240, 173, 78);
+}
+.btn.Juegos{
+  background-color: rgb(51, 122, 183);
+}
+.btn.Equipos{
+  background-color: rgb(92, 184, 92);
+}
+.btn.Cerrar{
+  background-color: rgb(240, 173, 78);
+}
 .btnCambiarStep{
 display: flex;
 justify-content: flex-end;

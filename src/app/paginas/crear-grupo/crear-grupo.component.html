@@ -24,8 +24,8 @@
                   </div>
 
                   <div class="btnCambiarStep">
-                    <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button style="background-color: rgb(63, 81, 181)" class="btn"  (click)= CrearGrupo() matStepperNext>Siguiente</button>
-                    <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button style="background-color: rgb(63, 81, 181)" class="btn"  (click)= EditarGrupo() matStepperNext>Siguiente</button>
+                    <button [disabled]="isDisabled" *ngIf="grupoYaCreado === false" mat-raised-button class="btn Next"  (click)= CrearGrupo() matStepperNext>Siguiente</button>
+                    <button [disabled]="isDisabled" *ngIf="grupoYaCreado === true" mat-raised-button class="btn Next"  (click)= EditarGrupo() matStepperNext>Siguiente</button>
                   </div>
 
                 </mat-step>
@@ -37,14 +37,14 @@
                   </ng-template>
                   <div>
                   <div>
-                    <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click)= "AbrirDialogoAgregarAlumnos()">Agregar alumno<i class="material-icons">
+                    <button type="button" class="btn Agregar" (click)= "AbrirDialogoAgregarAlumnos()">Agregar alumno<i class="material-icons">
                         person_add </i></button>
 
                   </div>
                   <div class="btnCambiarStep">
-                    <button  mat-raised-button style="background-color: rgb(240, 173, 78)" class="btn"  matStepperPrevious>
+                    <button  mat-raised-button class="btn Back"  matStepperPrevious>
                        Atrás</button>
-                    <button  mat-raised-button style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>
+                    <button  mat-raised-button class="btn Next" matStepperNext>
                        Siguiente
                     </button>
                   </div>
@@ -58,8 +58,8 @@
                     <p> Haga click en "Finalizar" para guardar los cambios.</p>
                   </div>
                   <div class="btnCambiarStep">
-                    <button mat-raised-button style="background-color: rgb(240, 173, 78)"  class="btn"  matStepperPrevious> Atrás</button>
-                    <button mat-raised-button  style="background-color: rgb(92, 184, 92)"   class="btn" (click) = "VueltaInicio();"> Finalizar</button>
+                    <button mat-raised-button class="btn Back"  matStepperPrevious> Atrás</button>
+                    <button mat-raised-button class="btn Aceptar" (click) = "VueltaInicio();"> Finalizar</button>
                   </div>
                 </mat-step>
               </mat-horizontal-stepper>

@@ -25,15 +25,15 @@
           <div>
               <input #file id = "inputColeccion" type="file" accept= 'image/*' (change)="ExaminarImagenColeccion($event)" style="display:none">
               <img class="imagen" *ngIf="imagen" hight = "150" width = "150" mat-card-image [src]="imagen" style="margin: 5px">
-              <button (click) = "ActivarInputColeccion()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
+              <button (click) = "ActivarInputColeccion()" type="button" class="btn Agregar">
                 Agregar Imagen<i class="material-icons">add_photo_alternate</i>
               </button>
           </div>
 
 
           <div class="btnCambiarStep">
-            <button *ngIf="coleccionYaCreada === false" style="background-color: rgb(63, 81, 181)" class="btn"matStepperNext (click)= CrearColeccion()>Siguiente</button>
-            <button *ngIf="coleccionYaCreada === true" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext (click)= EditarColeccion() >Siguiente</button>
+            <button *ngIf="coleccionYaCreada === false" class="btn Next"matStepperNext (click)= CrearColeccion()>Siguiente</button>
+            <button *ngIf="coleccionYaCreada === true"  class="btn Next" matStepperNext (click)= EditarColeccion() >Siguiente</button>
           </div>
         </form>
         </mat-step>
@@ -79,14 +79,14 @@
           <div>
               <input #file id = "inputCromo" type="file" accept= 'imagen/*' (change)="ExaminarImagenCromo($event)" style="display:none">
               <img class="imagen" *ngIf="imagenCromo" hight = "150" width = "150" mat-card-image [src]="imagenCromo">
-              <button (click) = "ActivarInputCromo()" type="button" style="background-color: rgb(65, 178, 212)" class="btn">
+              <button (click) = "ActivarInputCromo()" type="button" class="btn Agregar">
                Agregar Imagen <i class="material-icons">add_photo_alternate</i>
               </button>
           </div>
 
           <mat-card-actions align="end">
-            <button  (click) = "LimpiarCampos()" type="button" style="background-color: rgb(240, 173, 78)" class="btn">Limpiar Campos</button>
-            <button  (click) = "AgregarCromoColeccion()"  style="background-color: rgb(92, 184, 92)" class="btn">Agregar Cromo</button>
+            <button  (click) = "LimpiarCampos()" type="button" class="btn Back">Limpiar Campos</button>
+            <button  (click) = "AgregarCromoColeccion()"  class="btn Aceptar">Agregar Cromo</button>
           </mat-card-actions>
 
               </mat-card>
@@ -135,8 +135,8 @@
             </div>
 
           <div class="btnCambiarStep" style="margin-top:10px;">
-              <button type="button" style="background-color: rgb(240, 173, 78)" class="btn"   matStepperPrevious>Atrás</button>
-              <button type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext (click) = "pr()">Siguiente</button>
+              <button type="button" class="btn Back"   matStepperPrevious>Atrás</button>
+              <button type="button" class="btn Next" matStepperNext (click) = "pr()">Siguiente</button>
           </div>
 
         </mat-step>
@@ -150,8 +150,8 @@
          </div>
 
           <div class="btnCambiarStep">
-            <button  type="button" style="background-color: rgb(240, 173, 78)" class="btn"  matStepperPrevious>Atrás</button>
-            <button  type="button" style="background-color: rgb(92, 184, 92)" class="btn" (click) = "Finalizar()">Finalizar</button>
+            <button  type="button" class="btn Back"  matStepperPrevious>Atrás</button>
+            <button  type="button" class="btn Aceptar" (click) = "Finalizar()">Finalizar</button>
           </div>
         </mat-step>
 
