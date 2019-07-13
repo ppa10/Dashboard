@@ -348,6 +348,7 @@ export class CrearColeccionComponent implements OnInit {
       this.opcionSeleccionadaProbabilidad = null;
       this.opcionSeleccionadaNivel = null;
   }
+
   // Esta función se utiliza para controlar si el botón de siguiente del stepper esta desativado.
   // Si en alguno de los inputs no hay nada, esta disabled. Sino, podremos clicar.
   Disabled() {
