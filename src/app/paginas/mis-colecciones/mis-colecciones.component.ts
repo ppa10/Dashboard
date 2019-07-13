@@ -56,6 +56,7 @@ export class MisColeccionesComponent implements OnInit {
 
   }
 
+  // Obtenemos todas las colecciones del profesor
   ColeccionesDelProfesor() {
 
     this.coleccionService.GET_ColeccionesDelProfesor(this.profesorId)
@@ -120,23 +121,7 @@ export class MisColeccionesComponent implements OnInit {
   });
   }
 
-  // Utilizamos esta función para eliminar un punto de la base de datos y actualiza la lista de puntos
-  BorrarColeccion(coleccion: Coleccion) {
-    this.coleccionService.DELETE_Coleccion(coleccion.id, coleccion.profesorId)
-    .subscribe(() => {
-      this.ColeccionesEliminadas(coleccion);
-      console.log('Coleccion borrada correctamente');
-      console.log(this.coleccionesProfesor);
-    });
-  }
-
-  // Borramos el punto de la lista de puntos agregados
-  ColeccionesEliminadas(coleccion: Coleccion) {
-    this.coleccionesProfesor = this.coleccionesProfesor.filter(res => res.id !== coleccion.id);
-    return this.coleccionesProfesor;
-  }
-
- // Una vez seleccionado una coleccion, lo podemos editar o eliminar. Esta función se activará si clicamos en editar.
+  // Una vez seleccionado una coleccion, lo podemos editar o eliminar. Esta función se activará si clicamos en editar.
   // Envía la coleccion específico al componente editar-coleccion
   EnviarColeccionEditar(coleccion: Coleccion, cromosColeccion: Cromo[]) {
     console.log('voy a enviar');
@@ -150,6 +135,23 @@ export class MisColeccionesComponent implements OnInit {
     }
 
   }
+
+  // Utilizamos esta función para eliminar una colección de la base de datos y actualiza la lista de colecciones
+  BorrarColeccion(coleccion: Coleccion) {
+    this.coleccionService.DELETE_Coleccion(coleccion.id, coleccion.profesorId)
+    .subscribe(() => {
+      this.ColeccionesEliminadas(coleccion);
+      console.log('Coleccion borrada correctamente');
+      console.log(this.coleccionesProfesor);
+    });
+  }
+
+  // Borramos la colección de la lista de colecciones del profesor
+  ColeccionesEliminadas(coleccion: Coleccion) {
+    this.coleccionesProfesor = this.coleccionesProfesor.filter(res => res.id !== coleccion.id);
+    return this.coleccionesProfesor;
+  }
+
 
   // Si queremos borrar un equipo, antes nos saldrá un aviso para confirmar la acción como medida de seguridad. Esto se
   // hará mediante un diálogo al cual pasaremos el mensaje y el nombre del equipo

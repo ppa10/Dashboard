@@ -1,12 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Http } from '@angular/http';
 
 // Imports para abrir diálogo confirmar eliminar equipo
 import { MatDialog, MatSnackBar, MatTabGroup } from '@angular/material';
-
 
 // Servicios
 import { ColeccionService, ProfesorService } from '../../servicios/index';
@@ -65,9 +62,7 @@ export class CrearColeccionComponent implements OnInit {
 
 
 
-
-
-    // Opciones para mostrar en la lista desplegable para seleccionar el tipo de juego que listar
+    // Opciones para mostrar en la lista desplegable para seleccionar el tipo de probabilidad que listar
     opcionesProbabilidad: OpcionSeleccionada[] = [
       {nombre: 'Muy Baja', id: 'Muy Baja'},
       {nombre: 'Baja', id: 'Baja'},
@@ -79,7 +74,7 @@ export class CrearColeccionComponent implements OnInit {
 
     opcionSeleccionadaProbabilidad: string;
 
-      // Opciones para mostrar en la lista desplegable para seleccionar el tipo de juego que listar
+      // Opciones para mostrar en la lista desplegable para seleccionar el tipo de nivel que listar
     opcionesNivel: OpcionSeleccionada[] = [
         {nombre: 'Diamante', id: 'Diamante'},
         {nombre: 'Platino', id: 'Platino'},
@@ -97,19 +92,17 @@ export class CrearColeccionComponent implements OnInit {
 
   constructor(
     private coleccionService: ColeccionService,
-    private profesorService: ProfesorService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    private location: Location,
-    private formBuilder: FormBuilder,
-    private http: Http) { }
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
 
     // REALMENTE LA APP FUNCIONARÁ COGIENDO AL PROFESOR DEL SERVICIO, NO OBSTANTE AHORA LO RECOGEMOS DE LA URL
     // this.profesorId = this.profesorService.RecibirProfesorIdDelServicio();
     this.profesorId = Number (this.route.snapshot.paramMap.get('id'));
+
 
     // Constructor myForm
     this.myForm = this.formBuilder.group({
@@ -123,7 +116,7 @@ export class CrearColeccionComponent implements OnInit {
   pr() {
     console.log('hoo');
   }
-
+  // Creamos una coleccion dandole un nombre y una imagen
   CrearColeccion() {
 
     let nombreColeccion: string;
@@ -157,6 +150,38 @@ export class CrearColeccionComponent implements OnInit {
     });
   }
 
+  // Si estamos creando la coleccion y pasamos al siguiente paso, pero volvemos hacia atrás para modificar el nombre y/o el
+  // imagen, entonces no deberemos hacer un POST al darle a siguiente, sino un PUT. Por eso se hace esta función, que funciona
+  // de igual manera que la de Crear Equipo pero haciendo un PUT.
+  EditarColeccion() {
+
+    console.log('Entro a editar');
+    let nombreColeccion: string;
+
+    nombreColeccion = this.myForm.value.nombreColeccion;
+
+    this.coleccionService.PUT_Coleccion(new Coleccion(nombreColeccion, this.nombreImagen), this.profesorId, this.coleccionCreada.id)
+    .subscribe((res) => {
+      if (res != null) {
+        console.log('Voy a editar la coleccion con id ' + this.coleccionCreada.id);
+        this.coleccionCreada = res;
+
+        // Hago el POST de la imagen SOLO si hay algo cargado
+        if (this.imagenCargado === true) {
+          // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
+          const formData: FormData = new FormData();
+          formData.append(this.nombreImagen, this.file);
+          this.coleccionService.POST_ImagenColeccion(formData)
+          .subscribe(() => console.log('Imagen cargada'));
+        }
+
+      } else {
+        console.log('fallo editando');
+      }
+    });
+  }
+
+  // Creamos una cromo y lo añadimos a la coleccion dandole un nombre, una probabilidad, un nivel y una imagen
   AgregarCromoColeccion() {
 
     console.log('Entro a asignar el cromo ' + this.nombreCromo);
@@ -185,7 +210,7 @@ export class CrearColeccionComponent implements OnInit {
       }
     });
   }
-
+  // Lista de los cromos añadidos a la coleccion
   CromosAgregados(cromo: Cromo) {
     this.cromosAgregados.push(cromo);
     this.cromosAgregados = this.cromosAgregados.filter(res => res.Nombre !== '');
@@ -202,7 +227,7 @@ export class CrearColeccionComponent implements OnInit {
 
     });
   }
-
+  // Elimina el cromo de la lista de añadidos a la coleccion
   CromosEliminados(cromo: Cromo) {
     this.cromosAgregados = this.cromosAgregados.filter(res => res.id !== cromo.id);
     return this.cromosAgregados;
@@ -254,37 +279,7 @@ export class CrearColeccionComponent implements OnInit {
     };
   }
 
-  // Si estamos creando el equipo y pasamos al siguiente paso, pero volvemos hacia atrás para modificar el nombre y/o el
-  // imagen, entonces no deberemos hacer un POST al darle a siguiente, sino un PUT. Por eso se hace esta función, que funciona
-  // de igual manera que la de Crear Equipo pero haciendo un PUT.
-  EditarColeccion() {
-
-    console.log('Entro a editar');
-    let nombreColeccion: string;
-
-    nombreColeccion = this.myForm.value.nombreColeccion;
-
-    this.coleccionService.PUT_Coleccion(new Coleccion(nombreColeccion, this.nombreImagen), this.profesorId, this.coleccionCreada.id)
-    .subscribe((res) => {
-      if (res != null) {
-        console.log('Voy a editar la coleccion con id ' + this.coleccionCreada.id);
-        this.coleccionCreada = res;
-
-        // Hago el POST de la imagen SOLO si hay algo cargado
-        if (this.imagenCargado === true) {
-          // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
-          const formData: FormData = new FormData();
-          formData.append(this.nombreImagen, this.file);
-          this.coleccionService.POST_ImagenColeccion(formData)
-          .subscribe(() => console.log('Imagen cargada'));
-        }
-
-      } else {
-        console.log('fallo editando');
-      }
-    });
-  }
-
+  // Una vez seleccionada la probabilidad se asigna a la varible del cromo
   OpcionProbabilidadSeleccionada() {
     // Opcion selecionada para probabilidad
     if (this.opcionSeleccionadaProbabilidad === 'Muy Baja') {
@@ -341,6 +336,7 @@ export class CrearColeccionComponent implements OnInit {
     }
   }
 
+  // Limpiamos los campos del cromo
   LimpiarCampos() {
       this.nombreCromo = undefined;
       this.probabilidadCromo = undefined;
@@ -352,7 +348,8 @@ export class CrearColeccionComponent implements OnInit {
       this.opcionSeleccionadaProbabilidad = null;
       this.opcionSeleccionadaNivel = null;
   }
-
+  // Esta función se utiliza para controlar si el botón de siguiente del stepper esta desativado.
+  // Si en alguno de los inputs no hay nada, esta disabled. Sino, podremos clicar.
   Disabled() {
 
   if (this.nombreCromo === undefined || this.probabilidadCromo === undefined || this.nivelCromo === undefined ||

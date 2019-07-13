@@ -5,7 +5,7 @@
 
 Al iniciar el crear-grupo recuperaremos el profesorId de la URL, el cual será un string. Para convertir un string en number utilizamos el método Number, por defecto en Visual Code. 
 
-También iniciamos la URLVueltaInicio, la cual nos enviará a la pantalla de inicio una vez acabado de crear el equipo.
+También iniciamos la URLVueltaInicio, la cual nos enviará a la pantalla de inicio una vez acabado de crear el grupo.
 
 Los formGruop los usamos para el stepper del html. Tendremos un stepper con tres pasos. Solo recogeremos información del primero, así que crearemos un formGroup (myForm) el cual tendrá dos inputs (nombre y descripción). El segundo paso tendrá un botón que abrirá un diálogo.  
 

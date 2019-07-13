@@ -17,20 +17,20 @@
                         <img class ="logo" *ngIf="imagenColeccion" mat-card-image [src]="imagenColeccion" >
                     </div>
                     <div style="margin-right: 20%">
-                    <span style="font-weight: bold; margin-left: 16px; font-size: 130%;">Número De Cromos</span>
+                    <span style="font-weight: bold; margin-left: 16px; font-size: 130%;">Número de cromos</span>
 
                     <div>
-                      <span style="margin-left: 12%;"> {{numeroDeCromos}} </span>
+                      <span style="margin-left: 12%; font-size: 110%;"> {{numeroDeCromos}} </span>
                     </div>
 
                     </div>
                     <div class="contenedor3" style="margin-right: 2% ">
                       <div class="elemento">
-                        <button type="button" class="btn Editar" routerLink= "editarColeccion" (click) = "EnviarColeccionEditar(coleccion, cromosColeccion)">Editar Colección <i class="material-icons">
+                        <button type="button" class="btn Editar" style="width: 180px; "routerLink= "editarColeccion" (click) = "EnviarColeccionEditar(coleccion, cromosColeccion)">Editar Colección <i class="material-icons">
                           edit </i>  </button>
                       </div>
                       <div class="elemento">
-                        <button type="button" class="btn Eliminar" (click) = "AbrirDialogoConfirmacionBorrarColeccion(coleccion)">Eliminar Colección <i class="material-icons">
+                        <button type="button" class="btn Eliminar" style="width: 180px; " (click) = "AbrirDialogoConfirmacionBorrarColeccion(coleccion)">Eliminar Colección <i class="material-icons">
                           delete
                           </i></button>
                       </div>
