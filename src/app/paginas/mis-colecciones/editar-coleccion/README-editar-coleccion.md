@@ -1,4 +1,4 @@
-# OBJETIVO: editar la información del coleccion o sus cromos de manera sencilla
+# OBJETIVO: editar la información de la colección o sus cromos de manera sencilla
 
 
 <!-- editar-coleccion.component.ts -->

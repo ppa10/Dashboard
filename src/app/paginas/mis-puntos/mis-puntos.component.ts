@@ -194,10 +194,10 @@ export class MisPuntosComponent implements OnInit {
 
     console.log('entro a buscar insignia y foto');
     console.log(insigna.Imagen);
-    // Si el equipo tiene una foto (recordemos que la foto no es obligatoria)
+    // Si la insignia tiene una foto (recordemos que la foto no es obligatoria)
     if (insigna.Imagen !== undefined) {
 
-      // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
+      // Busca en la base de datos la imágen con el nombre registrado en insingnia.Imagen y la recupera
       this.http.get('http://localhost:3000/api/imagenes/ImagenInsignia/download/' + insigna.Imagen,
       { responseType: ResponseContentType.Blob })
       .subscribe(response => {
@@ -213,7 +213,7 @@ export class MisPuntosComponent implements OnInit {
         }
       });
 
-      // Sino la imagenInsignia será undefined para que no nos pinte la foto de otro equipo préviamente seleccionado
+      // Sino la imagenInsignia será undefined para que no nos pinte la foto de otra insignia préviamente seleccionado
     } else {
       this.imagenInsignia = undefined;
     }

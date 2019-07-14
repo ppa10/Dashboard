@@ -144,8 +144,4 @@ export class AsignacionColeccionJuegoComponent implements OnInit {
     });
   }
 
-  prueba() {
-    console.log(this.juego);
-  }
-
  }

@@ -1,4 +1,4 @@
-# OBJETIVO: mostrar las coleccions de una manera ordenada y eficaz. Mostraremos la lista de las colecciones y la opción de editarlas o borrarlas.
+# OBJETIVO: mostrar las colecciones de una manera ordenada y eficaz. Mostraremos la lista de las colecciones y la opción de editarlas o borrarlas.
 
 
 <!-- mis-colecciones.component.ts -->
