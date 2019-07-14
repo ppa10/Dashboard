@@ -80,11 +80,35 @@ export class EditarCromoComponent implements OnInit {
     this.GET_Imagen();
   }
 
-      // Busca el logo que tiene el nombre del equipo.FotoEquipo y lo carga en imagenLogo
+      EditarCromo() {
+        console.log('Entro a editar');
+        console.log(this.probabilidadCromo);
+        // tslint:disable-next-line:max-line-length
+        this.coleccionService.PUT_CromoColeccion(new Cromo(this.nombreCromo, this.nombreImagenCromo, this.probabilidadCromo, this.nivelCromo), this.cromo.coleccionId, this.cromo.id)
+        .subscribe((res) => {
+          if (res != null) {
+            console.log('Voy a editar el cromo con id ' + this.cromo.id);
+            this.cromo = res;
+
+            if (this.imagenCambiada === true) {
+              // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
+              const formData: FormData = new FormData();
+              formData.append(this.nombreImagenCromo, this.file);
+              this.coleccionService.POST_ImagenCromo(formData)
+              .subscribe(() => console.log('Imagen cargado'));
+            }
+          } else {
+            console.log('fallo editando');
+          }
+        });
+        this.goBack();
+      }
+
+      // Busca el logo que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
       GET_Imagen() {
 
         if (this.cromo.Imagen !== undefined ) {
-          // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
+          // Busca en la base de datos la imágen con el nombre registrado en cromo.Imagen y la recupera
           this.http.get('http://localhost:3000/api/imagenes/ImagenCromo/download/' + this.cromo.Imagen,
           { responseType: ResponseContentType.Blob })
           .subscribe(response => {
@@ -124,29 +148,6 @@ export class EditarCromoComponent implements OnInit {
         };
       }
 
-    EditarCromo() {
-        console.log('Entro a editar');
-        console.log(this.probabilidadCromo);
-        // tslint:disable-next-line:max-line-length
-        this.coleccionService.PUT_CromoColeccion(new Cromo(this.nombreCromo, this.nombreImagenCromo, this.probabilidadCromo, this.nivelCromo), this.cromo.coleccionId, this.cromo.id)
-        .subscribe((res) => {
-          if (res != null) {
-            console.log('Voy a editar el cromo con id ' + this.cromo.id);
-            this.cromo = res;
-
-            if (this.imagenCambiada === true) {
-              // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
-              const formData: FormData = new FormData();
-              formData.append(this.nombreImagenCromo, this.file);
-              this.coleccionService.POST_ImagenCromo(formData)
-              .subscribe(() => console.log('Imagen cargado'));
-            }
-          } else {
-            console.log('fallo editando');
-          }
-        });
-        this.goBack();
-      }
 
       OpcionProbabilidadSeleccionada() {
         // Opcion selecionada para probabilidad
