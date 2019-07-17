@@ -47,7 +47,7 @@ export class AlumnoSeleccionadoJuegoDeColeccionComponent implements OnInit {
 
   }
 
-  // Busca el logo que tiene el nombre del equipo.FotoEquipo y lo carga en imagenLogo
+  // Busca el logo que tiene el nombre del alumno.ImagenPerfil y lo carga en imagenPerfil
   GET_ImagenPerfil() {
 
     if (this.alumno.ImagenPerfil !== undefined ) {

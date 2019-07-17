@@ -313,7 +313,7 @@ export class AsignarCromosComponent implements OnInit {
     });
   }
 
-      // Recupera las inscripciones de los alumnos en el juego y los puntos que tienen y los ordena de mayor a menor valor
+      // Recupera las inscripciones de los equipos en el juego y los puntos que tienen y los ordena de mayor a menor valor
   RecuperarInscripcionesEquiposJuego() {
 
     this.juegoDeColeccionService.GET_InscripcionesEquipoJuegoDeColeccion(this.juegoSeleccionado.id)

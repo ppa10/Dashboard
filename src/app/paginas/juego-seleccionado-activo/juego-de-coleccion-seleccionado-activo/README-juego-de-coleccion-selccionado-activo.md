@@ -22,8 +22,6 @@ Recupera los equipos del juego y los guarda en el array equiposDelGrupo.
 
 Recupera las inscripciones de los equipos en el juego y los puntos que tienen y los ordena de mayor a menor valor.
 
-
-
 # AlumnosDelEquipo()
 
 Esta función ha sido explicada en componente de equipos en el README-equipos.md.
