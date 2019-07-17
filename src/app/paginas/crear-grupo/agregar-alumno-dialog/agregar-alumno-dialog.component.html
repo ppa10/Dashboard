@@ -11,7 +11,7 @@
 
 
         <form (ngSubmit)="BuscarAlumnoBaseDeDatos();" [formGroup]="myForm">
-          <p>Introduce todos los campos</p>
+          <p style="font-weight: bold;">Introduce todos los campos</p>
 
             <div class="centrado2">
             <mat-form-field>
@@ -40,7 +40,7 @@
 
 
             <div class="centrado2">
-              <button class="btn Añadir" >Añadir alumno <i class="material-icons">
+              <button class="btn Agregar" >Añadir alumno <i class="material-icons">
                   person_add </i></button>
             </div>
         </form>
@@ -109,14 +109,14 @@
         <form (ngSubmit)="BuscarAlumnoBaseDeDatosTexto();" [formGroup]="myForm2">
             <div>
                 <p>
-                  <span  style="font-weight: bold;">Nombre Apellido Apellido; Nombre Apellido Apellido </span>
+                  <span style="font-weight: bold;"> Introduce los datos de forma correcta</span>
                   <mat-form-field style="width: 100%; border: none; ">
-                    <textarea matInput placeholder="Nombre Apellido Apellido; Nombre Apellido Apellido " formControlName="textoAlumnos"></textarea>
+                    <textarea matInput placeholder="Ejemplo: Pedro García Aguado; Andrés Iniesta Luján" formControlName="textoAlumnos"></textarea>
                   </mat-form-field>
                 </p>
               </div>
               <div class="centrado2">
-                  <button  class="btn Añadir" >Añadir alumnos <i class="material-icons">
+                  <button  class="btn Agregar">Añadir alumnos <i class="material-icons">
                       person_add </i></button>
                 </div>
           </form>

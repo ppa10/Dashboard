@@ -2,29 +2,11 @@
   overflow: auto;
 }
 
-.titulo{
-  width: 70%;
-  margin-left: 15%;
-  height: 60px;
-  padding: 10px;
-  color: rgb(63, 81, 181);
-
-}
-
-.h2, h2 {
-  font-size: 2.5rem !important;
-}
 table {
   width: 60%;
   text-align: center;
 }
 
-.letraCabecera{
-  color:white;
-  text-align: center;
-  font-weight: bold;
-  font-size: 90%;
-}
 
 .filter {
   width: 60%;
@@ -32,15 +14,8 @@ table {
   margin-left: 20%;
 }
 
-.mat-header-row{
-
-  text-align: center;
-  background-color:rgb(63, 81, 181);
-}
-
 .mat-row:hover {
-  background-color: rgb(204, 197, 197);
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .contenedor{

@@ -1,4 +1,4 @@
-# OBJETIVO: el objetivo es crear accesos direcots a los componentes principales de la app desde cualquier componente.
+# OBJETIVO: el objetivo es crear accesos directos a los componentes principales de la app desde cualquier componente.
 
 <!-- navbar.component.ts -->
 

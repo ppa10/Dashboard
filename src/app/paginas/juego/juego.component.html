@@ -94,7 +94,7 @@
               </div>
 
               <div class="btnCambiarStep">
-                <button [disabled]="isDisabled" type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
+                <button [disabled]="isDisabled" type="button" class="btn Next" matStepperNext>Siguiente</button>
               </div>
 
           </mat-step>
@@ -118,8 +118,8 @@
               </div>
 
               <div class="btnCambiarStep">
-                <button type="button" style="background-color: rgb(240, 173, 78)" class="btn" matStepperPrevious>Atrás</button>
-                <button type="button" style="background-color: rgb(63, 81, 181)" class="btn"  [disabled]="isDisabledModo" matStepperNext (click) = "CrearJuegoCorrespondiente()">Siguiente</button>
+                <button type="button" class="btn Back" matStepperPrevious>Atrás</button>
+                <button type="button" class="btn Next"  [disabled]="isDisabledModo" matStepperNext (click) = "CrearJuegoCorrespondiente()">Siguiente</button>
               </div>
           </mat-step>
 
@@ -148,8 +148,8 @@
                   <app-crear-nivel ></app-crear-nivel>
 
                   <div class="btnCambiarStep">
-                      <button *ngIf="juego.Modo === 'Individual'" (click)="InscribirAlumnosJuego()" type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
-                      <button *ngIf="juego.Modo === 'Equipos'" (click)="InscribirEquiposJuego()" type="button" style="background-color: rgb(63, 81, 181)" class="btn"  matStepperNext>Siguiente</button>
+                      <button *ngIf="juego.Modo === 'Individual'" (click)="InscribirAlumnosJuego()" type="button" class="btn Next" matStepperNext>Siguiente</button>
+                      <button *ngIf="juego.Modo === 'Equipos'" (click)="InscribirEquiposJuego()" type="button" class="btn Next"  matStepperNext>Siguiente</button>
                   </div>
 
             </mat-step>
@@ -197,8 +197,8 @@
                 </div>
 
                 <div class="btnCambiarStep">
-                  <button type="button" style="background-color: rgb(240, 173, 78)" class="btn" matStepperPrevious>Atrás</button>
-                  <button type="button" style="background-color: rgb(63, 81, 181)" class="btn" matStepperNext>Siguiente</button>
+                  <button type="button" class="btn Back" matStepperPrevious>Atrás</button>
+                  <button type="button" class="btn Next" matStepperNext>Siguiente</button>
                 </div>
               </mat-step>
           </div>
@@ -208,7 +208,7 @@
             <ng-template matStepLabel>Finalizar</ng-template>
               Juego creado correctamente
               <div class="btnCambiarStep">
-                <button type="button" style="background-color: rgb(92, 184, 92)" class="btn" (click) = "Finalizar();">Finalizar</button>
+                <button type="button" class="btn Aceptar" (click) = "Finalizar();">Finalizar</button>
               </div>
           </mat-step>
 

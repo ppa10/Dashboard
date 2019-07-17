@@ -7,6 +7,5 @@ Principalmente contendrá:
 #  2. Pie de página (FOOTER)
 
 #  3. Diálogo de confirmación cuando queramos borrar algo (dialogo-confirmacion.componente)
-      Este componente
 
 #  4. Configuración del profesor

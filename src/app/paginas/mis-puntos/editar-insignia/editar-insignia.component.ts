@@ -42,6 +42,31 @@ export class EditarInsigniaComponent implements OnInit {
     this.GET_Imagen();
   }
 
+  EditarInsignia() {
+    console.log('Entro a editar');
+
+    // tslint:disable-next-line:max-line-length
+    this.PuntosInsigniasService.PUT_Insignia(new Insignia(this.nombreInsignia, this.descripcionInsignia, this.nombreImagen), this.insignia.profesorId, this.insignia.id)
+    .subscribe((res) => {
+      if (res != null) {
+        console.log('Voy a editar la insignia con id ' + this.insignia.id);
+        this.insignia = res;
+
+        if (this.imagenCambiada === true) {
+          // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
+          const formData: FormData = new FormData();
+          formData.append(this.nombreImagen, this.file);
+          this.PuntosInsigniasService.POST_ImagenInsignia(formData)
+          .subscribe(() => console.log('Logo cargado'));
+        }
+
+      } else {
+        console.log('fallo editando');
+      }
+    });
+    this.goBack();
+  }
+
   // Busca el logo que tiene el nombre del equipo.FotoEquipo y lo carga en imagenLogo
   GET_Imagen() {
 
@@ -85,31 +110,6 @@ export class EditarInsigniaComponent implements OnInit {
       this.imagenCambiada = true;
       this.imagenInsignia = reader.result.toString();
     };
-  }
-
-  EditarInsignia() {
-    console.log('Entro a editar');
-
-    // tslint:disable-next-line:max-line-length
-    this.PuntosInsigniasService.PUT_Insignia(new Insignia(this.nombreInsignia, this.descripcionInsignia, this.nombreImagen), this.insignia.profesorId, this.insignia.id)
-    .subscribe((res) => {
-      if (res != null) {
-        console.log('Voy a editar la insignia con id ' + this.insignia.id);
-        this.insignia = res;
-
-        if (this.imagenCambiada === true) {
-          // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
-          const formData: FormData = new FormData();
-          formData.append(this.nombreImagen, this.file);
-          this.PuntosInsigniasService.POST_ImagenInsignia(formData)
-          .subscribe(() => console.log('Logo cargado'));
-        }
-
-      } else {
-        console.log('fallo editando');
-      }
-    });
-    this.goBack();
   }
 
   goBack() {

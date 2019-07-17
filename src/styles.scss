@@ -56,6 +56,7 @@
   color: black !important;
 }
 
+    // Colores de los botones
 .btn.Agregar{
  background-color: rgb(65, 178, 212);
 }
@@ -89,6 +90,10 @@
 .btn.Cerrar{
   background-color: rgb(240, 173, 78);
 }
+.btn.IncioSesion{
+  background-color: rgb(51, 122, 183);
+}
+
 .btnCambiarStep{
 display: flex;
 justify-content: flex-end;
@@ -111,50 +116,66 @@ justify-content: flex-end;
 
 .Diamante {
   background-color: rgb(62, 177, 163);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  box-shadow: 0px 3px 6px 0px rgb(50, 150, 138)
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  box-shadow: 0px 3px 6px 0px rgb(50, 150, 138) !important;
 }
 
 .Platino {
   background-color: rgb(222, 60, 151);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  box-shadow: 0px 3px 6px 0px rgb(187, 50, 128);
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  box-shadow: 0px 3px 6px 0px rgb(187, 50, 128) !important;
 }
 
 .Oro {
   background-color: rgb(222, 193, 89);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  box-shadow: 0px 3px 6px 0px rgb(206, 179, 81);
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  box-shadow: 0px 3px 6px 0px rgb(206, 179, 81) !important;
 }
 
 .Plata {
   background-color: rgb(143, 157, 160);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  box-shadow: 0px 3px 6px 0px rgb(126, 138, 141);
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  box-shadow: 0px 3px 6px 0px rgb(126, 138, 141) !important;
 }
 
 .Bronce {
   background-color: rgb(180, 135, 75);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  box-shadow: 0px 3px 6px 0px rgb(133, 103, 64);
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  box-shadow: 0px 3px 6px 0px rgb(133, 103, 64) !important;
 }
 
-// Tabs
+// Tabs que ocupen el 50% del espacio total cada uno
 .mat-tab-label {
   width: 50%;
+}
+
+// Inicio sesion
+.cartaInicioSesion {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  max-width: 300px;
+  max-height: 325px;
+  width: 300px;
+  height: 325px;
+  background-color: rgb(190, 206, 204);
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  box-shadow: 0px 3px 6px 0px rgb(154, 167, 165) !important;
 }

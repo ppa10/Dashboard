@@ -75,6 +75,7 @@ export class AgregarCromoDialogComponent implements OnInit {
     this.coleccionId = this.data.coleccionId;
   }
 
+  // Creamos una cromo y lo añadimos a la coleccion dandole un nombre, una probabilidad, un nivel y una imagen
   AgregarCromoColeccion() {
 
     console.log('Entro a asignar el cromo ' + this.nombreCromo);
@@ -103,6 +104,7 @@ export class AgregarCromoDialogComponent implements OnInit {
       }
     });
   }
+  // Lista de los cromos añadidos a la coleccion
   CromosAgregados(cromo: Cromo) {
     this.cromosAgregados.push(cromo);
     this.cromosAgregados = this.cromosAgregados.filter(res => res.Nombre !== '');
@@ -120,6 +122,7 @@ export class AgregarCromoDialogComponent implements OnInit {
     });
   }
 
+  // Elimina el cromo de la lista de añadidos a la coleccion
   CromosEliminados(cromo: Cromo) {
     this.cromosAgregados = this.cromosAgregados.filter(res => res.id !== cromo.id);
     return this.cromosAgregados;
@@ -131,7 +134,8 @@ export class AgregarCromoDialogComponent implements OnInit {
     document.getElementById('inputCromo').click();
   }
 
-
+  // Buscaremos la imagen en nuestro ordenador y después se mostrará en el form con la variable "imagen" y guarda el
+  // nombre de la foto en la variable nombreImagen
   ExaminarImagenCromo($event) {
     this.fileCromo = $event.target.files[0];
 
@@ -147,6 +151,7 @@ export class AgregarCromoDialogComponent implements OnInit {
     };
   }
 
+  // Una vez seleccionada la probabilidad se asigna a la varible del cromo
   OpcionProbabilidadSeleccionada() {
     // Opcion selecionada para probabilidad
     if (this.opcionSeleccionadaProbabilidad === 'Muy Baja') {
@@ -203,6 +208,7 @@ export class AgregarCromoDialogComponent implements OnInit {
     }
   }
 
+  // Limpiamos los campos del cromo
   LimpiarCampos() {
       this.nombreCromo = undefined;
       this.probabilidadCromo = undefined;
@@ -215,6 +221,8 @@ export class AgregarCromoDialogComponent implements OnInit {
       this.opcionSeleccionadaNivel = null;
   }
 
+  // Esta función se utiliza para controlar si el botón de siguiente del stepper esta desativado.
+  // Si en alguno de los inputs no hay nada, esta disabled. Sino, podremos clicar.
   Disabled() {
 
   if (this.nombreCromo === undefined || this.probabilidadCromo === undefined || this.nivelCromo === undefined ||

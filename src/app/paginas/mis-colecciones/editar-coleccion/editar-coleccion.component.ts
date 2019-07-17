@@ -55,6 +55,32 @@ export class EditarColeccionComponent implements OnInit {
     this.GET_Imagen();
   }
 
+  // Se hace un PUT de la coleccion seleccionada para editar
+  EditarColeccion() {
+    console.log('Entro a editar');
+
+    // tslint:disable-next-line:max-line-length
+    this.coleccionService.PUT_Coleccion(new Coleccion(this.nombreColeccion, this.nombreImagenColeccion), this.coleccion.profesorId, this.coleccion.id)
+    .subscribe((res) => {
+      if (res != null) {
+        console.log('Voy a editar la coleccion con id ' + this.coleccion.id);
+        this.coleccion = res;
+
+        if (this.imagenCambiada === true) {
+          // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
+          const formData: FormData = new FormData();
+          formData.append(this.nombreImagenColeccion, this.file);
+          this.coleccionService.POST_ImagenColeccion(formData)
+          .subscribe(() => console.log('Imagen cargada'));
+        }
+
+      } else {
+        console.log('fallo editando');
+      }
+    });
+    this.goBack();
+  }
+
 
     // Busca la imagen que tiene el nombre del coleccion.ImagenColeccion y lo carga en imagenColeccion
     GET_Imagen() {
@@ -112,11 +138,6 @@ export class EditarColeccionComponent implements OnInit {
     this.cromosColeccion.sort((a, b) => a.Nombre.localeCompare(b.Nombre));
   }
 
-  prueba() {
-    console.log(this.imagenCromoArray);
-  }
-
-
       // AL CLICAR EN AGREGAR LOGO NOS ACTIVARÁ LA FUNCIÓN MOSTRAR DE ABAJO
   ActivarInput() {
     console.log('Activar input');
@@ -168,32 +189,7 @@ export class EditarColeccionComponent implements OnInit {
 
   }
 
-  EditarColeccion() {
-    console.log('Entro a editar');
-
-    // tslint:disable-next-line:max-line-length
-    this.coleccionService.PUT_Coleccion(new Coleccion(this.nombreColeccion, this.nombreImagenColeccion), this.coleccion.profesorId, this.coleccion.id)
-    .subscribe((res) => {
-      if (res != null) {
-        console.log('Voy a editar la coleccion con id ' + this.coleccion.id);
-        this.coleccion = res;
-
-        if (this.imagenCambiada === true) {
-          // HACEMOS EL POST DE LA NUEVA IMAGEN EN LA BASE DE DATOS
-          const formData: FormData = new FormData();
-          formData.append(this.nombreImagenColeccion, this.file);
-          this.coleccionService.POST_ImagenColeccion(formData)
-          .subscribe(() => console.log('Imagen cargada'));
-        }
-
-      } else {
-        console.log('fallo editando');
-      }
-    });
-    this.goBack();
-  }
-
-  // Si queremos borrar un equipo, antes nos saldrá un aviso para confirmar la acción como medida de seguridad. Esto se
+  // Si queremos borrar un cromo, antes nos saldrá un aviso para confirmar la acción como medida de seguridad. Esto se
   // hará mediante un diálogo al cual pasaremos el mensaje y el nombre del equipo
   AbrirDialogoConfirmacionBorrarCromo(cromo: Cromo): void {
 
@@ -218,7 +214,7 @@ export class EditarColeccionComponent implements OnInit {
     });
   }
 
-  // Utilizamos esta función para eliminar un punto de la base de datos y actualiza la lista de puntos
+  // Utilizamos esta función para eliminar un cromo de la base de datos y actualiza la lista de cromos
   BorrarCromo(cromo: Cromo) {
     this.coleccionService.DELETE_Cromo(cromo.id, this.coleccion.id)
     .subscribe(() => {

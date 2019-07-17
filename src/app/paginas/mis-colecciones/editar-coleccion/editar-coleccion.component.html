@@ -9,7 +9,7 @@
               <input #file id = "input" type="file" accept= 'image/*' (change)="Mostrar($event)" style="display:none">
               <img class ="logo" *ngIf="imagenColeccion" hight = "200" width = "200" mat-card-image [src]="imagenColeccion" >
             </div>
-        <button (click) = "ActivarInput()" type="button" style="background-color: rgb(51, 122, 183)" class="btn">
+        <button (click) = "ActivarInput()" type="button"  class="btn Juego">
           Agregar Imagen<i class="material-icons">add_photo_alternate</i>
         </button>
       </div>
@@ -19,7 +19,7 @@
           <input style="background-color: transparent" type="text" name="nombre" placeholder="Escribe el nombre" requiered [(ngModel)]="nombreColeccion">
         </p>
         <div class="elemento">
-            <button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarCromoColeccion()>
+            <button type="button" class="btn Agregar" (click) = AbrirDialogoAgregarCromoColeccion()>
               Agregar Cromo <i class="material-icons">library_add</i>
             </button>
           </div>
@@ -29,23 +29,13 @@
   <div>
 
     <div class="elemento">
-        <button type="button"  style="background-color: rgb(92, 184, 92)" class="btn"  (click)= "EditarColeccion()">Aceptar Cambios <i class="material-icons">
+        <button type="button" class="btn Aceptar"  (click)= "EditarColeccion()">Aceptar Cambios <i class="material-icons">
           check </i></button>
   </div>
 
 </div>
 </div>
-<!--
-<div class="contenedor">
-  <div class="elemento">
-      <button (click) = "ActivarInput()" type="button" style="background-color: rgb(51, 122, 183)" class="btn">
-        Agregar imagen<i class="material-icons">add_photo_alternate</i>
-      </button>
-    </div>
-<div class="elemento"><button type="button" style="background-color: rgb(65, 178, 212)" class="btn" (click) = AbrirDialogoAgregarCromoColeccion()>
-  Agregar cromo <i class="material-icons">library_add</i>
-  </button> </div>
-</div> -->
+
 
 <mat-grid-list cols="3" rowHeight="100px" style="width: 70%; margin-left : 15%" >
   <mat-grid-tile
@@ -66,9 +56,9 @@
           <mat-card-subtitle><p style="margin-bottom: -2px;">Nivel: {{cromo.Nivel}} </p><p style="margin-bottom: -2px;">Probabilidad: {{cromo.Probabilidad}} </p></mat-card-subtitle>
         </div>
           <div class="elementoCromo">
-          <button type="button" style="background-color: rgb(65, 178, 212); width: 50px !important;" class="btn" routerLink= "editarCromo" (click) = "EnviarCromoEditar(cromo)"> <i style="margin-top: 3px; margin-right: 8px;" class="material-icons">
+          <button type="button" style="width: 50px !important;" class="btn Editar" routerLink= "editarCromo" (click) = "EnviarCromoEditar(cromo)"> <i style="margin-top: 3px; margin-right: 8px;" class="material-icons">
             edit </i>  </button>
-            <button type="button" style="background-color: rgb(212, 57, 52); width: 50px !important;" class="btn" (click) = "AbrirDialogoConfirmacionBorrarCromo(cromo)"> <i style="margin-top: 3px; margin-right: 8px;" class="material-icons">
+            <button type="button" style="width: 50px !important;" class="btn Eliminar" (click) = "AbrirDialogoConfirmacionBorrarCromo(cromo)"> <i style="margin-top: 3px; margin-right: 8px;" class="material-icons">
                 delete
                 </i></button>
           </div>

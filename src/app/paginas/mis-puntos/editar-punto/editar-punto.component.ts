@@ -6,7 +6,6 @@ import { PuntosInsigniasService} from '../../../servicios/index';
 
 // Clases
 import { Punto} from '../../../clases/index';
-import { strictEqual } from 'assert';
 
 @Component({
   selector: 'app-editar-punto',
