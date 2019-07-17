@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
+import { ResponseContentType, Http, Response } from '@angular/http';
 
 // Imports para abrir diálogo y snackbar
 import { MatDialog, MatSnackBar } from '@angular/material';
@@ -43,6 +44,8 @@ export class AsignarCromosComponent implements OnInit {
   seleccionadosEquipos: boolean[];
 
   cromoSeleccionadoId: number;
+  cromoSeleccionado: Cromo;
+  imagenCromoSeleccionado: string;
 
   alumnosEquipo: Alumno[];
 
@@ -72,6 +75,7 @@ export class AsignarCromosComponent implements OnInit {
                private coleccionService: ColeccionService,
                private juegoDeColeccionService: JuegoDeColeccionService,
                public dialog: MatDialog,
+               private http: Http,
                public snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -109,6 +113,8 @@ export class AsignarCromosComponent implements OnInit {
       if (res[0] !== undefined) {
         this.cromosColeccion = res;
         this.cromoSeleccionadoId = this.cromosColeccion[0].id;
+        this.cromoSeleccionado = this.cromosColeccion[0];
+        this.GET_ImagenCromo();
 
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.cromosColeccion.length; i ++) {
@@ -282,6 +288,9 @@ export class AsignarCromosComponent implements OnInit {
 
   Disabled() {
     console.log(this.cromoSeleccionadoId);
+    this.cromoSeleccionado = this.cromosColeccion.filter(res => res.id === Number(this.cromoSeleccionadoId))[0];
+    console.log(this.cromosColeccion.filter(res => res.id === Number(this.cromoSeleccionadoId))[0]);
+    this.GET_ImagenCromo();
     if (this.juegoSeleccionado.Modo === 'Individual') {
 
       if (this.seleccionados.filter(res => res === true)[0] !== undefined) {
@@ -579,6 +588,30 @@ export class AsignarCromosComponent implements OnInit {
         });
       }
     });
+  }
+
+    // Busca la imagen que tiene el nombre del cromo.Imagen y lo carga en imagenCromo
+    GET_ImagenCromo() {
+
+
+
+      if (this.cromoSeleccionado.Imagen !== undefined ) {
+        // Busca en la base de datos la imágen con el nombre registrado en equipo.FotoEquipo y la recupera
+        this.http.get('http://localhost:3000/api/imagenes/ImagenCromo/download/' + this.cromoSeleccionado.Imagen,
+        { responseType: ResponseContentType.Blob })
+        .subscribe(response => {
+          const blob = new Blob([response.blob()], { type: 'image/jpg'});
+
+          const reader = new FileReader();
+          reader.addEventListener('load', () => {
+            this.imagenCromoSeleccionado = reader.result.toString();
+          }, false);
+
+          if (blob) {
+            reader.readAsDataURL(blob);
+          }
+      });
+      }
   }
 
   prueba() {
