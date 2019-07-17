@@ -2,9 +2,9 @@
 
 <!-- juego-de-coleccion-seleccionado-activo.component.ts -->
 
-Recuperaremos el juego y los alumnos del grupo que enviamos al servicio en juego.component.ts. Por lo que recibiremos el juego del servicio y los alumnos y los metemos en el parámetro juego y alumnos respectivamente. 
+Recuperaremos el juego que enviamos al servicio en juego.component.ts. Por lo que recibiremos el juego del servicio y los metemos en el parámetro juegoSeleccionado. 
 
-Después activaremos la función EquiposDelGrupo() y GET_ListaColecciones().
+Después activaremos la función AlumnosDelJuego() o EquiposDelJuego() dependiendo si el modo es individual o no.
 
 # AlumnosDelJuego()
 
