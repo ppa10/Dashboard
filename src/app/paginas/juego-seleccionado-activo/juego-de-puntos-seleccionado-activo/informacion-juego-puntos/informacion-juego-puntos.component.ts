@@ -33,7 +33,7 @@ export class InformacionJuegoPuntosComponent implements OnInit {
 
   }
 
-  // Le pasamos el equipo y buscamos el logo que tiene y sus alumnos
+  // Le pasamos el nivel y buscamos el logo que tiene
   ObtenerNivel(nivel: Nivel) {
 
     console.log('entro a buscar nivel y foto');
