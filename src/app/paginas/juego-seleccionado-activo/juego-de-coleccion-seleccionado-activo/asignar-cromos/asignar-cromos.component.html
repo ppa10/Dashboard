@@ -20,7 +20,7 @@
           </select>
         </mat-form-field>
 
-        <div *ngIf="cromoSeleccionado"></div>
+        <div *ngIf="cromoSeleccionado">
           <mat-card class="cromo" [ngClass]="{
             'Diamante' : cromoSeleccionado.Nivel === 'Diamante',
             'Platino' : cromoSeleccionado.Nivel === 'Platino',
