@@ -82,8 +82,7 @@
                 <input #file id = "input" type="file" accept= 'image/*' (change)="ExaminarLogo($event)" style="display:none">
                 <img class="foto" *ngIf="logo" hight = "100" width = "100" mat-card-image [src]="logo" style="margin: 5px" >
                 <button  (click) = "ActivarInput()" type="button" class="btn Agregar">
-                  <i style="margin: 5px" class="material-icons">add_photo_alternate</i>
-                  Agregar logo
+                  Agregar logo <i style="margin: 5px" class="material-icons">add_photo_alternate</i>
                 </button>
             </div>
           </div>
@@ -102,9 +101,7 @@
             </ng-template>
             <div>
                 <button type="button" class="btn Agregar" (click) = AbrirDialogoAgregarAlumnosEquipo()>
-                  <i class="material-icons">
-                    group_add
-                    </i>Agregar alumno</button>
+                  Agregar alumno <i class="material-icons">group_add</i></button>
             </div>
 
             <form *ngIf="alumnosEquipoCreado;else Aviso_no_alumnos">
