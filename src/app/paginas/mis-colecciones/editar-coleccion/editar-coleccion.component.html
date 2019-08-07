@@ -51,24 +51,31 @@
         'Bronce' : cromo.Nivel === 'Bronce'}">
         <mat-card-header>
           <div style="display: flex; justify-content:space-between; width: 250px ">
-          <div  >
-          <mat-card-title>{{cromo.Nombre}}</mat-card-title>
-          <mat-card-subtitle><p style="margin-bottom: -2px;">Nivel: {{cromo.Nivel}} </p><p style="margin-bottom: -2px;">Probabilidad: {{cromo.Probabilidad}} </p></mat-card-subtitle>
-        </div>
-          <div class="elementoCromo">
-          <button type="button" style="width: 50px !important;" class="btn Editar" routerLink= "editarCromo" (click) = "EnviarCromoEditar(cromo)"> <i style="margin-top: 3px; margin-right: 8px;" class="material-icons">
-            edit </i>  </button>
-            <button type="button" style="width: 50px !important;" class="btn Eliminar" (click) = "AbrirDialogoConfirmacionBorrarCromo(cromo)"> <i style="margin-top: 3px; margin-right: 8px;" class="material-icons">
-                delete
-                </i></button>
+            <div>
+              <mat-card-title>{{cromo.Nombre}}</mat-card-title>
+              <mat-card-subtitle>
+                <p style="margin-bottom: -2px;">Nivel: {{cromo.Nivel}} </p>
+                <p style="margin-bottom: -2px;">Probabilidad: {{cromo.Probabilidad}} </p>
+              </mat-card-subtitle>
+            </div>
+            <div class="elementoCromo">
+
+              <button type="button" style="width: 50px !important;" class="btn Editar" routerLink= "editarCromo" (click) = "EnviarCromoEditar(cromo)">
+                <i style="margin-top: 3px; margin-right: 8px;" class="material-icons">edit </i>
+              </button>
+
+              <button type="button" style="width: 50px !important;" class="btn Eliminar" (click) = "AbrirDialogoConfirmacionBorrarCromo(cromo)">
+                <i style="margin-top: 3px; margin-right: 8px;" class="material-icons">delete </i>
+              </button>
+
+            </div>
           </div>
-        </div>
         </mat-card-header>
         <mat-card-content style="display: flex; align-items: center;justify-content: center;">
-        <div class="posicionImagen" >
-        <img class ="imagenCromo" *ngIf="imagenCromoArray[i]" mat-card-image [src]="imagenCromoArray[i]" >
-      </div>
-    </mat-card-content>
+          <div class="posicionImagen" >
+            <img class ="imagenCromo" *ngIf="imagenCromoArray[i]" mat-card-image [src]="imagenCromoArray[i]" >
+          </div>
+        </mat-card-content>
       </mat-card>
   </mat-grid-tile>
 </mat-grid-list>

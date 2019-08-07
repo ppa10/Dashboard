@@ -1,40 +1,15 @@
-<div *ngIf="profesor">
-  <h2>
-    Sesión iniciada por profesor: {{profesor.Nombre}} {{profesor.Apellido}}
-  </h2>
+<div class="titulo"><h2>Inicio</h2></div>
+<mat-divider style="width: 70%; margin-left : 15%"></mat-divider>
+
+<div class="contenedor">
+<h5>Para ayudar a entender cómo funciona la aplicación y qué funcionalidades tiene,
+  se han diseñado una serie de vídeos donde se muestran sus utilidades.</h5>
+
+  <button class="btn" style="background-color: transparent; color:black" onClick="window.open('//classpip-onboarding.herokuapp.com/legalwarning')">Grupos</button>
+  <button class="btn" style="background-color: transparent;color:black" onClick="window.open('//classpip-onboarding.herokuapp.com/legalwarning')">Juego de Puntos</button>
+  <button class="btn" style="background-color: transparent;color:black" onClick="window.open('//classpip-onboarding.herokuapp.com/legalwarning')">Juego de Colección</button>
+  <button class="btn" style="background-color: transparent;color:black" onClick="window.open('//classpip-onboarding.herokuapp.com/legalwarning')">Colecciones</button>
+  <button class="btn" style="background-color: transparent;color:black" onClick="window.open('//classpip-onboarding.herokuapp.com/legalwarning')">Puntos e Insignias</button>
+
+
 </div>
-
-<form>
-
-    <button mat-button [matMenuTriggerFor]="Inicio">Inicio</button>
-    <mat-menu #Inicio="matMenu">
-    </mat-menu>
-
-    <button mat-button [matMenuTriggerFor]="Grupos">Grupos</button>
-  <mat-menu #Grupos="matMenu">
-    <button mat-menu-item routerLink= "misGrupos">Mis Grupos</button>
-    <button mat-menu-item routerLink= "crearGrupo" >Crear Grupo</button>
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="Cuestionarios">Cuestionarios</button>
-  <mat-menu #Cuestionarios="matMenu">
-    <button mat-menu-item > Mis Cuestionarios</button>
-    <button mat-menu-item>Crear Cuestionario</button>
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="Coleccion" class="button1">Coleccion</button>
-  <mat-menu #Coleccion="matMenu" class="mat-menu">
-    <button mat-menu-item routerLink= misColecciones> Mis Colecciones</button>
-    <button mat-menu-item routerLink = crearColeccion>Crear Colecciones</button>
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="PuntosInsignias">Puntos e Insignias</button>
-  <mat-menu #PuntosInsignias="matMenu">
-    <button mat-menu-item routerLink= "misPuntos">Mis Puntos e Insignias</button>
-    <button mat-menu-item routerLink= "crearPuntos">Crear Puntos e Insignias</button>
-  </mat-menu>
-
-</form>
-
-<button (click)= "goBack()">volver</button>
-

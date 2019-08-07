@@ -29,15 +29,14 @@
 
 // Opciones gráficas tablas
 .mat-header-row{
-
   text-align: center;
   background-color:rgb(63, 81, 181);
 }
 
 .mat-row:hover {
   background-color: rgb(204, 197, 197);
-  // cursor: pointer;
 }
+
 .letraCabecera{
   color:white;
   text-align: center !important;
@@ -99,7 +98,7 @@ display: flex;
 justify-content: flex-end;
 }
 
-// Cromos
+// Opciones gráficas cromos
 
 .imagenCromo {
   max-width: 200px;
@@ -159,12 +158,23 @@ justify-content: flex-end;
   box-shadow: 0px 3px 6px 0px rgb(133, 103, 64) !important;
 }
 
+// Cromo que se oscurecerá en el componente album-del-alumno, si el alumno no tiene el cromo
+.Falti {
+  opacity: 0.5 !important;
+  background-color: rgb(235, 235, 228) !important;
+  color: rgb(84, 84, 84) !important;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  box-shadow: 0px 3px 6px 0px  rgb(126, 138, 141) !important;
+}
 // Tabs que ocupen el 50% del espacio total cada uno
 .mat-tab-label {
   width: 50%;
 }
 
-// Inicio sesion
+// Opciones gráficas inicio sesión
 .cartaInicioSesion {
   margin-top: 100px;
   margin-bottom: 100px;
