@@ -8,15 +8,16 @@
   height: 60px;
   padding: 10px;
   color: rgb(63, 81, 181);
-
+  // color: rgb(181, 87, 63);
 }
+
 .subtitulo{
   width: 70%;
   margin-left: 15%;
   height: 45px;
   padding: 10px;
   color: rgb(63, 81, 181);
-
+  // color: rgb(181, 87, 63);
 }
 
 .h2, h2 {
@@ -31,6 +32,7 @@
 .mat-header-row{
   text-align: center;
   background-color:rgb(63, 81, 181);
+  // background-color:rgb(63, 181, 79);
 }
 
 .mat-row:hover {
@@ -50,6 +52,10 @@
   align-items: center;
   color: white;
   width: 170px;
+  // border-top-left-radius: 15px !important;
+  // border-top-right-radius: 15px !important;
+  // border-bottom-left-radius: 15px !important;
+  // border-bottom-right-radius: 15px !important;
 }
 .btn:hover {
   color: black !important;
@@ -68,6 +74,7 @@
 .btn.Aceptar{
   background-color: rgb(92, 184, 92);
 }
+
 .btn.Eliminar{
   background-color: rgb(212, 57, 52);
 }
@@ -86,12 +93,34 @@
 .btn.Equipos{
   background-color: rgb(92, 184, 92);
 }
+
+// .btn.Eliminar{
+//   background-color: rgb(212, 169, 52);
+// }
+// .btn.Editar{
+//   background-color: rgb(212, 65, 200);
+// }
+// .btn.Next{
+//   background-color: rgb(51, 183, 51);
+// }
+// .btn.PasarLista{
+//   background-color: rgb(240, 78, 78);
+// }
+// .btn.Juegos{
+//   background-color: rgb(82, 183, 51);
+// }
+// .btn.Equipos{
+//   background-color: rgb(169, 92, 184);
+// }
+
 .btn.Cerrar{
   background-color: rgb(240, 173, 78);
 }
 .btn.IncioSesion{
   background-color: rgb(51, 122, 183);
 }
+
+// Prueba cambiado colores
 
 .btnCambiarStep{
 display: flex;
