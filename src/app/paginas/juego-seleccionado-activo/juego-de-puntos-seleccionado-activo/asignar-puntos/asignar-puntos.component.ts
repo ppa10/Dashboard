@@ -605,16 +605,4 @@ export class AsignarPuntosComponent implements OnInit {
       }
     }
   }
-
-  prueba() {
-
-    this.fechaAsignacionPunto = new Date();
-    this.fechaAsignacionPunto.toDateString();
-
-
-    console.log(this.fechaAsignacionPunto.toLocaleDateString() + '  ' + this.fechaAsignacionPunto.toLocaleTimeString());
-
-
-  }
-
 }
