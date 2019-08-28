@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
+
     this.URLInicio = this.router.url;
     this.URLMisGrupos = this.URLInicio + '/misGrupos';
     this.URLCrearGrupo = this.URLInicio + '/crearGrupo';
