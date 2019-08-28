@@ -26,9 +26,4 @@ export class InicioComponent implements OnInit {
     this.profesor = this.servicioProfesor.RecibirProfesorDelServicio();
   }
 
-  // NOS REGRESA A LA PÁGINA DE LA QUE VENIMOS (LOGIN)
-  goBack() {
-    this.location.back();
-  }
-
 }
